@@ -69,9 +69,11 @@
 3.  Virtual Memory
 4.  File System
 5.  Scheduling
-6.  Interprocess communication
-7.  Mutiprocessing/Multithreading
-8.  RTOS
+6.  [Interrupt](../embedded-system-is-life-and-love/Operating_System/Interrupt.md)
+7.  System call
+8.  Interprocess communication
+9.  Mutiprocessing/Multithreading
+10. RTOS
 
 ### I. Computer Architecture
 1.  Pipeline
@@ -110,7 +112,7 @@ Software Interrupt
 Object Oriented Design
 
 
-## Interview Questions
+## [Interview Questions](Interview.md)
 
 ### Useful Links
 [Embedded software interview archive](https://docs.google.com/document/d/1uW030FMfBxKLxXz-eIwyzlMJdERN5DMEwtUnJMYsF-g/edit)

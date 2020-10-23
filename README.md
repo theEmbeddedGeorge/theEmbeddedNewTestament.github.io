@@ -49,7 +49,7 @@
 3. Multi-thread/Multi-processing
 
 ### F. Bus Protocols
-1.  [SPI](./Bus_Protocol\spi.md)
+1.  [SPI](./Bus_Protocol/spi.md)
 2.  I2C
 3.  UART
 4.  PWM
@@ -69,7 +69,7 @@
 3.  Virtual Memory
 4.  File System
 5.  Scheduling
-6.  [Interrupt](./Operating_System\Interrupt.md)
+6.  [Interrupt](./Operating_System/Interrupt.md)
 7.  System call
 8.  Interprocess communication
 9.  Mutiprocessing/Multithreading

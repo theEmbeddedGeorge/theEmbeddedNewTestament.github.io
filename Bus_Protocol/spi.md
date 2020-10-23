@@ -8,7 +8,7 @@
     * __SS__: Slave Select
     * __SCK__: Clock
 
-![SPi Data Transfer](./Bus_Protocol\SPI_data_line.png)
+![SPi Data Transfer](./Bus_Protocol/SPI_data_line.png)
 
 2. Sample timing could be the rising (low to high) or falling (high to low) edge of the clock signal; the datasheet will specify which one to use. 
    
@@ -22,7 +22,7 @@
    
 7. SS signal is usually __HIGH__ when the slave is not selected, when data needs to be transfer, SS line will be driven __LOW__, this is called active low logic.
 
-![SPi Data Transfer with SS](./Bus_Protocol\SPI_data_line_SS.png)
+![SPi Data Transfer with SS](./Bus_Protocol/SPI_data_line_SS.png)
 
 8. Only __ONE__ slave can be selected at a time, meaning one SS line driven low while others stays high at a time.
 

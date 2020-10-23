@@ -69,7 +69,7 @@
 3.  Virtual Memory
 4.  File System
 5.  Scheduling
-6.  [Interrupt](../embedded-system-is-life-and-love/Operating_System/Interrupt.md)
+6.  [Interrupt](Operating_System\Interrupt.md)
 7.  System call
 8.  Interprocess communication
 9.  Mutiprocessing/Multithreading

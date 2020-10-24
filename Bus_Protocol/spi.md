@@ -1,4 +1,4 @@
-[Serial Peripheral Interface basics] (https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)
+[Serial Peripheral Interface basics](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)
 
 ## Key points
 
@@ -8,13 +8,14 @@
     * __SS__: Slave Select
     * __SCK__: Clock
 
-![SPi Data Transfer](./Bus_Protocol/SPI_data_line.png)
+![SPi Data Transfer](./images/SPI_data_line.png)
 
 2. Sample timing could be the rising (low to high) or falling (high to low) edge of the clock signal; the datasheet will specify which one to use. 
    
 3. One reason that SPI is so popular is that the receiving hardware can be a simple shift register. This is a much simpler (and cheaper!) piece of hardware than the full-up UART (Universal Asynchronous Receiver / Transmitter) that asynchronous serial requires.
    
 4. In SPI, only one side generates the clock signal (usually called CLK or SCK for Serial ClocK). The side that generates the clock is called the "master", and the other side is called the "slave". Only __ONE MASTER__ but __MANY SLAVE__ allowed.
+If the slave needs to send a response back to the master, the master will continue to generate a __prearranged__ number of clock cycles.
 
 5. Because the master always generates the clock signal, it must know in advance __when__ a slave needs to return data and __how much data__ will be returned. This is very different than asynchronous serial, where random amounts of data can be sent in either direction at any time. 
    
@@ -22,9 +23,9 @@
    
 7. SS signal is usually __HIGH__ when the slave is not selected, when data needs to be transfer, SS line will be driven __LOW__, this is called active low logic.
 
-![SPi Data Transfer with SS](./Bus_Protocol/SPI_data_line_SS.png)
+![SPi Data Transfer with SS](./images/SPI_data_line_SS.png)
 
-8. Only __ONE__ slave can be selected at a time, meaning one SS line driven low while others stays high at a time.
+1. Only __ONE__ slave can be selected at a time, meaning one SS line driven low while others stays high at a time.
 
 ## Parameters to tune for SPI device programming
 
@@ -50,6 +51,66 @@ There are couple of parameters you would like to check in the datasheet and set 
 - The master must control all communications (slaves can't talk directly to each other)
 - It usually requires separate SS lines to each slave, which can be problematic if numerous slaves are needed.
 
+## Code Analysis
 
+This code snippet is from _Beginning STM32_ by Warren Gay. 
+
+The following code example is of [SPI flash operation in Freertos on STM32 board:](https://github.com/ve3wwg/stm32f103c8t6/blob/master/rtos/winbond/main.c)
+
+SPI flash write:
+
+    static unsigned		// New address is returned
+    w25_write_data(uint32_t spi,uint32_t addr,void *data,uint32_t bytes) {
+        uint8_t *udata = (uint8_t*)data;
+
+        w25_write_en(spi,true);
+        w25_wait(spi);
+
+        if ( w25_is_wprotect(spi) ) {
+            std_printf("Write disabled.\n");
+            return 0xFFFFFFFF;	// Indicate error
+        }
+
+        while ( bytes > 0 ) {
+            spi_enable(spi);
+            spi_xfer(spi,W25_CMD_WRITE_DATA);
+            spi_xfer(spi,addr >> 16);
+            spi_xfer(spi,(addr >> 8) & 0xFF);
+            spi_xfer(spi,addr & 0xFF);
+            while ( bytes > 0 ) {
+                spi_xfer(spi,*udata++);
+                --bytes;
+                if ( (++addr & 0xFF) == 0x00 )
+                    break;
+            }
+            spi_disable(spi);
+        
+            if ( bytes > 0 )
+                w25_write_en(spi,true); // More to write
+        }
+        return addr;	
+    }
+
+SPI flash read:
+
+    static uint32_t		// New address is returned
+    w25_read_data(uint32_t spi,uint32_t addr,void *data,uint32_t bytes) {
+        uint8_t *udata = (uint8_t*)data;
+
+        w25_wait(spi);
+
+        spi_enable(spi);
+        spi_xfer(spi,W25_CMD_FAST_READ);
+        spi_xfer(spi,addr >> 16);
+        spi_xfer(spi,(addr >> 8) & 0xFF);
+        spi_xfer(spi,addr & 0xFF);
+        spi_xfer(spi,DUMMY);
+
+        for ( ; bytes-- > 0; ++addr )
+            *udata++ = spi_xfer(spi,DUMMY);
+
+        spi_disable(spi);
+        return addr;	
+    }
 
 

@@ -50,7 +50,7 @@
 
 ### F. Bus Protocols
 1.  [SPI](./Bus_Protocol/spi.md)
-2.  I2C
+2.  [I2C](./Bus_Protocol/i2c.md)
 3.  UART
 4.  PWM
 5.  GPIO
@@ -66,14 +66,15 @@
 ### H. Operating Systems
 1.  User Space
 2.  Kernel Space
-3.  Virtual Memory
-4.  File System
-5.  Scheduling
-6.  [Interrupt](./Operating_System/Interrupt.md)
-7.  System call
-8.  Interprocess communication
-9.  Mutiprocessing/Multithreading
-10. RTOS
+3.  [Exception Handling](Operating_System/Exception_ARM64.md)
+4.  Virtual Memory
+5.  File System
+6.  Scheduling
+7.  [Interrupt](./Operating_System/Interrupt.md)
+8.  System call
+9.  Interprocess communication
+10. Mutiprocessing/Multithreading
+11. RTOS
 
 ### I. Computer Architecture
 1.  Pipeline
@@ -81,7 +82,7 @@
 
 ### J. HW Modules
 1.  RAM & ROM
-2.  Flash Memory
+2.  [Flash Storage](./HW_Module/Flash_Storage.md)
 3.  LED/LCD
 4.  Timer
 5.  Sensors

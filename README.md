@@ -69,12 +69,18 @@
 3.  [Exception Handling](Operating_System/Exception_ARM64.md)
 4.  Virtual Memory
 5.  File System
-6.  Scheduling
+6.  Process/Thread & Scheduling
 7.  [Interrupt](./Operating_System/Interrupt.md)
 8.  System call
 9.  Interprocess communication
 10. Mutiprocessing/Multithreading
 11. RTOS
+12. Linux
+    1.  [Linux Device Model](./Operating_System/Linux_device_model.md)
+    2.  System Call
+    3.  Synchronization
+    4.  Device Tree
+    5.  Sysfs
 
 ### I. Computer Architecture
 1.  Pipeline

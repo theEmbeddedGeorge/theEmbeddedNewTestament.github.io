@@ -2,33 +2,33 @@
 
 ### Small Piece of the Device model
 
-![Small piece](images/small_piece_device_model.png)
+![Small piece](../images/small_piece_device_model.png)
 
 ### Architecture Diagram
 
-![Architecture](images/linux_device_model_architecture.jpg)
+![Architecture](../images/linux_device_model_architecture.jpg)
 
 ### Example
 
 #### I2C Charger Example
 
-![Example1](images/linux_device_model_example.png)
+![Example1](../images/linux_device_model_example.png)
 
-![Example2](images/linux_device_model_example_2.png)
+![Example2](../images/linux_device_model_example_2.png)
 
-![Example3](images/linux_device_model_example_3.png)
+![Example3](../images/linux_device_model_example_3.png)
 
 #### Who calls i2c_new_device?
 
-![Example4](images/linux_device_model_example_4.png)
+![Example4](../images/linux_device_model_example_4.png)
 
 ### Device Tree dtsi file
 
-![dtsi](images/dtsi_example.png)
+![dtsi](../images/dtsi_example.png)
 
-![dtsi2](images/dtsi_example_2.png)
+![dtsi2](../images/dtsi_example_2.png)
 
-![dtsi_parse](images/dtsi_parse.png)
+![dtsi_parse](../images/dtsi_parse.png)
 
 Device node building Process:
 

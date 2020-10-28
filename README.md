@@ -1,7 +1,7 @@
 # Embedded System is Life, Embedded System is love.
 
 
-## Knowledge by Domain:
+## Concepts by Domain:
 
 ### A. C Coding Specific
 1.  Function pointers
@@ -77,8 +77,8 @@
 11. FreeRTOS
     1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
 12. Linux
-    1.  [Linux Device Model](./Operating_System/Linux_device_model.md)
-    2.  System Call
+    1.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
+    2.  [System Call](Operating_System/Linux/syscall.md)
     3.  Synchronization
     4.  Device Tree
     5.  Sysfs
@@ -120,9 +120,34 @@ Software Interrupt
 Object Oriented Design
 
 
-## [Interview Questions](Interview.md)
+## Interview Questions
 
-### Useful Links
+### A.  Algorithms Questions
+1.  Sliding Window
+2.  Two Pointer
+3.  Faster & Slow Pointers
+4.  Merge Intervals
+5.  Cyclic Sort
+6.  In-place Reversal of a Linked List
+7.  BFS
+8.  DFS
+9.  Two Heaps
+10. Subsets
+11. Modified Binary Search
+12. Bitwise XOR
+13. Top 'K' Elements
+14. K-way Merge
+15. Knapsack (DP)
+16. Graph Topological Sort
+
+### B.  [Concept Questions](Interview/Concept/Concept_questions.md)
+
+### C.  Behavior Question
+1.  Amazon Leading Principles
+
+## Book Recommendation
+
+## Useful Links
 [Embedded software interview archive](https://docs.google.com/document/d/1uW030FMfBxKLxXz-eIwyzlMJdERN5DMEwtUnJMYsF-g/edit)
 
 [Embedded Noob Engineer Guide](https://drive.google.com/file/d/0B8K8lEdVL_HUZHgwd0t5Zmc1d3c/view?usp=sharing)

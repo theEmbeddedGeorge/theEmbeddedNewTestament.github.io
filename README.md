@@ -26,6 +26,7 @@
 6. Binary Tree
 7. Red Black Tree
 8. Finite State Machine
+9. Simple Task Scheduler
 
 ### D. Basic Algorithms
 1. Sort

@@ -122,7 +122,9 @@ Object Oriented Design
 
 ## Interview Questions
 
-### A.  Algorithms Questions
+### [LeetCode Questions for Embedded Developers](Interview/Concept/LeetCode_for_Embedded_Developer.md)
+
+### A.  Other Algorithms Questions
 1.  Sliding Window
 2.  Two Pointer
 3.  Faster & Slow Pointers

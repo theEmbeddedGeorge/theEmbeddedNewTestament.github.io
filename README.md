@@ -122,9 +122,9 @@ Object Oriented Design
 
 ## Interview Questions
 
-### [LeetCode Questions for Embedded Developers](Interview/Concept/LeetCode_for_Embedded_Developer.md)
+### [A.  LeetCode Questions for Embedded Developers](Interview/Concept/LeetCode_for_Embedded_Developer.md)
 
-### A.  Other Algorithms Questions
+### B.  Other Algorithms Questions
 1.  Sliding Window
 2.  Two Pointer
 3.  Faster & Slow Pointers
@@ -142,9 +142,9 @@ Object Oriented Design
 15. Knapsack (DP)
 16. Graph Topological Sort
 
-### B.  [Concept Questions](Interview/Concept/Concept_questions.md)
+### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
 
-### C.  Behavior Question
+### D.  Behavior Question
 1.  Amazon Leading Principles
 
 ## Book Recommendation

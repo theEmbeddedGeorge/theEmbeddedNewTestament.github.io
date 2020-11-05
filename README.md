@@ -124,7 +124,7 @@ Object Oriented Design
 ## Interview Questions
 
 
-### [A.  LeetCode Questions for Embedded Developers](Interview/Concept/LeetCode_for_Embedded_Developer.md)
+### [A.  LeetCode Questions for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
 
 ### B.  Other Algorithms Questions
 1.  Sliding Window

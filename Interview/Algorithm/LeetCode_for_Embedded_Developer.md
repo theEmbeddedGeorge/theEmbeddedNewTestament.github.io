@@ -57,3 +57,226 @@ LeetCode # | Title | Diffculty
 313 | Super Ugly Number | Medium	
 318 | Maximum Product of Word Lengths | Medium	
 
+### Longest Common Prefix
+
+    class Solution {
+    public:
+        /**
+        * @param strs: A list of strings
+        * @return: The longest common prefix
+        */
+        string longestCommonPrefix(vector<string> &strs) {
+            // write your code here
+            string ret = "";
+            
+            if (strs.size() == 0)
+                return ret;
+                
+            for (int i = 0; i < strs[0].size(); i ++)  {
+                char c = strs[0][i];
+                
+                for (auto s : strs) {
+                    if (i >= s.size() || c != s[i])
+                        return ret;
+                }
+                
+                ret += c;
+            }
+            
+            return ret; 
+        }
+    };
+
+### Remove Nth Node From End of List
+
+    class Solution {
+    public:
+        /**
+        * @param head: The first node of linked list.
+        * @param n: An integer
+        * @return: The head of linked list.
+        */
+        ListNode * removeNthFromEnd(ListNode * head, int n) {
+            // write your code here
+            
+            ListNode *fast, *slow;
+            
+            if (!head || n == 0) return head;
+            
+            if (!head->next && n) return NULL;
+            
+            slow = fast = head;
+            
+            while(n-- && fast) fast = fast->next;
+            
+            if (!fast)
+                return slow->next;
+            
+            fast = fast->next;
+            while (fast) {
+                fast = fast->next;
+                slow = slow->next;
+            }
+            
+            
+            slow->next = slow->next->next;
+            
+            return head;
+        }
+    };
+
+### Valid Parentheses
+    class Solution {
+    public:
+        /**
+        * @param s: A string
+        * @return: whether the string is a valid parentheses
+        */
+        bool isValidParentheses(string &s) {
+            // write your code here
+            vector <char> stac;
+            
+            for (int i = 0; i < s.size(); i ++) {
+                switch (s[i]) {
+                    case '(':
+                    case '[':
+                    case '{':
+                        stac.push_back(s[i]);
+                        break;
+                    case ')':
+                    case ']':
+                    case '}':
+                        if (stac.size() == 0)
+                            return false;
+                        char ch = stac.back();
+                        if (s[i] == ')' && ch != '(')
+                            return false;
+                        if (s[i] == ']' && ch != '[')
+                            return false;
+                        if (s[i] == '}' && ch != '{')
+                            return false;
+                        stac.pop_back();
+                        break;
+                }
+            }
+            
+            if (stac.size() == 0)
+                return true;
+            
+            return false;
+        }
+    };
+
+### Merge Two Sorted Lists
+    class Solution {
+    public:
+        /**
+        * @param l1: ListNode l1 is the head of the linked list
+        * @param l2: ListNode l2 is the head of the linked list
+        * @return: ListNode head of linked list
+        */
+        ListNode * mergeTwoLists(ListNode * l1, ListNode * l2) {
+            // write your code here
+            if (!l1)
+                return l2; 
+            
+            if (!l2)
+                return l1;
+                
+            ListNode *head, *dummy;
+            
+            head = new ListNode(0);
+            dummy = head;
+            
+            while (l1 && l2) {
+                if (l1->val < l2->val) {
+                    dummy->next = l1;
+                    l1 = l1->next; 
+                } else {
+                    dummy->next = l2;
+                    l2 = l2->next; 
+                }
+                dummy = dummy->next;
+            }
+            dummy->next = (l1) ? l1 : l2;
+            
+            return head->next;
+        }
+    };
+
+### Swap Nodes in Pairs
+    class Solution {
+    public:
+        /**
+        * @param head: a ListNode
+        * @return: a ListNode
+        */
+        ListNode * swapPairs(ListNode * head) {
+            // write your code here
+            ListNode *node;
+            int tmp;
+            
+            if (!head || !head->next)
+                return head;
+            
+            node = head;
+            
+            while (node && node->next) {
+                tmp = node->next->val;
+                node->next->val = node->val;
+                node->val = tmp;
+                node = node->next->next;
+            }
+            
+            return head;
+        }
+    };
+
+### Remove Duplicates from Sorted Array
+    class Solution {
+    public:
+        /*
+        * @param nums: An ineger array
+        * @return: An integer
+        */
+        int removeDuplicates(vector<int> &nums) {
+            // write your code here
+            int nextNoDup = 1;
+            
+            if (!nums.size())
+                return 0;
+            
+            for (int i = 0; i < nums.size(); i ++) {
+                if (nums[nextNoDup-1] != nums[i]) {
+                    nums[nextNoDup] = nums[i];
+                    nextNoDup ++;
+                }
+            }
+            
+            return nextNoDup;
+        }
+    };
+
+### Remove Element
+    class Solution {
+    public:
+        /*
+        * @param A: A list of integers
+        * @param elem: An integer
+        * @return: The new length after remove
+        */
+        int removeElement(vector<int> &A, int elem) {
+            // write your code here
+            int i, noElement = 0;
+            
+            for (i = 0; i < A.size(); i++) {
+                if (A[i] != elem) {
+                    A[noElement++] = A[i];
+                }  
+            }
+            
+            return noElement;
+        }
+    };
+
+### Implement StrStr()

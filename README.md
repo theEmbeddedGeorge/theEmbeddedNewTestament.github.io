@@ -26,6 +26,7 @@
 6. Binary Tree
 7. Red Black Tree
 8. Finite State Machine
+9. Simple Task Scheduler
 
 ### D. Basic Algorithms
 1. Sort
@@ -122,7 +123,10 @@ Object Oriented Design
 
 ## Interview Questions
 
-### A.  Algorithms Questions by Pattern
+
+### [A.  LeetCode Questions for Embedded Developers](Interview/Concept/LeetCode_for_Embedded_Developer.md)
+
+### B.  Other Algorithms Questions
 1.  Sliding Window
 2.  Two Pointers
 3.  Faster & Slow Pointers
@@ -140,9 +144,9 @@ Object Oriented Design
 15. Knapsack (DP)
 16. Graph Topological Sort
 
-### B. [LeetCode Questions For Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
 
 ### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
+
 
 ### D.  Behavior Question
 1.  Amazon Leading Principles

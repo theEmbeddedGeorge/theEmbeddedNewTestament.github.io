@@ -122,9 +122,9 @@ Object Oriented Design
 
 ## Interview Questions
 
-### A.  Algorithms Questions
+### A.  Algorithms Questions by Pattern
 1.  Sliding Window
-2.  Two Pointer
+2.  Two Pointers
 3.  Faster & Slow Pointers
 4.  Merge Intervals
 5.  Cyclic Sort
@@ -140,9 +140,11 @@ Object Oriented Design
 15. Knapsack (DP)
 16. Graph Topological Sort
 
-### B.  [Concept Questions](Interview/Concept/Concept_questions.md)
+### B. [LeetCode Questions For Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
 
-### C.  Behavior Question
+### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
+
+### D.  Behavior Question
 1.  Amazon Leading Principles
 
 ## Book Recommendation

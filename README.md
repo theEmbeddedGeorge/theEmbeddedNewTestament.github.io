@@ -22,7 +22,7 @@
 2. Hash Table
 3. Heap (priority queue)
 4. Stack
-5. Queue
+5. [Queue](./Data_Struct_Implementation/queue/queue.md)
 6. Binary Tree
 7. Red Black Tree
 8. Finite State Machine

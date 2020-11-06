@@ -146,7 +146,8 @@ Object Oriented Design
 
 
 ### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
-
+1. Please simply describe this interrupt mechanism.
+2. What are semaphore and mutex? How is mutex different from semaphore in FreeRTOS?
 
 ### D.  Behavior Question
 1.  Amazon Leading Principles

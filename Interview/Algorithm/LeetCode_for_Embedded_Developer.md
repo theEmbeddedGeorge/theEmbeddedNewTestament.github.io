@@ -280,3 +280,188 @@ LeetCode # | Title | Diffculty
     };
 
 ### Implement StrStr()
+    class Solution {
+    public:
+        /**
+        * @param source: 
+        * @param target: 
+        * @return: return the index
+        */
+        int strStr(string &source, string &target) {
+            // Write your code here
+            int ret = 0;
+            
+            if (source.size() < target.size())
+                return -1;
+                
+            if (target.size() == 0)
+                return 0;
+            
+            for (ret; ret < source.size()-target.size() + 1; ret++) {
+                if (source[ret] == target[0]) {
+                    for (int i = 0; i < target.size(); i++) {
+                        if (source[ret+i] != target[i])
+                            break;
+                        else if (i == target.size()-1) {
+                            return ret;
+                        }
+                    }
+                }
+            }
+            
+            return -1;
+        }
+    };
+
+### Search in a rotated sorted array
+    class Solution {
+    public:
+        /**
+        * @param A: an integer rotated sorted array
+        * @param target: an integer to be searched
+        * @return: an integer
+        */
+        static int searchT(vector<int> &A, int target, int f, int e) {
+            int m = (f + (e - f)/2);
+            cout << m << endl;
+            
+            if (A[m] == target)
+                return m;
+            
+            if (f == e)
+                return -1;
+                
+            if (f == m)
+                return (A[e] == target) ? e : -1;
+            
+            // Normal sorted order
+            if (A[e] > A[f]) {
+                return (A[m] > target) ? searchT(A, target, f, m-1) : searchT(A, target, m+1, e);
+            // Pivoted order
+            } else {
+                if (A[m] > A[f]) {
+                    return (target < A[m] && target > A[f]) ? searchT(A, target, f, m-1) : searchT(A, target, m+1, e);
+                } else {
+                    return (target > A[m] && target < A[e]) ? searchT(A, target, m+1, e) : searchT(A, target, f, m-1);
+                }
+            }
+        } 
+        
+        int search(vector<int> &A, int target) {
+            // write your code here
+            if (A.size() == 0)
+                return -1;
+            
+            return searchT(A, target, 0, A.size()-1);
+        }
+    };
+
+### Count and Say
+    class Solution {
+    public:
+        /**
+        * @param n: the nth
+        * @return: the nth sequence
+        */
+        
+        static string countSay (string str) {
+            int count, i;
+            string new_str = "";
+            
+            count = 1;
+            for (i = 0; i < str.size()-1; i ++) {
+                if (str[i+1] != str[i]) {
+                    new_str += ('0'+count);
+                    new_str += (str[i]);
+                    count = 1;
+                }
+                else
+                    count ++;
+            }
+            // handle the last element
+            new_str += ('0'+count);
+            new_str += (str[i]);
+            
+            return new_str;
+        }
+        
+        string countAndSay(int n) {
+            // write your code here
+            string ret_str = "1";
+            
+            if (n == 0)
+                return "";
+                
+            while (--n)
+                ret_str = countSay(ret_str);
+            
+            return ret_str;
+        }
+    };
+
+### Maximum Subarray
+    class Solution {
+    public:
+        /**
+        * @param nums: A list of integers
+        * @return: An integer indicate the sum of max subarray
+        */
+        int maxSubArray(vector<int> nums) {
+            int sum = 0, minSum = 0, maxSum = INT_MIN;
+            for (int i = 0; i < nums.size(); i++) {
+                sum += nums[i];
+                maxSum = max(maxSum, sum - minSum);
+                minSum = min(minSum, sum);
+            }
+            return maxSum;
+        }
+    };
+
+### Length of last word
+    class Solution {
+    public:
+        /**
+        * @param s: A string
+        * @return: the length of last word
+        */
+        int lengthOfLastWord(string &s) {
+            // write your code here
+            int i, j;
+            
+            if (s.size() == 0)
+                return 0;
+            
+            i = s.size() - 1;
+            while (s[i] == ' ') i--;
+            
+            for (j = i; j >= 0; j --) {
+                if (s[j] == ' ')
+                    return i - j;
+            }
+            
+            if (j < 0)
+                return i+1;
+            
+            return 0;
+        }
+    };
+
+### Plus One
+    class Solution {
+    public:
+        vector<int> plusOne(vector<int> &digits) {
+            add(digits, 1);
+            return digits;
+        }
+    private:
+        // 0 <= digit <= 9
+        void add(vector<int> &digits, int digit) {
+            int c = digit; // carry, 进位
+            for (auto it = digits.rbegin(); it != digits.rend(); ++it) {
+                *it += c;
+                c = *it / 10;
+                *it %= 10;
+            }
+            if (c > 0) digits.insert(digits.begin(), 1);
+        }
+    };

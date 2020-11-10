@@ -27,6 +27,7 @@
 7. Red Black Tree
 8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
 9. Simple Task Scheduler
+10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 ### D. Basic Algorithms
 1. Sort
@@ -164,4 +165,10 @@ Object Oriented Design
 [Embedded software interview archive](https://docs.google.com/document/d/1uW030FMfBxKLxXz-eIwyzlMJdERN5DMEwtUnJMYsF-g/edit)
 
 [Embedded Noob Engineer Guide](https://drive.google.com/file/d/0B8K8lEdVL_HUZHgwd0t5Zmc1d3c/view?usp=sharing)
+
+[C 语言资源大全中文版](https://github.com/jobbole/awesome-c-cn#build-systems)
+
+[Awesome Embedded Github](https://github.com/embedded-boston/awesome-embedded-systems)
+
+[Awesome C Github](https://github.com/kozross/awesome-c)
 

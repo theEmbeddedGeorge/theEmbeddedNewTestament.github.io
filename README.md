@@ -22,7 +22,7 @@
 2. Hash Table
 3. Heap (priority queue)
 4. Stack
-5. [Queue](Data_Struct_Implementation/queue/queue.c)
+5. [Queue](./Data_Struct_Implementation/queue)
 6. Binary Tree
 7. Red Black Tree
 8. Finite State Machine
@@ -83,6 +83,7 @@
     3.  Synchronization
     4.  Device Tree
     5.  Sysfs
+    6.  [Boot Loader](Operating_System/Linux/boot_loader.md)
 
 ### I. Computer Architecture
 1.  Pipeline
@@ -98,6 +99,11 @@
 7.  Wifi
 8.  LTE
 9.  USB devices
+10. Memory Protection Unit (MPU)
+11. Memory Management Unit (MMU)
+12. Floating Point Unit (FPU)
+13. Crypto Engine
+14. [STM32 MCU](http://www.emcu.it/STM32.html)
 
 ### K. Debugging Techniques
 1.  JTAG

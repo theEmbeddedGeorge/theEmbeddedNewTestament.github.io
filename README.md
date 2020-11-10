@@ -25,7 +25,7 @@
 5. [Queue](./Data_Struct_Implementation/queue)
 6. Binary Tree
 7. Red Black Tree
-8. Finite State Machine
+8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
 9. Simple Task Scheduler
 
 ### D. Basic Algorithms

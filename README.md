@@ -19,13 +19,13 @@
 
 ### C. Data Structures & Implementation
 1. Ring Buffer
-2. [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
+2. [Hash Table](./Data_Struct_Implementation/hashTable)
 3. Heap (priority queue)
 4. Stack
 5. [Queue](./Data_Struct_Implementation/queue)
 6. Binary Tree
 7. Red Black Tree
-8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
+8. [Finite State Machine](Data_Struct_Implementation/stateMachine)
 9. Simple Task Scheduler
 10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 

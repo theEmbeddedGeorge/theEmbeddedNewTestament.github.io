@@ -79,12 +79,13 @@
 11. FreeRTOS
     1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
 12. Linux
-    1.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
-    2.  [System Call](Operating_System/Linux/syscall.md)
-    3.  Synchronization
-    4.  Device Tree
-    5.  Sysfs
-    6.  [Boot Loader](Operating_System/Linux/boot_loader.md)
+    1.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
+    2.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
+    3.  [System Call](Operating_System/Linux/syscall.md)
+    4.  Synchronization
+    5.  Device Tree
+    6.  Sysfs
+    7.  [Boot Loader](Operating_System/Linux/boot_loader.md)
 
 ### I. Computer Architecture
 1.  Pipeline
@@ -117,16 +118,7 @@
 1.  GIT
 2.  SVN
 
-### M. IPC & Posix API
-spinlock 
-mutex 
-Semaphore 
-Pipe
-Share memory
-Signal
-Software Interrupt
-Object Oriented Design
-
+### M. IDE Selection
 
 ## Interview Questions
 

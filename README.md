@@ -19,7 +19,7 @@
 
 ### C. Data Structures & Implementation
 1. Ring Buffer
-2. Hash Table
+2. [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
 3. Heap (priority queue)
 4. Stack
 5. [Queue](./Data_Struct_Implementation/queue)

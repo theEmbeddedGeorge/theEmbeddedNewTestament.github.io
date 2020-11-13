@@ -289,20 +289,25 @@ A main() function is provided at the bottom for your use
     uint8_t cirular_buffer[MAX_CIRCULAR_BUFFER_SIZE];
     void EnQueue(int input_data)
     {
-        if (readInd == writeInd && current_num_elements== 20) {
-            printf("%reaching max elements, discard the oldest item\n");
-            writeInd = readInd + 1;
+        if (readInd == writeInd && 
+            current_num_elements ==  MAX_CIRCULAR_BUFFER_SIZE) {
+                printf("%reaching max elements, discard the oldest item\n");
+                readInd++;
+                readInd = readInd % MAX_CIRCULAR_BUFFER_SIZE;
         }
 
         cirular_buffer[writeInd] = input_data;
 
         writeInd++;
-        current_num_elements++;
+
+        if (current_num_elements != MAX_CIRCULAR_BUFFER_SIZE) {
+            current_num_elements++;
+        }
 
         if (writeInd == MAX_CIRCULAR_BUFFER_SIZE){
             writeInd = 0;
         }
-    }
+}
 
     
     ////////////////////////////////////////////////////////////////////////////////

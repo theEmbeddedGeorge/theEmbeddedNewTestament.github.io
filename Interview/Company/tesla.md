@@ -346,5 +346,6 @@ A main() function is provided at the bottom for your use
     //     If so, add comments where the calls are necessary. If not required,
     //     briefly comment why not.
     //
-    // Answer: TODO
+    // Answer: In the bufferPush_ISR() we should call enableInterrupts() while servicing and should call disableInterrupts() when we are exiting, by doing so we can prevent cases where the current bufferPush_ISR() has not finsihed yet and new interrupt is coming in. Also in the printAndEmptyBuffer() we should do the same since in bufferPush_ISR() we have mecahnism to override when overflow happens which means that readInd will be updated. As readInd will be accessed by both ISR and task, we need to ensure mutual exclusion so
+    that circular buffer can function properly.
     =======================================================================

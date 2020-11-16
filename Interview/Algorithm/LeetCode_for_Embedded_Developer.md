@@ -465,3 +465,135 @@ LeetCode # | Title | Diffculty
             if (c > 0) digits.insert(digits.begin(), 1);
         }
     };
+
+### Remove Duplicates from Sorted List
+    class Solution {
+    public:
+        /**
+        * @param head: head is the head of the linked list
+        * @return: head of linked list
+        */
+        ListNode * deleteDuplicates(ListNode * head) {
+            ListNode *dummy, *pre, *cur; 
+            
+            // write your code here
+            if (!head || !head->next)
+                return head;
+                
+            dummy = pre = head;
+            cur = head->next;
+                
+            while (cur) {
+                if (pre->val != cur->val) {
+                    dummy -> next = cur;
+                    dummy = cur;
+                }
+                pre = cur;
+                cur = cur ->next;
+            }
+            dummy->next = cur;
+                
+            return head;        
+        }
+    };
+
+### Merge Sorted Array
+    class Solution {
+    public:
+        /*
+        * @param A: sorted integer array A which has m elements, but size of A is m+n
+        * @param m: An integer
+        * @param B: sorted integer array B which has n elements
+        * @param n: An integer
+        * @return: nothing
+        */
+        void mergeSortedArray(int A[], int m, int B[], int n) {
+            // write your code here
+            int i, j, k;
+            i = m - 1;
+            j = n - 1;
+            k = m + n - 1;
+            
+            while(i >= 0 && j >= 0) {
+                A[k--] = A[i] > B[j] ? A[i--] : B[j--];
+            }
+            
+            while (i >= 0)
+                A[k--] = A[i--];
+                
+            while (j >= 0)
+                A[k--] = B[j--];
+            
+        }
+    };
+
+### Same Tree
+    /**
+    * Definition of TreeNode:
+    * class TreeNode {
+    * public:
+    *     int val;
+    *     TreeNode *left, *right;
+    *     TreeNode(int val) {
+    *         this->val = val;
+    *         this->left = this->right = NULL;
+    *     }
+    * }
+    */
+
+    class Solution {
+    public:
+        /**
+        * @param a: the root of binary tree a.
+        * @param b: the root of binary tree b.
+        * @return: true if they are identical, or false.
+        */
+        
+        bool isIdentical(TreeNode * a, TreeNode * b) {
+            // write your code here
+            if (!a && !b)
+                return true;
+                
+            if (!a || !b)
+                return false;
+            
+            if (a->val == b->val)
+                return isIdentical(a->left, b->left) & isIdentical(a->right, b->right);
+            else
+                return false;
+        }
+    };
+
+### Max depth of a Tree
+    /**
+    * Definition of TreeNode:
+    * class TreeNode {
+    * public:
+    *     int val;
+    *     TreeNode *left, *right;
+    *     TreeNode(int val) {
+    *         this->val = val;
+    *         this->left = this->right = NULL;
+    *     }
+    * }
+    */
+
+    class Solution {
+        public:
+            /**
+            * @param root: The root of binary tree.
+            * @return: An integer
+            */
+            int maxDepth(TreeNode * root) {
+                int lft, rht;
+                
+                // write your code here
+                if (!root)
+                    return 0;
+                
+                lft = maxDepth(root->left);
+                rht = maxDepth(root->right);
+                
+                return lft > rht ? lft+1 : rht+1;
+            }
+        };

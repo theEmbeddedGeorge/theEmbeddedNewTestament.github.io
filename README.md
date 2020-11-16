@@ -118,7 +118,10 @@
 1.  GIT
 2.  SVN
 
-### M. IDE Selection
+### M. [IDE Selection](IDE_Selection/IDE.md)
+
+### N. Embedded Security
+1.  CRC
 
 ## Interview Questions
 

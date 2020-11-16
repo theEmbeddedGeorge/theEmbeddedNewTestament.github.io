@@ -131,4 +131,20 @@ Compiler | GCC, ARM
 Multi-core debug | Yes
 Cost | $
 License | Proprietary
+
+### IDE feature comparison table
+
+IDE | Free? | No code size limit | J-link support | FreeRTOS kernel-aware debug | Multi-platform
+----------------|---|---|---|---|----
+Keil uVision | V | X | V | X | X
+IAR | X | N/A | V | V | X
+Visual GDB | X | N/A | V | V | V
+Rowley CrossWorks | X | N/A | V | V | V
+VS Code | V | V | V | V | V
+Eclipse CDT | V | V | V | V | V
+AC6 S4STM32 | V | V | V | V | V
+Arduino IDE | V | V | V | X | V
+ARM MBed Studio | V | V | V | X | V
+STM32CubeIDE | V | V | V | V | V
+SEGGER Embedded Studio | V | V | V | V | V
    

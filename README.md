@@ -148,9 +148,11 @@
 
 
 ### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
-1. Please simply describe this interrupt mechanism.
-2. What are semaphore and mutex? How is mutex different from semaphore in FreeRTOS?
-3. Preprocessor
+1. Interrupt Interview Questions
+2. Synchronization Interview Questions
+3. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
+4. I2C Interview Questions
+5. SPI Interview Questions
 
 
 ### D.  Behavior Question

@@ -21,7 +21,7 @@
 1. [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer)
 2. [Hash Table](./Data_Struct_Implementation/hashTable)
 3. Heap (priority queue)
-4. Stack
+4. [Stack](./Data_Struct_Implementation/stack)
 5. [Queue](./Data_Struct_Implementation/queue)
 6. Binary Tree
 7. Red Black Tree

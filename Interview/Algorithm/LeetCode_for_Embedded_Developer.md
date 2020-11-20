@@ -597,3 +597,376 @@ LeetCode # | Title | Diffculty
                 return lft > rht ? lft+1 : rht+1;
             }
         };
+
+### Convert Sorted Array to Binary Search Tree
+###	Convert Sorted List to Binary Search Tree
+### Balanced Binary Tree
+    class Solution {
+    public:
+        /**
+        * @param root: The root of binary tree.
+        * @return: True if this Binary tree is Balanced, or false.
+        */
+        
+        static int height(TreeNode* root) {
+            int l, r;
+            
+            if (!root)
+                return 0;
+            
+            l = height(root->left);
+            r = height(root->right);
+            
+            return l > r ? l + 1 : r + 1;
+        }
+        
+        bool isBalanced(TreeNode * root) {
+            int l, r;
+            
+            // write your code here
+            if (!root)
+                return true;
+            
+            l = height(root->left);
+            r = height(root->right);
+            if (l - r > 1 || r - l > 1)
+                return false;
+                
+            return isBalanced(root->left) && isBalanced(root->right);
+        }
+    };
+###	Minimum Depth of Binary Tree
+    class Solution {
+    public:
+        /**
+        * @param root: The root of binary tree
+        * @return: An integer
+        */
+        int minDepth(TreeNode * root) {
+        
+            // write your code here
+            if (!root)
+                return 0;
+            
+            if (!root->left && !root->right)
+                return 1;
+            else {
+                if (root->left && root->right)
+                    return 1 + std::min(minDepth(root->left), minDepth(root->right));
+                else if (root->left)
+                    return 1 + minDepth(root->left);
+                else
+                    return 1 + minDepth(root->right);
+            }
+        }
+    };
+
+###	Path Sum
+    class Solution {
+    public:
+        /**
+        * @param root: the tree
+        * @param sum: the sum
+        * @return:  if the tree has a root-to-leaf path 
+        */
+        bool pathSum(TreeNode * root, int sum) {
+            // Write your code here.
+            if (!root && sum != 0)
+                return false;
+            
+            if (!root && sum == 0)
+                return true;
+            
+            return pathSum(root->left, sum - root->val) || pathSum(root->right, sum - root->val);
+        }
+    };
+
+### Flatten Binary Tree to Linked List
+    class Solution {
+    private:
+        vector <int> list_tree;
+        
+    public:
+        void DFS(TreeNode * root) {
+            if (!root)
+                return;
+                
+            if (root)
+                list_tree.push_back(root->val);
+                
+            DFS(root->left);
+            root->left = NULL;
+            DFS(root->right);
+        }
+        
+        void flatten(TreeNode * root) {
+            TreeNode * new_node;
+            
+            if (!root)
+                return;
+                
+            // clear all left nodes 
+            DFS(root);
+            
+            for (int i = 0; i < list_tree.size(); i++) {
+                root->val = list_tree[i];
+            
+                if (i != list_tree.size()-1) {
+                    new_node = new TreeNode(0);
+                    root->right = new_node;
+                }
+                
+                root = root->right;
+            }
+            
+        }
+    };
+
+In-place solution:
+    
+    class Solution {
+    public:
+        /**
+        * @param root: a TreeNode, the root of the binary tree
+        * @return: nothing
+        */
+        void flatten(TreeNode *root) {
+            // write your code here
+            if (root == NULL) return;  
+            while (root) {  
+                if (root->left) {  
+                    TreeNode *pre = root->left;  
+                    while (pre->right)  
+                        pre = pre->right;  
+                    pre->right = root->right;  
+                    root->right = root->left;  
+                    root->left = NULL;  
+                }
+                root = root->right;
+            }  
+        }
+    };
+
+###	Best Time to Buy and Sell Stock
+***Tips: Sliding Window***
+
+    class Solution {
+    public:
+        /**
+        * @param prices: Given an integer array
+        * @return: Maximum profit
+        */
+        int maxProfit(vector<int> &prices) {
+            // write your code here
+            int profit = 0;
+            int min = prices[0];
+            
+            if (prices.size() < 2)
+                return 0;
+            
+            for (int i = 1; i < prices.size(); i ++) {
+                profit = profit < prices[i] - min ? prices[i] - min : profit;
+                min = min < prices[i]? min : prices[i];
+            }
+            
+            return profit;
+        }
+    };
+
+###	Valid Palindrome
+***Tips: Two pointer***
+
+    class Solution {
+    public:
+        /**
+        * @param s: A string
+        * @return: Whether the string is a valid palindrome
+        */
+        bool isPalindrome(string &s) {
+            // write your code here
+            int b = 0;
+            int e = s.size() - 1;
+            
+            while (b < e) {
+                while ((b < s.size()) && !isalnum(s[b]))
+                    b ++;
+                while ((e >= 0) && !isalnum(s[e]))
+                    e --;
+                
+                if (b < e && (tolower(s[b]) != tolower(s[e])))
+                    return false;
+                
+                b ++;
+                e --;
+            }
+            
+            return true;
+        }
+    };
+
+### Single Number
+***Tips: XOR characteristics***
+
+    class Solution {
+    public:
+        /**
+        * @param A: An integer array
+        * @return: An integer
+        */
+        int singleNumber(vector<int> &A) {
+            // write your code here
+            int ret = A[0];
+            
+            if (A.size() == 1)
+                return ret;
+            
+            for (int i = 1; i < A.size(); i++)
+                ret ^= A[i];
+            
+            return ret;
+        }
+    };
+
+###	Single NumberII	
+***Tips: hashmap***
+
+    class Solution {
+    public:
+        /**
+        * @param A: An integer array
+        * @return: An integer
+        */
+        int singleNumberII(vector<int> &A) {
+            // write your code here
+            unordered_map <int, int> B; 
+            int ret;
+            
+            if (A.size() == 1)
+                return A[0];
+                
+            B.reserve((A.size()-1)/3 + 1);
+            
+            for (auto num : A) {
+                B[num] ++;
+            }
+            
+            for (auto i = B.begin(); i != B.end(); i++)
+                if (i->second == 1) {
+                    ret = i->first;
+                    break;
+                }
+                
+            return ret;
+        }
+    };
+
+***[Tips: bitwise XOR](https://blog.csdn.net/jocyln9026/article/details/19397477?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control)***
+
+***This method we can basically find the single number if every numbers occurs N times except one only occurs 1 time***
+
+    class Solution {
+    public:
+        int singleNumber(vector<int>& nums) {
+            int res = 0;
+            for (int i = 0; i < 32; ++i) {
+                int sum = 0;
+                for (int j = 0; j < nums.size(); ++j) {
+                    sum += (nums[j] >> i) & 1;
+                }
+                res |= (sum % 3) << i;
+            }
+            return res;
+        }
+    };
+
+### Linked List Cycle
+***Tips: Slow fast pointers***
+
+    class Solution {
+    public:
+        /**
+        * @param head: The first node of linked list.
+        * @return: True if it has a cycle, or false
+        */
+        bool hasCycle(ListNode * head) {
+            // write your code here
+            ListNode *fast, *slow;
+            
+            fast = slow = head;
+            
+            while (fast && fast->next) {
+                fast = fast->next->next;
+                slow = slow->next;
+                
+                if (fast == slow)
+                    return true;
+            }
+            
+            return false;
+        }
+    };
+
+### Intersection of Two Linked Lists
+***Tips: Count Linked list length***
+
+    class Solution {
+    public:
+        /**
+        * @param headA: the first list
+        * @param headB: the second list
+        * @return: a ListNode
+        */
+        ListNode * getIntersectionNode(ListNode * headA, ListNode * headB) {
+            // write your code here
+            int A_len, B_len;
+            ListNode* A;
+            ListNode* B;
+            
+            A = headA;
+            B = headB;
+            A_len = B_len = 0;
+            
+            while (A && A->next) {
+                A = A->next;
+                A_len ++;
+            }
+            A_len ++;
+        
+            while (B && B->next) {
+                B = B->next;
+                B_len ++;
+            }
+            B_len ++;
+            
+            if (A != B)
+                return NULL;
+            
+            A = headA;
+            B = headB;
+            while (A_len - B_len > 0) {
+                A = A->next;
+                A_len --;
+            }
+            
+            while (B_len - A_len > 0) {
+                B = B->next;
+                B_len --;
+            }
+                
+            while (A) {
+                if (A == B)
+                    break;
+                A = A->next;
+                B = B->next;
+            }
+
+            return A;
+        }
+    };
+
+### Majority Element
+### Reverse Bits
+### Number of 1 Bits
+### Remove Linked List Elements
+### Reverse Linked List
+### Power of Two

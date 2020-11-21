@@ -4,9 +4,9 @@
 
 #### **No advanced data structures (ex. priority queue) required. High frequency questions focusing on C programming.**
 
-LeetCode # | Title | Diffculty | Implemented?
-----------------|-------|----------|---
-1 |	Two Sum | Easy | v
+LeetCode # | Title | Diffculty | Importance | Implemented?
+----------------|-------|----------|---|---
+1 |	Two Sum | Easy | ***** | v
 14 | Longest Common Prefix | Easy | v	
 19 | Remove Nth Node From End of List | Medium | v	
 20 | Valid Parentheses | Easy | v	
@@ -37,12 +37,13 @@ LeetCode # | Title | Diffculty | Implemented?
 137 | Single Number II | Medium | v	
 141 | Linked List Cycle | Easy | v	
 160 | Intersection of Two Linked Lists | Easy | v	
-169 | Majority Element | Easy	
-190 | Reverse Bits | Easy	
-191 | Number of 1 Bits | Easy	
-203 | Remove Linked List Elements | Easy	
-206 | Reverse Linked List | Easy	
-231 | Power of Two | Easy	
+169 | Majority Element | Easy | *** | v	
+190 | Reverse Bits | Easy | ***** | v	
+191 | Number of 1 Bits | Easy | ***** | v
+203 | Remove Linked List Elements | Easy | ***** | v	
+206 | Reverse Linked List | Easy | ***** | v
+36  | Reverse Linked List II | Medium | *** |
+231 | Power of Two | Easy | ***** |
 234 | Palindrome Linked List | Easy	
 237 | Delete Node in a Linked List | Easy	
 260 | Single Number III | Medium	
@@ -55,7 +56,9 @@ LeetCode # | Title | Diffculty | Implemented?
 299 | Bulls and Cows | Medium	
 300 | Longest Increasing Subsequence | Medium	
 313 | Super Ugly Number | Medium	
-318 | Maximum Product of Word Lengths | Medium	
+318 | Maximum Product of Word Lengths | Medium
+823 | Hamming Distance | Easy	
+1217 | Total Hamming Distance | Medium	
 ---------------------------------
 
 High frequency LeetCode Series # | Title | Diffculty | Implemented? 
@@ -1024,9 +1027,216 @@ Space complexity | O(1)
         }
     };
 
+***Tips: hash map***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(n)
+------------------------
+
+    class Solution {
+    public:
+        /*
+        * @param nums: a list of integers
+        * @return: find a  majority number
+        */
+        int majorityNumber(vector<int> &nums) {
+            // write your code here
+            unordered_map <int, int> umap;
+            
+            for (auto num : nums)
+                umap[num] ++;
+                
+            for (auto item : umap)
+                if (item.second > nums.size()/2)
+                    return item.first;
+                    
+            return -1;
+        }
+    };
+
+***Tips: Boyer-Moore Majority Vote Algorithm - what the heck is this?????***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+------------------------
+
+    public class Solution {
+        public int majorityElement(int[] num) {
+
+            int major=num[0], count = 1;
+            for(int i=1; i<num.length;i++){
+                if(count==0){
+                    count++;
+                    major=num[i];
+                }else if(major==num[i]){
+                    count++;
+                }else count--;
+                
+            }
+            return major;
+        }
+    }
 
 ### Reverse Bits
-### Number of 1 Bits
+***Tips: Bit-wise operation***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+------------------------
+    class Solution {
+    public:
+        /**
+        * @param n: an integer
+        * @return: return an integer
+        */
+        long long reverseBits(long long n) {
+            // write your code here
+            long long ret = 0;
+            
+            for (int i = 0; i < 32; i++) {
+                ret <<= 1;
+                ret |= (n & 0x1);
+                n >>= 1;
+            }
+            
+            return ret;
+        }
+    };
+
+### Number of 1 Bits (hamming Weight)
+***Tips: n & (n - 1) drops the lowest set bit***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+------------------------
+    class Solution {
+    public:
+        /**
+        * @param n: an unsigned integer
+        * @return: the number of â€™1' bits
+        */
+        int hammingWeight(unsigned int n) {
+            // write your code here
+            int count = 0;
+        
+            while (n) {
+                n &= (n - 1);
+                count++;
+            }
+            
+            return count;
+        }
+    };
+
 ### Remove Linked List Elements
+***Tips: change linkeage***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /**
+        * @param head: a ListNode
+        * @param val: An integer
+        * @return: a ListNode
+        */
+        ListNode * removeElements(ListNode * head, int val) {
+            // write your code here
+            ListNode * dummy = head;
+            
+            // handle empty list
+            if (!head)
+                return head;
+                
+            // handle cases when val is at head
+            while (head && head->val == val) {
+                head = head->next;
+            }
+            
+            // handle regular case
+            dummy = head;
+            while (dummy && dummy->next) {
+                if (dummy->next->val == val) {
+                    dummy->next = dummy->next->next;
+                } else {
+                    dummy = dummy->next;
+                }
+            }
+            
+            return head;
+        }
+    };
+
+***Tips: Create a dummy node, so there is only one case to handle***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+
+    class Solution {
+    public:
+        /**
+        * @param head a ListNode
+        * @param val an integer
+        * @return a ListNode
+        */
+        ListNode *removeElements(ListNode *head, int val) {
+            ListNode dummy;
+            dummy.next = head;
+            head = &dummy;
+            
+            while (head->next != NULL) {
+                if (head->next->val == val) {
+                    head->next = head->next->next;
+                } else {
+                    head = head->next;
+                }
+            }
+            
+            return dummy.next;
+        }
+    };
+
 ### Reverse Linked List
+***Tips: change linkeage***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /**
+        * @param head: n
+        * @return: The new head of reversed linked list.
+        */
+        
+        ListNode * reverse(ListNode * head) {
+            ListNode *pre, *mid, *nxt;
+            
+            if (!head || !head->next)
+                return head;
+            
+            pre = head;
+            mid = head->next;
+            
+            head->next = NULL;
+            nxt = mid-> next;
+            mid->next = pre;
+            
+            while(nxt) {
+                pre = mid;
+                mid = nxt;
+                nxt = nxt->next;
+                mid->next = pre;
+            }
+            
+            return mid;
+        }
+    };
+### Reverse Linked List II
 ### Power of Two

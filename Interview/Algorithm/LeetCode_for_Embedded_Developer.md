@@ -42,8 +42,8 @@ LeetCode # | Title | Diffculty | Importance | Implemented?
 191 | Number of 1 Bits | Easy | ***** | v
 203 | Remove Linked List Elements | Easy | ***** | v	
 206 | Reverse Linked List | Easy | ***** | v
-36  | Reverse Linked List II | Medium | *** |
-231 | Power of Two | Easy | ***** |
+36  | Reverse Linked List II | Medium | *** | v
+231 | Power of Two | Easy | ***** | v
 234 | Palindrome Linked List | Easy	
 237 | Delete Node in a Linked List | Easy	
 260 | Single Number III | Medium	
@@ -1239,4 +1239,154 @@ Space complexity | O(1)
         }
     };
 ### Reverse Linked List II
+***Tips: change linkeage***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    private:
+        static  ListNode * reverseList(ListNode * head, ListNode * last_node_next) {
+            ListNode *pre, *cur, *nxt;
+            
+            pre = NULL;
+            cur = head;
+            nxt = cur->next;
+            
+            cur->next = last_node_next;
+            pre = cur;
+            cur = nxt;
+            nxt = nxt->next;
+            while (nxt != last_node_next) {
+                cur->next = pre;
+                pre = cur;
+                cur = nxt;
+                nxt = nxt->next;
+            }
+            cur->next = pre;
+            
+            return cur;
+        }
+        
+    public:
+        /**
+        * @param head: ListNode head is the head of the linked list 
+        * @param m: An integer
+        * @param n: An integer
+        * @return: The head of the reversed ListNode
+        */
+        
+
+        ListNode * reverseBetween(ListNode * head, int m, int n) {
+            // write your code here
+            ListNode *last_node_next, *head_d;
+            ListNode head_pre;
+            
+            if (!head || m == n)
+                return head;
+                
+            last_node_next = head;
+            while(n--) last_node_next = last_node_next->next;
+            
+            head_pre.next = head;
+            head_d = &head_pre;
+            
+            while (--m) head_d = head_d -> next;
+        
+            head_d->next = reverseList(head_d->next, last_node_next);
+            
+            return head_pre.next;
+        }
+    };
 ### Power of Two
+***Tips: power of two numbers's hamming weight is one***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /**
+        * @param n: an integer
+        * @return: if n is a power of two
+        */
+        
+        int hammingWeight(int n) {
+            int count = 0;
+            
+            while (n) {
+                n &= (n-1);
+                count ++;
+            }
+            
+            return count;
+        }
+        
+        bool isPowerOfTwo(int n) {
+            // Write your code here
+            return hammingWeight(n) == 1;
+        }
+    };
+### Palindrome Linked List
+***Tips: reverse linked list***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /**
+        * @param head: A ListNode.
+        * @return: A boolean.
+        */
+        ListNode * reverse(ListNode * head) {
+            ListNode *pre, *mid, *nxt;
+            
+            if (!head || !head->next)
+                return head;
+            
+            pre = head;
+            mid = head->next;
+            
+            head->next = NULL;
+            nxt = mid-> next;
+            mid->next = pre;
+            
+            while(nxt) {
+                pre = mid;
+                mid = nxt;
+                nxt = nxt->next;
+                mid->next = pre;
+            }
+            
+            return mid;
+        }
+        
+        bool isPalindrome(ListNode * head) {
+            // TODO: Write your code here
+            ListNode *fast, *slow, *dummy;
+            
+            if (!head || !head->next)
+                return true;
+                
+            slow = fast = head;
+            while (fast && fast->next) {
+                slow = slow->next;
+                fast = fast->next->next;
+            }
+            
+            dummy = reverse(slow);
+            
+            while (dummy) {
+                if (dummy->val != head->val)
+                    return false;
+                dummy = dummy->next;
+                head = head->next;
+            }
+            
+            return true;
+        }
+    };
+### Delete Node in a Linked List
+### Single Number III
+### Missing Number	

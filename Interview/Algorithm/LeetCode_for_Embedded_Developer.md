@@ -1388,5 +1388,26 @@ Space complexity | O(1)
         }
     };
 ### Delete Node in a Linked List
+***Tips: take the value of next node***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /*
+        * @param node: the node in the list should be deleted
+        * @return: nothing
+        */
+        void deleteNode(ListNode * node) {
+            // write your code here
+            
+            if (!node)
+                return;
+            
+            node->val = node->next->val;
+            node->next = node->next->next;
+        }
+    };
 ### Single Number III
 ### Missing Number	

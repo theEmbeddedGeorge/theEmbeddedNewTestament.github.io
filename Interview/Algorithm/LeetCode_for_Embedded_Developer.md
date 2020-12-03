@@ -9,21 +9,21 @@ LeetCode # | Title | Diffculty | Importance | Implemented?
 1 |	Two Sum | Easy | ***** | v
 14 | Longest Common Prefix | Easy | v	
 19 | Remove Nth Node From End of List | Medium | v	
-20 | Valid Parentheses | Easy | v	
-21 | Merge Two Sorted Lists | Easy | v	
-24 | Swap Nodes in Pairs | Medium | v	
+20 | Valid Parentheses | Easy | ***** | v	
+21 | Merge Two Sorted Lists | Easy | ***** | v	
+24 | Swap Nodes in Pairs | Medium | ***** | v	
 26 | Remove Duplicates from Sorted Array | Easy | v	
 27 | Remove Element | Easy | v	
-28 | Implement strStr() | Easy | v	
+28 | Implement strStr() | Easy | ***** | v	
 33 | Search in Rotated Sorted Array | Medium | v	
 38 | Count and Say | Easy | v	
 53 | Maximum Subarray | Easy | v	
 58 | Length of Last Word | Easy | v	
-66 | Plus One | Easy | v	
-67 | Add Binary | Easy | v	
-83 | Remove Duplicates from Sorted List | Easy | v	
-88 | Merge Sorted Array | Easy | v	
-100 | Same Tree | Easy | v	
+66 | Plus One | Easy | *** | v	
+67 | Add Binary | Easy | **** | v	
+83 | Remove Duplicates from Sorted List | Easy | ***** | v	
+88 | Merge Sorted Array | Easy | **** | v	
+100 | Same Tree | Easy | **** | v	
 104 | Maximum Depth of Binary Tree | Easy | v	
 108 | Convert Sorted Array to Binary Search Tree | Easy	
 109 | Convert Sorted List to Binary Search Tree | Medium	
@@ -32,11 +32,11 @@ LeetCode # | Title | Diffculty | Importance | Implemented?
 112 | Path Sum | Easy | v	
 114 | Flatten Binary Tree to Linked List | Medium | v	
 121 | Best Time to Buy and Sell Stock | Easy | v	
-125 | Valid Palindrome | Easy | v	
+125 | Valid Palindrome | Easy | ***** | v	
 136 | Single Number | Easy | v	
 137 | Single Number II | Medium | v	
-141 | Linked List Cycle | Easy | v	
-160 | Intersection of Two Linked Lists | Easy | v	
+141 | Linked List Cycle | Easy | ***** | v	
+160 | Intersection of Two Linked Lists | Easy | **** | v	
 169 | Majority Element | Easy | *** | v	
 190 | Reverse Bits | Easy | ***** | v	
 191 | Number of 1 Bits | Easy | ***** | v
@@ -44,21 +44,21 @@ LeetCode # | Title | Diffculty | Importance | Implemented?
 206 | Reverse Linked List | Easy | ***** | v
 36  | Reverse Linked List II | Medium | *** | v
 231 | Power of Two | Easy | ***** | v
-234 | Palindrome Linked List | **** | Easy | v
-237 | Delete Node in a Linked List | *****| Easy | v	
-260 | Single Number III | Medium	
-268 | Missing Number | Easy	
-274 | H-Index | Medium	
-278 | First Bad Version | Easy	
+234 | Palindrome Linked List | Easy | **** |v
+237 | Delete Node in a Linked List | Easy | ***** | v	
+260 | Single Number III | Medium | *** | v
+268 | Missing Number | Easy | **** | v	
+274 | H-Index | Medium | ** 	
+278 | First Bad Version | Easy | *** | v	
 279 | Perfect Squares | Medium	
-283 | Move Zeroes | Easy	
-292 | Nim Game | Easy	
-299 | Bulls and Cows | Medium	
-300 | Longest Increasing Subsequence | Medium	
-313 | Super Ugly Number | Medium	
+283 | Move Zeroes | Easy | **** | v	
+292 | Nim Game | Easy | ** | v	
+299 | Bulls and Cows | Medium | * | v	
+300 | Longest Increasing Subsequence | Medium | * 	
+313 | Super Ugly Number | Medium | ** 	
 318 | Maximum Product of Word Lengths | Medium
-823 | Hamming Distance | Easy	
-1217 | Total Hamming Distance | Medium	
+823 | Hamming Distance | Easy | ****** 
+1217 | Total Hamming Distance | Medium | ****** 
 ---------------------------------
 
 High frequency LeetCode Series # | Title | Diffculty | Implemented? 
@@ -1438,3 +1438,128 @@ Space complexity | O(1)
     };
 ### H-Index
 ### First Bad Version
+***Tips: divide and conquer***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(log(n))
+Space complexity | O(1)
+    /**
+    * class SVNRepo {
+    *     public:
+    *     static bool isBadVersion(int k);
+    * }
+    * you can use SVNRepo::isBadVersion(k) to judge whether 
+    * the kth code version is bad or not.
+    */
+    static int findBadVersion(int st, int ed) {
+        int mid = st + (ed - st)/2;
+        
+        if (st == ed)
+            return st;
+        
+        if (SVNRepo::isBadVersion(mid)) {
+            if (mid == 1)
+                return mid;
+            else if (!SVNRepo::isBadVersion(mid-1))
+                return mid;
+            else
+                return findBadVersion(st,  mid-1);
+        } else {
+            return findBadVersion( mid+1, ed);
+        }
+    }
+        
+    class Solution {
+    public:
+        /**
+        * @param n: An integer
+        * @return: An integer which is the first bad version.
+        */
+        
+        
+        int findFirstBadVersion(int n) {
+            // write your code here
+            return findBadVersion(1, n);
+        }
+    };
+### Perfect Squares			
+###	Move Zeroes
+***Tips: two pointers***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /**
+        * @param nums: an integer array
+        * @return: nothing
+        */
+        void moveZeroes(vector<int> &nums) {
+            // write your code here
+            int nextNoneZero = 0;
+            
+            for (int i = 0; i < nums.size(); i++) {
+                if (nums[i] != 0)
+                    nums[nextNoneZero++] = nums[i];
+            }
+            
+            for (nextNoneZero; nextNoneZero < nums.size(); nextNoneZero++)
+                nums[nextNoneZero] = 0;
+        }
+    };	
+###	Nim Game
+***Tips: if 4 stone is left for the other player, we win***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(1)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /**
+        * @param n: an integer
+        * @return: whether you can win the game given the number of stones in the heap
+        */
+        bool canWinBash(int n) {
+            // Write your code here
+            return (n % 4 != 0);
+        }
+    };
+###	Bulls and Cows
+***Tips: hash map***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        string getHint(string &secret, string &guess) {
+        string ret = "";
+        int bulls = 0;
+        int cows = 0;
+        
+        int arr1[10] = {0};
+        int arr2[10] = {0};
+        
+        for (int i = 0; i < guess.size(); i++)
+                if (secret[i] == guess[i])
+                    bulls ++;
+                else {
+                    arr1[secret[i]-'0'] ++;
+                    arr2[guess[i]-'0'] ++;
+                }
+            
+            for (int i = 0; i < 10; i++)
+                if (arr1[i] != 0 && arr2[i] != 0)
+                    cows += std::min(arr1[i], arr2[i]);
+            
+            ret = std::to_string(bulls) + "A" +  std::to_string(cows) + "B";
+            
+        return ret;
+        }
+    };
+###	Longest Increasing Subsequence
+###	Super Ugly Number
+###	Maximum Product of Word Lengths			
+###	Hamming Distance		
+###	Total Hamming Distance	

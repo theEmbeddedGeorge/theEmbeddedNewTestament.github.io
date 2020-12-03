@@ -44,8 +44,8 @@ LeetCode # | Title | Diffculty | Importance | Implemented?
 206 | Reverse Linked List | Easy | ***** | v
 36  | Reverse Linked List II | Medium | *** | v
 231 | Power of Two | Easy | ***** | v
-234 | Palindrome Linked List | Easy	
-237 | Delete Node in a Linked List | Easy	
+234 | Palindrome Linked List | **** | Easy | v
+237 | Delete Node in a Linked List | *****| Easy | v	
 260 | Single Number III | Medium	
 268 | Missing Number | Easy	
 274 | H-Index | Medium	
@@ -1410,4 +1410,31 @@ Space complexity | O(1)
         }
     };
 ### Single Number III
-### Missing Number	
+### Missing Number
+***Tips: bitwise xor, same as single number I***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+    class Solution {
+    public:
+        /**
+        * @param nums: An array of integers
+        * @return: An integer
+        */
+        int findMissing(vector<int> &nums) {
+            // write your code here
+            int x, y;
+            
+            x = y = 0;
+            for (auto n : nums)
+                x ^= n;
+            
+            for (int i = 0; i <= nums.size(); i++)
+                y ^= i;
+            
+            return x^y;
+        }
+    };
+### H-Index
+### First Bad Version

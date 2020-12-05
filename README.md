@@ -18,14 +18,14 @@
 5. Assembly
 
 ### C. Data Structures & Implementation
-1. [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer)
-2. [Hash Table](./Data_Struct_Implementation/hashTable)
-3. [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap)
-4. [Stack](./Data_Struct_Implementation/stack)
-5. [Queue](./Data_Struct_Implementation/queue)
+1. [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer/README.md)
+2. [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
+3. [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap/README.md)
+4. [Stack](./Data_Struct_Implementation/stack/README.md)
+5. [Queue](./Data_Struct_Implementation/queue/README.md)
 6. Binary Tree
 7. Red Black Tree
-8. [Finite State Machine](Data_Struct_Implementation/stateMachine)
+8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
 9. Simple Task Scheduler
 10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
@@ -145,14 +145,19 @@
 14. K-way Merge
 15. Knapsack (DP)
 16. Graph Topological Sort
+17. [Bitwise operation C questions](https://aticleworld.com/interview-questions-on-bitwise-operators-in-c/)
 
 
 ### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
 1. Interrupt Interview Questions
 2. Synchronization Interview Questions
 3. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
-4. I2C Interview Questions
-5. SPI Interview Questions
+4. [I2C Interview Questions](Interview/Concept/I2C_interview_questions.md)
+5. [SPI Interview Questions](Interview/Concept/SPI_interview_questions.md)
+6. [CAN Interview Questions](Interview/Concept/CAN_interview_questions.md)
+7. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
+8. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
+9. [C++ Interview Questions](https://aticleworld.com/cpp-interview-questions/)
 
 
 ### D.  Behavior Question

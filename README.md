@@ -23,19 +23,22 @@
 3. [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap/README.md)
 4. [Stack](./Data_Struct_Implementation/stack/README.md)
 5. [Queue](./Data_Struct_Implementation/queue/README.md)
-6. Binary Tree
+6. [Binary Search Tree](Data_Struct_Implementation/BST/README.md)
 7. Red Black Tree
 8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
-9. Simple Task Scheduler
+9.  Simple Task Scheduler
 10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 ### D. Basic Algorithms
 1. Sort
-   1.  Merge Sort
-   2.  Quick Sort
+   1.  Bubble Sort
+   2.  Merge Sort
+   3.  Quick Sort
+   4.  Binary Sort
+   5.  Heap Sort
 2.  Search
-    1.  Hash
-    2.  Binary search Tree
+    1.  [Hash](Data_Struct_Implementation/hashTable/README.md)
+    2.  [Binary search Tree](Data_Struct_Implementation/BST/README.md)
     3.  Graph
 
 ### E. POSIX API 
@@ -78,6 +81,8 @@
 10. Mutiprocessing/Multithreading
 11. FreeRTOS
     1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
+    2.  IPC Mechanism
+    3.  Scheduler
 12. Linux
     1.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
     2.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)

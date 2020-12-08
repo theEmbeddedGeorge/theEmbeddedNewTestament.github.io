@@ -26,8 +26,9 @@
 6. [Binary Search Tree](Data_Struct_Implementation/BST/README.md)
 7. Red Black Tree
 8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
-9.  Simple Task Scheduler
+9. Simple Task Scheduler
 10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+11. Common STL function implementation
 
 ### D. Basic Algorithms
 1. Sort
@@ -127,6 +128,7 @@
 
 ### N. Embedded Security
 1.  CRC
+2.  TPM
 
 ## Interview Questions
 

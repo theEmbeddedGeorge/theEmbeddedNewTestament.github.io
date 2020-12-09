@@ -29,6 +29,7 @@
 9. Simple Task Scheduler
 10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 11. Common STL function implementation
+    1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
 
 ### D. Basic Algorithms
 1. Sort

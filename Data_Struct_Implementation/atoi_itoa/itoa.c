@@ -1,31 +1,3 @@
-## Safe Memcpy that Handles Overlapped Src & Dest (Memmove)
-#### ***Usage***
-```
-make
-./atoi
-```
-
-#### ***Notes***
-
-This function is actually not easy as it seems. We need to consider the following:
-
-1) When base is 10 and val is negative, need to include the negative sign '-'.
-2) String order is reverse with digit order.
-3) Remember to NULL terminate the string.
-4) Handle val = 0 case.
-5) When base is 16, handle special letter ABCDEF.
-6) Remember to take abs(value) before modulation, other wise it will give a negative remainder.
-
-#### ***Improvements***
-
-The implementation below can be improved in the following ways:
-
-1) Handle INT_MIN, currently it is unable to handle it.
-2) Implementation below will seg fault if buffer does not have enough space to hold all digits. Maybe we could pass buffer length argument to the function.
-
-#### ***Code***
-###### itoa.c
-```c
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -108,5 +80,3 @@ int main(int argc, char **argv) {
     printf("\n==============\n");  
     return 0; 
 }
-```
-

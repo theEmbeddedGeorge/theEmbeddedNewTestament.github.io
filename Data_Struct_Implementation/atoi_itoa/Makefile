@@ -1,13 +1,13 @@
 CC=gcc
 CFLGAS=-Wall
 DEPS = 
-OBJ = atoi_iota.o
+OBJ = itoa
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-atoi_iota: $(OBJ)
+$(OBJ): $(OBJ).o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f atoi_iota atoi_iota.o
+	rm -f $(OBJ) $(OBJ).o

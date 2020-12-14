@@ -79,7 +79,7 @@
 3.  [Exception Handling](Operating_System/Exception_ARM64.md)
 4.  Virtual Memory
 5.  File System
-6.  Process/Thread & Scheduling
+6.  【Process/Thread & Scheduling】
 7.  [Interrupt](./Operating_System/Interrupt.md)
 8.  System call
 9.  Interprocess communication
@@ -176,7 +176,7 @@
 12. [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
 13. [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
 14. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
-
+15. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
 
 ### D. Behavior Question
 1.  Amazon Leading Principles

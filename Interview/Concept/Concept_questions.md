@@ -10,9 +10,12 @@ Index | Question | Diffculty | Importance
 4 | [What are the different layers of OSI model?](https://practice.geeksforgeeks.org/problems/what-are-the-different-layers-of-osi-model/) | Easy | ***** 
 5 | [Explain the booting process in Linux ?](https://practice.geeksforgeeks.org/problems/booting-in-linux) | Easy | ***** 
 6 | [If you kill a parent process then what will happen ?](https://practice.geeksforgeeks.org/problems/child-parent-process) | Medium | ***** 
-7 | Remove Duplicates from Sorted Array | Easy 
-8 | Remove Element | Easy | v	
-
+7 | [What is a semaphore?](https://practice.geeksforgeeks.org/problems/what-is-a-semaphore) | Easy 
+8 | [How does a process handle a interrupt](https://practice.geeksforgeeks.org/problems/handle-interrupt) | Easy | v	
+9 | [Explain TCP/IP model. Protocols used in respective layers with their functionalities](https://practice.geeksforgeeks.org/problems/tcpip-model/) | 
+10 | [Preprocessor Directive "pragma" in C](https://practice.geeksforgeeks.org/problems/pragma-question/) |
+11 | [Difference between Process and thread](https://practice.geeksforgeeks.org/problems/difference-between-process-and-thread/) |
+12 | [Size of void pointer in C](https://practice.geeksforgeeks.org/problems/size-of-void-pointer-in-c) | 
 
 
 

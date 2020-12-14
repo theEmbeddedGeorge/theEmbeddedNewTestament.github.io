@@ -1,5 +1,23 @@
 ## Interview Conceptual Questions
 
+### Conceptual Questions and Links Table
+
+Index | Question | Diffculty | Importance
+--|-----------------|----------|---|---
+1 | [What is Deadlock? How to avoid and prevent?](https://practice.geeksforgeeks.org/problems/deadlock-in-os/) | Easy | ***** 
+2 | [What is the basic difference between  #include  <FileName> and  #include   "FileName" ?](https://practice.geeksforgeeks.org/problems/header-file/) | Easy 
+3 | [Explain Thrashing in Operating Systems](https://practice.geeksforgeeks.org/problems/thrashing-in-os/) | Medium 
+4 | [What are the different layers of OSI model?](https://practice.geeksforgeeks.org/problems/what-are-the-different-layers-of-osi-model/) | Easy | ***** 
+5 | [Explain the booting process in Linux ?](https://practice.geeksforgeeks.org/problems/booting-in-linux) | Easy | ***** 
+6 | [If you kill a parent process then what will happen ?](https://practice.geeksforgeeks.org/problems/child-parent-process) | Medium | ***** 
+7 | Remove Duplicates from Sorted Array | Easy 
+8 | Remove Element | Easy | v	
+
+
+
+
+
+
 #### **Peripheral devices often have access to processor interrupts to get the attention of the processor when certain events happens. Please simply describe this interrupt mechanism.**
 Points to consider: 
 1. What is Interupt?

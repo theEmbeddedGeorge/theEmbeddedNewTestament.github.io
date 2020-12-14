@@ -11,7 +11,7 @@
 5.  Linker and loader 
 
 ### B. Programming Languages
-1. C
+1. [C](https://www.geeksforgeeks.org/c-programming-language/)
 2. C++
 3. Bash
 4. Python
@@ -30,7 +30,9 @@
 10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 11. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
-    2. [itoa](Data_Struct_Implementation/atoi_itoa/README.md)
+    2. [itoa](Data_Struct_Implementation/itoa/README.md)
+    3. [atoi](Data_Struct_Implementation/atoi/README.md)
+    4. sizeof
 
 ### D. Basic Algorithms
 1. Sort
@@ -94,6 +96,7 @@
     5.  Device Tree
     6.  Sysfs
     7.  [Boot Loader](Operating_System/Linux/boot_loader.md)
+    8.  [Linux Booting Process](Operating_System/Linux/booting.md)
 
 ### I. Computer Architecture
 1.  Pipeline
@@ -155,6 +158,7 @@
 15. Knapsack (DP)
 16. Graph Topological Sort
 17. [Bitwise operation C questions](https://aticleworld.com/interview-questions-on-bitwise-operators-in-c/)
+18. [Must Do Coding Questions for Companies like Amazon, Microsoft, Adobe](https://www.geeksforgeeks.org/must-do-coding-questions-for-companies-like-amazon-microsoft-adobe/?ref=leftbar-rightbar)
 
 
 ### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
@@ -167,13 +171,24 @@
 7. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
 8. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
 9. [C++ Interview Questions](https://aticleworld.com/cpp-interview-questions/)
+10. [C Puzzles](https://www.geeksforgeeks.org/puzzles/#CPuzzles)
+11. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
+12. [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
+13. [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
+14. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
 
 
-### D.  Behavior Question
+### D. Behavior Question
 1.  Amazon Leading Principles
 
-### E. By Company
+### E. [Brain Teaser](https://www.geeksforgeeks.org/puzzles/)
+
+### F. By Company
 1.  [Tesla](Interview/Company/tesla.md)
+2.  [Google](https://www.geeksforgeeks.org/google-interview-preparation/)
+3.  [Qualcomm](Interview/Company/qualcomm.md)
+4.  [Nvidia](Interview/Company/Nvidia.md)
+5.  [Cisco](Interview/Company/Cisco.md)
 
 ## Book Recommendation
 

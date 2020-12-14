@@ -30,7 +30,7 @@
 10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 11. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
-    2. [atoi/itoa](Data_Struct_Implementation/atoi_itoa/README.md)
+    2. [itoa](Data_Struct_Implementation/atoi_itoa/README.md)
 
 ### D. Basic Algorithms
 1. Sort

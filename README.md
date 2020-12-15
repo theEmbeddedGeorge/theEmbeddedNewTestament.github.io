@@ -33,6 +33,7 @@
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. [atoi](Data_Struct_Implementation/atoi/README.md)
     4. sizeof
+    5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
 
 ### D. Basic Algorithms
 1. Sort

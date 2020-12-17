@@ -178,6 +178,7 @@
 13. [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
 14. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
 15. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
+16. [Embedded Interview Questions](Interview/Concept/embedded_interview_questions.md)
 
 ### D. Behavior Question
 1.  Amazon Leading Principles
@@ -203,4 +204,6 @@
 [Awesome Embedded Github](https://github.com/embedded-boston/awesome-embedded-systems)
 
 [Awesome C Github](https://github.com/kozross/awesome-c)
+
+[Awesome Embedded Interview Link](https://docs.google.com/document/d/18HMyd-lFu1hWiixFLS2Pc7-SgyzDDqitzXbfAnUVeBE/mobilebasic)
 

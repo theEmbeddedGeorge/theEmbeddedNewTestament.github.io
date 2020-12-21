@@ -62,9 +62,8 @@
 ### F. Bus Protocols
 1.  [Serial Communication](Bus_Protocol/Serial_communication.md)
     1.  Asynchronous Serial Protocols
-        1.  UART
-        2.  RS422
-        3.  RS485
+        1.  [UART](Bus_Protocol/Uart.md)
+        2.  [RS232/RS422/RS485](Bus_Protocol/RS232_RS422_RS485.md)
     2.  Synchronous Serial Protocols
         1.  [SPI](./Bus_Protocol/spi.md)
         2.  [I2C](./Bus_Protocol/i2c.md)
@@ -189,6 +188,8 @@
     2. [SPI Interview Questions](Interview/Concept/SPI_interview_questions.md)
     3. [CAN Interview Questions](Interview/Concept/CAN_interview_questions.md)
     4. [UART Interview Questions](Interview/Concept/UART_interview_questions.md)
+    5. USB Interview Questions
+    6. PCIe Interview Questions
 2. Operating System
    1. Interrupt Interview Questions
    2. Synchronization Interview Questions

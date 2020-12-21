@@ -12,9 +12,9 @@
 
 ### B. Programming Languages
 1. [C](https://www.geeksforgeeks.org/c-programming-language/)
-2. C++
+2. [C++](https://www.geeksforgeeks.org/c-plus-plus/?ref=leftbar)
 3. Bash
-4. Python
+4. [Python](https://www.geeksforgeeks.org/python-programming-language/?ref=leftbar)
 5. Assembly
 
 ### C. Data Structures & Implementation
@@ -139,6 +139,8 @@
 ### N. Embedded Security
 1.  CRC
 2.  TPM
+3.  [Arm Trust Zone](https://embeddedsecurity.io/?utm_source=linkedin&utm_medium=social&utm_campaign=phillipjohnston&utm_content=linkstoshare)
+4.  Intel SGX
 
 ### O. Network
 1.  Ethernet
@@ -190,20 +192,28 @@
     5. USB Interview Questions
     6. PCIe Interview Questions
 2. Operating System
-   1. Interrupt Interview Questions
-   2. Synchronization Interview Questions
-   3. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
-   4. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
+   1. [Commonly Asked Operating Systems Interview Questions Sets](https://www.geeksforgeeks.org/commonly-asked-operating-systems-interview-questions-set-1/)
+   2. Interrupt Interview Questions
+   3. Synchronization Interview Questions
+   4. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
+   5. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
+   6. [Operating system mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Operating%20Systems%20Mock%20Tests)
 3. Programming Language
    1. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
    2. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
    3. [C++ Interview Questions](https://aticleworld.com/cpp-interview-questions/)
    4. [C Puzzles](https://www.geeksforgeeks.org/puzzles/#CPuzzles)
+   5. [C++ Mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#C++%20Programming%20Mock%20Tests)
 4. Computer Architecture
    1. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
    2.  [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
-5. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
-6.  [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
+5. Computer Networks
+   1. [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
+   2. [Commonly asked Computer Networks Interview Questions](https://www.geeksforgeeks.org/commonly-asked-computer-networks-interview-questions-set-1/))
+   3. [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)
+   
+
+6. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
 7.  [Embedded Interview Questions](Interview/Concept/embedded_interview_questions.md)
 8.  [Embedded Interview Questions Repo](https://github.com/Embedded-Systems-Guide/interview-questions)
 

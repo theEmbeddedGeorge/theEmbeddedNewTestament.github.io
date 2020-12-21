@@ -69,9 +69,7 @@
         2.  [I2C](./Bus_Protocol/i2c.md)
         3.  CAN
         4.  USB
-        5.  Ethernet
 2.  PCIE
-3.  PPP
 
 ### G. Linux Command 
 1.  Bash
@@ -150,12 +148,13 @@
 5.  Bluetooth
 6.  Router/switch
 7.  TCP/UDP/IP
-8.  DHCP
-9.  DNS
-10. PTP
-11. Multicast
-12. TSN/AVB
-13. Network OSI layer
+8.  PPP
+9.  DHCP
+10. DNS
+11. PTP
+12. Multicast
+13. TSN/AVB
+14. Network OSI layer
 
 ## Interview Questions
 

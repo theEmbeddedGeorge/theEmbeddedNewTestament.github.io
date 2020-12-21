@@ -100,6 +100,12 @@ The main difference between UART and USART is, UART supports only asynchronous c
 
 ![Uart vs Usart](images/uart_vs_usart.png)
 
+## Is UART a protocol or hardware?
+
+More like a hardware than protocol:
+
+[UART hardware or protocol discussion](https://electronics.stackexchange.com/questions/399550/uart-a-protocol-or-hardware)
+
 ## Key points
 * Serial Communication
 * Type of Communication : Asynchronous - No clock.
@@ -121,4 +127,6 @@ https://www.codrey.com/embedded-systems/uart-serial-communication-rs232/
 https://blog.csdn.net/zjy900507/article/details/79789671?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-3&spm=1001.2101.3001.4242
 
 https://blog.csdn.net/ayang1986/article/details/106729103
+
+https://www.analog.com/en/analog-dialogue/articles/uart-a-hardware-communication-protocol.html#
 

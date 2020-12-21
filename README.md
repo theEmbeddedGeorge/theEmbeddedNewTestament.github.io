@@ -31,7 +31,7 @@
 11. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
-    3. [atoi](Data_Struct_Implementation/atoi/README.md)
+    3. atoi
     4. sizeof
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
 
@@ -80,7 +80,7 @@
 3.  [Exception Handling](Operating_System/Exception_ARM64.md)
 4.  Virtual Memory
 5.  File System
-6.  【Process/Thread & Scheduling】
+6.  [Process/Thread & Scheduling](Operating_System/Process_thread_scheduling.md)
 7.  [Interrupt](./Operating_System/Interrupt.md)
 8.  System call
 9.  Interprocess communication
@@ -136,8 +136,22 @@
 1.  CRC
 2.  TPM
 
-## Interview Questions
+### O. Network
+1.  Ethernet
+2.  LTE
+3.  Wifi
+4.  BLE
+5.  Bluetooth
+6.  Router/switch
+7.  TCP/UDP/IP
+8.  DHCP
+9.  DNS
+10. PTP
+11. Multicast
+12. TSN/AVB
+13. Network OSI layer
 
+## Interview Questions
 
 ### [A.  LeetCode Questions for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
 

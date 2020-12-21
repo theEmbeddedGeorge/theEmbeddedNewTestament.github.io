@@ -5,17 +5,22 @@
 Index | Question | Diffculty | Importance
 --|-----------------|----------|---|---
 1 | [What is Deadlock? How to avoid and prevent?](https://practice.geeksforgeeks.org/problems/deadlock-in-os/) | Easy | ***** 
-2 | [What is the basic difference between  #include  <FileName> and  #include   "FileName" ?](https://practice.geeksforgeeks.org/problems/header-file/) | Easy 
-3 | [Explain Thrashing in Operating Systems](https://practice.geeksforgeeks.org/problems/thrashing-in-os/) | Medium 
+2 | [What is the basic difference between  #include  <FileName> and  #include   "FileName" ?](https://practice.geeksforgeeks.org/problems/header-file/) | Easy | **
+3 | [Explain Thrashing in Operating Systems](https://practice.geeksforgeeks.org/problems/thrashing-in-os/) | Medium | ****
 4 | [What are the different layers of OSI model?](https://practice.geeksforgeeks.org/problems/what-are-the-different-layers-of-osi-model/) | Easy | ***** 
 5 | [Explain the booting process in Linux ?](https://practice.geeksforgeeks.org/problems/booting-in-linux) | Easy | ***** 
 6 | [If you kill a parent process then what will happen ?](https://practice.geeksforgeeks.org/problems/child-parent-process) | Medium | ***** 
-7 | [What is a semaphore?](https://practice.geeksforgeeks.org/problems/what-is-a-semaphore) | Easy 
-8 | [How does a process handle a interrupt](https://practice.geeksforgeeks.org/problems/handle-interrupt) | Easy | v	
-9 | [Explain TCP/IP model. Protocols used in respective layers with their functionalities](https://practice.geeksforgeeks.org/problems/tcpip-model/) | 
-10 | [Preprocessor Directive "pragma" in C](https://practice.geeksforgeeks.org/problems/pragma-question/) |
-11 | [Difference between Process and thread](https://practice.geeksforgeeks.org/problems/difference-between-process-and-thread/) |
-12 | [Size of void pointer in C](https://practice.geeksforgeeks.org/problems/size-of-void-pointer-in-c) | 
+7 | [What is a semaphore?](https://practice.geeksforgeeks.org/problems/what-is-a-semaphore) | Easy | *****
+8 | [How does a process handle a interrupt](https://practice.geeksforgeeks.org/problems/handle-interrupt) | Easy | *****
+9 | [Explain TCP/IP model. Protocols used in respective layers with their functionalities](https://practice.geeksforgeeks.org/problems/tcpip-model/) | medium | ***
+10 | [Preprocessor Directive "pragma" in C](https://practice.geeksforgeeks.org/problems/pragma-question/) | medium | ***
+11 | [Difference between Process and thread](https://practice.geeksforgeeks.org/problems/difference-between-process-and-thread/) | easy | *****
+12 | [Size of void pointer in C](https://practice.geeksforgeeks.org/problems/size-of-void-pointer-in-c) | easy | ***
+13 | [How to implement monitors using semaphores?](https://cis.temple.edu/~giorgio/cis307/readings/monitor.html) | hard | *
+14 | [What is the solution to priority inversion?](https://practice.geeksforgeeks.org/problems/what-is-the-solution-to-priority-inversion) | easy | ****
+15 | [What is priority inversion?](https://practice.geeksforgeeks.org/problems/what-is-priority-inversion) | easy | ****
+16 | [Why is it important for the scheduler to distinguish I/0-bound programs from CPU-bound programs?](https://practice.geeksforgeeks.org/problems/why-is-it-important-for-the-scheduler-to-distinguish-i0-bound-programs-from-cpu-bound-programs) | medium | **
+17 | [What is Processor Affinity ?](https://practice.geeksforgeeks.org/problems/what-is-processor-affinity) | easy | **
 
 
 

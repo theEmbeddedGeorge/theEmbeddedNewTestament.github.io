@@ -60,14 +60,18 @@
 3. Multi-thread/Multi-processing
 
 ### F. Bus Protocols
-1.  [SPI](./Bus_Protocol/spi.md)
-2.  [I2C](./Bus_Protocol/i2c.md)
-3.  UART
-4.  PWM
-5.  GPIO
-6.  PCIE
-7.  CAN
-8.  USB
+1.  [Serial Communication](Bus_Protocol/Serial_communication.md)
+    1.  Asynchronous Serial Protocols
+        1.  UART
+        2.  RS232
+        3.  RS422
+        4.  RS485
+    2.  Synchronous Serial Protocols
+        1.  [SPI](./Bus_Protocol/spi.md)
+        2.  [I2C](./Bus_Protocol/i2c.md)
+        3.  CAN
+        4.  USB
+2.  PCIE
 
 ### G. Linux Command 
 1.  Bash

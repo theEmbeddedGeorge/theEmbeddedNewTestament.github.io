@@ -1,6 +1,8 @@
 ### URL lists
 
-https://aticleworld.com/i2c-interview-questions/ 
+https://aticleworld.com/i2c-interview-questions/
+
+[What is I2C in simple terms? Where do we use this protocol? Why would most SOCs have I2C protocol?](https://www.quora.com/What-is-I2C-in-simple-terms-Where-do-we-use-this-protocol-Why-would-most-SOCs-have-I2C-protocol)
 
 
 ### In-Depth I2C questions

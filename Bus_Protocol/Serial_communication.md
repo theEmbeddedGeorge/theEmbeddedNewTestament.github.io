@@ -94,7 +94,25 @@ Synchronization bits help the receiver to identify the start and end of the data
 
 If the binary data contains an even number of 1’s it is known as even parity and the Parity bit is set to ‘1’. If the binary data include an odd number of 1’s, it is called odd parity, and now parity bit is set to ‘0’.
 
+## Hardware implementation
+How is serial communication actually implemented at a signal level? In a variety of ways, actually. There are all sorts of standards for serial signaling. Let's look at a couple of the more popular hardware implementations of serial: logic-level (TTL) and RS-232.
+
+When microcontrollers and other low-level ICs communicate serially they usually do so at a TTL (transistor-transistor logic) level. TTL serial signals exist between a microcontroller's voltage supply range - usually 0V to 3.3V or 5V. A signal at the VCC level (3.3V, 5V, etc.) indicates either an idle line, a bit of value 1, or a stop bit. A 0V (GND) signal represents either a start bit or a data bit of value 0.
+
+![TTL](https://cdn.sparkfun.com/assets/1/8/d/c/1/51142c09ce395f0e7e000002.png)
+
+RS-232, which can be found on some of the more ancient computers and peripherals, is like TTL serial flipped on its head. RS-232 signals usually range between -13V and 13V, though the spec allows for anything from +/- 3V to +/- 25V. On these signals a low voltage (-5V, -13V, etc.) indicates either the idle line, a stop bit, or a data bit of value 1. A high RS-232 signal means either a start bit, or a 0-value data bit. That's kind of the opposite of TTL serial.
+
+![RS232](https://cdn.sparkfun.com/assets/b/d/a/1/3/51142cacce395f877e000006.png)
+
+Between the two serial signal standards, TTL is much easier to implement into embedded circuits. However the low voltage levels are more susceptible to losses across long transmission lines. RS-232, or more complex standards like RS-485, are better suited to long range serial transmissions.
+
+When you're connecting two serial devices together, it's important to make sure their signal voltages match up. You can't directly interface a TTL serial device with an RS-232 bus. You'll have to shift those signals!
+
+
 ## Links
 [Serial Peripheral Interface basics](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)
 
 [Serial Communication Basics](https://www.codrey.com/embedded-systems/serial-communication-basics/)
+
+[Serial basics](https://learn.sparkfun.com/tutorials/serial-communication/all#:~:text=One%20of%20the%20more%20common,fast%20data%20can%20be%20transferred)

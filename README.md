@@ -63,15 +63,16 @@
 1.  [Serial Communication](Bus_Protocol/Serial_communication.md)
     1.  Asynchronous Serial Protocols
         1.  UART
-        2.  RS232
-        3.  RS422
-        4.  RS485
+        2.  RS422
+        3.  RS485
     2.  Synchronous Serial Protocols
         1.  [SPI](./Bus_Protocol/spi.md)
         2.  [I2C](./Bus_Protocol/i2c.md)
         3.  CAN
         4.  USB
+        5.  Ethernet
 2.  PCIE
+3.  PPP
 
 ### G. Linux Command 
 1.  Bash
@@ -106,6 +107,8 @@
 ### I. Computer Architecture
 1.  Pipeline
 2.  Cache coherence
+3.  DMA
+4.  TCM
 
 ### J. HW Modules
 1.  RAM & ROM
@@ -181,22 +184,28 @@
 
 
 ### C.  [Concept Questions](Interview/Concept/Concept_questions.md)
-1. Interrupt Interview Questions
-2. Synchronization Interview Questions
-3. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
-4. [I2C Interview Questions](Interview/Concept/I2C_interview_questions.md)
-5. [SPI Interview Questions](Interview/Concept/SPI_interview_questions.md)
-6. [CAN Interview Questions](Interview/Concept/CAN_interview_questions.md)
-7. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
-8. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
-9. [C++ Interview Questions](https://aticleworld.com/cpp-interview-questions/)
-10. [C Puzzles](https://www.geeksforgeeks.org/puzzles/#CPuzzles)
-11. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
-12. [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
-13. [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
-14. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
-15. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
-16. [Embedded Interview Questions](Interview/Concept/embedded_interview_questions.md)
+1.  Bus Protocol
+    1. [I2C Interview Questions](Interview/Concept/I2C_interview_questions.md)
+    2. [SPI Interview Questions](Interview/Concept/SPI_interview_questions.md)
+    3. [CAN Interview Questions](Interview/Concept/CAN_interview_questions.md)
+    4. [UART Interview Questions](Interview/Concept/UART_interview_questions.md)
+2. Operating System
+   1. Interrupt Interview Questions
+   2. Synchronization Interview Questions
+   3. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
+   4. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
+3. Programming Language
+   1. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
+   2. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
+   3. [C++ Interview Questions](https://aticleworld.com/cpp-interview-questions/)
+   4. [C Puzzles](https://www.geeksforgeeks.org/puzzles/#CPuzzles)
+4. Computer Architecture
+   1. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
+   2.  [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
+5. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
+6.  [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
+7.  [Embedded Interview Questions](Interview/Concept/embedded_interview_questions.md)
+8.  [Embedded Interview Questions Repo](https://github.com/Embedded-Systems-Guide/interview-questions)
 
 ### D. Behavior Question
 1.  Amazon Leading Principles
@@ -224,4 +233,6 @@
 [Awesome C Github](https://github.com/kozross/awesome-c)
 
 [Awesome Embedded Interview Link](https://docs.google.com/document/d/18HMyd-lFu1hWiixFLS2Pc7-SgyzDDqitzXbfAnUVeBE/mobilebasic)
+
+[Embedded system guide repo collection](https://github.com/Embedded-Systems-Guide)
 

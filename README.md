@@ -141,6 +141,7 @@
 2.  TPM
 3.  [Arm Trust Zone](https://embeddedsecurity.io/?utm_source=linkedin&utm_medium=social&utm_campaign=phillipjohnston&utm_content=linkstoshare)
 4.  Intel SGX
+5.  [Embedded Reverse Engineering](https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on-stm32f103c8t6.html)
 
 ### O. Network
 1.  Ethernet
@@ -197,20 +198,17 @@
    3. Synchronization Interview Questions
    4. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
    5. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
-   6. [Operating system mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Operating%20Systems%20Mock%20Tests)
 3. Programming Language
    1. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
    2. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
    3. [C++ Interview Questions](https://aticleworld.com/cpp-interview-questions/)
    4. [C Puzzles](https://www.geeksforgeeks.org/puzzles/#CPuzzles)
-   5. [C++ Mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#C++%20Programming%20Mock%20Tests)
 4. Computer Architecture
    1. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
    2.  [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
 5. Computer Networks
    1. [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
-   2. [Commonly asked Computer Networks Interview Questions](https://www.geeksforgeeks.org/commonly-asked-computer-networks-interview-questions-set-1/))
-   3. [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)
+   2. [Commonly asked Computer Networks Interview Questions](https://www.geeksforgeeks.org/commonly-asked-computer-networks-interview-questions-set-1/)
    
 
 6. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
@@ -228,6 +226,11 @@
 3.  [Qualcomm](Interview/Company/qualcomm.md)
 4.  [Nvidia](Interview/Company/Nvidia.md)
 5.  [Cisco](Interview/Company/Cisco.md)
+
+### G. Mock Tests
+1.  [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)
+2.  [C++ Mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#C++%20Programming%20Mock%20Tests)
+3.  [Operating system mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Operating%20Systems%20Mock%20Tests)
 
 ## Book Recommendation
 

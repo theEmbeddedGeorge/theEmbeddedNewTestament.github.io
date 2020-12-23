@@ -66,10 +66,9 @@
         2.  [RS232/RS422/RS485](Bus_Protocol/RS232_RS422_RS485.md)
     2.  Synchronous Serial Protocols
         1.  [SPI](./Bus_Protocol/spi.md)
-        2.  [I2C](./Bus_Protocol/i2c.md)
+        2.  [I2C/SMBus](./Bus_Protocol/i2c.md)
         3.  CAN
         4.  USB
-        5.  SMBus
 2.  PCIE
 
 ### G. Linux Command 

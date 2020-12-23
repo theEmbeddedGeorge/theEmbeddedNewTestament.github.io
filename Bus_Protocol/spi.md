@@ -200,7 +200,8 @@ void send_8bit_serial_data(unsigned char data)
 
    // deselect device
    output_high(SD_CS);
-}```
+}
+```
 
 ## Reference 
 [Serial Peripheral Interface basics](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)

@@ -59,7 +59,7 @@
 2. Memory management
 3. Multi-thread/Multi-processing
 
-### F. Bus Protocols
+### F. Bus
 1.  [Serial Communication](Bus_Protocol/Serial_communication.md)
     1.  Asynchronous Serial Protocols
         1.  [UART](Bus_Protocol/Uart.md)
@@ -69,6 +69,7 @@
         2.  [I2C](./Bus_Protocol/i2c.md)
         3.  CAN
         4.  USB
+        5.  SMBus
 2.  PCIE
 
 ### G. Linux Command 

@@ -95,9 +95,9 @@ Data is sampled when SCL is high, so SDA line must be stable when SCL is HIGH. S
 ![I2C sampling](images/I2C_sampling.png)
 
 ### Start and Stop Condition
-- All transactions begin with a START (S) and are terminated by a STOP (P)
-- A HIGH to LOW transition on the SDA line while SCL is HIGH defines a START condition.
-- A LOW to HIGH transition on the SDA line while SCL is HIGH defines a STOP condition.
+- All transactions begin with a **START (S)** and are terminated by a **STOP (P)**
+- A **HIGH to LOW** transition on the SDA line while SCL is **HIGH** defines a START condition.
+- A **LOW to HIGH** transition on the SDA line while SCL is HIGH defines a **STOP** condition.
 
 ![I2C start & stop](images/I2C_start_stop.png)
 
@@ -113,9 +113,85 @@ The number of bytes that can be transmitted per transfer is unrestricted. Each b
 ![Byte format](images/I2C_byte_format.png)
 
 ### Acknowledge (ACK) and Not Acknowledge (NACK)
+```The acknowledge takes place after every byte.```
 
+The acknowledge bit allows the receiver to signal the transmitter that the byte was successfully received and another byte may be sent. The master generates all clock pulses, including the acknowledge ninth clock pulse.
+
+The Acknowledge signal is defined as follows: **the transmitter releases the SDA line during the acknowledge clock pulse so the receiver can pull the SDA line LOW and it remains stable LOW during the HIGH period of this clock pulse**. Set-up and hold times must also be taken into account.
+
+```When SDA remains HIGH during this ninth clock pulse, this is defined as the Not Acknowledge signal.```
+
+The master can then generate either a STOP condition to abort the transfer, or a repeated START condition to start a new transfer. There are five conditions that lead to the generation of a NACK:
+
+1. No receiver is present on the bus with the transmitted address so there is no device to respond with an acknowledge.
+2. The receiver is unable to receive or transmit because it is performing some real-time
+function and is not ready to start communication with the master.
+3. During the transfer, the receiver gets data or commands that it does not understand.
+4. During the transfer, the receiver cannot receive any more data bytes.
+5. A master-receiver must signal the end of the transfer to the slave transmitter.
+
+According to condition five, NACK is sometimes send at the end of transmission (slave not drive SDA line low to send ACK) and master will send stop condition to end the transmission.
+
+### Clock synchronization
+
+```A synchronized SCL clock is generated with its LOW period determined by the master with the longest clock LOW period, and its HIGH period determined by the one with the shortest clock HIGH period.```
+
+Two masters can begin transmitting on a free bus at the same time and there must be a method for deciding which takes control of the bus and complete its transmission. This is done by clock synchronization and arbitration. **In single master systems, clock synchronization and arbitration are not needed.**
+
+Clock synchronization is performed using the wired-AND connection of I2C interfaces to the SCL line. This means that a HIGH to LOW transition on the SCL line causes the masters concerned to start counting off their LOW period and, once a master clock has gone LOW, it holds the SCL line in that state until the clock HIGH state is reached (see Figure 7). However, if another clock is still within its LOW period, the LOW to HIGH transition of this clock may not change the state of the SCL line. The SCL line is therefore held LOW by the master with the longest LOW period. Masters with shorter LOW periods
+enter a HIGH wait-state during this time.
+
+![Clock Sync](images/I2C_clock_sync.png)
+
+When all masters concerned have counted off their LOW period, the clock line is released and goes HIGH. There is then no difference between the master clocks and the state of the SCL line, and all the masters start counting their HIGH periods. The first master to complete its HIGH period pulls the SCL line LOW again.
+
+### Arbitration
+
+```Arbitration, like synchronization, refers to a portion of the protocol required only if more than one master is used in the system.```
+
+Slaves are not involved in the arbitration procedure. A master may start a transfer only if the bus is free. Two masters may generate a START condition within the minimum hold time (tHD;STA) of the START condition which results in a valid START condition on the bus. Arbitration is then required to determine which master will complete its transmission.
+
+![i2c Arbitration](images/I2C_arbitration.png)
+
+### Clock stretching
+```Clock stretching pauses a transaction by holding the SCL line LOW. The transaction cannot continue until the line is released HIGH again.```
+
+Clock stretching is optional and in fact, most slave devices do not include an SCL driver so they are unable to stretch the clock.
+
+A device may be able to receive bytes of data at a fast rate, but needs more time to store a received byte or prepare another byte to be transmitted. Slaves can then hold the SCL line LOW after reception and acknowledgment of a byte to force the master into a wait state until the slave is ready for the next byte transfer in a type of handshake procedure 
+
+### Addressing
+
+```After the START condition (S), a slave address is sent. This address is seven bits long followed by an eighth bit which is a data direction bit (R/W) — a ‘zero’ indicates a transmission (WRITE), a ‘one’ indicates a request for data (READ) (refer to Figure 10).```
+
+A data transfer is always terminated by a **STOP condition (P) generated by the master**. However, if a master still wishes to communicate on the bus, it can generate a **repeated START condition (Sr) and address another slave without first generating a STOP condition**. Various combinations of read/write formats are then possible within such a transfer.
+
+![I2C data transfer](images/I2C_data_transfer.png)
+
+![First byte](images/I2C_1st_byte.png)
+
+Possible transfer formats:
+- ***Master-transmitter transmits to slave-receiver.*** The transfer direction is not changed. The slave receiver acknowledges each byte.
+
+![format1](images/I2C_transfer_figure_1.png)
+
+- ***Master reads slave immediately after first byte.*** At the moment of the first acknowledge, the master-transmitter becomes a master-receiver and the slave-receiver becomes a slave-transmitter. This first acknowledge is still generated **by the slave**. The **master generates subsequent acknowledges**. The **STOP condition is generated by the master**, which sends a **not-acknowledge (A) just before the STOP condition**.
+
+![format2](images/I2C_transfer_figure_2.png)
+
+- ***Combined format.*** During a change of direction within a transfer, the START condition and the slave address are both repeated, but with the R/W bit reversed. If a master-receiver sends a repeated START condition, it sends a not-acknowledge (A) just before the repeated START condition.
+
+![format3](images/I2C_transfer_figure_3.png)
+
+### 10-bit addressing
+```The 10-bit slave address is formed from the first two bytes following a START condition (S) or a repeated START condition (Sr).```
+
+The first seven bits of the first byte are the combination 1111 0XX of which the last two bits (XX) are the two Most-Significant Bits (MSB) of the 10-bit address; the eighth bit of the first byte is the R/W bit that determines the direction of the message.
+
+![10-bit-transfer](images/I2C_10bit_address_transfer.png)
 
 ## Reference
+[I2C Spec NXP](https://www.nxp.com/docs/en/user-guide/UM10204.pdf))
 
 https://learn.sparkfun.com/tutorials/i2c/all
 

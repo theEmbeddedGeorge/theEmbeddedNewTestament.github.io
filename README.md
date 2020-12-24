@@ -66,7 +66,7 @@
         2.  [RS232/RS422/RS485](Bus_Protocol/RS232_RS422_RS485.md)
     2.  Synchronous Serial Protocols
         1.  [SPI](./Bus_Protocol/spi.md)
-        2.  [I2C/SMBus](./Bus_Protocol/i2c.md)
+        2.  [I2C](./Bus_Protocol/i2c.md)
         3.  CAN
         4.  USB
 2.  PCIE
@@ -106,6 +106,9 @@
 2.  Cache coherence
 3.  DMA
 4.  TCM
+5.  TLB
+6.  NUMA
+7.  Memory translation
 
 ### J. HW Modules
 1.  RAM & ROM

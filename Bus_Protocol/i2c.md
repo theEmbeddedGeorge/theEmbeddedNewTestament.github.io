@@ -190,8 +190,314 @@ The first seven bits of the first byte are the combination 1111 0XX of which the
 
 ![10-bit-transfer](images/I2C_10bit_address_transfer.png)
 
+## I2C code example
+Send I2C start signal:
+```c
+void I2C_Start(void)
+{
+    I2C_SDA_High();     //SDA=1
+    I2C_SCL_High();     //SCL=1
+    I2C_Delay();
+    I2C_SDA_Low();
+    I2C_Delay();
+    I2C_SCL_Low();
+    I2C_Delay();
+}
+```
+Send I2C Stop signal:
+```c
+void I2C_Stop(void)
+{
+    I2C_SDA_Low();
+    I2C_SCL_High();
+    I2C_Delay();
+    I2C_SDA_High();
+    I2C_Delay();
+}
+```
+
+Send a Byte
+```c
+u8 I2C_SendByte(uint8_t Byte)
+{
+    uint8_t i;
+ 
+    /* Send MSB first */
+    for(i = 0 ; i < 8 ; i++)
+    {
+        if(Byte & 0x80)
+        {
+            I2C_SDA_High();
+        }
+        else
+        {
+            I2C_SDA_Low();
+        }
+        I2C_Delay();
+        I2C_SCL_High();
+        I2C_Delay();
+        I2C_SCL_Low();
+        I2C_Delay();
+ 
+        if(i == 7)
+        {
+            I2C_SDA_High();   /* Release SDA when done*/
+        }
+        Byte <<= 1;           /* left shift */
+ 
+        I2C_Delay();
+    }
+}　
+```
+
+Read a Byte:
+```c
+u8 I2C_ReadByte(void)
+{
+    uint8_t i;
+    uint8_t value;
+ 
+    /* Read MSB */
+    value = 0;
+    for(i = 0 ; i < 8 ; i++)
+    {
+        value <<= 1;
+        I2C_SCL_High();
+        I2C_Delay();
+        if(I2C_SDA_READ())
+        {
+            value |= 0x1;
+        }
+        I2C_SCL_Low();
+        I2C_Delay();
+    }
+ 
+    return value;
+}
+```
+
+Generate a ACK:
+```c
+void I2C_Ack(void)
+{
+    I2C_SDA_Low();
+    I2C_Delay();
+    I2C_SCL_High();
+    I2C_Delay();
+    I2C_SCL_Low();
+    I2C_Delay();
+    
+    /* Release SDA line */
+    I2C_SDA_High();
+}
+```
+
+Generate a NACK:
+```c
+void I2C_NoAck(void)
+{
+    I2C_SDA_High();
+    I2C_Delay();
+    I2C_SCL_High();
+    I2C_Delay();
+    I2C_SCL_Low();
+    I2C_Delay();
+}
+```
+
+Read ACK:
+```c
+uint8_t I2C_WaitToAck(void)
+{
+    uint8_t redata;
+ 
+    I2C_SDA_High();
+    I2C_Delay();
+    I2C_SCL_High();
+    I2C_Delay();
+    
+    /* if SDA is low, then ACK is being set, return 0 for success */
+    if(I2C_SDA_READ())
+    {
+        redata = 1;
+    }
+    else
+    {
+        redata = 0;
+    }
+    I2C_SCL_Low();
+    I2C_Delay();
+ 
+    return redata;
+}
+```
+
+### Controller transmission example
+
+Given the following timing diagram, please write transfer function using method listed earilier:
+
+![timing diagram](https://i.imgur.com/IL0Ha8b.png)
+
+Diagram break down:
+
+![diagram breakdown](https://i.imgur.com/VBHwFOr.png)
+
+      1. Send START signal.
+      2. Send 7-bit address + 1 R/W bit.
+      3. Prephrial send ACK.
+      4. Send register address, which is a 8-bit data.
+      5. Prephrial send ACK.
+      6. Send one byte data.
+      7. Prephrial send ACK.
+      8. Send one byte CRC.
+      9. Prephrial send ACK or NACK.
+      10. Send STOP signal. 
+
+Code:
+```c
+#define WRITE 0x0
+#define READ 0x1
+
+u8 I2C_WriteBytes(void)
+{
+    int ret;
+
+    I2C_Start();                                //1
+ 
+    I2C_SendByte((slave_Addr << 1) | WRITE);    //2
+    ret = I2C_WaitToAck();                      //3
+    if (ret) goto BAIL;
+ 
+    I2C_SendByte(reg_Addr);                     //4
+    ret = I2C_WaitToAck();                      //5
+    if (ret) goto BAIL;
+ 
+    I2C_SendByte(data);                         //6
+    ret = I2C_WaitToAck();                      //7
+    if (ret) goto BAIL;
+
+    I2C_SendByte(crc);                          //8
+    I2C_WaitToAck();                            //9
+
+    /* No need to check ACK for 9 cuz both ACK and NACK are ok */
+    I2C_Stop();                     //10
+
+BAIL:
+    /* failure handling procedure */
+}
+```
+
+### Controller read example
+
+![controller read](https://i.imgur.com/HQ6HIUT.png)
+
+Timing analysis:
+
+![analysis](https://i.imgur.com/AjsozXQ.png)
+
+     1. Send START signal.
+     2. Send 7-bit address + 1 R/W bit.
+     3. Prephrial send ACK.
+     4. Send register address, which is a 8-bit data.
+     5. Prephrial send ACK.
+     6. Controller send repeated start (which is esstentially START)
+     7. Controller sends 7-bit address + 1 R/W bit.
+     8. Prephrial send ACK.
+     9. Prephrial send one byte (controller read).
+     10. Controller send ACK.
+     11. Prephrial send one byte CRC (controller read).
+     12. Controller sends NACK.
+     13. Controller sends STOP signal.
+
+Code:
+```c
+#define WRITE 0x0
+#define READ 0x1
+
+u8 I2C_ReadBytes(void)
+{
+    u8 data;
+    u8 crc;
+    int ret;
+ 
+    I2C_Start();                                //1
+ 
+    I2C_SendByte((slave_Addr << 1) | WRITE);    //2
+    ret = I2C_WaitToAck();                      //3
+    if (ret) goto BAIL;
+ 
+    I2C_SendByte(Reg_Addr);                     //4
+    ret = I2C_WaitToAck();                      //5
+    if (ret) goto BAIL;
+    
+    /* Send repeated START (SR) */
+    I2C_Start();                                //6
+ 
+    I2C_SendByte((slave_Addr << 1) | READ);     //7
+    ret = I2C_WaitToAck();                      //8
+    if (ret) goto BAIL;
+ 
+    data = I2C_ReadByte();                      //9
+    I2C_Ack();                                  //10
+    
+    crc = I2C_ReadByte();                       //11
+    I2C_NoAck();                                //12
+    
+    I2C_Stop();                                 //13
+
+BAIL:
+    /* failure handling procedure */
+}
+```
+
+## I2C speed
+```There are now five operating speedcategories. Standard-mode, Fast-mode (Fm), Fast-mode Plus (Fm+)```
+
+High-speed mode (Hs-mode) devices are downward-compatible — any device may be operated at a lower bus speed. Ultra Fast-mode devices are not compatible with previous versions since the bus is unidirectional.
+
+- Bidirectional bus:
+    - Standard-mode (Sm), with a bit rate up to 100 kbit/s
+    - Fast-mode (Fm), with a bit rate up to 400 kbit/s
+    - Fast-mode Plus (Fm+), with a bit rate up to 1 Mbit/s
+    - High-speed mode (Hs-mode), with a bit rate up to 3.4 Mbit/s.
+- Unidirectional bus:
+    - Ultra Fast-mode (UFm), with a bit rate up to 5 Mbit/s
+
+## I2C Pros and cons
+The advantages of I2C can be summarized as follows:
+
+-   maintains low pin/signal count even with numerous devices on the bus
+-   adapts to the needs of different slave devices
+-   readily supports multiple masters
+-   incorporates ACK/NACK functionality for improved error handling
+
+And here are some disadvantages:
+
+-   increases the complexity of firmware or low-level hardware
+-   imposes protocol overhead that reduces throughput
+-   requires pull-up resistors, which
+    -   limit clock speed
+    -   consume valuable PCB real estate in extremely - -   space-constrained systems
+    -   increase power dissipation
+
+## SMBus - System Management Bus
+
+```SMBus allow hot-swap and has a time-out feature which resets device if communication takes too long.```
+
+The SMBus uses I2C hardware and I2C hardware addressing, but adds second-level software for building special systems. In particular, its specifications include an Address Resolution Protocol that can make dynamic address allocations.
+
+Dynamic reconfiguration of the hardware and software allow bus devices to be ‘hot-plugged’ and used immediately, without restarting the system. m. The devices are recognized automatically and assigned unique addresses. This advantage results in a plug-and-play user interface. In both those protocols, there is a very useful distinction made between a System Host and all the other devices in the system that can have the names and functions of masters or slaves.
+
+SMBus and I2C protocols are basically the same: A SMBus master is able to control I2C devices and vice versa at the protocol level. The SMBus clock is defined from 10 kHz to 100 kHz while I2C can be 0 Hz to 100 kHz, 0 Hz to 400 kHz, 0 Hz to 1 MHz and 0 Hz to 3.4 MHz, depending on the mode. This means that an I2C-bus running at less than 10 kHz is not SMBus compliant since the SMBus devices may time-out.
+
+### Time-out feature
+SMBus has a time-out feature which resets devices if a communication takes too long. I2C can be a ‘DC’ bus, meaning that a slave device stretches the master clock when performing some routine while the master is accessing it. This notifies the master that the slave is busy but does not want to lose the communication. The slave device will allow continuation after its task is complete. There is no limit in the I2C-bus protocol as to how long this delay can be, whereas for a SMBus system, it would be limited to 35 ms.
+
+SMBus protocol just assumes that if something takes too long, then it means that there is a problem on the bus and that all devices must reset in order to clear this mode. Slave devices are not then allowed to hold the clock LOW too long.
+
+
 ## Reference
-[I2C Spec NXP](https://www.nxp.com/docs/en/user-guide/UM10204.pdf))
+[I2C Spec NXP](https://www.nxp.com/docs/en/user-guide/UM10204.pdf)
 
 https://learn.sparkfun.com/tutorials/i2c/all
 

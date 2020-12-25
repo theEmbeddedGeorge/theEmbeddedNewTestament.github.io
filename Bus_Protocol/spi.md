@@ -57,7 +57,7 @@ Quad I/O devices can, for example, offer up to 4 times the performance of a stan
 ![quad-io](https://www.corelis.com/wp-content/uploads/2017/05/2-41.jpg)
 
 ## SPI speed
-There is no standard set of speeds defined for the SPI protocol. Typical bus speeds are in the 50 MHz range. Since there is no overhead added by the protocol such as addressing and flow control, the throughput that can be achieved using SPI mirrors the clock frequency. For a 50 MHz SPI line, the throughput is 50 Mbps.
+There is no standard set of speeds defined for the SPI protocol. Typical bus speeds are in the **50 MHz** range. Since there is no overhead added by the protocol such as addressing and flow control, the throughput that can be achieved using SPI mirrors the clock frequency. For a 50 MHz SPI line, the throughput is 50 Mbps.
 
 ## SPI data transfer example
 ### Simple SPI write

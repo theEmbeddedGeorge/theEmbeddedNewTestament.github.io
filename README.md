@@ -47,17 +47,11 @@
     2.  [Binary search Tree](Data_Struct_Implementation/BST/README.md)
     3.  Graph
 
-### E. POSIX API 
-1.  IPC 
-    1.  mutex 
-    2.  Semaphore
-    3.  Spinlock 
-    4.  Pipe
-    5.  Share Memory
-    6.  Signal
-    7.  Software Interrupt
+### E. Programming API 
+1. [Unix IPC](Resources/beeje_guide_unix_ipc.pdf) 
 2. Memory management
 3. Multi-thread/Multi-processing
+4. [Socket Programming](Resources/beeje_guide_network_programming.pdf)
 
 ### F. Bus
 1.  [Serial Communication](Bus_Protocol/Serial_communication.md)
@@ -129,7 +123,7 @@
 ### K. Debugging Techniques
 1.  JTAG
 2.  Trace
-3.  GDB
+3.  [GDB](http://beej.us/guide/bggdb/)
 4.  Sysfs
 5.  printk
 
@@ -152,7 +146,7 @@
 3.  Wifi
 4.  BLE
 5.  Bluetooth
-6.  Router/switch
+6.  [Router/switch](Network/router_switch.md)
 7.  TCP/UDP/IP
 8.  PPP
 9.  DHCP
@@ -236,6 +230,12 @@
 3.  [Operating system mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Operating%20Systems%20Mock%20Tests)
 
 ## Book Recommendation
+1.  Network
+    1. Unix Network Programming, volumes 1-2 by W. Richard Stevens.
+    2. Internetworking with TCP/IP, volume I by Douglas E. Comer.
+    3. TCP/IP Illustrated, volumes 1-3 by W. Richard Stevens and Gary R. Wright.
+    4. TCP/IP Network Administration by Craig Hunt. Published by O’Reilly & Associates, Inc.
+    5. Advanced Programming in the UNIX Environment by W. Richard Stevens.
 
 ## Useful Links
 [Embedded software interview archive](https://docs.google.com/document/d/1uW030FMfBxKLxXz-eIwyzlMJdERN5DMEwtUnJMYsF-g/edit)

@@ -464,21 +464,29 @@ High-speed mode (Hs-mode) devices are downward-compatible — any device may be 
     - Ultra Fast-mode (UFm), with a bit rate up to 5 Mbit/s
 
 ## I2C Pros and cons
-The advantages of I2C can be summarized as follows:
+Advantages of I2C communication?
 
--   maintains low pin/signal count even with numerous devices on the bus
--   adapts to the needs of different slave devices
--   readily supports multiple masters
--   incorporates ACK/NACK functionality for improved error handling
+- It is the synchronous communication protocol, so there is no need of a precise oscillator for the master and slave.
+- It requires only two-wire, one wire for the data (SDA) and other wire for the clock (SCL).
+- It provides the flexibility to the user to select the transmission rate as per the requirements.
+- In I2C bus, each device on the bus is independently addressable.
+- It follows the master and slave relationships.
+- It has the capability to handle multiple masters and multiple slaves on the I2C Bus.
+- I2C has some important features like arbitration, clock synchronization, and clock stretching.
+- I2C provides ACK/NACK (acknowledgment/ Not-acknowledgement) features that provide help in error handling.
+ 
 
-And here are some disadvantages:
-
--   increases the complexity of firmware or low-level hardware
--   imposes protocol overhead that reduces throughput
--   requires pull-up resistors, which
-    -   limit clock speed
-    -   consume valuable PCB real estate in extremely - -   space-constrained systems
-    -   increase power dissipation
+What are the limitations of I2C interface?
+- Half-duplex communication, so data is transmitted only in one direction (because of the single data bus) at a time.
+Since the bus is shared by many devices, debugging an I2C bus (detecting which device is misbehaving) for issues is pretty difficult.
+- The I2C bus is shared by multiple slave devices if anyone of these slaves misbehaves (pull either SCL or SDA low for an indefinite time) the bus will be stalled. No further communication will take place.
+- I2C uses resistive pull-up for its bus. Limiting the bus speed.
+- Bus speed is directly dependent on the bus capacitance, meaning longer I2C bus traces will limit the bus speed.
+- imposes protocol overhead that reduces throughput
+- requires pull-up resistors, which
+  - limit clock speed
+  - consume valuable PCB real estate in extremely space-constrained systems
+  - increase power dissipation
 
 ## SMBus - System Management Bus
 

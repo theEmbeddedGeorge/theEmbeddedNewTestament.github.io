@@ -133,3 +133,7 @@ For a better understanding, I am taking an example, where two masters try to com
 ![Clock Sync](../images/Clock-sync.jpg)
 
 The SCL clock would be the Anding (clk1 & clk2) of clk1 and clk2 and most interesting thing is that highest logic 1 of SCL line defines by the CLK which has lowest logic 1.
+
+## More links
+
+https://aticleworld.com/i2c-interview-questions/

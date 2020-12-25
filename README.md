@@ -141,20 +141,20 @@
 5.  [Embedded Reverse Engineering](https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on-stm32f103c8t6.html)
 
 ### O. Network
-1.  Ethernet
-2.  LTE
-3.  Wifi
-4.  BLE
-5.  Bluetooth
-6.  [Router/switch](Network/router_switch.md)
-7.  TCP/UDP/IP
-8.  PPP
-9.  DHCP
-10. DNS
-11. PTP
-12. Multicast
-13. TSN/AVB
-14. Network OSI layer
+1.  Network OSI layer
+2.  Ethernet
+3.  LTE
+4.  Wifi
+5.  BLE
+6.  Bluetooth
+7.  [Router/switch](Network/router_switch.md)
+8.  TCP/UDP/IP
+9.  PPP
+10. DHCP
+11. DNS
+12. PTP
+13. Multicast
+14. TSN/AVB
 
 ## Interview Questions
 

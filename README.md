@@ -236,6 +236,7 @@
     3. TCP/IP Illustrated, volumes 1-3 by W. Richard Stevens and Gary R. Wright.
     4. TCP/IP Network Administration by Craig Hunt. Published by O’Reilly & Associates, Inc.
     5. Advanced Programming in the UNIX Environment by W. Richard Stevens.
+    6. Computer Networking - A Top-Down Approach
 
 ## Useful Links
 [Embedded software interview archive](https://docs.google.com/document/d/1uW030FMfBxKLxXz-eIwyzlMJdERN5DMEwtUnJMYsF-g/edit)

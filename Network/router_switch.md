@@ -6,29 +6,8 @@
 Some packet switches, called link-layer switches (examined
 in Chapter 5), base their forwarding decision on values in the fields of the linklayer frame; switches are thus referred to as link-layer (layer 2) devices. Other packet switches, called routers, base their forwarding decision on the value in the networklayer field. Routers are thus network-layer (layer 3) devices. but must also implement layer 2 protocols as well, since layer 3 devices require the services of layer 2 to implement their (layer 3) functionality.
 
-## Network layer
-
-![network layer](images/network_layers.png)
-
-The role of the network layer is thus deceptively simple—to move packets from a sending host to a receiving host. To do so, two important network-layer functions can be identified:
-
-- ***Forwarding***. Forwarding refers to the router-local action of transferring a packet from an input link
-interface to the appropriate output link interface.
-
-When a packet arrives at a router’s input link, the router must move the packet to the appropriate output link. For example, a packet arriving from Host H1 to Router R1 must be forwarded to the next router on a path to H2.
-
-- ***Routing***. Routing refers to the network-wide process that determines the end-to-end paths that packets take from source to destination.
-
-The network layer must determine the route or path taken by packets as they flow from a sender to a receiver. The algorithms that calculate these paths are referred to as routing algorithms. A routing algorithm would determine, for example, the path along which packets flow from H1 to H2.
-
-### Datagram networks
-```Internet is a datagram networks.```
-
-In a datagram network, each time an end system wants to send a packet, it stamps the packet with the address of the destination end system and then pops the packet into the network.
-
-As a packet is transmitted from source to destination, it passes through a series of routers. Each of these routers uses the packet’s destination address to forward the packet. Specifically, each router has a forwarding table that maps destination addresses to link interfaces; when a packet arrives at the router, the router uses the packet’s destination address to look up the appropriate output link interface in the forwarding table. The router then intentionally forwards the packet to that output link interface.
-
-![datagram networks](images/datagram_networks.png)
+## Inside a Router
+```Router's main duty - forwarding function: the actual transfer of packets from a router’s incoming links to the appropriate outgoing links at that router.```
 
 ### Forwarding table
 
@@ -46,10 +25,6 @@ they nevertheless maintain forwarding state information in their forwarding
 tables. However, the time scale at which this forwarding state information changes
 is relatively slow. Indeed, in a datagram network the forwarding tables are modified
 by the routing algorithms, which typically update a forwarding table every one-to five minutes or so.
-
-## Inside a Router
-```Router's main duty - forwarding function: the actual transfer of packets from a router’s incoming links to the appropriate outgoing links at that router.```
-
 ### Router Architecture:
 - **Input ports** 
     - It performs the ***physical layer function*** of terminating an incoming physical link at a router.
@@ -125,6 +100,7 @@ the output port’s memory and transmits them over the output link. This include
 -  performing the needed linklayer and physical-layer transmission functions.
 
 ![output processing](images/output_process.png)
+
 
 
 

@@ -64,6 +64,8 @@ ACK message, confirming the requested parameters.
 
 ![DHCP protocol](images/dhcp_protocol.png)
 
+- **DHCP Release** And finally, If the host wants to move to other network or if it has finished  its work, it sends the DHCPRELEASE packet to the server indicating that it wants to disconnect. Then the server marks the IP address as available in the storage so that it can be assigned to other machine.
+
 ## DHCP message format
 
 ![DHCP message format](images/dhcp_message_format.png)
@@ -73,3 +75,7 @@ ACK message, confirming the requested parameters.
 ## Reference 
 
 http://www.tcpipguide.com/free/t_DHCPMessageFormat.htm
+
+https://www.geeksforgeeks.org/how-dhcp-server-dynamically-assigns-ip-address-to-a-host/
+
+https://www.youtube.com/watch?v=k4t-NJrKLgM&ab_channel=HowTo

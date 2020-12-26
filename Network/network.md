@@ -2,6 +2,11 @@
 
 ## Network Layer
 
+Responsibilities of Network Layer:
+- Packet forwarding/Routing of packets: Relaying of data packets from one network segment to another by nodes in a computer network
+- Connectionless communication(IP): A data transmission method used in packet-switched networks in which each data unit is separately addressed and routed based on information carried by it
+- Fragmentation of data packets: Splitting of data packets that are too large to be transmitted on the network
+
 Network layer has three major components:
 - **IP protocol**
 - **Routing Component**
@@ -9,74 +14,28 @@ Network layer has three major components:
 
 ![Inside network layer](images/inside_network_layer.png)
 
-### IP datagram format
-![ip packet](images/ip_packet.png)
+## Network layer architect
 
-- Version number. These 4 bits specify the IP protocol version of the datagram
-- Header length. Because an IPv4 datagram can contain a variable number of
-options (which are included in the IPv4 datagram header), these 4 bits are needed
-to determine where in the IP datagram the data actually begins.
-- Type of service. The type of service (TOS) bits were included in the IPv4 header
-to allow different types of IP datagrams (for example, datagrams particularly
-requiring low delay, high throughput, or reliability) to be distinguished from each
-other.
-- Datagram length. This is the total length of the IP datagram (header plus data),
-measured in bytes.
-- Identifier, flags, fragmentation offset. These three fields have to do with so-called
-IP fragmentation.
-- Time-to-live. The time-to-live (TTL) field is included to ensure that datagrams
-do not circulate forever (due to, for example, a long-lived routing loop) in the
-network. This field is decremented by one each time the datagram is processed
-by a router. If the TTL field reaches 0, the datagram must be dropped.
-- Protocol. This field is used only when an IP datagram reaches its final destination.
-The value of this field indicates the specific transport-layer protocol to
-which the data portion of this IP datagram should be passed.
-- Header checksum. The header checksum aids a router in detecting bit errors in a
-received IP datagram.
-- Source and destination IP addresses.
-- Options. The options fields allow an IP header to be extended.
-- Data (payload). In most circumstances, the data
-field of the IP datagram contains the transport-layer segment (TCP or UDP) to
-be delivered to the destination.
+![network layer](images/network_layers.png)
 
-Note that an IP datagram has a total of 20 bytes of header (assuming no options). If
-the datagram carries a TCP segment, then each (nonfragmented) datagram carries a
-total of 40 bytes of header (20 bytes of IP header plus 20 bytes of TCP header) along
-with the application-layer message.
+The role of the network layer is thus deceptively simple—to move packets from a sending host to a receiving host. To do so, two important network-layer functions can be identified:
 
-### IP Datagram Fragmentation
-```Not all link-layer protocols can carry network-layer packets of the same size.```
+- ***Forwarding***. Forwarding refers to the router-local action of transferring a packet from an input link
+interface to the appropriate output link interface.
 
-For example, Ethernet frames can carry up to 1,500
-bytes of data, whereas frames for some wide-area links can carry no more than 576
-bytes. The maximum amount of data that a link-layer frame can carry is called the
-***maximum transmission unit (MTU)***. Because each IP datagram is encapsulated
-within the link-layer frame for transport from one router to the next router, the MTU
-of the link-layer protocol places a hard limit on the length of an IP datagram.
+When a packet arrives at a router’s input link, the router must move the packet to the appropriate output link. For example, a packet arriving from Host H1 to Router R1 must be forwarded to the next router on a path to H2.
 
-The solution is to fragment the data in the IP datagram into two or more smaller IP
-datagrams, encapsulate each of these smaller IP datagrams in a separate link-layer
-frame; and send these frames over the outgoing link. Each of these smaller datagrams
-is referred to as a ***fragment***.
+- ***Routing***. Routing refers to the network-wide process that determines the end-to-end paths that packets take from source to destination.
 
-Fragments need to be reassembled before they reach the transport layer at the destination.
-Indeed, both TCP and UDP are expecting to receive complete, unfragmented
-segments from the network layer. Designers of IPv4 decided to put the job
-of datagram reassembly in the end systems rather than in network routers.
+The network layer must determine the route or path taken by packets as they flow from a sender to a receiver. The algorithms that calculate these paths are referred to as routing algorithms. A routing algorithm would determine, for example, the path along which packets flow from H1 to H2.
 
-To allow the destination host to
-perform these reassembly tasks, the designers of IP (version 4) put identification,
-flag, and fragmentation offset fields in the IP datagram header.
+### Datagram networks
+```Internet is a datagram networks.```
 
-For example, A datagram of 4,000 bytes (20 bytes of IP
-header plus 3,980 bytes of IP payload) arrives at a router and must be forwarded to
-a link with an MTU of 1,500 bytes. This implies that the 3,980 data bytes in the
-original datagram must be allocated to three separate fragments (each of which is
-also an IP datagram):
+In a datagram network, each time an end system wants to send a packet, it stamps the packet with the address of the destination end system and then pops the packet into the network.
 
-![IP fragment](images/ip_fragment.png)
+As a packet is transmitted from source to destination, it passes through a series of routers. Each of these routers uses the packet’s destination address to forward the packet. Specifically, each router has a forwarding table that maps destination addresses to link interfaces; when a packet arrives at the router, the router uses the packet’s destination address to look up the appropriate output link interface in the forwarding table. The router then intentionally forwards the packet to that output link interface.
 
-Here is the packet format for each fragment:
+![datagram networks](images/datagram_networks.png)
 
-![ip frag example](images/ip_frag_example.png)
 

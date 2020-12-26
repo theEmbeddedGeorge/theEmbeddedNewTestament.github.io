@@ -141,7 +141,7 @@
 5.  [Embedded Reverse Engineering](https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on-stm32f103c8t6.html)
 
 ### O. Network
-1.  Network OSI layer
+1.  [Network OSI layer](https://www.geeksforgeeks.org/layers-of-osi-model/?ref=lbp)
     1.  Application layer
         1.  [DHCP](Network/dhcp.md)
         2.  PTP
@@ -149,10 +149,11 @@
         4.  DNS
     2.  Transport layer
         1.  TCP/UDP
-    3.  [Network layer](Network/network_layer.md)
-        1.  IP
-        2.  ICMP
-        3.  NAT
+    3.  [Network layer](Network/network.md)
+        1.  [IP](Network/ip.md)
+        2.  [ICMP](Network/icmp.md)
+        3.  Routing and Protocols (RIP, OSPF, and BGP)
+        4.  [NAT](Network/nat.md)
     4.  Link layer
         1.  PPP
         2.  ARP

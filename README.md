@@ -142,19 +142,29 @@
 
 ### O. Network
 1.  Network OSI layer
-2.  Ethernet
-3.  LTE
-4.  Wifi
-5.  BLE
-6.  Bluetooth
-7.  [Router/switch](Network/router_switch.md)
-8.  TCP/UDP/IP
-9.  PPP
-10. DHCP
-11. DNS
-12. PTP
-13. Multicast
-14. TSN/AVB
+    1.  Application layer
+        1.  [DHCP](Network/dhcp.md)
+        2.  PTP
+        3.  HTTP
+        4.  DNS
+    2.  Transport layer
+        1.  TCP/UDP
+    3.  [Network layer](Network/network_layer.md)
+        1.  IP
+        2.  ICMP
+        3.  NAT
+    4.  Link layer
+        1.  PPP
+        2.  ARP
+    5.  Physical layer
+        1.  Ethernet
+2.  LTE
+3.  Wifi
+4.  BLE
+5.  Bluetooth
+6.  [Router/switch](Network/router_switch.md)
+7.  Multicast
+8.  TSN/AVB
 
 ## Interview Questions
 

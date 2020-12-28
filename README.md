@@ -80,12 +80,14 @@
 7.  [Interrupt](./Operating_System/Interrupt.md)
 8.  System call
 9.  Interprocess communication
-10. Mutiprocessing/Multithreading
-11. FreeRTOS
+10. Synchronization Mechanism
+11. Memory Management
+12. Mutiprocessing/Multithreading
+13. FreeRTOS
     1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
     2.  IPC Mechanism
     3.  Scheduler
-12. Linux
+14. Linux
     1.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
     2.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
     3.  [System Call](Operating_System/Linux/syscall.md)
@@ -170,6 +172,11 @@
 ## Interview Questions
 
 ### [A.  LeetCode Questions for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
+1.  Bitwise Operations
+2.  Linked list
+3.  String 
+4.  Array
+5.  Math
 
 ### B.  Other Algorithms Questions
 1.  Sliding Window
@@ -239,6 +246,8 @@
 1.  [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)
 2.  [C++ Mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#C++%20Programming%20Mock%20Tests)
 3.  [Operating system mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Operating%20Systems%20Mock%20Tests)
+
+### H. [Interview Preparation](Interview/Preparation/prepare.md)
 
 ## Book Recommendation
 1.  Network

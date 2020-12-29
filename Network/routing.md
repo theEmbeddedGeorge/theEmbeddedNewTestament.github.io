@@ -358,7 +358,7 @@ No    |	RIP	| OSPF
 
 ## Inter-AS Routing
 
-### BGP (BGP4)
+### Border Gateway Protocol (BGP or BGP4)
 ```The Border Gateway Protocol version 4, specified in RFC 4271 (see also [RFC 4274), is the de facto standard inter-AS routing protocol in today’s Internet.```
 
 BGP provides each AS a means to:
@@ -373,8 +373,96 @@ the Internet. A subnet screams “I exist and I am here,” and BGP makes sure t
 the ASs in the Internet know about the subnet and how to get there. If it weren’t for
 BGP, each subnet would be isolated—alone and unknown by the rest of the Internet.
 
+In BGP, pairs of routers exchange routing information over **semipermanent TCP connections using port 179**. There is typically one such BGP TCP
+connection for each link that directly connects two routers in two different ASs;
+
+![BGP sessions](images/BGP_session.png)
+
+There is a TCP connection between gateway routers 3a and 1c
+and another TCP connection between gateway routers 1b and 2a. There are also
+semipermanent BGP TCP connections between routers within an AS. For each TCP connection, the two routers at the end of the connection are called
+**BGP peers**, and the TCP connection along with all the BGP messages sent over the connection is called a **BGP session**. Furthermore, a BGP session that spans two ASs
+is called an **external BGP (eBGP) session**, and a BGP session between routers in
+the same AS is called an **internal BGP (iBGP) session**.
+
+BGP allows each AS to learn which destinations are reachable via its neighboring
+ASs. In BGP, destinations are not hosts but instead are CIDRized prefixes, with
+each prefix representing a subnet or a collection of subnets.
+
+### Characteristics of BGP
+- Inter-Autonomous System Configuration: The main role of BGP is to provide communication between two autonomous systems.
+- BGP supports Next-Hop Paradigm.
+- Coordination among multiple BGP speakers within the AS (Autonomous System).
+- Path Information: BGP advertisement also include path information, along with the reachable destination and next destination pair.
+- Policy Support: BGP can implement policies that can be configured by the administrator. For ex:- a router running BGP can be configured to distinguish between the routes that are known within the AS and that which are known from outside the AS.
+- Runs Over TCP.
+- BGP conserve network Bandwidth.
+- BGP supports CIDR.
+- BGP also supports Security.
+
+### BGP sessions
+As you might expect, using the eBGP
+session between the gateway routers 3a and 1c, AS3 sends AS1 the list of prefixes
+that are reachable from AS3; and AS1 sends AS3 the list of prefixes that are reachable
+from AS1. Similarly, AS1 and AS2 exchange prefix reachability information
+through their gateway routers 1b and 2a. Also as you may expect, when a gateway
+router (in any AS) receives **eBGP-learned prefixes**, the gateway router uses its **iBGP
+sessions** to distribute the prefixes to the other routers in the AS. Thus, all the routers
+in AS1 learn about AS3 prefixes, including the gateway router 1b. The gateway
+router 1b (in AS1) can therefore re-advertise AS3’s prefixes to AS2. When a router
+(gateway or not) learns about a new prefix, it creates an entry for the prefix in its
+forwarding table.
+
+### Path Attributes and BGP Routes
+
+When a router advertises a prefix across a BGP session, it includes with the prefix
+a number of BGP attributes. In BGP jargon, **a prefix along with its attributes** is
+called a ***route***. Thus, BGP peers advertise routes to each other. Two of the more
+important attributes are **AS-PATH** and **NEXT-HOP**:
+
+- **AS-PATH.** This attribute contains the ASs through which the advertisement for the
+prefix has passed. When a prefix is passed into an AS, the AS adds its ASN to the ASPATH
+attribute. Routers use the AS-PATH attribute to **detect and
+prevent looping advertisements**; specifically, if a router sees that its AS is contained
+in the path list, it will reject the advertisement. Routers also use
+the AS-PATH attribute in **choosing among multiple paths** to the same prefix.
+- **NEXT-HOP.** The NEXT-HOP is the router interface that begins the AS-PATH. The NEXT-HOP attribute is used by
+routers to properly configure their forwarding tables. For example, after
+learning about this route to a external AS from iBGP, router 1d may want to forward packets to x along the
+route, that is, router 1d may want to include the entry (x, l) in its forwarding table,
+where l is its interface that begins the least-cost path from 1d towards the gateway
+router 1c. To determine l, 1d provides the IP address in the NEXT-HOP attribute to its intra-AS routing module.
+
+The following diagram shows another case where NEXT-HOP arrtibute is needed. The router knows two different routes to get to AS2 (to the same prefix). These two routes could have the same
+AS-PATH to x, but could have different NEXT-HOP values corresponding to the different
+peering links. Using the NEXT-HOP values and the intra-AS routing algorithm,
+the router can determine the cost of the path to each peering link, and then
+apply hot-potato routing to determine the appropriate interface - The AS gets rid of the packet (the hot potato) as quickly as possible (more precisely, as
+inexpensively as possible)
+
+![Next hop](images/next_hop.png)
+
+### BGP route selection
+As described earlier in this section, BGP uses eBGP and iBGP to distribute routes
+to all the routers within ASs. From this distribution, a router may learn about more
+than one route to any one prefix, in which case the router must select one. If there are two or more routes to the
+same prefix, then BGP sequentially invokes the following elimination rules until one
+route remains:
+
+- **Routes are assigned a local preference value as one of their attributes**. The local
+preference of a route could have been set by the router or could have been
+learned by another router in the same AS. This is a policy decision that is left up
+to the AS’s network administrator.
+- The route with the **shortest AS-PATH** is selected.
+- The route with the **closest NEXT-HOP router** is selected. This process is called hot-potato routing.
+- If more than one route still remains, the router uses **BGP identifiers** to select the route.
+
+
+
 ## Reference
 
 ***Computer Networking - A top down approach***
 
 https://www.geeksforgeeks.org/routing-information-protocol-rip/
+
+https://www.geeksforgeeks.org/border-gateway-protocol-bgp/

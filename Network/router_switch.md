@@ -125,5 +125,23 @@ messages with routed processes running in neighboring routers:
 Because RIP is implemented as an application-layer process (albeit a very special one that is able to manipulate the routing tables within the UNIX kernel), it can send and receive messages
 over a standard socket and use a standard transport protocol.
 
+## How does an entry enters router's forwarding table?
+
+When a packet arrives to the router,
+the packet’s destination IP address is compared with the prefixes in the forwarding table to
+find the one with the longest prefix match. The packet is then forwarded (within the router)
+to the router port associated with that prefix. To make things
+interesting, let’s assume that the prefix is a “foreign prefix,” that is, it does not belong to
+the router’s AS but to some other AS.
+
+1. Become aware of the prefix (corresponding to a subnet or an aggregation of subnets) via **BGP route advertisment**. Such an advertisement may be sent to it over an eBGP session (from a router in another AS) or over an iBGP session (from a router in the same AS).
+2. If the router receives more than one route advertisement for this prefix, the router uses the BGP route selection process, to find the best route for the prefix.
+3. Suppose such a best route has been selected. As
+described earlier, the selected route includes a NEXT-HOP attribute, which is the **IP address** of
+the first router outside the router’s AS along this best route.
+4. The router then uses its **intra-AS routing protocol (typically OSPF)** to determine the shortest path to the NEXT-HOP router.
+5. The router finally determines the **port number** to associate with the prefix by identifying the first link along that shortest path.
+6. The router can then enter the prefix-port pair into its forwarding table! The forwarding table computed by the routing processor is then pushed to the router’s input **port line cards**.
+
 ## Reference 
 

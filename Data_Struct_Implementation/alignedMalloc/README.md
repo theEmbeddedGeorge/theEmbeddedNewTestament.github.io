@@ -43,3 +43,7 @@ int main (int argc, char *argv[]) {
 
 ```
 
+## Reference
+
+https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/
+

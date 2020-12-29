@@ -101,8 +101,29 @@ the output port’s memory and transmits them over the output link. This include
 
 ![output processing](images/output_process.png)
 
+### Routing Table
+```Each router maintains a RIP table known as a routing table. A router’s routing table includes both the router’s distance vector and the router’s forwarding table.```
 
+Recall that
+RIP routers exchange advertisements approximately every 30 seconds. If a router
+does not hear from its neighbor at least once every 180 seconds, that neighbor is
+considered to be no longer reachable. When this happens, RIP modifies the local routing
+table and then propagates this information by sending advertisements to its neighboring
+routers (the ones that are still reachable). A router can also request information
+about its neighbor’s cost to a given destination using RIP’s request message.
+Routers send RIP request and response messages to each other over UDP using **port number 520**. The **UDP segment** is carried between routers in a standard IP datagram.
 
+![Routing table](images/Routing_table.png)
+
+Figure below sketches how RIP is typically implemented in a UNIX system, for
+example, a UNIX workstation serving as a router. Aprocess called routed (pronounced
+“route dee”) executes RIP, that is, maintains routing information and exchanges
+messages with routed processes running in neighboring routers:
+
+![RIP layer](images/RIP_implement.png)
+
+Because RIP is implemented as an application-layer process (albeit a very special one that is able to manipulate the routing tables within the UNIX kernel), it can send and receive messages
+over a standard socket and use a standard transport protocol.
 
 ## Reference 
 

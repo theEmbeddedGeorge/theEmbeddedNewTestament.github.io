@@ -27,8 +27,9 @@
 7. Red Black Tree
 8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
 9. Simple Task Scheduler
-10. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
-11. Common STL function implementation
+10. Endianess Check
+11. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+12. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. atoi
@@ -123,7 +124,7 @@
 14. [STM32 MCU](http://www.emcu.it/STM32.html)
 
 ### K. Debugging Techniques
-1.  JTAG
+1.  [JTAG](https://www.xjtag.com/about-jtag/jtag-a-technical-overview/)
 2.  Trace
 3.  [GDB](http://beej.us/guide/bggdb/)
 4.  Sysfs
@@ -154,7 +155,7 @@
     3.  [Network layer](Network/network.md)
         1.  [IP](Network/ip.md)
         2.  [ICMP](Network/icmp.md)
-        3.  Routing and Protocols (RIP, OSPF, and BGP)
+        3.  [Routing and Protocols (RIP, OSPF, and BGP)](Network/routing.md)
         4.  [NAT](Network/nat.md)
     4.  Link layer
         1.  PPP

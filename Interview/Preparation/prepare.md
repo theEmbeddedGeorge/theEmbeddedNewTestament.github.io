@@ -9,6 +9,7 @@
 - Producer and Consumer Problem
 - Caching (cache coherency/cache line)
 - Memory mapped IO/ IO Mapped IO
+- Interrupt
 
 ### Bus protocol
 - UART
@@ -17,7 +18,7 @@
 - RS232/422/485
 
 ### Linux Kernel concepts:
-
+- Linux boot sequence
 - Buffer sharing: DMA Buf & ION
 - Wait events/Wait queues
 - ISR handling (Top half/Bottom half)
@@ -37,6 +38,11 @@
 - What is static keywords?
 - What is volatile for?
 - Macro usage
+
+### Network
+- Network OSI layers
+- TCP/UDP
+- IP
 
 ### Algorithm and data structure
 - Linked list
@@ -65,3 +71,5 @@
   - plus without using '+'
   - number of 1 bits
   - reverse bits
+- Check endianess 
+

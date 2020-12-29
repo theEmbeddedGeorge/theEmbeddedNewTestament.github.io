@@ -160,6 +160,7 @@
     4.  Link layer
         1.  PPP
         2.  ARP
+        3.  PTP/gPTP
     5.  Physical layer
         1.  Ethernet
 2.  LTE

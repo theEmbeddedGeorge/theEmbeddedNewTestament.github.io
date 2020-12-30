@@ -160,9 +160,9 @@
         5.  [Router](Network/router_switch.md)
     4.  Link layer
         1.  PPP
-        2.  [ARP](Network/ARP.md)
+        2.  [ARP/MAC](Network/ARP.md)
         3.  PTP/gPTP
-        4.  Ethernet
+        4.  [Ethernet](Network/ethernet.md)
         5.  [Switch](Network/router_switch.md)
     5.  Physical layer
 2.  LTE

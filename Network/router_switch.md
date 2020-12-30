@@ -1,5 +1,5 @@
 
-## Router vs Switch
+## Router
 
 ```Router is network layer device while switches are link layer devices```
 

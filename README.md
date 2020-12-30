@@ -155,21 +155,22 @@
     3.  [Network layer](Network/network.md)
         1.  [IP](Network/ip.md)
         2.  [ICMP](Network/icmp.md)
-        3.  [Routing and Protocols (RIP, OSPF, and BGP)](Network/routing.md)
-        4.  [NAT](Network/nat.md)
+        3.  [NAT](Network/nat.md)
+        4.  [Routing and Protocols (RIP, OSPF, and BGP)](Network/routing.md)
+        5.  [Router](Network/router_switch.md)
     4.  Link layer
         1.  PPP
         2.  ARP
         3.  PTP/gPTP
+        4.  Ethernet
+        5.  [Switch](Network/router_switch.md)
     5.  Physical layer
-        1.  Ethernet
 2.  LTE
 3.  Wifi
 4.  BLE
 5.  Bluetooth
-6.  [Router/switch](Network/router_switch.md)
-7.  Multicast
-8.  TSN/AVB
+6.  Multicast
+7.  TSN/AVB
 
 ## Interview Questions
 

@@ -113,29 +113,42 @@ router responding to the earlier ARP query.
 
 ### Scenarios
 
-1. CASE-1: The sender is a host and wants to send a packet to another host on the same network.
-Use ARP to find another host’s physical address
-2. CASE-2: The sender is a host and wants to send a packet to another host on another network. 
-Sender looks at its routing table.
-Find the IP address of the next hop (router) for this destination.
-Use ARP to find the router’s physical address
-3. CASE-3: the sender is a router and received a datagram destined for a host on another network. 
-Router check its routing table.
-Find the IP address of the next router.
-Use ARP to find the next router’s physical address.
-4. CASE-4: The sender is a router that has received a datagram destined for a host in the same network. 
-Use ARP to find this host’s physical address.
+1. **CASE-1: The sender is a host and wants to send a packet to another host on the same network**.
+    - Use ARP to find another host’s physical address
+2. **CASE-2: The sender is a host and wants to send a packet to another host on another network**. 
+    - Sender looks at its routing table.
+    - Find the IP address of the next hop (router) for this destination.
+    - Use ARP to find the router’s physical address
+3. **CASE-3: the sender is a router and received a datagram destined for a host on another network**. 
+    - Router check its routing table.
+    - Find the IP address of the next router.
+    - Use ARP to find the next router’s physical address.
+4. **CASE-4: The sender is a router that has received a datagram destined for a host in the same network**. 
+    - Use ARP to find this host’s physical address.
+
+![ARP connection](images/arp_connection.png)
 
 ### Terms with ARP
 
 1. ARP Cache: After resolving MAC address, the ARP sends it to the source where it stores in a table for future reference. The subsequent communications can use the MAC address from the table
-2. ARP Cache Timeout: It indicates the time for which the MAC address in the ARP cache can reside
+2. ARP Cache Timeout (TTL): It indicates the time for which the MAC address in the ARP cache can reside
 3. ARP request: This is nothing but broadcasting a packet over the network to validate whether we came across destination MAC address or not. 
 The physical address of the sender.
 The IP address of the sender.
 The physical address of the receiver is FF:FF:FF:FF:FF:FF or 1’s.
 The IP address of the receiver
 4. ARP response/reply: It is the MAC address response that the source receives from the destination which aids in further communication of the data. 
+
+### ARP layer
+
+As we’ve seen, an ARP packet is encapsulated within a link-layer frame
+and thus lies architecturally above the link layer. However, an ARP packet has
+fields containing link-layer addresses and thus is arguably a link-layer protocol,
+but it also contains network-layer addresses and thus is also arguably a networklayer
+protocol. In the end, ARP is probably best considered a protocol that straddles
+the boundary between the link and network layers.
+
+![ARP layer](https://media.geeksforgeeks.org/wp-content/uploads/20190423132008/arp2.png)
 
 ## Reference
 

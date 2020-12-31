@@ -128,6 +128,22 @@ Given that a switch is a special-purpose computer, the central CPU and RAM in a 
 
 As usual in the computer industry, the more CPU performance and RAM, the better, but you will pay more as well. Vendors frequently do not make it easy for customers to find switch CPU and RAM specifications. Typically, higher cost switches will make this information available, but you won’t be able to order a faster CPU or more RAM for a given switch. Instead, this is information useful for comparing models from a vendor, or among vendors, to see which switches have the best specifications.
 
+## Why Switch?
+
+![Benefits of a switch](images/why_ethernet.png)
+
+## Switch types
+
+![Switch Types](images/switch_types.png)
+
+Managed Switch:
+
+![Managed switch](images/managed_switch.png)
+
+Example:
+
+![Smart Switch Example](images/smart_switch_example.png)
+
 ## Switches vs. Routers 
 
 As we learned in Chapter 4, routers are store-and-forward packet switches that forward

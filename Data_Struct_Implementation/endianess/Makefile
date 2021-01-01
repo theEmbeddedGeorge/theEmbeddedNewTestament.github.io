@@ -5,7 +5,7 @@ OBJ = endianness
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-memAlign: $(OBJ)
+$(OBJ): $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:

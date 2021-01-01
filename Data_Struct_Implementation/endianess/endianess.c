@@ -1,33 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-void *aligned_memory(size_t required, size_t alignment){
-	void *p1;
-	void **p2;
+typedef enum {
+    FALSE = 0,
+    TRUE,
+} BOOL;
 
-	p1 = malloc(alignment - 1 + sizeof(void *) + required);
-	p2 = (void **)(((size_t)p1 + alignment - 1 + sizeof(void *)) & ~(alignment - 1));
 
-	p2[-1] = p1;
-	return p2;
-}
+BOOL is_small_endian() {
+	uint32_t num = 1;
+        uint8_t byte;
+        
+        // examine the first byte memory of the 4-byte uint32_t
+        byte = *((uint8_t*) &num);
 
-void free_aligned(void *p) {
-	free(((void **)p)[-1]);
+	return (byte == 1) ? TRUE : FALSE;
 }
 
 int main (int argc, char *argv[]) {
-	if(argc < 3) {
-		printf("Wrong input\n");
-		exit(1);
-	}
 
-	int required = atoi(argv[1]);
-	int alignment = atoi(argv[2]);
-
-	void *aligned_p = aligned_memory(required, alignment);
-
-	printf("%p\n", aligned_p);
+	if (is_small_endian())
+            printf("Systen is of small endian!\n");
+        else
+            printf("Systen is of big endian!\n");
 
 	return 0;
 }

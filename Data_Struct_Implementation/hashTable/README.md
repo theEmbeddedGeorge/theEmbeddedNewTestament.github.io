@@ -1,4 +1,6 @@
 ## Hash Table
+
+### Hash Table without Chaining
 #### Usage
 ```
 make
@@ -143,8 +145,9 @@ int main() {
    }
 }
 ```
-#### Improvement
-Make the implementation safe when hash table is full
+### Hash Table with Chaining
+
+
 
 #### Reference
 https://www.tutorialspoint.com/data_structures_algorithms/hash_table_program_in_c.htm

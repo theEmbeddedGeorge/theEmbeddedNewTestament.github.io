@@ -7,34 +7,34 @@
 LeetCode # | Title | Diffculty | Importance | Implemented?
 ----------------|-------|----------|---|---
 1 |	Two Sum | Easy | ***** | v
-14 | Longest Common Prefix | Easy | v	
-19 | Remove Nth Node From End of List | Medium | v	
+14 | Longest Common Prefix | Easy | ***** | v	
+19 | Remove Nth Node From End of List | Medium | ****| v	
 20 | Valid Parentheses | Easy | ***** | v	
 21 | Merge Two Sorted Lists | Easy | ***** | v	
 24 | Swap Nodes in Pairs | Medium | ***** | v	
-26 | Remove Duplicates from Sorted Array | Easy | v	
-27 | Remove Element | Easy | v	
+26 | Remove Duplicates from Sorted Array | Easy | ***** | v	
+27 | Remove Element | Easy | *****| v	
 28 | Implement strStr() | Easy | ***** | v	
-33 | Search in Rotated Sorted Array | Medium | v	
-38 | Count and Say | Easy | v	
-53 | Maximum Subarray | Easy | v	
-58 | Length of Last Word | Easy | v	
+33 | Search in Rotated Sorted Array | Medium | *** | v	
+38 | Count and Say | Easy | ****| v	
+53 | Maximum Subarray | Easy | ** | v	
+58 | Length of Last Word | Easy | *** | v	
 66 | Plus One | Easy | *** | v	
 67 | Add Binary | Easy | **** | v	
 83 | Remove Duplicates from Sorted List | Easy | ***** | v	
 88 | Merge Sorted Array | Easy | **** | v	
 100 | Same Tree | Easy | **** | v	
-104 | Maximum Depth of Binary Tree | Easy | v	
-108 | Convert Sorted Array to Binary Search Tree | Easy	
-109 | Convert Sorted List to Binary Search Tree | Medium	
-110 | Balanced Binary Tree | Easy | v	
-111 | Minimum Depth of Binary Tree | Easy | v	
-112 | Path Sum | Easy | v	
-114 | Flatten Binary Tree to Linked List | Medium | v	
-121 | Best Time to Buy and Sell Stock | Easy | v	
+104 | Maximum Depth of Binary Tree | Easy | *** | v	
+108 | Convert Sorted Array to Binary Search Tree | Easy | ** |	
+109 | Convert Sorted List to Binary Search Tree | Medium | ** |	
+110 | Balanced Binary Tree | Easy | ** | v	
+111 | Minimum Depth of Binary Tree | Easy | *** | v	
+112 | Path Sum | Easy | ** | v	
+114 | Flatten Binary Tree to Linked List | Medium | ** | v	
+121 | Best Time to Buy and Sell Stock | Easy | *** |v	
 125 | Valid Palindrome | Easy | ***** | v	
-136 | Single Number | Easy | v	
-137 | Single Number II | Medium | v	
+136 | Single Number | Easy | **** | v	
+137 | Single Number II | Medium | ** | v	
 141 | Linked List Cycle | Easy | ***** | v	
 160 | Intersection of Two Linked Lists | Easy | **** | v	
 169 | Majority Element | Easy | *** | v	

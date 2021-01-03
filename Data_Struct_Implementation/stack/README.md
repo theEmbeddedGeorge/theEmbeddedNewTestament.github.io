@@ -5,6 +5,13 @@ make
 ./stack
 ```
 
+#### Analysis
+```Stack is implemented with ARRAY (if capacity is given).```
+
+In contrary to Queue, for stack implementation, we simply need to use a array to hold all the data and keep track of the last element index as it only need to pop the LRU element which can be simply realized by decrementing the last element index.
+
+Note that this method will always pre-allocate a fix chunk memory since array cannot be dynamically allocated. But this also makes our stack operation very fast since we are only manipulating with the array indexes.
+
 #### Code
 ```c
 #include <stdlib.h>
@@ -15,7 +22,7 @@ typedef struct stack {
     int topIdx;
     int capacity;
     int *data;
-} STACK, *pSTACK;
+} STACK, *pSTACK;  // also define a pointer to this struct, this is a very good style
 
 pSTACK createStack(int capacity) {
     pSTACK newStack = (pSTACK) malloc (sizeof(STACK));

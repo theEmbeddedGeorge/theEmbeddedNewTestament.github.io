@@ -28,8 +28,9 @@
 8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
 9. Simple Task Scheduler
 10. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
-11. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
-12. Common STL function implementation
+11. Signness Check
+12. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+13. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. atoi
@@ -176,7 +177,7 @@
 
 ### [A.  LeetCode Questions for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
 1.  Bitwise Operations
-2.  Linked list
+2.  [Linked list](Interview/Algorithm/linked_list.md)
 3.  String 
 4.  Array
 5.  Math

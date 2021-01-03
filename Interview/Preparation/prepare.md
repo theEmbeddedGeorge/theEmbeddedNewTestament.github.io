@@ -12,10 +12,10 @@
 - Interrupt
 
 ### Bus protocol
-- UART
-- SPI
-- I2C
-- RS232/422/485
+- UART v
+- SPI v
+- I2C v
+- RS232/422/485 v
 
 ### Linux Kernel concepts:
 - Linux boot sequence
@@ -40,17 +40,18 @@
 - Macro usage
 
 ### Network
-- Network OSI layers
-- TCP/UDP
-- IP
+- Network OSI layers v
+- TCP/UDP 
+- IP v
 
 ### Algorithm and data structure
 - Linked list
-  - reverse Linked list
-  - delete a node from the linked list
-  - delete duplicate
-  - detect cycle
-  - Implement hash table with linked list
+  - reverse Linked list v
+  - delete a node from the linked list v
+  - delete duplicate v
+  - detect cycle v
+  - Implement hash table with linked list 
+  - Implement queue with linked list v
 - String
   - reverse string
   - check whether it is palindrome
@@ -58,8 +59,8 @@
   - implement atoi()/itoa()
 - Circular buffer
 - State machine
-- Stack
-- Queue
+- Stack v
+- Queue v
 - Binary search tree
 - Memory api
   - safe memcpy/memmove
@@ -71,5 +72,5 @@
   - plus without using '+'
   - number of 1 bits
   - reverse bits
-- Check endianess 
+- Check endianess v
 

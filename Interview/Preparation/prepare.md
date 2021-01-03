@@ -65,7 +65,7 @@
   - DFS
   - BFS
 - Memory api
-  - safe memcpy/memmove
+  - safe memcpy/memmove **(Done)**
   - sizeof
   - alligned_malloc
   - wrapper api to read/write arbitrary bytes with fix-byte API

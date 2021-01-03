@@ -19,6 +19,34 @@ make
 #include <stdio.h>
 
 #include "memcpy.h"
+void *my_memmove(void *dest, const void *src, unsigned int n)
+{
+    char *pcSource =(char *)src;
+    char *pcDstn =(char *)dest;
+
+    // return if pcDstn or pcSource is NULL
+    if ((pcSource == NULL)  || (pcDstn == NULL))
+    {
+        return NULL;
+    }
+
+    // overlap buffer
+    if((pcSource < pcDstn) && (pcDstn < pcSource + n))
+    {
+        for (pcDstn += n, pcSource += n; n--;)
+        {
+            *--pcDstn = *--pcSource;
+        }
+    }
+    else
+    {
+        while(n--)
+        {
+            *pcDstn++ = *pcSource++;
+        }
+    }
+    return dest;
+}
 
 void myMemcpy(void *dest, void *src, size_t n){
     uint32_t cpyDir = CPY_DIR_LOWER_TO_HIGHER;

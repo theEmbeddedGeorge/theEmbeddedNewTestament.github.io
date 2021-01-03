@@ -233,6 +233,7 @@
 6. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
 7.  [Embedded Interview Questions](Interview/Concept/embedded_interview_questions.md)
 8.  [Embedded Interview Questions Repo](https://github.com/Embedded-Systems-Guide/interview-questions)
+9.  [Embedded C Interview Questions and answers](https://www.wisdomjobs.com/e-university/embedded-c-interview-questions.html)
 
 ### D. Behavior Question
 1.  Amazon Leading Principles

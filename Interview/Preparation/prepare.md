@@ -11,11 +11,11 @@
 - Memory mapped IO/ IO Mapped IO
 - Interrupt
 
-### Bus protocol
-- UART v
-- SPI v
-- I2C v
-- RS232/422/485 v
+### Bus protocol **(Done)**
+- UART **(Done)**
+- SPI **(Done)**
+- I2C **(Done)**
+- RS232/422/485 **(Done)**
 
 ### Linux Kernel concepts:
 - Linux boot sequence
@@ -35,33 +35,35 @@
 - sysfs/debugfs/procfs
 
 ### C programming:
-- What is static keywords?
-- What is volatile for?
-- Macro usage
+- What is static keywords? **(Done)**
+- What is volatile for? **(Done)**
+- Macro usage **(Done)**
 
 ### Network
-- Network OSI layers v
+- Network OSI layers **(Done)**
 - TCP/UDP 
-- IP v
+- IP **(Done)**
 
 ### Algorithm and data structure
-- Linked list
-  - reverse Linked list v
-  - delete a node from the linked list v
-  - delete duplicate v
-  - detect cycle v
-  - Implement hash table with linked list 
-  - Implement queue with linked list v
+- Linked list **(Done)**
+  - reverse Linked list **(Done)**
+  - delete a node from the linked list **(Done)**
+  - delete duplicate **(Done)**
+  - detect cycle **(Done)**
+  - Implement hash table with linked list **(Done)**
+  - Implement queue with linked list **(Done)**
 - String
-  - reverse string
-  - check whether it is palindrome
+  - reverse string **(Done)**
+  - check whether it is palindrome **(Done)**
   - implement strstr()
   - implement atoi()/itoa()
 - Circular buffer
 - State machine
-- Stack v
-- Queue v
-- Binary search tree
+- Stack **(Done)**
+- Queue **(Done)**
+- Binary search tree **(Done)**
+  - DFS
+  - BFS
 - Memory api
   - safe memcpy/memmove
   - sizeof
@@ -72,5 +74,5 @@
   - plus without using '+'
   - number of 1 bits
   - reverse bits
-- Check endianess v
+- Check endianess **(Done)**
 

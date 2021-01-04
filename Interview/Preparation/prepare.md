@@ -4,7 +4,7 @@
 ### Operating systems/Computer Architecture:
 - Process and Threads
 - Process Scheduling
-- Synchronization mechanisms (mutex/spinlock/semaphore)
+- Synchronization IPC mechanisms (mutex/spinlock/semaphore)
 - Memory Management (Virtual memory/paging/translation)
 - Producer and Consumer Problem
 - Caching (cache coherency/cache line)
@@ -43,6 +43,8 @@
 - Network OSI layers **(Done)**
 - TCP/UDP 
 - IP **(Done)**
+- Ethernet
+- Router/Switch
 
 ### Algorithm and data structure
 - Linked list **(Done)**

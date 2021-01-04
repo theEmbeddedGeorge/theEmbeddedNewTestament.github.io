@@ -89,3 +89,7 @@ Run level 6 – /etc/rc.d/rc6.d/
 * For example, S12syslog is to start the syslog deamon, which has the sequence number of 12. S80sendmail is to start the sendmail daemon, which has the sequence number of 80. So, syslog program will be started before sendmail.
 
 There you have it. That is what happens during the Linux boot process.
+
+### Reference
+
+https://leetcode.com/discuss/interview-question/124638/what-happens-in-the-background-from-the-time-you-press-the-Power-button-until-the-Linux-login-prompt-appears/

@@ -33,3 +33,10 @@
     8.  Interprocess communication
     9.  Mutiprocessing/Multithreading
     10. RTOS
+
+
+## Reference
+
+[Interrupt in Linux Kernel](https://linux-kernel-labs.github.io/refs/heads/master/lectures/interrupts.html#:~:text=In%20Linux%20the%20interrupt%20handling,interrupt%20and%20the%20interrupt%20controller.)
+
+[Basics of How Operating Systems Work](http://faculty.salina.k-state.edu/tim/ossg/Introduction/OSworking.html)

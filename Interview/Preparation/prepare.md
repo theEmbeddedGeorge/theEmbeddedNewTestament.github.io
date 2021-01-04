@@ -62,11 +62,11 @@
 - Stack **(Done)**
 - Queue **(Done)**
 - Binary search tree **(Done)**
-  - DFS
-  - BFS
+  - DFS **(Done)**
+  - BFS **(Done)**
 - Memory api
   - safe memcpy/memmove **(Done)**
-  - sizeof
+  - sizeof **(Done)**
   - alligned_malloc
   - wrapper api to read/write arbitrary bytes with fix-byte API
 - Bitewise operation

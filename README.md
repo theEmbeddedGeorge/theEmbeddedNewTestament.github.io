@@ -8,7 +8,12 @@
 2.  Bit fields
 3.  Attributes
 4.  lds script
-5.  Linker and loader 
+5.  Linker and loader
+6.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
+7. Voltatile/const/register keyword
+8. Inline functions
+9. Preprocessor
+10. Declarations in C
 
 ### B. Programming Languages
 1. [C](https://www.geeksforgeeks.org/c-programming-language/)
@@ -34,7 +39,7 @@
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. atoi
-    4. sizeof
+    4. [sizeof](Data_Struct_Implementation/sizeof/README.md)
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
 
 ### D. Basic Algorithms

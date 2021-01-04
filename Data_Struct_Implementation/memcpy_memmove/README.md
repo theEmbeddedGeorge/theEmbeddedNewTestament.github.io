@@ -94,3 +94,40 @@ int main(int argc, char **argv) {
 }
 ```
 
+#### Modified Proformance
+
+found in GNU's newlib source code. I've posted the code here. If the source and destination pointers are both aligned on 4-byte boundaries, my modified-GNU algorithm copies 32 bits at a time rather than 8 bits. Listing 2 shows an implementation of this algorithm.
+
+Listing 2: The modified-GNU algorithm
+```C
+void * memcpy(void * dst, void const * src, size_t len)
+{
+    long * plDst = (long *) dst;
+    long const * plSrc = (long const *) src;
+
+    if (!(src & 0xFFFFFFFC) && !(dst & 0xFFFFFFFC))
+    {
+        while (len >= 4)
+    {
+            *plDst++ = *plSrc++;
+            len -= 4;
+        }
+    }
+
+    char * pcDst = (char *) plDst;
+    char const * pcDst = (char const *) plSrc;
+
+    while (len–)
+    {
+        *pcDst++ = *pcSrc++;
+    }
+
+    return (dst);
+}
+```
+
+
+#### Reference
+
+https://www.embedded.com/optimizing-memcpy-improves-speed/
+

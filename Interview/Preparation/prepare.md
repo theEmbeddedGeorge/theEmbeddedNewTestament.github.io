@@ -55,10 +55,10 @@
 - String
   - reverse string **(Done)**
   - check whether it is palindrome **(Done)**
-  - implement strstr()
+  - implement strstr() **(Done)**
   - implement atoi()/itoa()
 - Circular buffer
-- State machine
+- State machine **(Done)**
 - Stack **(Done)**
 - Queue **(Done)**
 - Binary search tree **(Done)**
@@ -67,12 +67,14 @@
 - Memory api
   - safe memcpy/memmove **(Done)**
   - sizeof **(Done)**
-  - alligned_malloc
+  - alligned_malloc **(Kinda Done)**
   - wrapper api to read/write arbitrary bytes with fix-byte API
-- Bitewise operation
-  - hamming distance
-  - plus without using '+'
-  - number of 1 bits
-  - reverse bits
+- Bitewise operation **(Done)**
+  - hamming distance **(Done)**
+  - plus without using '+' (A plus B) **(Done)**
+  - reverse bits **(Done)**
+  - Power of 2 **(Done)**
+  - Add binary **(Done)**
+  - Single number **(Done)**
 - Check endianess **(Done)**
 

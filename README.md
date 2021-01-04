@@ -42,6 +42,7 @@
     3. atoi
     4. [sizeof](Data_Struct_Implementation/sizeof/README.md)
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
+    6. strstr()
 
 ### D. Basic Algorithms
 1. Sort
@@ -82,7 +83,7 @@
 1.  User Space
 2.  Kernel Space
 3.  [Exception Handling](Operating_System/Exception_ARM64.md)
-4.  Virtual Memory
+4.  [Virtual Memory](Operating_System/virtual_memory.md)
 5.  File System
 6.  [Process/Thread & Scheduling](Operating_System/Process_thread_scheduling.md)
 7.  [Interrupt](./Operating_System/Interrupt.md)
@@ -104,6 +105,7 @@
     6.  Sysfs
     7.  [Boot Loader](Operating_System/Linux/boot_loader.md)
     8.  [Linux Booting Process](Operating_System/Linux/booting.md)
+    9.  Timer Wheel
 
 ### I. Computer Architecture
 1.  Pipeline

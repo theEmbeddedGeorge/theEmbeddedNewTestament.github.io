@@ -4,16 +4,17 @@
 ## Concepts by Domain:
 
 ### A. C Coding Specific
-1.  Function pointers
-2.  Bit fields
+1.  Array and pointers
 3.  Attributes
 4.  lds script
-5.  Linker and loader
+5.  Library, linking and loading
 6.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
-7. Voltatile/const/register keyword
-8. Inline functions
-9. Preprocessor
-10. Declarations in C
+7. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
+8. Voltatile/const/register keyword
+9. Inline functions
+10. Preprocessor
+11. Declarations in C
+12. Runtime data strtuctures 
 
 ### B. Programming Languages
 1. [C](https://www.geeksforgeeks.org/c-programming-language/)

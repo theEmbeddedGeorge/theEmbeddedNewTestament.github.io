@@ -75,9 +75,12 @@
 2.  PCIE
 
 ### G. Linux Command 
-1.  Bash
-2.  Code Collaboration Tools
-3.  Cross Compilation
+1. [Linux Fundamentals](http://linux-training.be/linuxfun.pdf)
+2. [Linux System Administration](http://linux-training.be/linuxsys.pdf)
+3. [Linux Servers](http://linux-training.be/linuxsrv.pdf)
+4. [Linux Storage Management](http://linux-training.be/linuxsto.pdf)
+5. [Linux Security](http://linux-training.be/linuxsec.pdf)
+6. [Linux Networking](http://linux-training.be/linuxnet.pdf)
 
 ### H. Operating Systems
 1.  User Space
@@ -107,6 +110,7 @@
     7.  [Boot Loader](Operating_System/Linux/boot_loader.md)
     8.  [Linux Booting Process](Operating_System/Linux/booting.md)
     9.  Timer Wheel
+       
 
 ### I. Computer Architecture
 1.  Pipeline

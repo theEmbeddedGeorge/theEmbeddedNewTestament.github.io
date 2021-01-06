@@ -88,28 +88,35 @@
 3.  [Exception Handling](Operating_System/Exception_ARM64.md)
 4.  [Virtual Memory](Operating_System/virtual_memory.md)
 5.  File System
-6.  [Process/Thread & Scheduling](Operating_System/Process_thread_scheduling.md)
-7.  [Interrupt](./Operating_System/Interrupt.md)
-8.  System call
-9.  Interprocess communication
-10. Synchronization Mechanism
-11. Memory Management
-12. Mutiprocessing/Multithreading
-13. FreeRTOS
-    1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
-    2.  IPC Mechanism
-    3.  Scheduler
-14. [QNX](http://www.qnx.com/developers/docs/qnxcar2/index.jsp?topic=%2Fcom.qnx.doc.neutrino.getting_started%2Ftopic%2Fs3_qnx2nto_Device_driver_model.html)
-15. Linux
+6.  Process Management
+7.  [Process/Thread & Scheduling](Operating_System/Process_thread_scheduling.md)
+8.  [Interrupt](./Operating_System/Interrupt.md)
+9.  System call
+10. Interprocess communication
+11. Synchronization Mechanism
+12. Memory Management
+13. Mutiprocessing/Multithreading
+14. RTOS
+    1.  FreeRTOS
+        1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
+        2.  IPC/Sychronization Mechanism
+        3.  Scheduler
+        4.  Interrupt
+        5.  Timers and time management
+    2.  [QNX](http://www.qnx.com/developers/docs/qnxcar2/index.jsp?topic=%2Fcom.qnx.doc.neutrino.getting_started%2Ftopic%2Fs3_qnx2nto_Device_driver_model.html)
+15. [Linux](https://0xax.gitbooks.io/linux-insides/content/)
     1.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
     2.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
-    3.  [System Call](Operating_System/Linux/syscall.md)
-    4.  Synchronization
-    5.  Device Tree
-    6.  Sysfs
-    7.  [Boot Loader](Operating_System/Linux/boot_loader.md)
-    8.  [Linux Booting Process](Operating_System/Linux/booting.md)
-    9.  Timer Wheel
+    3.  Synchronization primitives
+    4.  Booting
+    5.  [Linux Booting Process](Operating_System/Linux/booting.md)
+    6.  Intialization
+    7.  Interrupt
+    8.  [System Call](Operating_System/Linux/syscall.md)
+    9.  [Boot Loader](Operating_System/Linux/boot_loader.md)
+    10. Timers and time management
+    11. Memory managment
+    12. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
        
 
 ### I. Computer Architecture
@@ -291,4 +298,8 @@
 [Awesome Embedded Interview Link](https://docs.google.com/document/d/18HMyd-lFu1hWiixFLS2Pc7-SgyzDDqitzXbfAnUVeBE/mobilebasic)
 
 [Embedded system guide repo collection](https://github.com/Embedded-Systems-Guide)
+
+[CS Notes](https://notes.eddyerburgh.me/)
+
+[The Linux Documentation Project](https://tldp.org/guides.html)
 

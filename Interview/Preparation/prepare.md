@@ -9,7 +9,10 @@
 - Producer and Consumer Problem
 - Caching (cache coherency/cache line)
 - Memory mapped IO/ IO Mapped IO
-- Interrupt
+- Interrupt **(Done)**
+- Context switch (process/ISR)
+- Registers/instructions/execution **(Done)**
+- ARM programmer's model **(Done)**
 
 ### Bus protocol **(Done)**
 - UART **(Done)**

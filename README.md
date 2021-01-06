@@ -116,7 +116,7 @@
 1.  ARM programmer's model
 2.  Pipeline
 3.  Cache coherence
-4.  DMA
+4.  [DMA](./Computer_architecture/dma.md)
 5.  TCM
 6.  TLB
 7.  NUMA

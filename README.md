@@ -113,13 +113,14 @@
        
 
 ### I. Computer Architecture
-1.  Pipeline
-2.  Cache coherence
-3.  DMA
-4.  TCM
-5.  TLB
-6.  NUMA
-7.  Memory translation
+1.  ARM programmer's model
+2.  Pipeline
+3.  Cache coherence
+4.  DMA
+5.  TCM
+6.  TLB
+7.  NUMA
+8.  Memory translation
 
 ### J. HW Modules
 1.  RAM & ROM

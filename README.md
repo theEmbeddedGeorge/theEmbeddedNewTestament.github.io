@@ -81,7 +81,8 @@
 4. [Linux Storage Management](http://linux-training.be/linuxsto.pdf)
 5. [Linux Security](http://linux-training.be/linuxsec.pdf)
 6. [Linux Networking](http://linux-training.be/linuxnet.pdf)
-7. [Socket Programming(private google doc)](https://drive.google.com/drive/u/0/folders/19m3IeQftCSivFiV0oGFI6CZ3HN1Z7lwo)
+7. [Socket Programming(private google doc)](https://drive.google.com/file/d/1BlcMJzdqdaSYS0jKmI_ZXQqukEG8beCq/view?usp=sharing)
+
 
 ### H. Operating Systems
 1.  User Space

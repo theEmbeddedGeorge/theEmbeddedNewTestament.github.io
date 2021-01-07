@@ -60,7 +60,8 @@
 1. [Unix IPC](Resources/beeje_guide_unix_ipc.pdf) 
 2. Memory management
 3. Multi-thread/Multi-processing
-4. [Socket Programming](Resources/beeje_guide_network_programming.pdf)
+4. [POSIX Socket Programming](Resources/beeje_guide_network_programming.pdf)
+5. [Unix Socket (private google doc)](https://drive.google.com/file/d/1BlcMJzdqdaSYS0jKmI_ZXQqukEG8beCq/view?usp=sharing)
 
 ### F. Bus
 1.  [Serial Communication](Bus_Protocol/Serial_communication.md)
@@ -81,7 +82,6 @@
 4. [Linux Storage Management](http://linux-training.be/linuxsto.pdf)
 5. [Linux Security](http://linux-training.be/linuxsec.pdf)
 6. [Linux Networking](http://linux-training.be/linuxnet.pdf)
-7. [Socket Programming(private google doc)](https://drive.google.com/file/d/1BlcMJzdqdaSYS0jKmI_ZXQqukEG8beCq/view?usp=sharing)
 
 
 ### H. Operating Systems

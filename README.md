@@ -127,7 +127,7 @@
 3.  Cache coherence
 4.  [DMA](./Computer_architecture/dma.md)
 5.  TCM
-6.  TLB
+6.  [TLB](./Computer_architecture/tlb.md)
 7.  NUMA
 8.  Memory translation
 

@@ -9,13 +9,15 @@
 #include <time.h>
 #include <signal.h>
 #include <stdarg.h>
+#include <errno.h>
+#include <unistd.h>
 
 #define SERVER_QUEUE_NAME   "/fan-control-server"
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 100
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
-#define DEBUG_LEVEL 2
+#define DEBUG_LEVEL 4
 
 #define LOG_LEVEL_DEBUG 4
 #define LOG_LEVEL_INFO 3
@@ -24,6 +26,9 @@
 
 #define MAX_FAN_NUM 10
 #define MAX_MODULE_NUM MAX_FAN_NUM
+#define MILLISEC 1000
+
+#define MAX(a, b) (a > b) ? a : b;
 
 /* 
  * Fan structure to control fan speed. Components:
@@ -60,7 +65,7 @@ typedef struct {
 typedef struct {
     int fan_num;
     int max_speed;
-    Fan[MAX_FAN_NUM];
+    Fan Fans[MAX_FAN_NUM];
 } Fan_group;
 
 /*
@@ -80,8 +85,10 @@ static int log_msg(int priority, const char *format, ...)
     va_list args;
     va_start(args, format);
 
-    if(priority <= DEBUG_LEVEL)
+    if(priority <= DEBUG_LEVEL) {
         vprintf(format, args);
+        vprintf("\n", NULL);
+    }
 
     va_end(args);
 }

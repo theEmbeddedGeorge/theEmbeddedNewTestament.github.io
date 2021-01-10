@@ -45,13 +45,13 @@ static void FAN_init(int fan_num) {
     }
 }
 
-static uint8_t temp2speed(double temp_val) {
+static uint32_t temp2speed(double temp_val) {
     if (temp_val <= 20)
         return 0;
     else if (temp_val >= 70)
         return 100;
     else {
-        return (int)(temp_val - 20) * 2;
+        return (uint32_t)(temp_val - 20) * 2;
     }
 } 
 

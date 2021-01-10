@@ -58,8 +58,9 @@ typedef struct {
     uint8_t current_spd;
     uint32_t rd_reg;
     uint32_t wt_reg;
-    int (*read_speed)(uint8_t* value, uint32_t REG_addr);
-    int (*set_speed)(uint8_t PWM_counts, uint32_t REG_addr);
+    pFan self;
+    int (*read_speed)(uint8_t* value, pFan fan_self);
+    int (*set_speed)(pFan fan_self);
 } Fan, *pFan;
 
 typedef struct {

@@ -6,11 +6,11 @@ static struct mq_attr attr;
 
 Fan_group general_group;
 
-static int general_read_speed(uint8_t* value, uint32_t REG_addr) {
+static int general_read_speed(uint32_t* value, pFan fan_self) {
     return 0;
 }
 
-static int general_set_speed(uint8_t PWM_counts, uint32_t REG_addr) {
+static int general_set_speed(pFan fan_self) {
     return 0;
 }
 
@@ -31,6 +31,7 @@ static void FAN_init(int fan_num) {
             general_group.Fans[i].current_spd = 0;
             general_group.Fans[i].rd_reg = 0x0;
             general_group.Fans[i].wt_reg = 0x0;
+            general_group.Fans[i].self = &general_group.Fans[i];
             general_group.Fans[i].read_speed = general_read_speed;
             general_group.Fans[i].set_speed = general_set_speed;
         } else {
@@ -39,6 +40,7 @@ static void FAN_init(int fan_num) {
             general_group.Fans[i].current_spd = 0;
             general_group.Fans[i].rd_reg = 0x0;
             general_group.Fans[i].wt_reg = 0x0;
+             general_group.Fans[i].self = NULL;
             general_group.Fans[i].read_speed = NULL;
             general_group.Fans[i].set_speed = NULL;
         }
@@ -76,7 +78,7 @@ static void timer_handler(union sigval val) {
 
     for (i = 0; i < MAX_FAN_NUM; i++) {
         if (-1 != general_group.Fans[i].module_id) {
-            general_group.Fans[i].set_speed(general_group.max_speed, general_group.Fans[i].wt_reg);
+            general_group.Fans[i].set_speed(general_group.Fans[i].self);
         }
     }
 
@@ -116,18 +118,6 @@ int main (int argc, char **argv)
         log_msg(LOG_LEVEL_ERROR, "Failed to initiate SIGTERM signal handler.\n");
         exit(EXIT_FAILURE);
     }
-
-    /*
-    memset(&term_action, 0, sizeof(struct sigaction));
-
-    term_action.sa_flags = SA_SIGINFO;
-    term_action.sa_sigaction = temp_request_handler;
-
-    if (-1 == sigaction(SIGALARM, &request_action, NULL)) {
-        log_msg("Failed to initiate timer signal handler.\n", LOG_LEVEL_ERROR);
-        exit(EXIT_FAILURE);
-    }
-    */
     
     memset(&sev, 0, sizeof(struct sigevent));
     memset(&trigger, 0, sizeof(struct itimerspec));
@@ -153,7 +143,7 @@ int main (int argc, char **argv)
         goto EXIT;
     }
 
-    attr.mq_flags = O_NONBLOCK;
+    attr.mq_flags = 0;
     attr.mq_maxmsg = MAX_MESSAGES;
     attr.mq_msgsize = sizeof(Temp_val);
     attr.mq_curmsgs = 0;
@@ -166,7 +156,7 @@ int main (int argc, char **argv)
     while (!done) {
         log_msg(LOG_LEVEL_DEBUG, "Start receiving from message queue!");
 
-        /* Keep reading, block when queue is empty */
+        /* Keep reading, block when queue is empty to save CPU useage */
         recv = mq_receive (qd_server, (char*) &module_msg, sizeof(Temp_val), NULL);
         if (-1 == recv) {
             if (errno != EINTR) {
@@ -186,8 +176,7 @@ int main (int argc, char **argv)
 
     return EXIT_SUCCESS;
 EXIT:
-    /* Delete (destroy) the timer */
     timer_delete(timerid);
 
-    return -1;
+    return EXIT_FAILURE;
 }

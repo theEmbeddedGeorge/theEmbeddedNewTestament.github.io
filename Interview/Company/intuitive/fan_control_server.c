@@ -2,11 +2,11 @@
 
 volatile sig_atomic_t done = 0;
 static mqd_t qd_server, qd_client;
-static struct mq_attr attr;
 
 Fan_group general_control_group;
+int module_number = MAX_MODULE_NUM;
 
-static void fan_group_init() {
+static void fan_group_init(int module_number) {
     int i;
     Module *module;
 
@@ -17,7 +17,7 @@ static void fan_group_init() {
      * Assume one fan per module. (fan 1 -> module 1, fan 2 -> module 2)
      */ 
     module = general_control_group.modules;
-    for (i = 0; i < MAX_MODULE_NUM; i++) {
+    for (i = 0; i < module_number; i++) {
         module[i].fan = &general_fan_list[i]; // assign one fan to each module
         module[i].cur_temp = 0;
         module[i].module_id = -1; // No module is connected yet
@@ -26,12 +26,12 @@ static void fan_group_init() {
     }
 }
 
-static void module_fan_op(Module* module, uint32_t value, int op) {
+static void module_fan_op(Module* module, uint32_t *value, int op) {
     pthread_mutex_lock(&module->fan_mutex);
-    if (op == 0)
-        module->fan->set_spd((uint8_t)value, module->fan);
-    else
-        module->fan->read_spd(&value, module->fan);
+    if (op == 0 && module && module->fan && module->fan->set_spd)
+        module->fan->set_spd(*value, module->fan);
+    else if (module && module->fan && module->fan->read_spd)
+        module->fan->read_spd(value, module->fan);
     pthread_mutex_unlock(&module->fan_mutex);
 }
 
@@ -41,9 +41,21 @@ static uint32_t temp2speed(double val) {
     else if (val >= 70)
         return 100;
     else {
-        return (uint32_t)(val - 20) * 2;
+        return (uint32_t)((val - 20.0) * 2.0);
     }
 } 
+
+static int isNumber(char *str) {
+    int i = 0;
+    int sz = strlen(str);
+
+    while (sz--) {
+        if (!isdigit(str[i++]))
+            return 0;
+    }
+
+    return 1;
+}
 
 static void print_fan_group_info (Fan_group *general_group) {
     Module *module;
@@ -54,7 +66,7 @@ static void print_fan_group_info (Fan_group *general_group) {
     printf("Max temperature: %d\n", general_group->max_temp);
     printf("Temperature by Module: %d\n", general_group->max_temp);
     printf("[");
-    for (i = 0; i < MAX_MODULE_NUM; i++) {
+    for (i = 0; i < module_number; i++) {
         module = &general_group->modules[i];
         printf("%u ", module->cur_temp);
     }
@@ -65,20 +77,22 @@ static void print_fan_group_info (Fan_group *general_group) {
 
 static void group_set_spd(Fan_group *general_group) {
     int i = 0;
+    uint32_t value;
     Module *module;
 
     general_group->max_temp = 0;
-    for (i = 0; i < MAX_MODULE_NUM; i++) {
+    for (i = 0; i < module_number; i++) {
         module = &general_group->modules[i];
         if (module->module_id != -1) {
             general_group->max_temp = MAX(general_group->max_temp, module->cur_temp);
         }
     }
 
-    for (i = 0; i < MAX_MODULE_NUM; i++) {
+    for (i = 0; i < module_number; i++) {
         module = &general_group->modules[i];
-        if (module->module_id != -1 && module->fan->set_spd) {
-            module_fan_op(module, temp2speed(general_group->max_temp), 0); // set fan speed
+        if (module->module_id != -1) {
+            value = temp2speed(general_group->max_temp);
+            module_fan_op(module, &value, 0); // set fan speed
         }
     }
     print_fan_group_info(general_group);
@@ -110,9 +124,36 @@ int main (int argc, char **argv)
     ssize_t recv;
     Module *module;
     int mid;
+    uint32_t value;
+    struct mq_attr attr;
+
+    /*
+    * Check input arguments
+    */
+    if (argc < 1 || argc > 2) {
+        log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments!");
+        exit(EXIT_FAILURE);
+    }
+
+    /*
+    *  If user specifies the number of max modules will be connected
+    * */
+    if (argc == 2) {
+        if (!isNumber(argv[1])) {
+            log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments! Expect a number!");
+            exit(EXIT_FAILURE);
+        } else if (atoi(argv[1]) > MAX_MODULE_NUM) {
+            log_msg(LOG_LEVEL_ERROR, "At most %d modules allowed!", MAX_MODULE_NUM);
+            exit(EXIT_FAILURE);
+        }
+        log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments!");
+
+        module_number = atoi(argv[1]);
+        log_msg(LOG_LEVEL_DEBUG, "Max module number to be conncted: %d", module_number);
+    }
 
     // Init fangroups
-    fan_group_init();
+    fan_group_init(module_number);
     
     memset(&term_action, 0, sizeof(struct sigaction));
     
@@ -174,7 +215,7 @@ int main (int argc, char **argv)
             }
 
             // Calculate module id based on the module PID 
-            mid = client_msg.pid % MAX_MODULE_NUM;
+            mid = client_msg.pid % module_number;
 
             module = &general_control_group.modules[mid];
             switch(client_msg.type) {
@@ -186,7 +227,8 @@ int main (int argc, char **argv)
                     module->cur_temp = client_msg.temp_val;
 
                     if (module->cur_temp >= OVERHEAT_TEMP) {
-                        module_fan_op(module, temp2speed(module->cur_temp), 0); // set fan speed
+                        value = temp2speed(module->cur_temp);
+                        module_fan_op(module, &value, 0); // set fan speed
                         log_msg(LOG_LEVEL_WARNING, "Server: module %d overheat. Adjust speed now!", mid);
                     }
                     break;

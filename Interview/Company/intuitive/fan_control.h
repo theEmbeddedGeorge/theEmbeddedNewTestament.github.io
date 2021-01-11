@@ -36,58 +36,33 @@ typedef enum msg_type {
 } Msg_t;
 
 /* 
- * Fan structure to control fan speed. Components:
- * 
- * 1. Current fan speed set last time. 
- * 2. Read_speed callback function to read current fan speed.
- * 3. Set_speed callback function to set fan speed.
- * 4. Module ID to indicate which module it belongs to.
- * 
- * set_speed callback function takes two arguments:
- * 1. PWM_counts.  0 for 0 duty cycle, 100 for 100% duty cycle.
- * 2. Register address to map for control speed.
- * 
- * read_speed callback function takes two arguments:
- * 1. value.  speed value read back from fan.
- * 2. Register address to map for read speed.
- * 
- * Speed callback function return status code: 0 for success, 
- * failed otherwise.
- * 
- * Use callback function so that
- * fan from different vendors can have their own set_speed callback
- * that converts PWM_counts to corresponding duty cycle.
+ * General sturcture declaration 
  */
-
-typedef struct fan Fan;
-
-struct fan{
-    volatile uint32_t current_spd;
-    uint32_t rd_reg;
-    uint32_t wt_reg;
+typedef struct module{
+    pthread_mutex_t fan_mutex;
+    Fan_hw *fan;
+    volatile uint32_t cur_temp;
     volatile short module_id;
-};
+} Module;
 
 typedef struct {
-    Fan Fans[MAX_FAN_NUM];
-    int fan_num;
-    int max_speed;
+    int active_fan_num;
+    int max_temp;
+    Module modules[MAX_MODULE_NUM];
 } Fan_group;
 
-/*
- * temperature measurement message from sub module to fan_control module
- */
 typedef struct {
     double temp_val;
     uint8_t pid;
     Msg_t type;  
 } Msg;
 
+
 /*
  * Log message function to log events calssified by different levels.
  * Can directly print or send to log module. 
  */
-static int log_msg(int priority, const char *format, ...)
+int log_msg(int priority, const char *format, ...)
 {
     va_list args;
     va_start(args, format);
@@ -103,8 +78,10 @@ static int log_msg(int priority, const char *format, ...)
 /*
  * Init message data structure 
  */
-static int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
+int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
     message->temp_val = temp;
     message->pid = module_id;
     message->type = type;
 }
+
+

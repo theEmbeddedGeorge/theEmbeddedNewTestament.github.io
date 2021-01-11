@@ -4,65 +4,25 @@ volatile sig_atomic_t done = 0;
 static mqd_t qd_server, qd_client;
 static struct mq_attr attr;
 
-Fan_group general_group;
-
-static int general_read_speed(uint32_t* value, Fan* fan_self) {
-    if (0 != (errno = pthread_mutex_lock(&fan_self->fan_mutex)))
-    {
-        log_msg(LOG_LEVEL_ERROR, "pthread_mutex_lock failed!");
-        return -1;
-    }
-
-    // read register
-
-    if (0 != (errno = pthread_mutex_unlock(&fan_self->fan_mutex)))
-    {
-        log_msg(LOG_LEVEL_ERROR, "pthread_mutex_unlock failed");
-        return -1;
-    }
-
-    return 0;
-}
-
-static int general_set_speed(uint32_t duty_cycle, Fan* fan_self) {
-    if (0 != (errno = pthread_mutex_lock(&fan_self->fan_mutex)))
-    {
-        log_msg(LOG_LEVEL_ERROR, "pthread_mutex_lock failed!");
-        return -1;
-    }
-
-    // write to register
-
-    if (0 != (errno = pthread_mutex_unlock(&fan_self->fan_mutex)))
-    {
-        log_msg(LOG_LEVEL_ERROR, "pthread_mutex_unlock failed");
-        return -1;
-    }
-
-    return 0;
-}
+Fan_group general_control_group;
 
 static void fan_group_init() {
     int i;
-    Fan *fan;
+    Module *module;
+
+    general_control_group.active_fan_num = 0;
+    general_control_group.max_temp = 0;
 
     /* 
-     * Assume all Fans are from the same vendor and have the same
-     * read_speed and write_speed functions
+     * Assume one fan per module. (fan 1 -> module 1, fan 2 -> module 2)
      */ 
-    general_group.fan_num = 0;
-    general_group.max_speed = 0;
-
-    for (i = 0; i < MAX_FAN_NUM; i++) {
-        fan = &general_group.Fans[i];
-        /* For known module */
-        fan->module_id = -1;
-        fan->current_spd = 0;
-        fan->rd_reg = 0x0;
-        fan->wt_reg = 0x0;
-        fan->read_spd = &general_read_speed;
-        fan->set_spd = &general_set_speed;
-        pthread_mutex_init(&general_group.Fans[i].fan_mutex, NULL);
+    for (i = 0; i < MAX_MODULE_NUM; i++) {
+        module = &(general_control_group.modules);
+        module[i].fan = &general_fan_list[i]; // assign one fan to each module
+        module[i].cur_temp = 0;
+        module[i].module_id = -1; // No module is connected yet
+        
+        pthread_mutex_init(&module[i].fan_mutex, NULL);
     }
 }
 
@@ -78,38 +38,34 @@ static uint32_t temp2speed(double val) {
 
 static void group_set_spd(Fan_group *general_group) {
     int i = 0;
-    Fan *fan;
+    Module *module;
 
-    general_group->max_speed = 0;
-    for (i = 0; i < MAX_FAN_NUM; i++) {
-        fan = &general_group->Fans[i];
-        if (fan->module_id != -1)
-            general_group->max_speed = MAX(general_group->max_speed, fan->current_spd);
+    general_group->max_temp = 0;
+    for (i = 0; i < MAX_MODULE_NUM; i++) {
+        module = &general_group->modules[i];
+        if (module->module_id != -1) {
+            general_group->max_temp = MAX(general_group->max_temp, module->cur_temp);
+        }
     }
 
-    for (i = 0; i < MAX_FAN_NUM; i++) {
-        fan = &general_group->Fans[i];
-        if (fan->module_id != -1 && fan->set_spd) {
-            log_msg(LOG_LEVEL_DEBUG, "Set module %d fan speed to %ld.\n", fan->module_id, general_group->max_speed);
-            fan->set_spd(general_group->max_speed, fan);
+    for (i = 0; i < MAX_MODULE_NUM; i++) {
+        module = &general_group->modules[i];
+        if (module->module_id != -1 && module->fan->set_spd) {
+            log_msg(LOG_LEVEL_DEBUG, "Set module %d fan speed to %ld.\n", module->module_id, temp2speed(general_group->max_temp));
+            module->fan->set_spd(temp2speed(general_group->max_temp), module->fan);
         }
     }
 }
 
 static void timer_handler(union sigval val) {
-    int i = 0;
-    Fan *fan;
-    Msg svr_msg;
-    char client_name_buffer[64];
-
     log_msg(LOG_LEVEL_DEBUG, "timer_handler triggered.\n");
     
     // return if no active module
-    if (general_group.fan_num == 0)
+    if (general_control_group.active_fan_num == 0)
         return;
 
     // Set fan group speed
-    group_set_spd(&general_group);
+    group_set_spd(&general_control_group);
 }
 
 static void term(int signum) {
@@ -125,7 +81,7 @@ int main (int argc, char **argv)
     struct sigaction term_action;
     Msg client_msg;
     ssize_t recv;
-    Fan *fan;
+    Module *module;
     int mid;
 
     /*if (argc == 1 || argc > 3)
@@ -202,25 +158,25 @@ int main (int argc, char **argv)
             // Calculate module id based on the module PID 
             mid = client_msg.pid % MAX_MODULE_NUM;
 
-            fan = &general_group.Fans[mid];
+            module = &general_control_group.modules[mid];
             switch(client_msg.type) {
                 case MSG_NORMAL:
-                    if (fan->module_id == -1) {
-                        fan->module_id = client_msg.pid;
-                        general_group.fan_num++;
+                    if (module->module_id == -1) {
+                        module->module_id = client_msg.pid;
+                        general_control_group.active_fan_num++;
                     }
-                    fan->current_spd = temp2speed(client_msg.temp_val);
+                    module->cur_temp = temp2speed(client_msg.temp_val);
 
-                    fan->current_spd = temp2speed(client_msg.temp_val);
-                    if (fan->current_spd == 100) {
-                        fan->set_spd(fan->current_spd, fan);
+                    module->cur_temp = temp2speed(client_msg.temp_val);
+                    if (module->cur_temp == 100) {
+                        module->fan->set_spd(module->cur_temp, module->fan);
                         log_msg(LOG_LEVEL_WARNING, "Server: module %d overheat. Adjust speed now!", client_msg.pid);
                     }
                     break;
                 case MSG_DETACH:
                     log_msg(LOG_LEVEL_DEBUG, "Server: Receive detach msg from module %d.", client_msg.pid);
-                    fan->module_id = -1;
-                    general_group.fan_num--;
+                    module->module_id = -1;
+                    general_control_group.active_fan_num--;
                     break;
                 default:
                     break;

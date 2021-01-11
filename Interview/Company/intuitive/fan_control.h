@@ -13,6 +13,8 @@
 #include <unistd.h>
 
 #define SERVER_QUEUE_NAME   "/fan-control-server"
+#define CLIENT_QUEUE_NAME(pid) "/fan-control-client"##pid;
+
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 100
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
@@ -53,15 +55,19 @@
  * fan from different vendors can have their own set_speed callback
  * that converts PWM_counts to corresponding duty cycle.
  */
+
+typedef int (*read_speed_cb)(uint32_t* value, Fan *fan_self);
+typedef int (*set_speed_cb)(Fan *fan_self);
+
 typedef struct fan Fan;
 struct fan{
     uint8_t module_id;
     uint8_t current_spd;
     uint32_t rd_reg;
     uint32_t wt_reg;
-    Fan *self;
-    int (*read_speed)(uint32_t* value, Fan *fan_self);
-    int (*set_speed)(Fan *fan_self);
+    read_speed_cb read_spd;
+    set_speed_cb set_spd;
+    ;
 };
 
 typedef struct {

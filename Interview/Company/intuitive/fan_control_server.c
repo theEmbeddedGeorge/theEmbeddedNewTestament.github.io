@@ -31,18 +31,16 @@ static void FAN_init(int fan_num) {
             general_group.Fans[i].current_spd = 0;
             general_group.Fans[i].rd_reg = 0x0;
             general_group.Fans[i].wt_reg = 0x0;
-            general_group.Fans[i].self = &(general_group.Fans[i]);
-            general_group.Fans[i].read_speed = general_read_speed;
-            general_group.Fans[i].set_speed = general_set_speed;
+            general_group.Fans[i].read_spd = &general_read_speed;
+            general_group.Fans[i].set_spd = &general_set_speed;
         } else {
             /* for unsigned fans */
             general_group.Fans[i].module_id = -1;
             general_group.Fans[i].current_spd = 0;
             general_group.Fans[i].rd_reg = 0x0;
             general_group.Fans[i].wt_reg = 0x0;
-             general_group.Fans[i].self = NULL;
-            general_group.Fans[i].read_speed = NULL;
-            general_group.Fans[i].set_speed = NULL;
+            general_group.Fans[i].read_spd = NULL;
+            general_group.Fans[i].set_spd = NULL;
         }
     }
 }
@@ -79,8 +77,8 @@ static void timer_handler(union sigval val) {
 
     for (i = 0; i < MAX_FAN_NUM; i++) {
         fan = &general_group.Fans[i];
-        if (-1 != fan->module_id) {
-            (*fan->set_speed)(fan);
+        if (-1 != fan->module_id && fan->set_spd) {
+            fan->set_spd(fan);
         }
     }
 

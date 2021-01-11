@@ -1,14 +1,17 @@
 #include "fan_control.h"
 
+static double read_temperature() {
+    return rand() % 100;
+}
 
 int main (int argc, char **argv)
 {
-    char client_queue_name [64];
     mqd_t qd_server, qd_client;   // queue descriptors
-
+    Temp_val module_msg, server_msg;
 
     // create the client queue for receiving messages from server
-    sprintf (client_queue_name, "/sp-example-client-%d", getpid ());
+    int pid = getpid();
+    //sprintf (client_queue_name, "/sp-example-client-%d", getpid ());
 
     struct mq_attr attr;
 
@@ -17,7 +20,7 @@ int main (int argc, char **argv)
     attr.mq_msgsize = sizeof(Temp_val);
     attr.mq_curmsgs = 0;
 
-    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+    if ((qd_client = mq_open (CLIENT_QUEUE_NAME(pid), O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Client: mq_open (client)");
         exit (1);
     }
@@ -27,39 +30,36 @@ int main (int argc, char **argv)
         exit (1);
     }
 
-    char in_buffer [MSG_BUFFER_SIZE];
+    while (!done) {
+        log_msg(LOG_LEVEL_DEBUG, "Start receiving from message queue!");
 
-    printf ("Ask for a token (Press <ENTER>): ");
-
-    char temp_buf [10];
-
-    while (fgets (temp_buf, 2, stdin)) {
-
-        // send message to server
-        if (mq_send (qd_server, client_queue_name, strlen (client_queue_name) + 1, 0) == -1) {
-            perror ("Client: Not able to send message to server");
-            continue;
+        /* Keep reading, block when queue is empty to save CPU useage */
+        recv = mq_receive (qd_client, (char*) &server_msg, sizeof(Temp_val), NULL);
+        if (-1 == recv) {
+            if (errno != EINTR) {
+                log_msg(LOG_LEVEL_ERROR, "Client: mq_receive error!");
+            }
+        } else if (recv > 0) {
+            log_msg(LOG_LEVEL_DEBUG, "Client: temp val %f from module %d.", module_msg.temp_val, module_msg.module_id);
+            
+            // send message to server
+            module_msg.temp_val = read_temperature();
+            module_msg.module_id = pid;
+            if (mq_send (qd_server, (char*) module_msg, sizeof(Temp_val), NULL) == -1) {
+                log_msg(LOG_LEVEL_ERROR, "Client: mq_send error!");
+                continue;
+            }
         }
-
-        // receive response from server
-
-        if (mq_receive (qd_client, in_buffer, MSG_BUFFER_SIZE, NULL) == -1) {
-            perror ("Client: mq_receive");
-            exit (1);
-        }
-        // display token received from server
-        printf ("Client: Token received from server: %s\n\n", in_buffer);
-
-        printf ("Ask for a token (Press ): ");
+        
+        usleep(50*MILLISEC);
     }
-
 
     if (mq_close (qd_client) == -1) {
         perror ("Client: mq_close");
         exit (1);
     }
 
-    if (mq_unlink (client_queue_name) == -1) {
+    if (mq_unlink (CLIENT_QUEUE_NAME(pid)) == -1) {
         perror ("Client: mq_unlink");
         exit (1);
     }

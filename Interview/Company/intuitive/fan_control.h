@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
 #include <string.h>
-#include <sys/types.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <mqueue.h>
@@ -11,9 +7,12 @@
 #include <stdarg.h>
 #include <errno.h>
 #include <unistd.h>
+#include <pthread.h>
 
-#define SERVER_QUEUE_NAME   "/fan-control-server"
-#define CLIENT_QUEUE_NAME(pid) "/fan-control-client"##pid;
+#include "fan_hw.h"
+
+#define SERVER_QUEUE_NAME  "/fan-control-server"
+#define CLIENT_QUEUE_NAME "/fan-control-client"
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 100
@@ -26,11 +25,15 @@
 #define LOG_LEVEL_WARNING 2
 #define LOG_LEVEL_ERROR 1
 
-#define MAX_FAN_NUM 10
 #define MAX_MODULE_NUM MAX_FAN_NUM
 #define MILLISEC 1000
 
 #define MAX(a, b) (a > b) ? a : b;
+
+typedef enum msg_type {
+    MSG_NORMAL = 0,
+    MSG_DETACH,
+} Msg_t;
 
 /* 
  * Fan structure to control fan speed. Components:
@@ -56,33 +59,29 @@
  * that converts PWM_counts to corresponding duty cycle.
  */
 
-typedef int (*read_speed_cb)(uint32_t* value, Fan *fan_self);
-typedef int (*set_speed_cb)(Fan *fan_self);
-
 typedef struct fan Fan;
+
 struct fan{
-    uint8_t module_id;
-    uint8_t current_spd;
+    volatile uint32_t current_spd;
     uint32_t rd_reg;
     uint32_t wt_reg;
-    read_speed_cb read_spd;
-    set_speed_cb set_spd;
-    ;
+    volatile short module_id;
 };
 
 typedef struct {
+    Fan Fans[MAX_FAN_NUM];
     int fan_num;
     int max_speed;
-    Fan Fans[MAX_FAN_NUM];
 } Fan_group;
 
 /*
  * temperature measurement message from sub module to fan_control module
  */
 typedef struct {
-    int module_id;
     double temp_val;
-} Temp_val;
+    uint8_t pid;
+    Msg_t type;  
+} Msg;
 
 /*
  * Log message function to log events calssified by different levels.
@@ -99,4 +98,13 @@ static int log_msg(int priority, const char *format, ...)
     }
 
     va_end(args);
+}
+
+/*
+ * Init message data structure 
+ */
+static int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
+    message->temp_val = temp;
+    message->pid = module_id;
+    message->type = type;
 }

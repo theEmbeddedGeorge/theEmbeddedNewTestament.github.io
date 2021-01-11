@@ -6,6 +6,50 @@ static mqd_t qd_server, qd_client;
 Fan_group general_control_group;
 int module_number = MAX_MODULE_NUM;
 
+int module_fan_op(Module* module, uint32_t *value, int op) {
+    int ret = 0;
+    int i;
+    Fan_hw *fan;
+
+    if (!module && !module->fan) {
+            log_msg(LOG_LEVEL_ERROR, "Module not instantiate! Abort fan operation");
+            return -1;
+    }
+
+    for (i = 0; i < module->fan_num; i++) {
+        fan = &module->fan[i];
+
+        pthread_mutex_lock(&module->fan_mutex);
+
+        switch(op) {
+            // set speed operation
+            case 0:
+                if (fan->set_spd)
+                    fan->set_spd(*value, fan);
+                else
+                    ret = -1;
+                break;
+            case 1:
+                if (fan->read_spd)
+                    fan->read_spd(value, fan);
+                else
+                    ret = -1;
+                break;
+            default:
+                log_msg(LOG_LEVEL_ERROR, "Unkown operation!");
+                break;
+        }
+
+        pthread_mutex_unlock(&module->fan_mutex);
+    }
+
+    return ret;
+}
+
+/* 
+ * Init fan group structure with the module number pass in
+ * Instantiate module_number number of fans in the fan group
+ */ 
 static void fan_group_init(int module_number) {
     int i;
     Module *module;
@@ -18,21 +62,14 @@ static void fan_group_init(int module_number) {
      */ 
     module = general_control_group.modules;
     for (i = 0; i < module_number; i++) {
+        module[i].fan_num = 1; // assume 1 fan per module
         module[i].fan = &general_fan_list[i]; // assign one fan to each module
         module[i].cur_temp = 0;
         module[i].module_id = -1; // No module is connected yet
+        module[i].fan_op = module_fan_op;
         
         pthread_mutex_init(&module[i].fan_mutex, NULL);
     }
-}
-
-static void module_fan_op(Module* module, uint32_t *value, int op) {
-    pthread_mutex_lock(&module->fan_mutex);
-    if (op == 0 && module && module->fan && module->fan->set_spd)
-        module->fan->set_spd(*value, module->fan);
-    else if (module && module->fan && module->fan->read_spd)
-        module->fan->read_spd(value, module->fan);
-    pthread_mutex_unlock(&module->fan_mutex);
 }
 
 static uint32_t temp2speed(double val) {
@@ -92,7 +129,7 @@ static void group_set_spd(Fan_group *general_group) {
         module = &general_group->modules[i];
         if (module->module_id != -1) {
             value = temp2speed(general_group->max_temp);
-            module_fan_op(module, &value, 0); // set fan speed
+            module->fan_op(module, &value, 0); // set fan speed
         }
     }
     print_fan_group_info(general_group);
@@ -228,7 +265,7 @@ int main (int argc, char **argv)
 
                     if (module->cur_temp >= OVERHEAT_TEMP) {
                         value = temp2speed(module->cur_temp);
-                        module_fan_op(module, &value, 0); // set fan speed
+                        module->fan_op(module, &value, 0); // set fan speed
                         log_msg(LOG_LEVEL_WARNING, "Server: module %d overheat. Adjust speed now!", mid);
                     }
                     break;

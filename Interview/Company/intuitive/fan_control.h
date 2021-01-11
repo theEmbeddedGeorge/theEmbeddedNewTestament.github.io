@@ -44,12 +44,17 @@ typedef enum msg_type {
 /* 
  * General sturcture declaration 
  */
-typedef struct module{
-    pthread_mutex_t fan_mutex;
-    Fan_hw *fan;
+typedef struct module Module;
+typedef int (*module_fan_op_cb)(Module* module, uint32_t *value, int op);
+
+struct module{
     volatile uint32_t cur_temp;
     volatile short module_id;
-} Module;
+    pthread_mutex_t fan_mutex;
+    module_fan_op_cb fan_op;
+    Fan_hw *fan;
+    int fan_num;
+};
 
 typedef struct {
     int active_fan_num;
@@ -64,10 +69,15 @@ typedef struct {
 } Msg;
 
 /*
+ * fan operation function for our modules
+ */
+int module_fan_op(Module* module, uint32_t *value, int op);
+
+/*
  * Log message function to log events calssified by different levels.
  * Can directly print or send to log module. 
  */
-static int log_msg(int priority, const char *format, ...)
+int log_msg(int priority, const char *format, ...)
 {
     va_list args;
     va_start(args, format);
@@ -81,9 +91,9 @@ static int log_msg(int priority, const char *format, ...)
 }
 
 /*
- * Init message data structure 
+ * Init message data structure function
  */
-static int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
+int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
     message->temp_val = temp;
     message->pid = module_id;
     message->type = type;

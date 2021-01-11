@@ -16,14 +16,23 @@ static void fan_group_init() {
     /* 
      * Assume one fan per module. (fan 1 -> module 1, fan 2 -> module 2)
      */ 
+    module = general_control_group.modules;
     for (i = 0; i < MAX_MODULE_NUM; i++) {
-        module = &(general_control_group.modules);
         module[i].fan = &general_fan_list[i]; // assign one fan to each module
         module[i].cur_temp = 0;
         module[i].module_id = -1; // No module is connected yet
         
         pthread_mutex_init(&module[i].fan_mutex, NULL);
     }
+}
+
+static void module_fan_op(Module* module, uint32_t value, int op) {
+    pthread_mutex_lock(&module->fan_mutex);
+    if (op == 0)
+        module->fan->set_spd((uint8_t)value, module->fan);
+    else
+        module->fan->read_spd(&value, module->fan);
+    pthread_mutex_unlock(&module->fan_mutex);
 }
 
 static uint32_t temp2speed(double val) {
@@ -35,6 +44,24 @@ static uint32_t temp2speed(double val) {
         return (uint32_t)(val - 20) * 2;
     }
 } 
+
+static void print_fan_group_info (Fan_group *general_group) {
+    Module *module;
+    int i;
+
+    printf("=======================\n");
+    printf("Active module number: %d\n", general_group->active_fan_num);
+    printf("Max temperature: %d\n", general_group->max_temp);
+    printf("Temperature by Module: %d\n", general_group->max_temp);
+    printf("[");
+    for (i = 0; i < MAX_MODULE_NUM; i++) {
+        module = &general_group->modules[i];
+        printf("%u ", module->cur_temp);
+    }
+    printf("]\n");
+    printf("Fan speed duty cycle: %d\n", temp2speed(general_group->max_temp));
+    printf("=======================\n\n");
+}
 
 static void group_set_spd(Fan_group *general_group) {
     int i = 0;
@@ -51,10 +78,10 @@ static void group_set_spd(Fan_group *general_group) {
     for (i = 0; i < MAX_MODULE_NUM; i++) {
         module = &general_group->modules[i];
         if (module->module_id != -1 && module->fan->set_spd) {
-            log_msg(LOG_LEVEL_DEBUG, "Set module %d fan speed to %ld.\n", module->module_id, temp2speed(general_group->max_temp));
-            module->fan->set_spd(temp2speed(general_group->max_temp), module->fan);
+            module_fan_op(module, temp2speed(general_group->max_temp), 0); // set fan speed
         }
     }
+    print_fan_group_info(general_group);
 }
 
 static void timer_handler(union sigval val) {
@@ -84,16 +111,7 @@ int main (int argc, char **argv)
     Module *module;
     int mid;
 
-    /*if (argc == 1 || argc > 3)
-        return -1;
-
-    if (atoi(argv[1]) > MAX_MODULE_NUM || atoi(argv[1]) < 0) {
-        log_msg(LOG_LEVEL_ERROR, "Module number out of range!\n");
-        return -1;
-    }
-
     // Init fangroups
-    fan_group_init(atoi(argv[1]));*/
     fan_group_init();
     
     memset(&term_action, 0, sizeof(struct sigaction));
@@ -148,7 +166,7 @@ int main (int argc, char **argv)
                 log_msg(LOG_LEVEL_ERROR, "Server: mq_receive error!");
             }
         } else if (recv > 0) {
-            log_msg(LOG_LEVEL_DEBUG, "Server: temp val %f from module %d.", client_msg.temp_val, client_msg.pid);
+            log_msg(LOG_LEVEL_DEBUG, "Server: temp val %f from module %d.", client_msg.temp_val, mid);
 
             if (recv != sizeof(Msg)) {
                 log_msg(LOG_LEVEL_ERROR, "Server: a message from module corrupted!");
@@ -162,20 +180,20 @@ int main (int argc, char **argv)
             switch(client_msg.type) {
                 case MSG_NORMAL:
                     if (module->module_id == -1) {
-                        module->module_id = client_msg.pid;
+                        module->module_id = mid;
                         general_control_group.active_fan_num++;
                     }
-                    module->cur_temp = temp2speed(client_msg.temp_val);
+                    module->cur_temp = client_msg.temp_val;
 
-                    module->cur_temp = temp2speed(client_msg.temp_val);
-                    if (module->cur_temp == 100) {
-                        module->fan->set_spd(module->cur_temp, module->fan);
-                        log_msg(LOG_LEVEL_WARNING, "Server: module %d overheat. Adjust speed now!", client_msg.pid);
+                    if (module->cur_temp >= OVERHEAT_TEMP) {
+                        module_fan_op(module, temp2speed(module->cur_temp), 0); // set fan speed
+                        log_msg(LOG_LEVEL_WARNING, "Server: module %d overheat. Adjust speed now!", mid);
                     }
                     break;
                 case MSG_DETACH:
-                    log_msg(LOG_LEVEL_DEBUG, "Server: Receive detach msg from module %d.", client_msg.pid);
+                    log_msg(LOG_LEVEL_DEBUG, "Server: Receive detach msg from module %d.", mid);
                     module->module_id = -1;
+                    module->cur_temp = 0;
                     general_control_group.active_fan_num--;
                     break;
                 default:

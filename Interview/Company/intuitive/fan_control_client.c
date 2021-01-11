@@ -64,13 +64,14 @@ int main (int argc, char **argv)
          * Instatiate message to be sent to server by populating
          * module_id, temperature_value and message type fields
          */
+        log_msg(LOG_LEVEL_DEBUG, "Client %d Temp_val: %d", mid, temp_val);
         msg_init(&client_msg, mid, temp_val, MSG_NORMAL);
         if (mq_send (qd_server, (char*) &client_msg, sizeof(Msg), prior) == -1) {
             log_msg(LOG_LEVEL_ERROR, "Client: mq_send error! MSG type: %d", client_msg.type);
             continue;
         }
         
-        usleep(1000*MILLISEC);
+        usleep(5000*MILLISEC);
     }
     
     /* Send detach message to server to notify module detach event */

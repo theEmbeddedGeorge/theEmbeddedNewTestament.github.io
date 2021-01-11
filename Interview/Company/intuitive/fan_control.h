@@ -1,6 +1,4 @@
 #include <string.h>
-#include <fcntl.h>
-#include <sys/stat.h>
 #include <mqueue.h>
 #include <time.h>
 #include <signal.h>
@@ -8,11 +6,16 @@
 #include <errno.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
 
 #include "fan_hw.h"
 
-#define SERVER_QUEUE_NAME  "/fan-control-server"
-#define CLIENT_QUEUE_NAME "/fan-control-client"
+#define SERVER_QUEUE_NAME "/fan-control-server"
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 100
@@ -27,6 +30,8 @@
 
 #define MAX_MODULE_NUM MAX_FAN_NUM
 #define MILLISEC 1000
+
+#define OVERHEAT_TEMP 75
 
 #define MAX(a, b) (a > b) ? a : b;
 
@@ -57,12 +62,11 @@ typedef struct {
     Msg_t type;  
 } Msg;
 
-
 /*
  * Log message function to log events calssified by different levels.
  * Can directly print or send to log module. 
  */
-int log_msg(int priority, const char *format, ...)
+static int log_msg(int priority, const char *format, ...)
 {
     va_list args;
     va_start(args, format);
@@ -78,10 +82,8 @@ int log_msg(int priority, const char *format, ...)
 /*
  * Init message data structure 
  */
-int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
+static int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
     message->temp_val = temp;
     message->pid = module_id;
     message->type = type;
 }
-
-

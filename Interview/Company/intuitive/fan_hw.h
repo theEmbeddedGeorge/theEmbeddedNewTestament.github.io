@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <sys/types.h>
+#define MMAP(base_addr, offset) // {printf("Map physical address %x with offset %x.\n", base_addr, offset);}
+#define UMAP(base_addr) //{printf("UMap physical address %x.\n", base_addr);}
+#define READW(ptr, val) //{printf("Read a word from a pointer address.\n");}
+#define WRITEW(ptr, val) //{printf("Write a word to a pointer address.\n");}
 
 #define MAX_FAN_NUM 10
 
@@ -18,9 +18,10 @@ struct fan_hw {
     set_speed_cb set_spd;
 };
 
-static int general_read_speed(uint32_t* value, Fan_hw* fan_self);
-static int general_set_speed(uint8_t duty_cycle, Fan_hw* fan_self);
+int general_read_speed(uint32_t* value, Fan_hw* fan_self);
+int general_set_speed(uint8_t duty_cycle, Fan_hw* fan_self);
 
+/* Fan hardware instances */
 Fan_hw general_fan_list[MAX_FAN_NUM] = {
     {"General_vendor", "0xa1", 0xffff8000, 0xffff4000, general_read_speed, general_set_speed},
     {"General_vendor", "0xa1", 0xffff8000, 0xffff4000, general_read_speed, general_set_speed},
@@ -33,3 +34,34 @@ Fan_hw general_fan_list[MAX_FAN_NUM] = {
     {"General_vendor", "0xe5", 0xffff8040, 0xffff1000, general_read_speed, general_set_speed},
     {"General_vendor", "0xe5", 0xffff8040, 0xffff1000, general_read_speed, general_set_speed},
 };
+
+int general_read_speed(uint32_t* value, Fan_hw* fan_self) {
+    // read register
+    void *ptr;
+
+    MMAP(fan_self->RD_REG, 0x100);
+    READW(ptr, value);
+    UMAP(fan_self->RD_REG);
+
+    return 0;
+}
+
+int general_set_speed(uint8_t duty_cycle, Fan_hw* fan_self) {
+    // read register
+    void *ptr;
+    uint32_t step;
+    uint32_t value;
+
+    /*
+    * Simple algorithm to convert from duty cycles into PWM counts for 
+    * our general fan 
+    */
+    step = (0xfffffff / 100);
+    value = (uint32_t) duty_cycle * step;
+
+    MMAP(fan_self->WRT_REG, 0x100);
+    WRITEW(ptr, value);
+    UMAP(fan_self->WRT_REG);
+
+    return 0;
+}

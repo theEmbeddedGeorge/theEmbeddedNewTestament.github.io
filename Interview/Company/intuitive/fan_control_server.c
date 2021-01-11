@@ -6,11 +6,11 @@ static struct mq_attr attr;
 
 Fan_group general_group;
 
-static int general_read_speed(uint32_t* value, pFan fan_self) {
+static int general_read_speed(uint32_t* value, Fan* fan_self) {
     return 0;
 }
 
-static int general_set_speed(pFan fan_self) {
+static int general_set_speed(Fan* fan_self) {
     return 0;
 }
 
@@ -31,7 +31,7 @@ static void FAN_init(int fan_num) {
             general_group.Fans[i].current_spd = 0;
             general_group.Fans[i].rd_reg = 0x0;
             general_group.Fans[i].wt_reg = 0x0;
-            general_group.Fans[i].self = &general_group.Fans[i];
+            general_group.Fans[i].self = &(general_group.Fans[i]);
             general_group.Fans[i].read_speed = general_read_speed;
             general_group.Fans[i].set_speed = general_set_speed;
         } else {
@@ -59,6 +59,7 @@ static uint32_t temp2speed(double temp_val) {
 
 static void timer_handler(union sigval val) {
     int i = 0;
+    Fan *fan;
 
     // send reply message to client
     /*if ((qd_client = mq_open (in_buffer, O_WRONLY)) == 1) {
@@ -77,8 +78,9 @@ static void timer_handler(union sigval val) {
     }
 
     for (i = 0; i < MAX_FAN_NUM; i++) {
-        if (-1 != general_group.Fans[i].module_id) {
-            general_group.Fans[i].set_speed(general_group.Fans[i].self);
+        fan = &general_group.Fans[i];
+        if (-1 != fan->module_id) {
+            (*fan->set_speed)(fan);
         }
     }
 

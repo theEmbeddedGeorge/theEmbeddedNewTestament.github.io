@@ -53,15 +53,16 @@
  * fan from different vendors can have their own set_speed callback
  * that converts PWM_counts to corresponding duty cycle.
  */
-typedef struct {
+typedef struct fan Fan;
+struct fan{
     uint8_t module_id;
     uint8_t current_spd;
     uint32_t rd_reg;
     uint32_t wt_reg;
-    pFan self;
-    int (*read_speed)(uint8_t* value, pFan fan_self);
-    int (*set_speed)(pFan fan_self);
-} Fan, *pFan;
+    Fan *self;
+    int (*read_speed)(uint32_t* value, Fan *fan_self);
+    int (*set_speed)(Fan *fan_self);
+};
 
 typedef struct {
     int fan_num;

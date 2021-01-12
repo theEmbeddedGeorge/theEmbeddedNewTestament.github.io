@@ -1,12 +1,23 @@
-## Fan Control
-#### Usage
-```
-make
-./stack
-```
+## Fan Control App demo 
 
-## Task 
-Your task is to develop an application to control fan speeds. The application should meet the following
+**Table of Contents:**
+- Project Objective
+- App Demo Design Analysis
+  - Architecture
+  - Feature
+  - Limitation
+  - Improvments
+- Usage 
+  - Compilation and cleanup
+  - Run the demo program
+  - Stop the demo program
+- Demo Result
+
+
+
+
+## Project Objective
+The task is to develop an application to control fan speeds. The application should meet the following
 requirements:
 
     • The temperature of each subsystem is provided as a 32-bit floating point number in °C via IPC.
@@ -41,60 +52,144 @@ For your test program, you
 may make up the number of fans, the number of subsystems, and the max PWM counts of each fan as you
 please.
 
-## Analysis
+## App Demo Design Analysis
 ### Architecture
 
-### Data Structure and function prototype
+### Feature
 
-***FAN***
-```C
-/* 
- * Fan structure to control fan speed. Components:
- * 
- * 1. Current fan speed set last time. 
- * 2. Read_speed callback function to read current fan speed.
- * 3. Set_speed callback function to set fan speed.
- * 4. Module ID to indicate which module it belongs to.
- * 
- * set_speed callback function takes two arguments:
- * 1. PWM_counts.  0 for 0 duty cycle, 100 for 100% duty cycle.
- * 2. Register address to map for control speed.
- * 
- * read_speed callback function takes two arguments:
- * 1. value.  speed value read back from fan.
- * 2. Register address to map for read speed.
- * 
- * Speed callback function return status code: 0 for success, 
- * failed otherwise.
- * 
- * Use callback function so that
- * fan from different vendors can have their own set_speed callback
- * that converts PWM_counts to corresponding duty cycle.
- */
-typedef struct {
-    uint8_t module_id;
-    uint32_t current_spd;
-    int (*read_speed)(uint32_t* value, uint32_t REG_addr);
-    int (*set_speed)(uint32_t PWM_counts, uint32_t REG_addr);
-} Fan, *pFan;
+## Usage
+### Compilation and cleanup
+***Build:***
+```
+    make all
 ```
 
-***Message convey between sub module and fan control***
-```C
-double temperature;
+***Clean up:***
+```
+    make clean
 ```
 
-***Fan control module***
-```C
-/*
- * Log message function to log events calssified by different levels.
- * Can directly print or send to log module. 
- */
-void log_msg(char* message, int level) {
-    if (level <= DEBUG_LEVEL)
-        printf("%s\n");
-}
+### Run the demo program
+***Run fan_control server:***
+```
+    sudo ./fan_control_server <number-of-module>|<Enter>
+```
+It takes first argument as the number of module allowed to be connected. If unspecified, 20 will be used as the default value. 
 
+***Run fan_control server:***
+```
+    sudo ./fan_control_client <module-id>
+```
+It takes first argument as the module ID. This value will be used by the server to identify the module. Please note that if a module with the same ID already exists, client will not run.
 
+```NOTE: Please use 'sudo' to run the demo program. Otherwise message queues will not be created!```
+
+### Stop the demo program
+
+Use Ctrl-C to generate termination signal to each program.
+
+## Demo Result
+```
+    sudo ./fan_control_server 10
+
+    sudo ./fan_control_client 0
+    sudo ./fan_control_client 1
+    sudo ./fan_control_client 2
+    sudo ./fan_control_client 3
+```
+
+***Fan_control server output:***
+```
+Max module number to be conncted: 10
+Start receiving from message queue!
+timer_handler triggered.
+
+No active module. Continue.
+
+timer_handler triggered.
+
+Server: temp val 0.000000 from module 0.
+Server: client 0 queue name /fan-control-client-0
+Start receiving from message queue!
+Server: temp val 93.000000 from module 0.
+Server: Received urgent msg from module 0. Adjust speed now!
+Start receiving from message queue!
+timer_handler triggered.
+
+=======================
+Active module number: 1
+Max temperature: 93
+Temperature by Module: 93
+[93 0 0 0 0 0 0 0 0 0 ]
+Fan speed duty cycle: 100
+=======================
+
+Server: Query all active module for temperature.
+Server: temp val 29.000000 from module 0.
+Start receiving from message queue!
+Server: temp val 0.000000 from module 1.
+Server: client 1 queue name /fan-control-client-1
+Start receiving from message queue!
+Server: temp val 93.000000 from module 1.
+Server: Received urgent msg from module 1. Adjust speed now!
+Start receiving from message queue!
+timer_handler triggered.
+
+=======================
+Active module number: 2
+Max temperature: 93
+Temperature by Module: 93
+[29 93 0 0 0 0 0 0 0 0 ]
+Fan speed duty cycle: 100
+=======================
+
+```
+
+***Fan_control client 0 output:***
+```
+Module ID: 0
+Client 0: Send module ATTACH message.
+Client 0 Temp_val: 83
+Client 0 Temp_val: 86
+Client 0 Temp_val: 77
+Client 0 Temp_val: 15
+Client 0 Temp_val: 93
+Client 0: Module Temperature above threshold! Send urgent message!.
+Client 0 Temp_val: 35
+Client 0: Receive msg from server. Reply..
+Client 0 Temp_val: 86
+Client 0 Temp_val: 92
+Client 0: Module Temperature above threshold! Send urgent message!.
+Client 0 Temp_val: 49
+Client 0 Temp_val: 21
+Client 0 Temp_val: 62
+Client 0: Receive msg from server. Reply..
+Client 0 Temp_val: 27
+Client 0 Temp_val: 90
+Client 0 Temp_val: 59
+Client 0 Temp_val: 63
+Client 0 Temp_val: 26
+Client 0: Receive msg from server. Reply..
+```
+
+***Fan_control client 1 output:***
+```
+Module ID: 1
+Client 1: Send module ATTACH message.
+Client 1 Temp_val: 83
+Client 1 Temp_val: 86
+Client 1 Temp_val: 77
+Client 1 Temp_val: 15
+Client 1 Temp_val: 93
+Client 1: Module Temperature above threshold! Send urgent message!.
+Client 1 Temp_val: 35
+Client 1: Receive msg from server. Reply..
+Client 1 Temp_val: 86
+Client 1 Temp_val: 92
+Client 1: Module Temperature above threshold! Send urgent message!.
+Client 1 Temp_val: 49
+Client 1 Temp_val: 21
+Client 1 Temp_val: 62
+Client 1: Receive msg from server. Reply..
 
 ```

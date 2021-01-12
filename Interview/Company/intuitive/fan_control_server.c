@@ -8,6 +8,9 @@ static mqd_t qd_server;
 Fan_group general_control_group;
 int module_number = MAX_MODULE_NUM;
 
+/* 
+ * Modeule fan operation function
+ */ 
 int module_fan_op(Module* module, uint32_t *value, int op) {
     int ret = 0;
     int i;
@@ -21,6 +24,7 @@ int module_fan_op(Module* module, uint32_t *value, int op) {
     for (i = 0; i < module->fan_num; i++) {
         fan = &module->fan[i];
 
+        // take mutex to ensure atomic manipulation on fan hardware
         pthread_mutex_lock(&module->fan_mutex);
 
         switch(op) {
@@ -31,6 +35,7 @@ int module_fan_op(Module* module, uint32_t *value, int op) {
                 else
                     ret = -1;
                 break;
+            // read speed operation
             case 1:
                 if (fan->read_spd)
                     fan->read_spd(value, fan);
@@ -74,6 +79,9 @@ static void fan_group_init(int module_number) {
     }
 }
 
+/* 
+ * Convert temperature to duty cycle percentage
+ */ 
 static uint32_t temp2speed(double val) {
     if (val <= 20)
         return 0;
@@ -84,6 +92,9 @@ static uint32_t temp2speed(double val) {
     }
 } 
 
+/* 
+ * Display Fan states in the control group
+ */ 
 static void print_fan_group_info (Fan_group *general_group) {
     Module *module;
     int i;
@@ -102,6 +113,10 @@ static void print_fan_group_info (Fan_group *general_group) {
     printf("=======================\n\n");
 }
 
+/* 
+ * Set all active fan in the same group with the same speed
+ * Speed is determined by the max temperature
+ */ 
 static void group_set_spd(Fan_group *general_group) {
     int i = 0;
     uint32_t value;
@@ -127,6 +142,9 @@ static void group_set_spd(Fan_group *general_group) {
 }
 
 #ifdef ACTIVE_QUERY
+/* 
+ * Send temperature reading query to all active modules
+ */ 
 static void group_send_temp_query(Fan_group *general_group) {
     int i = 0;
     Module *module;
@@ -148,6 +166,9 @@ static void group_send_temp_query(Fan_group *general_group) {
 }
 #endif
 
+/* 
+ * Handler function invoked when timer expires
+ */ 
 static void timer_handler(union sigval val) {
     log_msg(LOG_LEVEL_DEBUG, "timer_handler triggered.\n");
     
@@ -172,6 +193,9 @@ static void print_usage() {
     printf("If number-of-module not specified, max number of module allowed is default as %d\n.", MAX_MODULE_NUM);
 }
 
+/* 
+ * Signal handler function
+ */ 
 static void term(int signum) {
     done = 1;
 }
@@ -205,7 +229,7 @@ int main (int argc, char **argv)
 
     /*
     *  If user specifies the number of max modules will be connected
-    * */
+    */
     if (argc == 2) {
         if (!isNumber(argv[1])) {
             log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments! Expect a number!");
@@ -236,9 +260,11 @@ int main (int argc, char **argv)
     memset(&sev, 0, sizeof(struct sigevent));
     memset(&trigger, 0, sizeof(struct itimerspec));
 
+    /* When timer expires, invoke function as a thread */
     sev.sigev_notify = SIGEV_THREAD;
     sev.sigev_notify_function = timer_handler;
 
+    /* arm the timer after 1sec */
     trigger.it_value.tv_sec = 1;
     trigger.it_value.tv_nsec = 0;
 
@@ -261,6 +287,7 @@ int main (int argc, char **argv)
     attr.mq_msgsize = sizeof(Msg);
     attr.mq_curmsgs = 0;
 
+    /* create server queue to receive client message */
     if ((qd_server = mq_open (SERVER_QUEUE_NAME, O_RDONLY | O_CREAT | O_EXCL, QUEUE_PERMISSIONS, &attr)) == -1) {
         log_msg (LOG_LEVEL_ERROR, "Server: mq_open (server) fail!");
         goto EXIT;
@@ -289,6 +316,7 @@ int main (int argc, char **argv)
             module = &general_control_group.modules[mid];
             switch(client_msg.type) {
                 case MSG_NORMAL:
+                    log_msg(LOG_LEVEL_DEBUG, "Received module %d normal temperature msg.", mid);
                     if (module->module_id == -1) {
                         module->module_id = mid;
                         general_control_group.active_fan_num++;
@@ -308,7 +336,7 @@ int main (int argc, char **argv)
                     }*/
                     break;
                 case MSG_DETACH:
-                    log_msg(LOG_LEVEL_DEBUG, "Server: Receive detach msg from module %d.", mid);
+                    log_msg(LOG_LEVEL_INFO, "Server: Receive detach msg from module %d.", mid);
                     general_control_group.active_fan_num = \
                         (general_control_group.active_fan_num > 0) ? (general_control_group.active_fan_num - 1) : 0;
 #ifdef ACTIVE_QUERY                
@@ -322,6 +350,7 @@ int main (int argc, char **argv)
                     break;
 #ifdef ACTIVE_QUERY
                 case MSG_ATTACH:
+                    log_msg(LOG_LEVEL_INFO, "Received module %d attach request.", mid);
                     if (module->module_id == -1) {
                         module->module_id = mid;
                         general_control_group.active_fan_num++;
@@ -338,6 +367,7 @@ int main (int argc, char **argv)
                     }
                     break;
                 case MSG_URGENT:
+                    log_msg(LOG_LEVEL_WARNING, "Server: Received urgent msg from module %d. Adjust speed now!", mid);
                     if (module->module_id == -1) {
                         module->module_id = mid;
                         general_control_group.active_fan_num++;
@@ -349,7 +379,6 @@ int main (int argc, char **argv)
                     }
                     module->cur_temp = client_msg.temp_val;
 
-                    log_msg(LOG_LEVEL_WARNING, "Server: Received urgent msg from module %d. Adjust speed now!", mid);
                     value = temp2speed(module->cur_temp);
                     module->fan_op(module, &value, 0); // set fan speed
                     break;

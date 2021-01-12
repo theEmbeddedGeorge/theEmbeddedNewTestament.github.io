@@ -5,15 +5,14 @@
 - App Demo Design Analysis
   - Architecture
   - Feature
+  - Design Details
   - Limitation
   - Improvments
 - Usage 
   - Compilation and cleanup
   - Run the demo program
   - Stop the demo program
-- Demo Result
-
-
+- Demo Result Exhibitaion 
 
 
 ## Project Objective
@@ -54,8 +53,51 @@ please.
 
 ## App Demo Design Analysis
 ### Architecture
+![App Demo Architecture](App_demo_architecture.png)
+
+***Fan Control Server:***
+- A standalone program that hadnles temperature reading message from fan control clients.
+
+***Fan Control Server - Receiver:***
+- A dedicate functionality (main loop) to read from the server message queue. If message from client, manipulate the fan control group.
+
+***Fan Control Server - Timer:***
+- A preset timer that wakes up repeatedly and performs action, for example, send out temperature reading query to all active module clients and set fan control group speed.
+
+***Fan Control Server - Fan Control Group:***
+- A abstration data struture that groups all modules and their fans together as well as handles fan hardware related operation such as module temperature value updating and fan speed duty cycle seting and calculation.
+
+***Fan Control Client:***
+- A program that performs temperature reading and send them out either as a reply to server's request, nor as whenever it feels appropriate to (e.g. need urgent fan speed increase due to overheat)
+- In real-world scenario, client module process usually has other tasks. However in our app demo, client is assumed to have one task only - to read temperature and send out to server whenever it needs to.
+
+***Server Msg Queue***
+- A FIFO one-sided IPC mechanism for client to deliver its temperature and other message to the server. Client can only write to the queue while the server is only allowed to read.
+
+***Client Msg Queue***
+- A FIFO one-sided IPC mechanism for server to deliver its query message to the client. Server can only write to the queue while the client is only allowed to read.
+
+***Fan_hw***
+- Fan hardware instance data sturcture that contains hardware level vendor-specific information regarding fan controling logic such as register offsets and specific function to convert duty cycle to PWN counts.
 
 ### Feature
+- ***Module Hotplug:*** Support dynamic addition/deletion of client modules. Fan server will only turn on fans of these active clients in order to avoid generating too much noise keeping fan on for unused module.
+- ***Priority Message Delivery:*** Temperature reading message are divided into 4 different priorities depending on the value. Higher the reading, higher the priority of the message in the queue. High-priority message will be placed in front of the queue to ensure faster delivery.
+- ***Individual Module Fan Speed Adjustment:*** Fans speed of any specific module can be adjusted individually based on their latest temperature reading without affecting other modules.
+- ***Dynamic Module Fan Number Configuration:*** Despite in the demo program only 1 fan is assumed per module, it is very easy to assign arbitary number of fans to any module.
+- ***Heartbeat Temperature Reading Query:*** Server will wake up every a while and request for temperature reading by sending a query message to each active client's message queue.
+- ***Urgent Request Processing:*** In adition to setting universal fan speed routinely, it is also able to respond to urgent client request immediately. Upon receiving the message due to a overheating event, server will directly max the fan speed setting of that particular overheating module.
+- ***Hardware Abstaction Layer:*** The generic hardware interface and hardware abstration datat structure ensure effortless fan support for different vendors. Hardware support is as easy as swapping out a few register values and function pointers in the data structure. 
+
+### Design Details
+Will talke about it during the panel discussion.
+
+### Limitation
+- ***No Sense of Time:*** The control server has no idea when did the reading happen so the fan speed adjustment may base on a out-of-date data from one of the modules.
+
+### Improvments
+- ***Add Module Reading Timestamp and Force Kick:*** To resolve the sense of time limitation, client can also record the timestamp value of the reading and include in the message to be delivered. Knowing this, server can force kick irresponsive modules if it has not reply to server query message and its temperature reading not updated for long. It is likely that these modules are already offline unexpectedly so their old reading should not be taken into consideration.
+- ***PID-like algorithm to enhance cooling performance:*** It would definitely help enhance the overall system cooling performance by implementing PID algorithm in replacemnet of current simple linear algorithm. 
 
 ## Usage
 ### Compilation and cleanup
@@ -80,9 +122,9 @@ It takes first argument as the number of module allowed to be connected. If unsp
 ```
     sudo ./fan_control_client <module-id>
 ```
-It takes first argument as the module ID. This value will be used by the server to identify the module. Please note that if a module with the same ID already exists, client will not run.
+It takes the first argument as the module ID. This value will be used by the server to identify the module. Please note that if a module with the same ID already exists, client will NOT run.
 
-```NOTE: Please use 'sudo' to run the demo program. Otherwise message queues will not be created!```
+```NOTE: Please use 'sudo' to run both client/server demo programs. Otherwise message queues will not be created!```
 
 ### Stop the demo program
 
@@ -90,12 +132,13 @@ Use Ctrl-C to generate termination signal to each program.
 
 ## Demo Result
 ```
-    sudo ./fan_control_server 10
+sudo ./fan_control_server 10
 
-    sudo ./fan_control_client 0
-    sudo ./fan_control_client 1
-    sudo ./fan_control_client 2
-    sudo ./fan_control_client 3
+sudo ./fan_control_client 0
+sudo ./fan_control_client 1
+sudo ./fan_control_client 2
+sudo ./fan_control_client 3
+...
 ```
 
 ***Fan_control server output:***

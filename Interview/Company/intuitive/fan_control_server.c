@@ -166,6 +166,12 @@ static void timer_handler(union sigval val) {
 #endif
 }
 
+static void print_usage() {
+    printf("Usage: sudo ./fan_control_server <number-of-modules>|<Enter>\n");
+    printf("Module number cannot exceed %d.\n", MAX_MODULE_NUM);
+    printf("If number-of-module not specified, max number of module allowed is default as %d\n.", MAX_MODULE_NUM);
+}
+
 static void term(int signum) {
     done = 1;
 }
@@ -193,6 +199,7 @@ int main (int argc, char **argv)
     */
     if (argc < 1 || argc > 2) {
         log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments!");
+        print_usage();
         exit(EXIT_FAILURE);
     }
 
@@ -202,9 +209,11 @@ int main (int argc, char **argv)
     if (argc == 2) {
         if (!isNumber(argv[1])) {
             log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments! Expect a number!");
+            print_usage();
             exit(EXIT_FAILURE);
         } else if (atoi(argv[1]) > MAX_MODULE_NUM) {
             log_msg(LOG_LEVEL_ERROR, "At most %d modules allowed!", MAX_MODULE_NUM);
+            print_usage();
             exit(EXIT_FAILURE);
         }
 

@@ -5,6 +5,11 @@
 
 volatile sig_atomic_t done = 0;
 
+static void print_usage() {
+    printf("Usage: sudo ./fan_control_client <module-id>\n");
+    printf("Module id cannot exceed %d.", MAX_MODULE_NUM);
+}
+
 static void term(int signum) {
     done = 1;
 }
@@ -30,21 +35,12 @@ int main (int argc, char **argv)
     int recv = 0;
     char client_queue_name[64];
 #endif
-   
-    memset(&term_action, 0, sizeof(struct sigaction));
-    
-    /* Instatiate SIGTERM signal handler */
-    term_action.sa_handler = term;
-    if (-1 == sigaction(SIGINT, &term_action, NULL)) {
-        log_msg(LOG_LEVEL_ERROR, "Failed to initiate SIGTERM signal handler.\n");
-        exit(EXIT_FAILURE);
-    }
-
      /*
     * Check input arguments
     */
     if (argc < 1 || argc > 2) {
         log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments!");
+        print_usage();
         exit(EXIT_FAILURE);
     }
 
@@ -54,14 +50,25 @@ int main (int argc, char **argv)
     if (argc == 2) {
         if (!isNumber(argv[1])) {
             log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments! Expect a number!");
+            print_usage();
             exit(EXIT_FAILURE);
         } else if (atoi(argv[1]) > MAX_MODULE_NUM) {
             log_msg(LOG_LEVEL_ERROR, "At most %d modules allowed!", MAX_MODULE_NUM);
+            print_usage();
             exit(EXIT_FAILURE);
         }
 
         mid = atoi(argv[1]);
         log_msg(LOG_LEVEL_DEBUG, "Module ID: %d", mid);
+    }
+
+    memset(&term_action, 0, sizeof(struct sigaction));
+    
+    /* Instatiate SIGTERM signal handler */
+    term_action.sa_handler = term;
+    if (-1 == sigaction(SIGINT, &term_action, NULL)) {
+        log_msg(LOG_LEVEL_ERROR, "Failed to initiate SIGTERM signal handler.\n");
+        exit(EXIT_FAILURE);
     }
 
     //mid = getpid();

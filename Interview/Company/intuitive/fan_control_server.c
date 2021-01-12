@@ -1,5 +1,7 @@
 #include "fan_control.h"
 
+#define TIMER_PERIOD 5
+
 volatile sig_atomic_t done = 0;
 static mqd_t qd_server;
 
@@ -82,18 +84,6 @@ static uint32_t temp2speed(double val) {
     }
 } 
 
-static int isNumber(char *str) {
-    int i = 0;
-    int sz = strlen(str);
-
-    while (sz--) {
-        if (!isdigit(str[i++]))
-            return 0;
-    }
-
-    return 1;
-}
-
 static void print_fan_group_info (Fan_group *general_group) {
     Module *module;
     int i;
@@ -143,12 +133,14 @@ static void group_send_temp_query(Fan_group *general_group) {
     Msg client_msg;
     char buffer[64];
 
+    log_msg(LOG_LEVEL_DEBUG, "Server: Query all active module for temperature.");
     for (i = 0; i < module_number; i++) {
         module = &general_group->modules[i];
         if (module->module_id != -1) {
             msg_init(&client_msg, getpid(), 0, MSG_QUERY);
             if (mq_send (module->client_q, (char*) &client_msg, sizeof(Msg), 0) == -1) {
                 log_msg(LOG_LEVEL_ERROR, "Server: mq_send to client %d error!", module->module_id);
+                perror("mq_send error:");
                 continue;
             }
         }
@@ -160,15 +152,17 @@ static void timer_handler(union sigval val) {
     log_msg(LOG_LEVEL_DEBUG, "timer_handler triggered.\n");
     
     // return if no active module
-    if (general_control_group.active_fan_num == 0)
+    if (general_control_group.active_fan_num == 0) {
+        log_msg(LOG_LEVEL_DEBUG, "No active module. Continue.\n");
         return;
+    }
 
     // Set fan group speed
     group_set_spd(&general_control_group);
 
 #ifdef ACTIVE_QUERY
     // Query all connected module about their temperature readings
-
+    group_send_temp_query(&general_control_group);
 #endif
 }
 
@@ -213,7 +207,6 @@ int main (int argc, char **argv)
             log_msg(LOG_LEVEL_ERROR, "At most %d modules allowed!", MAX_MODULE_NUM);
             exit(EXIT_FAILURE);
         }
-        log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments!");
 
         module_number = atoi(argv[1]);
         log_msg(LOG_LEVEL_DEBUG, "Max module number to be conncted: %d", module_number);
@@ -237,11 +230,11 @@ int main (int argc, char **argv)
     sev.sigev_notify = SIGEV_THREAD;
     sev.sigev_notify_function = timer_handler;
 
-    trigger.it_value.tv_sec = 2;
+    trigger.it_value.tv_sec = 1;
     trigger.it_value.tv_nsec = 0;
 
     /* trigger and reload timer every 3 secs */
-    trigger.it_interval.tv_sec = 3;
+    trigger.it_interval.tv_sec = TIMER_PERIOD;
     trigger.it_interval.tv_nsec = 0;
 
     if( -1 == timer_create(CLOCK_REALTIME, &sev, &timerid) ) {
@@ -259,7 +252,7 @@ int main (int argc, char **argv)
     attr.mq_msgsize = sizeof(Msg);
     attr.mq_curmsgs = 0;
 
-    if ((qd_server = mq_open (SERVER_QUEUE_NAME, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+    if ((qd_server = mq_open (SERVER_QUEUE_NAME, O_RDONLY | O_CREAT | O_EXCL, QUEUE_PERMISSIONS, &attr)) == -1) {
         log_msg (LOG_LEVEL_ERROR, "Server: mq_open (server) fail!");
         goto EXIT;
     }
@@ -275,8 +268,6 @@ int main (int argc, char **argv)
                 perror("mq_receive error:");
             }
         } else if (recv > 0) {
-            log_msg(LOG_LEVEL_DEBUG, "Server: temp val %f from module %d.", client_msg.temp_val, mid);
-
             if (recv != sizeof(Msg)) {
                 log_msg(LOG_LEVEL_ERROR, "Server: a message from module corrupted!");
                 continue;
@@ -284,6 +275,7 @@ int main (int argc, char **argv)
 
             // Calculate module id based on the module PID 
             mid = client_msg.pid % module_number;
+            log_msg(LOG_LEVEL_DEBUG, "Server: temp val %f from module %d.", client_msg.temp_val, mid);
 
             module = &general_control_group.modules[mid];
             switch(client_msg.type) {
@@ -313,6 +305,7 @@ int main (int argc, char **argv)
 #ifdef ACTIVE_QUERY                
                     if (mq_close (module->client_q) == -1) {
                         log_msg(LOG_LEVEL_DEBUG, "Server: mq_close client %d queue failed", module->module_id);
+                        perror("mq_close error");
                     }
 #endif
                     module->module_id = -1;
@@ -325,8 +318,10 @@ int main (int argc, char **argv)
                         general_control_group.active_fan_num++;
 
                         sprintf(buffer, "%s-%d", CLIENT_QUEUE_NAME_SUFIX, mid);
+                        log_msg(LOG_LEVEL_DEBUG, "Server: client %d queue name %s", mid, buffer);
                         if ((module->client_q = mq_open (buffer, O_WRONLY)) == -1) {
                             log_msg(LOG_LEVEL_ERROR, "Server: open client %d queue failed", mid);
+                            perror("mq_open error:");
                         }
 
                     } else {
@@ -334,7 +329,7 @@ int main (int argc, char **argv)
                     }
                     break;
                 case MSG_URGENT:
-                     if (module->module_id == -1) {
+                    if (module->module_id == -1) {
                         module->module_id = mid;
                         general_control_group.active_fan_num++;
 

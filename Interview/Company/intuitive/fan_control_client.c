@@ -1,6 +1,6 @@
 #include "fan_control.h"
 
-#define POLLING_PERIOD_MS 1000
+#define CLIENT_POLLING_PERIOD_MS 1000
 #define TEMP_THRESHOLD 90
 
 volatile sig_atomic_t done = 0;
@@ -40,19 +40,38 @@ int main (int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    mid = getpid();
+     /*
+    * Check input arguments
+    */
+    if (argc < 1 || argc > 2) {
+        log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments!");
+        exit(EXIT_FAILURE);
+    }
+
+    /*
+    *  If user specifies the number of max modules will be connected
+    * */
+    if (argc == 2) {
+        if (!isNumber(argv[1])) {
+            log_msg(LOG_LEVEL_ERROR, "Incorrect input arguments! Expect a number!");
+            exit(EXIT_FAILURE);
+        } else if (atoi(argv[1]) > MAX_MODULE_NUM) {
+            log_msg(LOG_LEVEL_ERROR, "At most %d modules allowed!", MAX_MODULE_NUM);
+            exit(EXIT_FAILURE);
+        }
+
+        mid = atoi(argv[1]);
+        log_msg(LOG_LEVEL_DEBUG, "Module ID: %d", mid);
+    }
+
+    //mid = getpid();
     if ((qd_server = mq_open (SERVER_QUEUE_NAME, O_WRONLY)) == -1) {
         log_msg(LOG_LEVEL_ERROR, "Client %d: mq_open (server) failed", mid);
+        perror("mq_open error:");
         exit (EXIT_FAILURE);
     }
 
 #ifdef ACTIVE_QUERY
-    log_msg(LOG_LEVEL_DEBUG, "Client %d: Send module ATTACH message.", mid);
-    msg_init(&client_msg, mid, 0, MSG_ATTACH);
-    if (mq_send (qd_server, (char*) &client_msg, sizeof(Msg), prior) == -1) {
-        log_msg(LOG_LEVEL_ERROR, "Client: mq_send error! MSG type: %d", client_msg.type);
-    }
-
     /* Instatiate server message queue */
     attr.mq_flags = O_NONBLOCK;
     attr.mq_maxmsg = MAX_MESSAGES;
@@ -60,10 +79,19 @@ int main (int argc, char **argv)
     attr.mq_curmsgs = 0;
 
     sprintf(client_queue_name, "%s-%d", CLIENT_QUEUE_NAME_SUFIX, mid%MAX_MODULE_NUM);
-    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, 0660, &attr)) == -1) {
+    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT | O_EXCL | O_NONBLOCK, QUEUE_PERMISSIONS, &attr)) == -1) {
         log_msg(LOG_LEVEL_ERROR, "Client %d: mq_open (client) failed", mid);
+        perror("mq_open error:");
         exit (EXIT_FAILURE);
     }
+
+    /* CAUTION: Must send attach message after client queue creation! Otherwise server cannot find it! */
+    log_msg(LOG_LEVEL_DEBUG, "Client %d: Send module ATTACH message.", mid);
+    msg_init(&client_msg, mid, 0, MSG_ATTACH);
+    if (mq_send (qd_server, (char*) &client_msg, sizeof(Msg), prior) == -1) {
+        log_msg(LOG_LEVEL_ERROR, "Client: mq_send error! MSG type: %d", client_msg.type);
+    }
+
 #endif
 
     while (!done) {
@@ -91,7 +119,7 @@ int main (int argc, char **argv)
 #ifdef ACTIVE_QUERY
         recv = mq_receive (qd_client, (char*) &server_msg, sizeof(Msg), NULL);
         if (-1 == recv) {
-            if (errno != EINTR) {
+            if (errno != EINTR && errno != EAGAIN) {
                 log_msg(LOG_LEVEL_ERROR, "Client %d: mq_receive error!", mid);
                 perror("mq_receive error:");
             }
@@ -125,7 +153,7 @@ int main (int argc, char **argv)
         }
 #endif
 
-        usleep(POLLING_PERIOD_MS*MILLISEC);
+        usleep(CLIENT_POLLING_PERIOD_MS*MILLISEC);
     }
     
     /* Send detach message to server to notify module detach event */

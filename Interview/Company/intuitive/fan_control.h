@@ -19,7 +19,7 @@
 #define ACTIVE_QUERY
 
 #define SERVER_QUEUE_NAME "/fan-control-server"
-#define CLIENT_QUEUE_NAME_SUFIX "/fan-control-server"
+#define CLIENT_QUEUE_NAME_SUFIX "/fan-control-client"
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 100
@@ -99,6 +99,21 @@ int log_msg(int priority, const char *format, ...)
     }
 
     va_end(args);
+}
+
+/*
+ * Check whether input argument is a number
+ */
+int isNumber(char *str) {
+    int i = 0;
+    int sz = strlen(str);
+
+    while (sz--) {
+        if (!isdigit(str[i++]))
+            return 0;
+    }
+
+    return 1;
 }
 
 /*

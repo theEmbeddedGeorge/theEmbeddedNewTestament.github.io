@@ -16,7 +16,10 @@
 
 #include "fan_hw.h"
 
+#define ACTIVE_QUERY
+
 #define SERVER_QUEUE_NAME "/fan-control-server"
+#define CLIENT_QUEUE_NAME_SUFIX "/fan-control-server"
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 100
@@ -39,6 +42,11 @@
 typedef enum msg_type {
     MSG_NORMAL = 0,
     MSG_DETACH,
+#ifdef ACTIVE_QUERY
+    MSG_ATTACH,
+    MSG_URGENT,
+    MSG_QUERY,
+#endif
 } Msg_t;
 
 /* 
@@ -54,6 +62,9 @@ struct module{
     module_fan_op_cb fan_op;
     Fan_hw *fan;
     int fan_num;
+#ifdef ACTIVE_QUERY
+    mqd_t client_q;
+#endif
 };
 
 typedef struct {
@@ -94,6 +105,8 @@ int log_msg(int priority, const char *format, ...)
  * Init message data structure function
  */
 int msg_init(Msg *message, uint8_t module_id, double temp, Msg_t type) {
+    memset(message, 0, sizeof(Msg));
+
     message->temp_val = temp;
     message->pid = module_id;
     message->type = type;

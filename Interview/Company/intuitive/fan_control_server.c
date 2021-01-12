@@ -1,7 +1,7 @@
 #include "fan_control.h"
 
 volatile sig_atomic_t done = 0;
-static mqd_t qd_server, qd_client;
+static mqd_t qd_server;
 
 Fan_group general_control_group;
 int module_number = MAX_MODULE_NUM;
@@ -132,8 +132,29 @@ static void group_set_spd(Fan_group *general_group) {
             module->fan_op(module, &value, 0); // set fan speed
         }
     }
+
     print_fan_group_info(general_group);
 }
+
+#ifdef ACTIVE_QUERY
+static void group_send_temp_query(Fan_group *general_group) {
+    int i = 0;
+    Module *module;
+    Msg client_msg;
+    char buffer[64];
+
+    for (i = 0; i < module_number; i++) {
+        module = &general_group->modules[i];
+        if (module->module_id != -1) {
+            msg_init(&client_msg, getpid(), 0, MSG_QUERY);
+            if (mq_send (module->client_q, (char*) &client_msg, sizeof(Msg), 0) == -1) {
+                log_msg(LOG_LEVEL_ERROR, "Server: mq_send to client %d error!", module->module_id);
+                continue;
+            }
+        }
+    }
+}
+#endif
 
 static void timer_handler(union sigval val) {
     log_msg(LOG_LEVEL_DEBUG, "timer_handler triggered.\n");
@@ -144,6 +165,11 @@ static void timer_handler(union sigval val) {
 
     // Set fan group speed
     group_set_spd(&general_control_group);
+
+#ifdef ACTIVE_QUERY
+    // Query all connected module about their temperature readings
+
+#endif
 }
 
 static void term(int signum) {
@@ -163,6 +189,10 @@ int main (int argc, char **argv)
     int mid;
     uint32_t value;
     struct mq_attr attr;
+
+#ifdef ACTIVE_QUERY
+    char buffer[64];
+#endif
 
     /*
     * Check input arguments
@@ -242,6 +272,7 @@ int main (int argc, char **argv)
         if (-1 == recv) {
             if (errno != EINTR) {
                 log_msg(LOG_LEVEL_ERROR, "Server: mq_receive error!");
+                perror("mq_receive error:");
             }
         } else if (recv > 0) {
             log_msg(LOG_LEVEL_DEBUG, "Server: temp val %f from module %d.", client_msg.temp_val, mid);
@@ -260,21 +291,65 @@ int main (int argc, char **argv)
                     if (module->module_id == -1) {
                         module->module_id = mid;
                         general_control_group.active_fan_num++;
+#ifdef ACTIVE_QUERY
+                        sprintf(buffer, "%s-%d", CLIENT_QUEUE_NAME_SUFIX, mid);
+                        if ((module->client_q = mq_open (buffer, O_WRONLY)) == -1) {
+                            log_msg(LOG_LEVEL_ERROR, "Server: open client %d queue failed", mid);
+                        }
+#endif
                     }
                     module->cur_temp = client_msg.temp_val;
 
-                    if (module->cur_temp >= OVERHEAT_TEMP) {
+                    /*if (module->cur_temp >= OVERHEAT_TEMP) {
                         value = temp2speed(module->cur_temp);
                         module->fan_op(module, &value, 0); // set fan speed
                         log_msg(LOG_LEVEL_WARNING, "Server: module %d overheat. Adjust speed now!", mid);
-                    }
+                    }*/
                     break;
                 case MSG_DETACH:
                     log_msg(LOG_LEVEL_DEBUG, "Server: Receive detach msg from module %d.", mid);
+                    general_control_group.active_fan_num = \
+                        (general_control_group.active_fan_num > 0) ? (general_control_group.active_fan_num - 1) : 0;
+#ifdef ACTIVE_QUERY                
+                    if (mq_close (module->client_q) == -1) {
+                        log_msg(LOG_LEVEL_DEBUG, "Server: mq_close client %d queue failed", module->module_id);
+                    }
+#endif
                     module->module_id = -1;
                     module->cur_temp = 0;
-                    general_control_group.active_fan_num--;
                     break;
+#ifdef ACTIVE_QUERY
+                case MSG_ATTACH:
+                    if (module->module_id == -1) {
+                        module->module_id = mid;
+                        general_control_group.active_fan_num++;
+
+                        sprintf(buffer, "%s-%d", CLIENT_QUEUE_NAME_SUFIX, mid);
+                        if ((module->client_q = mq_open (buffer, O_WRONLY)) == -1) {
+                            log_msg(LOG_LEVEL_ERROR, "Server: open client %d queue failed", mid);
+                        }
+
+                    } else {
+                        log_msg(LOG_LEVEL_WARNING, "Module %d already attached! Ignore attach request.", mid);
+                    }
+                    break;
+                case MSG_URGENT:
+                     if (module->module_id == -1) {
+                        module->module_id = mid;
+                        general_control_group.active_fan_num++;
+
+                        sprintf(buffer, "%s-%d", CLIENT_QUEUE_NAME_SUFIX, mid);
+                        if ((module->client_q = mq_open (buffer, O_WRONLY)) == -1) {
+                            log_msg(LOG_LEVEL_ERROR, "Server: open client %d queue failed", mid);
+                        }
+                    }
+                    module->cur_temp = client_msg.temp_val;
+
+                    log_msg(LOG_LEVEL_WARNING, "Server: Received urgent msg from module %d. Adjust speed now!", mid);
+                    value = temp2speed(module->cur_temp);
+                    module->fan_op(module, &value, 0); // set fan speed
+                    break;
+#endif
                 default:
                     break;
             }

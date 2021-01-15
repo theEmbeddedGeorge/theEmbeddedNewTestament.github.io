@@ -7,14 +7,18 @@
 1.  Array and pointers
 3.  Attributes
 4.  lds script
-5.  Library, linking and loading
-6.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
-7. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
+5.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
+6. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
+7. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
 8. Voltatile/const/register keyword
-9. Inline functions
-10. Preprocessor
-11. Declarations in C
-12. Runtime data strtuctures 
+9.  Inline functions
+10. Declarations in C
+11. Runtime data strtuctures 
+12. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
+    1. [The Basic of x86 Architecture](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1a.html)
+    2. [An Assembly Language](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1b.html)
+    3. [A Compiler, Assembler, Linker & Loader](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1c.html)
+    4. [C/C++ Process Memory Layout & Function Call](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1c.html)
 
 ### B. Programming Languages
 1. [C](https://www.geeksforgeeks.org/c-programming-language/)
@@ -42,7 +46,8 @@
     3. atoi
     4. [sizeof](Data_Struct_Implementation/sizeof/README.md)
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
-    6. strstr()
+    6. Malloc
+    7. strstr()
 
 ### D. Basic Algorithms
 1. Sort
@@ -304,4 +309,6 @@
 [CS Notes](https://notes.eddyerburgh.me/)
 
 [The Linux Documentation Project](https://tldp.org/guides.html)
+
+[tenouk](https://www.tenouk.com/)
 

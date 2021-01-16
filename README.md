@@ -3,22 +3,29 @@
 
 ## Concepts by Domain:
 
-### A. C Coding Specific
-1.  Array and pointers
+### A. C/C++ Coding Specific
+1.  [Tenouk's Ultimate C/C++ Tutorials](https://www.tenouk.com/Sitemap.html)
 3.  Attributes
-4.  lds script
-5.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
-6. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
-7. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
-8. Voltatile/const/register keyword
-9.  Inline functions
-10. Declarations in C
-11. Runtime data strtuctures 
-12. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
+4.  [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
+5.  [C/C++ Type Specifiers](https://www.tenouk.com/Module11.html)
+6.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
+7. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
+8. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
+9. [Compiler, Assembler, Linker and Loader](https://www.tenouk.com/ModuleW.html)
+10. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
+11. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
+12. Inline functions
+13. Declarations in C
+14. Runtime data strtuctures 
+15. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
     1. [The Basic of x86 Architecture](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1a.html)
     2. [An Assembly Language](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1b.html)
     3. [A Compiler, Assembler, Linker & Loader](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1c.html)
     4. [C/C++ Process Memory Layout & Function Call](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1c.html)
+    5. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html)
+    6. [The Stack Operation](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow3.html)
+    7. [A Stack-based Buffer Overflow](https://www.clublexus.com/how-tos/slideshows/6-mods-every-lexus-rc-owner-should-jump-on-440204#6-weight-reduction)
+    8. [A Shellcode: The Payload](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow5.html)
 
 ### B. Programming Languages
 1. [C](https://www.geeksforgeeks.org/c-programming-language/)
@@ -124,6 +131,7 @@
     10. Timers and time management
     11. Memory managment
     12. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
+    13. [Linux Socket Programming](https://www.tenouk.com/cnlinuxsockettutorials.html)
        
 
 ### I. Computer Architecture
@@ -310,5 +318,5 @@
 
 [The Linux Documentation Project](https://tldp.org/guides.html)
 
-[tenouk](https://www.tenouk.com/)
+[tenouk](https://www.tenouk.com/Sitemap.html)
 

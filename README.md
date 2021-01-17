@@ -102,10 +102,10 @@
 1.  [Interrupt](./Operating_System/Interrupt.md)
     1.  [Exception Handling](Operating_System/Exception_ARM64.md)
     2.  System call
-2.  Process Management
-    1.  Process Scheduler
-    2.  Process Manager
-    3.  [Process/Thread & Scheduling](Operating_System/Process_thread_scheduling.md)
+2.  [Process Management](Operating_System/Process/Process.md)
+    1.  Process Manager
+    2.  [Scheduling](Operating_System/Process/Process_thread_scheduling.md)
+    3.  Threads and Concurrency
 3.  Interprocess Synchronization/Communication
     1.  IPC
     2.  Sychronization Facilities
@@ -216,6 +216,14 @@
 5.  Bluetooth
 6.  Multicast
 7.  TSN/AVB
+
+### P. Embedded Programming with Modern C++
+1. [C++11 Q/A](https://www.stroustrup.com/C++11FAQ.html#specific-aims)
+2. [C++ Core Guidelines](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+3. Resources
+   1. [Modern C++ for Embedded Öffentliche Vorträge Conference Articles](https://www.grimm-jaud.de/index.php/oeffentliche-vortraege)
+   2. [C++ core guideline by topics](https://www.modernescpp.com/index.php/category/modern-c)
+   3. [Technical Report on C++ Performance](http://www.open-std.org/jtc1/sc22/wg21/docs/TR18015.pdf)
 
 ## Interview Questions
 

@@ -11,7 +11,7 @@
 6.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
 7. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
 8. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
-9. [Compiler, Assembler, Linker and Loader](https://www.tenouk.com/ModuleW.html)
+9. [C/C++ Compile, Link and Running Programs](https://www.tenouk.com/ModuleW.html)
 10. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
 11. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
 12. Inline functions
@@ -69,11 +69,13 @@
     3.  Graph
 
 ### E. Programming API 
-1. [Unix IPC](Resources/beeje_guide_unix_ipc.pdf) 
-2. Memory management
-3. Multi-thread/Multi-processing
-4. [POSIX Socket Programming](Resources/beeje_guide_network_programming.pdf)
-5. [Unix Socket (private google doc)](https://drive.google.com/file/d/1BlcMJzdqdaSYS0jKmI_ZXQqukEG8beCq/view?usp=sharing)
+1. Memory management
+2. Multi-thread/Multi-processing
+   1. POSIX Thread
+   2. [Unix IPC](Resources/beeje_guide_unix_ipc.pdf)
+3. Network 
+   1. [POSIX Socket Programming](Resources/beeje_guide_network_programming.pdf)
+   2. [Unix Socket (private google doc)](https://drive.google.com/file/d/1BlcMJzdqdaSYS0jKmI_ZXQqukEG8beCq/view?usp=sharing)
 
 ### F. Bus
 1.  [Serial Communication](Bus_Protocol/Serial_communication.md)
@@ -87,7 +89,7 @@
         4.  USB
 2.  PCIE
 
-### G. Linux Command 
+### G. Linux Commands 
 1. [Linux Fundamentals](http://linux-training.be/linuxfun.pdf)
 2. [Linux System Administration](http://linux-training.be/linuxsys.pdf)
 3. [Linux Servers](http://linux-training.be/linuxsrv.pdf)
@@ -97,20 +99,22 @@
 
 
 ### H. Operating Systems
-1.  User Space
-2.  Kernel Space
-3.  [Exception Handling](Operating_System/Exception_ARM64.md)
-4.  [Virtual Memory](Operating_System/virtual_memory.md)
-5.  File System
-6.  Process Management
-7.  [Process/Thread & Scheduling](Operating_System/Process_thread_scheduling.md)
-8.  [Interrupt](./Operating_System/Interrupt.md)
-9.  System call
-10. Interprocess communication
-11. Synchronization Mechanism
-12. Memory Management
-13. Mutiprocessing/Multithreading
-14. RTOS
+1.  [Interrupt](./Operating_System/Interrupt.md)
+    1.  [Exception Handling](Operating_System/Exception_ARM64.md)
+    2.  System call
+2.  Process Management
+    1.  Process Scheduler
+    2.  Process Manager
+    3.  [Process/Thread & Scheduling](Operating_System/Process_thread_scheduling.md)
+3.  Interprocess Synchronization/Communication
+    1.  IPC
+    2.  Sychronization Facilities
+4.  Memory Management
+    1.  Memory Hardware
+    2.  [Virtual Memory](Operating_System/virtual_memory.md)
+5.  File System Management
+6.  Device Management
+7.  RTOS
     1.  FreeRTOS
         1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
         2.  IPC/Sychronization Mechanism
@@ -118,7 +122,7 @@
         4.  Interrupt
         5.  Timers and time management
     2.  [QNX](http://www.qnx.com/developers/docs/qnxcar2/index.jsp?topic=%2Fcom.qnx.doc.neutrino.getting_started%2Ftopic%2Fs3_qnx2nto_Device_driver_model.html)
-15. [Linux](https://0xax.gitbooks.io/linux-insides/content/)
+8.  [Linux](https://0xax.gitbooks.io/linux-insides/content/)
     1.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
     2.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
     3.  Synchronization primitives
@@ -137,12 +141,16 @@
 ### I. Computer Architecture
 1.  ARM programmer's model
 2.  Pipeline
-3.  [Cache coherence](https://www.geeksforgeeks.org/cache-coherence/)
-4.  [DMA](./Computer_architecture/dma.md)
-5.  TCM
-6.  [TLB](./Computer_architecture/tlb.md)
-7.  NUMA
-8.  Memory translation
+3.  CPU Architecture
+    1.  ARM
+    2.  Intel
+4.  Memory Hierachy
+5.  [Cache coherence](https://www.geeksforgeeks.org/cache-coherence/)
+6.  [DMA](./Computer_architecture/dma.md)
+7.  TCM
+8.  [TLB](./Computer_architecture/tlb.md)
+9.  NUMA
+10. Memory translation
 
 ### J. HW Modules
 1.  RAM & ROM
@@ -165,7 +173,7 @@
 2.  Trace
 3.  [GDB](http://beej.us/guide/bggdb/)
 4.  Sysfs
-5.  printk
+5.  Printk
 
 ### L. Version Control
 1.  GIT

@@ -63,7 +63,7 @@ stuff” is about to come.
 transmission unit (MTU) of Ethernet is 1,500 bytes. This means that if the IP
 datagram exceeds 1,500 bytes, then the host has to fragment the datagram. The minimum size of the data field is 46 bytes. This
 means that if the IP datagram is less than 46 bytes, the data field has to be
-“stuffed” to fill it out to 46 bytes. ***Leaest Significant bit of first address byte determines the type of address: 0 for Unicast, Multicast otherwise***
+“stuffed” to fill it out to 46 bytes. ***Leaest Significant bit of first address byte determines the type of address: 0 for Unicast, Multicast otherwise.***
 
 ![Ethernet address](images/ethernet_addr.png)
 
@@ -72,7 +72,7 @@ adapter, BB-BB-BB-BB-BB-BB. When adapter B receives an Ethernet
 frame whose destination address is either BB-BB-BB-BB-BB-BB or the
 MAC broadcast address, it passes the contents of the frame’s data field to the
 network layer; if it receives a frame with any other MAC address, it discards
-the frame.
+the frame. ***Mac address is unique address burned in NIC cards by manufature.***
 
 - **Source address (6 bytes)**. This field contains the MAC address of the adapter that
 transmits the frame onto the LAN, in this example, AA-AA-AA-AA-AA-AA.
@@ -126,13 +126,12 @@ and fiber (100BASE-FX, 100BASE-SX, 100BASE-BX).
 - when frame address matches host address, receives
 - bridges block or forward frames between LANs, using adaptive learning strategies
 
-
-
-
 ## Reference
 
 [Introduction of Ethernet](https://www.ccontrols.com/pdf/ExtV1N3.pdf)
 
 [Youtube Ethernet](https://www.youtube.com/watch?v=fRHkZPtsR5I&ab_channel=LearnTCPIP)
 
-https://en.wikipedia.org/wiki/Ethernet_frame
+[Wikipedia](https://en.wikipedia.org/wiki/Ethernet_frame)
+
+[Multicast Fundamentals Video](https://www.youtube.com/watch?v=P6uYh4OEgk4&ab_channel=AlliedTelesis)

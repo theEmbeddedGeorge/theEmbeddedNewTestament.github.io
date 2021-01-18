@@ -133,9 +133,10 @@
     8.  [System Call](Operating_System/Linux/syscall.md)
     9.  [Boot Loader](Operating_System/Linux/boot_loader.md)
     10. Timers and time management
-    11. Memory managment
-    12. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
-    13. [Linux Socket Programming](https://www.tenouk.com/cnlinuxsockettutorials.html)
+    11. Memory Managment
+    12. [Process Management](https://tldp.org/LDP/intro-linux/html/chap_04.html)
+    13. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
+    14. [Linux Socket Programming](https://www.tenouk.com/cnlinuxsockettutorials.html)
        
 
 ### I. Computer Architecture
@@ -215,7 +216,7 @@
 3.  Wifi
 4.  BLE
 5.  Bluetooth
-6.  Multicast
+6.  [Multicast](Network/Multicast.md)
 7.  TSN/AVB
 
 ### P. Embedded Programming with Modern C++

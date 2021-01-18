@@ -1,6 +1,30 @@
 ## Precision Type Protocol (PTP IEEE1588)
 
-### PTP
+The Precision Time Protocol, PTP, is designed to synchronize clocks on a local area network (LAN) to sub-microsecond precision. The underlying assumption is that the accurate time source is on the same LAN as the systems that are synchronizing their clocks. That differs from NTP, which assumes that the time server is remote. An advantage of synchronizing via the LAN is that latency becomes far more predictable. There are no queuing delays due to routers (recall that routers have to store an entire message before forwarding it to the next router) and physical distances tend to be far smaller. Ethernet switches do create some latency, of course, and there is a chance that a packet may be queued if a destination is receiving other messages. Switch latency, however, tend to be on the order of a few microseconds and queuing can be nonexistent if there isn’t much traffic.
+
+To further minimize delay and jitter, high-precision PTP implementations will try to generate timestamps at the very lowest levels of the network stack such as at the MAC layer (Ethernet transceiver) right before sending the packet out.
+
+### Best master clock
+In a network of computers running PTP, one system has to be elected as the master clock. This system is deemed to have the most accurate clock and other systems are slaves that synchronize from the master.
+
+A best master clock selection process is used to determine which system has the best clock to use for synchronization. This is done via an election where systems present information about their clocks and the best clock is selected from the following ranked attributes:
+
+1. Priority 1 (an admin-defined hint, allowing the administrator to force the use of a certain system as the master)
+2. Clock class (type of clock)
+3. Clock accuracy
+4. Clock variance: an estimate of stability based on past syncs
+5. Priority 2 (another admin-defined hint, allowing the preference of one system over another if all other values are equivalent)
+6. Unique ID (serves as a tie-breaker on the chance that all other values are equivalent among systems)
+
+### PTP messages
+1. PTP synchronizes a clock by exchanging three messages:
+2. The master initiates the sync by sending a sync message.
+3. The slave sends a delay request message back to the master.
+4. The master responds with a delay response message.
+
+A delay request message isn’t quite what it sounds: it is not a query asking the master what the network delay is. The master has no clue. Rather, it is an additional message that allows the slave to get an accurate estimate of the network delay.
+
+![PTP protocol](images/ptp.png)
 
 ### **Network Requirements to Achieve Sub-100 Nanosecond Synchronization**
 Obtaining sub-100 nanosecond timing on a local area network requires an architecture that is fully IEEE-1588 compliant. The
@@ -43,9 +67,6 @@ to the boundary clock as if it were the master clock.
 ```IEEE 802.1AS is an adaptation of PTP for use with Audio Video Bridging and Time-Sensitive Networking.```
 
 ## Reference
-
-
-![PTP protocol](images/ptp.png)
 
 https://endruntechnologies.com/pdf/PTP-1588.pdf
 

@@ -30,17 +30,22 @@ that contains data that has already been transmitted at least once.
 ## Frame structure
 There are multiple types of ethernet frames:
 
-802.3:
+**802.3**:
 
 ![Ethernet Frame](images/ethernet_frame.png)
 
-Ethernet II:
+**Ethernet II**:
 
 ![Ethernet Frame](images/ethernetII_frame.png)
 
 In general:
 
 ![Ethernet Frame](images/ethernet_frame2.png)
+
+```Payload size: 46 - 1500 Bytes```
+
+```Frame Packet Size: 64 - 1518 Bytes```
+
 
 - **Preamble (8 bytes)**. The Ethernet frame begins with an 8-byte preamble field.
 Each of the first 7 bytes of the preamble has a value of 10101010; the last byte is 10101011. The first 7 bytes of the preamble serve to **“wake up”** the receiving
@@ -58,7 +63,9 @@ stuff” is about to come.
 transmission unit (MTU) of Ethernet is 1,500 bytes. This means that if the IP
 datagram exceeds 1,500 bytes, then the host has to fragment the datagram. The minimum size of the data field is 46 bytes. This
 means that if the IP datagram is less than 46 bytes, the data field has to be
-“stuffed” to fill it out to 46 bytes.
+“stuffed” to fill it out to 46 bytes. ***Leaest Significant bit of first address byte determines the type of address: 0 for Unicast, Multicast otherwise***
+
+![Ethernet address](images/ethernet_addr.png)
 
 - **Destination address (6 bytes)**. This field contains the MAC address of the destination
 adapter, BB-BB-BB-BB-BB-BB. When adapter B receives an Ethernet
@@ -97,8 +104,35 @@ and fiber (100BASE-FX, 100BASE-SX, 100BASE-BX).
 
 ![Ethernet types](images/ethernet_types.png)
 
+## Ethernet Connection
+### BUS
+![Ethernet BUS Connection](images/ethernet_bus.png)
+
+### Star
+![Ethernet Star Connection](images/ethernet_star.png)
+
+## Ethernet Operation
+
+### CSMA/CD (only relevant to older duplex Ethernet)
+- 10 Mbit broadcast bus technology with best-effort delivery semantics and distributed access control
+- transceiver "listens" on wire
+- when perceives wire idle, transmits
+- when determines collision has occurred
+  - generates random number
+  - waits that interval
+  - retransmits
+  - if another collision occurs, doubles wait and retransmits
+  - applies recursively, with exponential waits
+- when frame address matches host address, receives
+- bridges block or forward frames between LANs, using adaptive learning strategies
+
+
+
+
 ## Reference
 
-https://www.ccontrols.com/pdf/ExtV1N3.pdf
+[Introduction of Ethernet](https://www.ccontrols.com/pdf/ExtV1N3.pdf)
+
+[Youtube Ethernet](https://www.youtube.com/watch?v=fRHkZPtsR5I&ab_channel=LearnTCPIP)
 
 https://en.wikipedia.org/wiki/Ethernet_frame

@@ -113,7 +113,7 @@
     1.  Memory Hardware
     2.  [Virtual Memory](Operating_System/virtual_memory.md)
 5.  File System Management
-6.  Device Management
+6.  Device I/O Management
 7.  RTOS
     1.  FreeRTOS
         1.  [Firmware Stack Layer](Operating_System/freertos/firmware_stack.md)
@@ -143,6 +143,7 @@
 2.  Pipeline
 3.  CPU Architecture
     1.  ARM
+        1.  [ARM Assembly](https://azeria-labs.com/writing-arm-assembly-part-1/)
     2.  Intel
 4.  Memory Hierachy
 5.  [Cache coherence](https://www.geeksforgeeks.org/cache-coherence/)
@@ -206,7 +207,7 @@
     4.  Link layer
         1.  PPP
         2.  [ARP/MAC](Network/ARP.md)
-        3.  PTP/gPTP
+        3.  [PTP/gPTP](Network/PTP.md)
         4.  [Ethernet](Network/ethernet.md)
         5.  [Switch](Network/switch.md)
     5.  Physical layer
@@ -265,10 +266,11 @@
     6. PCIe Interview Questions
 2. Operating System
    1. [Commonly Asked Operating Systems Interview Questions Sets](https://www.geeksforgeeks.org/commonly-asked-operating-systems-interview-questions-set-1/)
-   2. Interrupt Interview Questions
-   3. Synchronization Interview Questions
-   4. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
-   5. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
+   2. [Commonly Asked Operating Systems Interview Questions Sets2](https://www.researchgate.net/profile/Qasim_Hussein/publication/280315098_Operating_System_Questions_and_their_answers_Processes_and_Deadlock_Part_1/links/55b3e99f08aed621de011166.pdf)
+   3. Interrupt Interview Questions
+   4. Synchronization Interview Questions
+   5. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
+   6. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
 3. Programming Language
    1. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
    2. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
@@ -335,4 +337,8 @@
 [The Linux Documentation Project](https://tldp.org/guides.html)
 
 [tenouk](https://www.tenouk.com/Sitemap.html)
+
+[Linux Journal](https://www.linuxjournal.com)
+
+[Linux Kernel Documentation](https://www.kernel.org/doc/html/v4.10/index.html)
 

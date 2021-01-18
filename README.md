@@ -343,3 +343,5 @@
 
 [Linux Kernel Documentation](https://www.kernel.org/doc/html/v4.10/index.html)
 
+[Memory Management References](https://www.memorymanagement.org/)
+

@@ -97,7 +97,7 @@ is no wasted bandwidth due to collisions! The switches buffer frames and never
 transmit more than one frame on a segment at any one time. As with a router, the
 maximum aggregate throughput of a switch is the sum of all the switch interface
 rates. Thus, switches provide a significant performance improvement over LANs
-with broadcast links
+with broadcast links.
 
 - **Heterogeneous links**. Because a switch isolates one link from another, the different
 links in the LAN can operate at different speeds and can run over different

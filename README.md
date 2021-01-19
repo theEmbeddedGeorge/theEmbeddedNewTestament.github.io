@@ -212,12 +212,12 @@
         4.  [Ethernet](Network/ethernet.md)
         5.  [Switch](Network/switch.md)
     5.  Physical layer
-2.  LTE
+2.  [LTE](Network/LTE.md)
 3.  Wifi
 4.  BLE
 5.  Bluetooth
 6.  [Multicast](Network/Multicast.md)
-7.  TSN/AVB
+7.  [TSN/AVB](Network/AVB_TSN.md)
 
 ### P. Embedded Programming with Modern C++
 1. [C++11 Q/A](https://www.stroustrup.com/C++11FAQ.html#specific-aims)

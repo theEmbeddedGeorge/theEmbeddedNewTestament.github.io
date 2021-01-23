@@ -5,19 +5,19 @@
 
 ### A. C/C++ Coding Specific
 1.  [Tenouk's Ultimate C/C++ Tutorials](https://www.tenouk.com/Sitemap.html)
-3.  Attributes
-4.  [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
-5.  [C/C++ Type Specifiers](https://www.tenouk.com/Module11.html)
-6.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
-7. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
-8. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
-9. [C/C++ Compile, Link and Running Programs](https://www.tenouk.com/ModuleW.html)
-10. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
-11. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
-12. Inline functions
-13. Declarations in C
-14. Runtime data strtuctures 
-15. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
+2.  Attributes
+3.  [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
+4.  [C/C++ Type Specifiers](https://www.tenouk.com/Module11.html)
+5.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
+6. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
+7. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
+8. [C/C++ Compile, Link and Running Programs](https://www.tenouk.com/ModuleW.html)
+9. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
+10. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
+11. Inline functions
+12. Declarations in C
+13. Runtime data strtuctures 
+14. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
     1. [The Basic of x86 Architecture](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1a.html)
     2. [An Assembly Language](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1b.html)
     3. [A Compiler, Assembler, Linker & Loader](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1c.html)
@@ -26,8 +26,9 @@
     6. [The Stack Operation](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow3.html)
     7. [A Stack-based Buffer Overflow](https://www.clublexus.com/how-tos/slideshows/6-mods-every-lexus-rc-owner-should-jump-on-440204#6-weight-reduction)
     8. [A Shellcode: The Payload](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow5.html)
-16. C++ New Standard Specific Topics
+15. C++ New Standard Specific Topics
     1. [auto vs auto & vs auto &&](https://stackoverflow.com/questions/29859796/c-auto-vs-auto)
+16. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
 
 ### B. Programming Languages
 1. [C](https://www.geeksforgeeks.org/c-programming-language/)
@@ -57,7 +58,17 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc
     7. strstr()
-14. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
+14. Concurrency 
+    1.  [Producer and consumer problem](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
+    2.  [Reader Writer Problem](https://shivammitra.com/reader-writer-problem-in-c/)
+    3.  [FCFS Scheduling Algorithm](https://codophobia.github.io/operating%20system/fcfs-scheduling-program/)
+    4.  [Nonpreemptive Priority Scheduling](https://shivammitra.com/operating%20system/nonpreemptive-priority-scheduling/)
+    5.  [Preemptive Priority Scheduling](https://shivammitra.com/operating%20system/preemptive-priority-program/)
+    6.  [SJF Scheduling](https://shivammitra.com/operating%20system/sjf-scheduling-program/)
+    7.  [SRTF Scheduling](https://shivammitra.com/operating%20system/srtf-scheduling-program/)
+    8.  [Round Robin Scheduling](https://shivammitra.com/operating%20system/roundrobin-scheduling-program/)
+    9.  [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
+
 
 ### D. Basic Algorithms
 1. Sort
@@ -304,6 +315,8 @@
 3.  [Qualcomm](Interview/Company/qualcomm.md)
 4.  [Nvidia](Interview/Company/Nvidia.md)
 5.  [Cisco](Interview/Company/Cisco.md)
+6.  [Intuitive Surgical](Interview/Company/intuitive/README.md)
+7.  Verkada
 
 ### G. Mock Tests
 1.  [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)

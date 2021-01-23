@@ -22,7 +22,7 @@ static double read_temperature() {
 int main (int argc, char **argv)
 {
     struct sigaction term_action;
-    mqd_t qd_server;  
+    mqd_t qd_server;
     Msg client_msg;
     double temp_val;
     int mid;

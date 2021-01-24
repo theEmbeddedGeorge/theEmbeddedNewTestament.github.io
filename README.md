@@ -28,7 +28,12 @@
     8. [A Shellcode: The Payload](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow5.html)
 15. C++ New Standard Specific Topics
     1. [auto vs auto & vs auto &&](https://stackoverflow.com/questions/29859796/c-auto-vs-auto)
+    2. Copy by value, by reference, by move
 16. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
+17. Concurrency
+    1.  [C/C++ MULTI-THREADED programming with Pthread](https://www.bogotobogo.com/cplusplus/multithreading_pthread.php)
+    2.  [POSIX Threads Programming](https://computing.llnl.gov/tutorials/pthreads/)
+    3.  [OpenMP Programming](https://computing.llnl.gov/tutorials/openMP/)
 
 ### B. Programming Languages
 1. [C](https://www.geeksforgeeks.org/c-programming-language/)
@@ -45,12 +50,13 @@
 5. [Queue](./Data_Struct_Implementation/queue/README.md)
 6. [Binary Search Tree](Data_Struct_Implementation/BST/README.md)
 7. Red Black Tree
-8. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
-9. Simple Task Scheduler
-10. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
-11. Signness Check
-12. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
-13. Common STL function implementation
+8. Minium Spanning Tree (MST)
+9. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
+10. Simple Task Scheduler
+11. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
+12. Signness Check
+13. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+14. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. atoi
@@ -58,16 +64,20 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc
     7. strstr()
-14. Concurrency 
-    1.  [Producer and consumer problem](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
-    2.  [Reader Writer Problem](https://shivammitra.com/reader-writer-problem-in-c/)
-    3.  [FCFS Scheduling Algorithm](https://codophobia.github.io/operating%20system/fcfs-scheduling-program/)
-    4.  [Nonpreemptive Priority Scheduling](https://shivammitra.com/operating%20system/nonpreemptive-priority-scheduling/)
-    5.  [Preemptive Priority Scheduling](https://shivammitra.com/operating%20system/preemptive-priority-program/)
-    6.  [SJF Scheduling](https://shivammitra.com/operating%20system/sjf-scheduling-program/)
-    7.  [SRTF Scheduling](https://shivammitra.com/operating%20system/srtf-scheduling-program/)
-    8.  [Round Robin Scheduling](https://shivammitra.com/operating%20system/roundrobin-scheduling-program/)
-    9.  [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
+15. Concurrency 
+    1.  Implement a Spinlock/Mutex
+        1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
+        2. Compare-and-swap
+        3. Test-and-clear
+    2.  [Producer and consumer problem](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
+    3.  [Reader Writer Problem](https://shivammitra.com/reader-writer-problem-in-c/)
+    4.  [FCFS Scheduling Algorithm](https://codophobia.github.io/operating%20system/fcfs-scheduling-program/)
+    5.  [Nonpreemptive Priority Scheduling](https://shivammitra.com/operating%20system/nonpreemptive-priority-scheduling/)
+    6.  [Preemptive Priority Scheduling](https://shivammitra.com/operating%20system/preemptive-priority-program/)
+    7.  [SJF Scheduling](https://shivammitra.com/operating%20system/sjf-scheduling-program/)
+    8.  [SRTF Scheduling](https://shivammitra.com/operating%20system/srtf-scheduling-program/)
+    9.  [Round Robin Scheduling](https://shivammitra.com/operating%20system/roundrobin-scheduling-program/)
+    10. [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
 
 
 ### D. Basic Algorithms
@@ -77,6 +87,7 @@
    3.  Quick Sort
    4.  Binary Sort
    5.  Heap Sort
+   6.  Insertion Sort
 2.  Search
     1.  [Hash](Data_Struct_Implementation/hashTable/README.md)
     2.  [Binary search Tree](Data_Struct_Implementation/BST/README.md)
@@ -119,7 +130,7 @@
 2.  [Process Management](Operating_System/Process/Process.md)
     1.  Process Manager
     2.  [Scheduling](Operating_System/Process/Process_thread_scheduling.md)
-    3.  Threads and Concurrency
+    3.  [Threads and Concurrency](Operating_System/Process/Threads.md)
 3.  Interprocess Synchronization/Communication
     1.  IPC
     2.  Sychronization Facilities
@@ -240,6 +251,7 @@
    1. [Modern C++ for Embedded Öffentliche Vorträge Conference Articles](https://www.grimm-jaud.de/index.php/oeffentliche-vortraege)
    2. [C++ core guideline by topics](https://www.modernescpp.com/index.php/category/modern-c)
    3. [Technical Report on C++ Performance](http://www.open-std.org/jtc1/sc22/wg21/docs/TR18015.pdf)
+   4. [bogotobogo blogs for embedded](https://www.bogotobogo.com/Embedded/)
 
 ## Interview Questions
 
@@ -317,6 +329,7 @@
 5.  [Cisco](Interview/Company/Cisco.md)
 6.  [Intuitive Surgical](Interview/Company/intuitive/README.md)
 7.  Verkada
+8.  Amazon
 
 ### G. Mock Tests
 1.  [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)
@@ -361,3 +374,6 @@
 
 [Memory Management References](https://www.memorymanagement.org/)
 
+[bogotobogo](https://www.bogotobogo.com/cplusplus/multithreading_pthread.php)
+
+[bogotobogo Linux](https://www.bogotobogo.com/Linux/)

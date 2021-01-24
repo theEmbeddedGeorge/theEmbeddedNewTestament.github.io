@@ -10,11 +10,12 @@ Recruiter mentioned this interview will be about ***concurrency***.
    3. Scheduler & dispatcher
 2. Synchronization
    1. Mutex
-   2. Semphoare
-   3. spinlocks
-   4. Deadlock & priority inversion
-   5. reentrancy
-   6. volatile
+   2. Condition Variables
+   3. Semphoare
+   4. spinlocks
+   5. Deadlock & priority inversion
+   6. reentrancy
+   7. volatile
 3. IPC
    1. Signal
    2. Pipe
@@ -23,7 +24,11 @@ Recruiter mentioned this interview will be about ***concurrency***.
       2. fork
       3. messagequeue
       4. pipe
-   4. RTOS
+   4. RTOS (freeRTOS)
+      1. signal
+      2. Semaphone
+      3. mutex
+      4. messagequeue
 
 
 ### Concurrency Coding Problems

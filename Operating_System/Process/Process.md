@@ -6,6 +6,10 @@ This blog from [bogotobogo.com](bogotobogo.com) describe processes in Linux OS i
 
 ### Process Contents
 
+[***Processes, Address Spaces, and Context Switches***](http://www.cse.iitm.ac.in/~chester/courses/15o_os/slides/6_Processes.pdf)
+
+Insightful slides about processes from IIT.
+
 ### Process Control Block (PCB)
 
 ### Context Switch

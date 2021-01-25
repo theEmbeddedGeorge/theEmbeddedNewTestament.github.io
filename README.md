@@ -72,7 +72,11 @@
     2.  [Producer and consumer problem (Bounded Buffer)](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
     3.  [Reader Writer Problem](https://shivammitra.com/reader-writer-problem-in-c/)
     4.  [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
-    5.  Multi-thread Ring Buffer
+    5.  [FizzBuzz MultiThread](Data_Struct_Implementation/concurrency/FizzBuzz.md)
+    6.  [Bouned Queue](Data_Struct_Implementation/concurrency/BoundedQueue.md)
+    7.  [Print In Order](Data_Struct_Implementation/concurrency/PrintInorder.md)
+    8.  [Building H2O](Data_Struct_Implementation/concurrency/BuildingH2O.md)
+    9.  [The Dining Philosophers](Data_Struct_Implementation/concurrency/TheDiningPhilosophers.md)
 
 
 ### D. Basic Algorithms
@@ -91,7 +95,7 @@
 ### E. Programming API 
 1. Memory management
 2. Multi-thread/Multi-processing
-   1. POSIX Thread
+   1. [POSIX Thread](https://www.cs.cmu.edu/afs/cs/academic/class/15492-f07/www/pthreads.html)
    2. [Unix IPC](Resources/beeje_guide_unix_ipc.pdf)
 3. Network 
    1. [POSIX Socket Programming](Resources/beeje_guide_network_programming.pdf)

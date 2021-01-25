@@ -1,12 +1,12 @@
 CC=gcc
 CFLGAS=-Wall
-OBJ = memalign.o
+OBJ = memalign_new
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-memAlign: $(OBJ)
+$(OBJ): $(OBJ).o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f memalign memalign.o
+	rm -f $(OBJ) $(OBJ).o

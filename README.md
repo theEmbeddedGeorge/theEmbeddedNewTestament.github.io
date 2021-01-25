@@ -79,7 +79,7 @@
 1. Sort
    1.  Bubble Sort
    2.  Merge Sort
-   3.  Quick Sort
+   3.  [Quick Sort](/Data_Struct_Implementation/quickSort/quicksort.md)
    4.  Binary Sort
    5.  Heap Sort
    6.  Insertion Sort

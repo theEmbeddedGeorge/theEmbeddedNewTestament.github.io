@@ -1,4 +1,4 @@
-## Circular Ring Buffer
+## Quick Sort
 #### Usage
 ```
 make

@@ -62,22 +62,17 @@
     3. atoi
     4. [sizeof](Data_Struct_Implementation/sizeof/README.md)
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
-    6. Malloc
+    6. Malloc()
     7. strstr()
 15. Concurrency 
     1.  Implement a Spinlock/Mutex
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
-        2. Compare-and-swap
+        2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
         3. Test-and-clear
-    2.  [Producer and consumer problem](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
+    2.  [Producer and consumer problem (Bounded Buffer)](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
     3.  [Reader Writer Problem](https://shivammitra.com/reader-writer-problem-in-c/)
-    4.  [FCFS Scheduling Algorithm](https://codophobia.github.io/operating%20system/fcfs-scheduling-program/)
-    5.  [Nonpreemptive Priority Scheduling](https://shivammitra.com/operating%20system/nonpreemptive-priority-scheduling/)
-    6.  [Preemptive Priority Scheduling](https://shivammitra.com/operating%20system/preemptive-priority-program/)
-    7.  [SJF Scheduling](https://shivammitra.com/operating%20system/sjf-scheduling-program/)
-    8.  [SRTF Scheduling](https://shivammitra.com/operating%20system/srtf-scheduling-program/)
-    9.  [Round Robin Scheduling](https://shivammitra.com/operating%20system/roundrobin-scheduling-program/)
-    10. [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
+    4.  [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
+    5.  Multi-thread Ring Buffer
 
 
 ### D. Basic Algorithms

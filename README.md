@@ -134,7 +134,7 @@
     2.  [Scheduling](Operating_System/Process/Process_thread_scheduling.md)
     3.  [Threads and Concurrency](Operating_System/Process/Threads.md)
 3.  Interprocess Synchronization/Communication
-    1.  IPC
+    1.  [IPC](Operating_System/Process/IPC.md)
     2.  Sychronization Facilities
 4.  Memory Management
     1.  Memory Hardware

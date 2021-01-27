@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define RING_BUFFER_SIZE    256
+#define RING_BUFFER_SIZE    24
 #define BUFFER_IS_FULL      1
 #define BUFFER_NOT_FULL     0
 #define BUFFER_IS_EMPTY     1

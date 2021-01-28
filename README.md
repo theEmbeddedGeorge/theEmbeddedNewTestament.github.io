@@ -70,7 +70,7 @@
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
         3. Test-and-clear
     2.  [Producer and consumer problem (Bounded Buffer)](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
-    3.  [Reader Writer Problem](https://shivammitra.com/reader-writer-problem-in-c/)
+    3.  [Reader Writer Problem](Data_Struct_Implementation/concurrency/ReaderWritter.md)
     4.  [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
     5.  [FizzBuzz MultiThread](Data_Struct_Implementation/concurrency/FizzBuzz.md)
     6.  [Bouned Queue](Data_Struct_Implementation/concurrency/BoundedQueue.md)

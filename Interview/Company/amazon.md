@@ -1,3 +1,33 @@
+## Amazon experience OA questions 2020-2021
+- Prime Air Route	2020	Experienced	HackerRank	USA
+- Amazon Fulfillment Builder	2020	Experienced	HackerRank	USA
+- Items in Containers	2020	Experienced	SHL/HackerRank	USA
+- Largest Item Association	2020	Experienced	SHL	USA
+- Turnstile	2020	Experienced	SHL/HackerRank	USA
+- Five Star Sellers	2020	Experienced	HackerRank	USA/Canada
+- Beta Testing	2020	Experienced	HackerRank	USA/Canada
+- Transaction Logs	2020	Experienced	HackerRank	USA
+- Substrings of Size K with K-1 Distinct Chars	2020	Experienced	SHL/HackerRank	USA
+- Rover Control	2020	Experienced	HackerRank	USA
+- Robotics Challenge	2020	Experienced	SHL	USA/UK
+- Shopping Patterns	2020	Experienced	SHL/HackerRank	USA/India
+- Gifting Groups	2020	Experienced	HackerRank	USA/India
+
+***To-do:***
+- Distance Between Nodes in BST	
+- Amazon Music Pairs (two-sum)
+- Utilization Checks (optimal utilization)
+- Amazon Fresh Promotion
+
+***Completed:***
+- Number of Islands (BFS/DFS)
+- Most Common Word  (hashmap)
+- Rotting Orange (BFS)
+- zombie in matrix (BFS)
+- K Closest Points to Origin (Priority Queue/Minheap)
+- Top K Frequently elements (Priority Queue/Minheap + hash_map)
+- Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)
+
 ## Interview process
 
 Amazon Interview:

@@ -14,6 +14,15 @@ Insightful slides about processes from IIT.
 
 ### Context Switch
 
+Context Switching Overheads
+- Direct Factors affecting context switching time
+  - Timer Interrupt latency
+  - Saving/restoring contexts
+  - Finding the next process to execute
+- Indirect factors
+  - TLB needs to be reloaded
+  - Loss of cache locality (therefore more cache misses)
+  - Processor pipeline flush
 
 ## Resources
 

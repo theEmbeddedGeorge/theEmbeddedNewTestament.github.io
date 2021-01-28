@@ -32,7 +32,7 @@ Inter-process communication (IPC) is set of interfaces, which is usually program
 - Memory Mapping
     - [Explanation & Examples](https://www.tutorialspoint.com/inter_process_communication/inter_process_communication_memory_mapping.htm)
 
-#### Detailed Explainations
+#### Detailed Explanations
 - [Shared Address Space](https://courses.engr.illinois.edu/cs241/sp2012/lectures/29-IPC.pdf) (Shared Memory, Memory Mapped Files)
 - [Message transported by OS from one address space to another](https://courses.engr.illinois.edu/cs241/sp2012/lectures/30-IPC.pdf)(Files, Pipes and FIFOs)
 - [Some POSIX Examples](https://courses.engr.illinois.edu/cs241/fa2010/ppt/31-IPC.pdf)

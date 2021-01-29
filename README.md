@@ -329,7 +329,7 @@
 4.  [Nvidia](Interview/Company/Nvidia.md)
 5.  [Cisco](Interview/Company/Cisco.md)
 6.  [Intuitive Surgical](Interview/Company/intuitive/README.md)
-7.  Verkada
+7.  [Verkada](Interview/Company/Verkada/Phone_screen.md)
 8.  Amazon
 
 ### G. Mock Tests

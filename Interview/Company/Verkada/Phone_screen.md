@@ -43,3 +43,5 @@ Recruiter mentioned this interview will be about ***concurrency***.
    7. [Round Robin Scheduling](https://shivammitra.com/operating%20system/roundrobin-scheduling-program/)
 2. ring buffer read/write
 3. [Leetcode Concurrency tag problems](https://leetcode.com/problemset/concurrency/)
+
+### Phone Screen Questions

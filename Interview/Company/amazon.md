@@ -1,23 +1,187 @@
 ## Amazon experience OA questions 2020-2021
-- Prime Air Route	2020	Experienced	HackerRank	USA
-- Amazon Fulfillment Builder	2020	Experienced	HackerRank	USA
-- Items in Containers	2020	Experienced	SHL/HackerRank	USA
 - Largest Item Association	2020	Experienced	SHL	USA
-- Turnstile	2020	Experienced	SHL/HackerRank	USA
 - Five Star Sellers	2020	Experienced	HackerRank	USA/Canada
 - Beta Testing	2020	Experienced	HackerRank	USA/Canada
 - Transaction Logs	2020	Experienced	HackerRank	USA
-- Substrings of Size K with K-1 Distinct Chars	2020	Experienced	SHL/HackerRank	USA
-- Rover Control	2020	Experienced	HackerRank	USA
 - Robotics Challenge	2020	Experienced	SHL	USA/UK
-- Shopping Patterns	2020	Experienced	SHL/HackerRank	USA/India
 - Gifting Groups	2020	Experienced	HackerRank	USA/India
 
 ***To-do:***
-- Distance Between Nodes in BST	
-- Amazon Music Pairs (two-sum)
-- Utilization Checks (optimal utilization)
-- Amazon Fresh Promotion
+- [Turnstile](https://leetcode.com/discuss/interview-question/699973/)
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+  vector<int> solve(vector<int> &t, vector<int> &dir) {
+    queue<pair<int, int>> exit, entry; // pair <time[index], index>
+    int N = t.size();
+    vector<int> res(N);
+
+    for (int i = 0; i < N; i++) {
+      if (dir[i] == 1)
+        exit.push({t[i], i});
+      else
+        entry.push({t[i], i});
+    }
+
+    int ct = 0, lc = -1; // ct is the current time & lc indicates who used
+                         // turnstile in the previous second lc = -1 if none
+                         // used the turnstile in the last second
+
+    while (!exit.empty() || !entry.empty()) {
+      // checking for exit queue
+      if (!exit.empty() && exit.front().first <= ct &&
+          (lc == 1 || lc == -1 || entry.empty() ||
+           (entry.front().first > ct))) {
+        res[exit.front().second] = ct;
+        lc = 1;
+        exit.pop();
+      }
+      // checking for entry queue
+      else if (!entry.empty() && entry.front().first <= ct) {
+        res[entry.front().second] = ct;
+        lc = 0;
+        entry.pop();
+      } else {
+        lc = -1;
+      }
+
+      ct++;
+    }
+
+    return res;
+  }
+};
+
+static int i = 1;
+void test(Solution &sol, vector<int> &t, vector<int> &dir,
+          vector<int> &expected) {
+  cout << "Run test case " << i++ << endl;
+  auto res = sol.solve(t, dir);
+  for (auto &item : res)
+    cout << item << " ";
+  cout << endl;
+  for (auto &item : expected)
+    cout << item << " ";
+  cout << endl;
+
+  assert(res == expected);
+  cout << "Success!" << endl;
+}
+
+int main() {
+  Solution sol;
+  vector<int> t = {0, 0, 1, 5};
+  vector<int> dir = {0, 1, 1, 0};
+  vector<int> expected = {2, 0, 1, 5};
+  test(sol, t, dir, expected);
+
+  vector<int> t2 = {1, 2, 4};
+  vector<int> dir2 = {0, 1, 1};
+  vector<int> expected2 = {1, 2, 4};
+  test(sol, t2, dir2, expected2);
+
+  vector<int> t3 = {1, 1};
+  vector<int> dir3 = {1, 1};
+  vector<int> expected3 = {1, 2};
+  test(sol, t3, dir3, expected3);
+
+  vector<int> t4 = {1, 1, 3, 3, 4, 5, 6, 7, 7};
+  vector<int> dir4 = {1, 1, 0, 0, 0, 1, 1, 1, 1};
+  vector<int> expected4 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  test(sol, t4, dir4, expected4);
+
+  return 0;
+}
+```
+- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-20201-or-Fresh-Promotion)
+```JAVA
+private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
+//        Start at 0 index for both the code list and shopping cart.
+        int cartIdx = 0, codeIdx = 0;
+        while (cartIdx < shoppingCart.length && codeIdx < codeList.length) {
+            String cur = shoppingCart[cartIdx];
+//            If the first fruit of the codeList is anything or if it matches the current fruit at the cart idx.
+            if((codeList[codeIdx][0].equals("anything") || codeList[codeIdx][0].equals(cur)) && hasOrder(shoppingCart, cartIdx, codeList[codeIdx])){
+                cartIdx += codeList[codeIdx++].length;
+            }else{
+                cartIdx++;
+            }
+        }
+//        If the all the codeList is present then return 1, else 0.
+        return codeIdx == codeList.length ? 1 : 0;
+    }
+
+    private static boolean hasOrder(String[] shoppingCart, int idx, String[] order) {
+//        Loop through the codeList to check if the fruits are in order.
+        for (String s : order) {
+            if (idx < shoppingCart.length && (s.equals("anything") || shoppingCart[idx].equals(s))){
+                idx++;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+```
+- Prime Air Route
+- Amazon Fulfillment Builder	2020	Experienced	HackerRank	USA
+- Items in Containers	2020	Experienced	SHL/HackerRank	USA
+- Shopping Patterns
+- [Substrings of Size K with K-1 Distinct Chars](https://leetcode.com/discuss/interview-question/370112/) (sliding window)
+```JAVA
+ public List<String> Count(String S,int k){
+        int distinct=0,i=0;
+        int [] memo=new int[26];
+        Set<String> set=new HashSet<>();
+        for (;i<k;i++){
+            if (memo[S.charAt(i)-'a']==0)
+                distinct+=1;
+            memo[S.charAt(i)-'a']+=1;
+        }
+        if (distinct==k) {
+            set.add(S.substring(i-k,i));
+        }
+        while (i<S.length()){
+            if (memo[S.charAt(i)-'a']==0)
+                distinct+=1;
+            memo[S.charAt(i)-'a']+=1;
+            memo[S.charAt(i-k)-'a']-=1;
+            if (memo[S.charAt(i-k)-'a']==0)
+                distinct-=1;
+            if (distinct==k)
+                set.add(S.substring(i-k+1,i+1));
+            i+=1;
+            }
+
+        return new ArrayList<>(set);
+    }
+```
+- [Rover Control](https://leetcode.com/discuss/interview-question/985703/Amazon-or-OA-or-Rover-Control) 
+  ```C++
+  public static int roverMove(String[] cmnds, int n){
+	int row=0;
+	int col=0;
+	for(String cmnd:cmnds) {
+		if(cmnd=="RIGHT") {
+			if(col<n-1)col=col+1;
+		}
+		else if(cmnd=="LEFT") {
+			if(col>0)col=col-1;
+		}
+		else if(cmnd=="UP") {
+			if(row>0)row=row-1;
+        }
+		else {
+			if(row<n-1) row=row+1;
+		}
+	}
+	return (row*n)+col;
+}
+```
+- Utilization Checks
 
 ***Completed:***
 - Number of Islands (BFS/DFS)
@@ -27,6 +191,10 @@
 - K Closest Points to Origin (Priority Queue/Minheap)
 - Top K Frequently elements (Priority Queue/Minheap + hash_map)
 - Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)
+- Optimal Utilization (two pointer)
+- Two sum unique pair (two pointers + sort)
+- Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60
+- Distance Between Nodes in BST	(DFS in order)
 
 ## Interview process
 

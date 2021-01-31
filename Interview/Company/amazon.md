@@ -1,13 +1,67 @@
 ## Amazon experience OA questions 2020-2021
-- Largest Item Association	2020	Experienced	SHL	USA
-- Five Star Sellers	2020	Experienced	HackerRank	USA/Canada
-- Beta Testing	2020	Experienced	HackerRank	USA/Canada
-- Transaction Logs	2020	Experienced	HackerRank	USA
-- Robotics Challenge	2020	Experienced	SHL	USA/UK
-- Gifting Groups	2020	Experienced	HackerRank	USA/India
+
+[Blind thread](https://www.teamblind.com/post/amazon-oa-question-complilation-xjQosyo3)
+
+- Robotics Challenge	
+- Gifting Groups	
 
 ***To-do:***
-- [Turnstile](https://leetcode.com/discuss/interview-question/699973/)
+- [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
+```C++
+#include <algorithm>
+#include <unordered_map>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+vector<string> get_fraud_id(vector<string>& uid, int threshold) {
+    vector<string> result;
+    unordered_map <string, int> ump;
+    vector<string> temp;
+    int idx;
+    string word;
+    for (idx = 0; idx < uid.size(); idx++) {
+        stringstream ss(uid[idx]);
+        while (ss >> word) {
+            temp.push_back(word);
+        }
+        if (temp[0] != temp[1]) {
+            ump[temp[0]]++;
+            ump[temp[1]]++;
+        }
+        else
+            ump[temp[0]]++;
+        temp.clear();
+    }
+    for (auto &i1 : ump) {
+        if (i1.second >= threshold)
+            result.push_back(i1.first);
+    }
+
+    sort(result.begin(), result.end(), [](const string& a, const string& b)
+                                            {return stoi(a) > stoi(b); });
+
+    return result;
+}
+
+int main() {
+
+    vector<string> id = {"345366 89921 45", "029323 38239 23",
+                         "38239 345366 15", "029323 38239 77",
+                         "345366 38239 23", "029323 345366 13",
+                         "38239 38239 23"};
+    vector<string> res(get_fraud_id(id, 3));
+    for (auto &s1: res)
+        cout<<s1<<" ";
+
+    return 0;
+}
+```
+- [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
+- [Beta Testing](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)
+- Largest Item Association
+- [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
 ```C++
 #include <bits/stdc++.h>
 using namespace std;
@@ -96,7 +150,7 @@ int main() {
   return 0;
 }
 ```
-- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-20201-or-Fresh-Promotion)
+- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
 ```JAVA
 private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
 //        Start at 0 index for both the code list and shopping cart.
@@ -126,10 +180,9 @@ private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
         return true;
     }
 ```
-- Prime Air Route
-- Amazon Fulfillment Builder	2020	Experienced	HackerRank	USA
-- Items in Containers	2020	Experienced	SHL/HackerRank	USA
-- Shopping Patterns
+- Amazon Fulfillment Builder
+- [Items in Containers](https://algo.monster/problems/items_in_containers)
+- [Shopping Patterns](https://algo.monster/problems/shopping_patterns)
 - [Substrings of Size K with K-1 Distinct Chars](https://leetcode.com/discuss/interview-question/370112/) (sliding window)
 ```JAVA
  public List<String> Count(String S,int k){
@@ -160,7 +213,7 @@ private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
     }
 ```
 - [Rover Control](https://leetcode.com/discuss/interview-question/985703/Amazon-or-OA-or-Rover-Control) 
-  ```C++
+```C++
   public static int roverMove(String[] cmnds, int n){
 	int row=0;
 	int col=0;
@@ -181,20 +234,20 @@ private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
 	return (row*n)+col;
 }
 ```
-- Utilization Checks
 
 ***Completed:***
-- Number of Islands (BFS/DFS)
-- Most Common Word  (hashmap)
-- Rotting Orange (BFS)
-- zombie in matrix (BFS)
-- K Closest Points to Origin (Priority Queue/Minheap)
-- Top K Frequently elements (Priority Queue/Minheap + hash_map)
-- Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)
-- Optimal Utilization (two pointer)
+- [Number of Islands (BFS/DFS)](https://leetcode.com/problems/number-of-islands)
+- [Most Common Word  (hashmap)](https://leetcode.com/problems/most-common-word)
+- [Rotting Orange (BFS)](https://leetcode.com/problems/rotting-oranges)
+- [zombie in matrix (BFS)](https://www.lintcode.com/problem/zombie-in-matrix/description)
+- [K Closest Points to Origin (Priority Queue/Minheap)](https://leetcode.com/problems/k-closest-points-to-origin)
+- [Top K Frequently elements (Priority Queue/Minheap + hash_map)](https://leetcode.com/problems/top-k-frequent-elements)
+- [Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)](https://www.lintcode.com/problem/top-k-frequently-mentioned-keywords/)
+- [Optimal Utilization (two pointer)](https://www.lintcode.com/problem/optimalutilization/)
 - Two sum unique pair (two pointers + sort)
-- Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60
-- Distance Between Nodes in BST	(DFS in order)
+- [Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
+- [Distance Between Nodes in BST	(DFS in order)](https://leetcode.com/problems/minimum-distance-between-bst-nodes)
+- [Prime Air Route/Two sum to the closest (Two Pointer))](https://leetcode.com/discuss/interview-question/1025705/Amazon-or-OA-or-Prime-Air-time)
 
 ## Interview process
 

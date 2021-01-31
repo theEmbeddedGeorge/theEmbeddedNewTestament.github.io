@@ -85,7 +85,7 @@
    2.  [Merge Sort](/Data_Struct_Implementation/mergeSort/mergeSort.md)
    3.  [Quick Sort](/Data_Struct_Implementation/quickSort/quicksort.md)
    4.  Binary Sort
-   5.  Heap Sort
+   5.  [Heap Sort](/Data_Struct_Implementation/heapSort/heapSort.md)
    6.  [Insertion Sort](/Data_Struct_Implementation/insertionSort/insertionSort.md)
 2.  Search
     1.  [Hash](Data_Struct_Implementation/hashTable/README.md)

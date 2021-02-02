@@ -56,7 +56,8 @@
 11. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
 12. Signness Check
 13. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
-14. Common STL function implementation
+14. Array of Bits
+15. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. atoi
@@ -64,7 +65,7 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
     7. strstr()
-15. Concurrency 
+16. Concurrency 
     1.  Implement a Spinlock/Mutex
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)

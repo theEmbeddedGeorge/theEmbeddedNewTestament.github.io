@@ -1,12 +1,12 @@
 CC=gcc
 CFLGAS=-Wall -g
-OBJ = bst.o
+OBJ = aob.o
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-bst: $(OBJ)
+aob: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f bst bst.o
+	rm -f aob aob.o

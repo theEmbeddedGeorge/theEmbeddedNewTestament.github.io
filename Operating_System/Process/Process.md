@@ -41,3 +41,5 @@ Context Switching Overheads
 [University of North Florida Slides](https://www.unf.edu/public/cop4610/ree/Notes/PPT/PPT8E/CH%2003%20-OS8e.pdf)
 
 [Processes, Address Spaces, and Context Switches IIT Madras Slides](http://www.cse.iitm.ac.in/~chester/courses/15o_os/slides/6_Processes.pdf)
+
+[UIUC CS 241 High quality course materials](https://courses.engr.illinois.edu/cs241/sp2012/) 

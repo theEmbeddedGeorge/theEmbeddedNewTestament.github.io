@@ -124,9 +124,6 @@
 
 
 ### H. Operating Systems
-
-[UIUC CS 241](https://courses.engr.illinois.edu/cs241/sp2012/) High quality course materials
-
 1.  [Interrupt](./Operating_System/Interrupt.md)
     1.  [Exception Handling](Operating_System/Exception_ARM64.md)
     2.  System call

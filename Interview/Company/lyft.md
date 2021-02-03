@@ -88,7 +88,7 @@ int main(){
     return 0;
 }
 ```
-
+## Other questions asked (from multiple sources)
 #### Warm up question:
 ```C++
 class Stream:

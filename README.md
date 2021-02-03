@@ -150,6 +150,7 @@
         5.  Timers and time management
     2.  [QNX](http://www.qnx.com/developers/docs/qnxcar2/index.jsp?topic=%2Fcom.qnx.doc.neutrino.getting_started%2Ftopic%2Fs3_qnx2nto_Device_driver_model.html)
 8.  [Linux](https://0xax.gitbooks.io/linux-insides/content/)
+    - [Great linux overview](http://www.wowotech.net/sort/linux_kenrel)
     1.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
     2.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
     3.  Synchronization primitives

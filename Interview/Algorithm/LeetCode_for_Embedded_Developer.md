@@ -58,7 +58,9 @@ LeetCode # | Title | Diffculty | Importance | Implemented?
 313 | Super Ugly Number | Medium | ** 	
 318 | Maximum Product of Word Lengths | Medium
 823 | Hamming Distance | Easy | ****** 
-1217 | Total Hamming Distance | Medium | ****** 
+1217 | Total Hamming Distance | Medium | ******
+157 | Read N Characters Given Read4 | easy | ***** | v
+158 | Read N Characters Given Read4 II - Call multiple times | hard | *** | v
 ---------------------------------
 
 High frequency LeetCode Series # | Title | Diffculty | Implemented? 
@@ -1563,3 +1565,59 @@ Space complexity | O(1)
 ###	Maximum Product of Word Lengths			
 ###	Hamming Distance		
 ###	Total Hamming Distance	
+
+###	Read N Characters Given Read4
+***Tips: pointer***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+```C++
+class Solution {
+public:
+    /**
+     * @param buf Destination buffer
+     * @param n   Number of characters to read
+     * @return    The number of actual characters read
+     */
+    int read(char *buf, int n) {
+        if (n <= 0) return n;
+        int bytes = 0, totalBytes = 0;
+        while (true) {
+            bytes = read4(buf + totalBytes);
+            totalBytes += bytes;
+            if (bytes == 0) return totalBytes; // end of file
+            if (totalBytes >= n) return n; // we have read what we were expected to read
+        }
+    }
+};
+```
+
+###	Read N Characters Given Read4 II - Call multiple times
+***Tips: pointer***
+Complexity | Big O 
+----------------|-------
+Time complexity | O(n)
+Space complexity | O(1)
+```C++
+class Solution {
+private:
+    int p = 4;
+    int i = 4;
+    char tmp[4];
+public:
+    int read(char *buf, int n) {
+        int sum = 0;
+        while(sum < n){
+            if(p == i){
+                i = read4(tmp);
+                p = 0;
+            }
+            if(i == 0) break;
+            *buf++ = tmp[p++];
+            sum++;
+        }
+        return sum;
+    }
+};
+```

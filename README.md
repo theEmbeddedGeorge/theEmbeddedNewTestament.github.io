@@ -330,6 +330,10 @@
 6.  [Intuitive Surgical](Interview/Company/intuitive/README.md)
 7.  [Verkada](Interview/Company/Verkada/Phone_screen.md)
 8.  Amazon
+9.  [Lyft](Interview/Company/lyft.md)
+10. FaceBook
+11. Zoox
+12. Apple
 
 ### G. Mock Tests
 1.  [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)

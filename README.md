@@ -127,6 +127,7 @@
 1.  [Interrupt](./Operating_System/Interrupt.md)
     1.  [Exception Handling](Operating_System/Exception_ARM64.md)
     2.  System call
+    3. [Re-entrant & Thread Safe Function](https://www.geeksforgeeks.org/reentrant-function/)
 2.  [Process Management](Operating_System/Process/Process.md)
     1.  Process Manager
     2.  [Scheduling](Operating_System/Process/Process_thread_scheduling.md)

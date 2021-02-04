@@ -25,6 +25,24 @@ where to start.
 
 * In a similar vein to point (c), printf() often has problems with reentrancy and performance. If you missed points (c) & (d) then I wouldn’t be too hard on you. Needless to say, if you got these two points, then your employment prospects are looking better and better.
 
+**__interrupt**
+7.5.4 The __interrupt Keyword
+The compiler extends the C/C++ language by adding the __interrupt keyword, which specifies that a function is treated as an interrupt function. This keyword is an IRQ interrupt. The alternate keyword, "interrupt", may also be used except in strict ANSI C or C++ modes.
+
+Note that the interrupt function attribute described in Section 7.9.21 is the recommended syntax for declaring interrupt functions.
+
+Functions that handle interrupts follow special register-saving rules and a special return sequence. The implementation stresses safety. The interrupt routine does not assume that the C run-time conventions for the various CPU register and status bits are in effect; instead, it re-establishes any values assumed by the run-time environment. When C/C++ code is interrupted, the interrupt routine must preserve the contents of all machine registers that are used by the routine or by any function called by the routine. When you use the __interrupt keyword with the definition of the function, the compiler generates register saves based on the rules for interrupt functions and the special return sequence for interrupts.
+
+You can only use the __interrupt keyword with a function that is defined to return void and that has no parameters. The body of the interrupt function can have local variables and is free to use the stack or global variables. For example:
+
+__interrupt void int_handler() { unsigned int flags; ... }
+The name c_int00 is the C/C++ entry point. This name is reserved for the system reset interrupt. This special interrupt routine initializes the system and calls the main() function. Because it has no caller, c_int00 does not save any registers.
+
+NOTE
+
+Hwi Objects and the __interrupt Keyword
+The __interrupt keyword must not be used when SYS/BIOS Hwi objects are used in conjunction with C functions. The Hwi_enter/Hwi_exit macros and the Hwi dispatcher already contain this functionality, and the use of the C modifier can cause unwanted conflicts.
+
 ```C++
 /*
 Implement a function that can be used to control the state of a heater to achieve a desired temperature with 2 degree of hysteresis. The hysteresis is used to prevent excessive toggling of the heater, i.e., if the heater is already on it should stay on until the current temperature reaches the desired temperature + 2, and if the heater is already off then it should stay off until the current temperature reaches the desired temperature - 2.

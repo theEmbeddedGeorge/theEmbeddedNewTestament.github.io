@@ -30,7 +30,8 @@
     1. [auto vs auto & vs auto &&](https://stackoverflow.com/questions/29859796/c-auto-vs-auto)
     2. Copy by value, by reference, by move
 16. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
-17. Concurrency
+17. [C++ STL Cheat Sheet](./Resources/STL_Cheatsheet.pdf)
+18. Concurrency
     1.  [C/C++ MULTI-THREADED programming with Pthread](https://www.bogotobogo.com/cplusplus/multithreading_pthread.php)
     2.  [POSIX Threads Programming](https://computing.llnl.gov/tutorials/pthreads/)
     3.  [OpenMP Programming](https://computing.llnl.gov/tutorials/openMP/)

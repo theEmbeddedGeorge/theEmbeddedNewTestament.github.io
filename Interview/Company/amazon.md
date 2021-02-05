@@ -2,7 +2,6 @@
 
 [Blind thread](https://www.teamblind.com/post/amazon-oa-question-complilation-xjQosyo3)
 
-- Robotics Challenge	
 - Gifting Groups	
 
 ***To-do:***
@@ -57,9 +56,8 @@ int main() {
     return 0;
 }
 ```
-- [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
 - [Beta Testing](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)
-- [Largest Item Association](https://leetcode.com/discuss/interview-question/844979/Amazon-or-OA-2020-or-Largest-Item-Association)
+- [Largest Item Association](https://www.lintcode.com/problem/maximum-association-set/)
 - [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
 ```C++
 #include <bits/stdc++.h>
@@ -149,36 +147,6 @@ int main() {
   return 0;
 }
 ```
-- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
-```JAVA
-private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
-//        Start at 0 index for both the code list and shopping cart.
-        int cartIdx = 0, codeIdx = 0;
-        while (cartIdx < shoppingCart.length && codeIdx < codeList.length) {
-            String cur = shoppingCart[cartIdx];
-//            If the first fruit of the codeList is anything or if it matches the current fruit at the cart idx.
-            if((codeList[codeIdx][0].equals("anything") || codeList[codeIdx][0].equals(cur)) && hasOrder(shoppingCart, cartIdx, codeList[codeIdx])){
-                cartIdx += codeList[codeIdx++].length;
-            }else{
-                cartIdx++;
-            }
-        }
-//        If the all the codeList is present then return 1, else 0.
-        return codeIdx == codeList.length ? 1 : 0;
-    }
-
-    private static boolean hasOrder(String[] shoppingCart, int idx, String[] order) {
-//        Loop through the codeList to check if the fruits are in order.
-        for (String s : order) {
-            if (idx < shoppingCart.length && (s.equals("anything") || shoppingCart[idx].equals(s))){
-                idx++;
-            }else{
-                return false;
-            }
-        }
-        return true;
-    }
-```
 - Amazon Fulfillment Builder
 - [Items in Containers](https://algo.monster/problems/items_in_containers)
 ```c++
@@ -231,45 +199,29 @@ return sum;
 
         return new ArrayList<>(set);
     }
-```
-- [Rover Control](https://leetcode.com/discuss/interview-question/985703/Amazon-or-OA-or-Rover-Control) 
-```C++
-  static int roverMove(vector<string> cmnds, int n){
-	int row=0;
-	int col=0;
-	for(auto cmnd:cmnds) {
-		if(cmnd=="RIGHT") {
-			if(col<n-1)col=col+1;
-		}
-		else if(cmnd=="LEFT") {
-			if(col>0)col=col-1;
-		}
-		else if(cmnd=="UP") {
-			if(row>0)row=row-1;
-        }
-		else {
-			if(row<n-1) row=row+1;
-		}
-	}
-	return (row*n)+col;
-}
-```
+```	
 
 ***Completed:***
-- [Reorder Data in Log Files](https://leetcode.com/problems/reorder-data-in-log-files/submissions/)
+- [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
+- [Robotics Challenge](https://leetcode.com/problems/baseball-game/)
 - [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
-- [Number of Islands (BFS/DFS)](https://leetcode.com/problems/number-of-islands)
 - [Most Common Word  (hashmap)](https://leetcode.com/problems/most-common-word)
 - [Rotting Orange (BFS)](https://leetcode.com/problems/rotting-oranges)
 - [zombie in matrix (BFS)](https://www.lintcode.com/problem/zombie-in-matrix/description)
+- [Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
+- [Rover Control](https://leetcode.com/discuss/interview-question/985703/Amazon-or-OA-or-Rover-Control)
+- [Amazon Go stores/Number of Islands (BFS/DFS)](https://leetcode.com/problems/number-of-islands)
+- [Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)](https://www.lintcode.com/problem/top-k-frequently-mentioned-keywords/)
+- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
+
+- [Reorder Data in Log Files](https://leetcode.com/problems/reorder-data-in-log-files/submissions/)
 - [K Closest Points to Origin (Priority Queue/Minheap)](https://leetcode.com/problems/k-closest-points-to-origin)
 - [Top K Frequently elements (Priority Queue/Minheap + hash_map)](https://leetcode.com/problems/top-k-frequent-elements)
-- [Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)](https://www.lintcode.com/problem/top-k-frequently-mentioned-keywords/)
 - [Optimal Utilization (two pointer)](https://www.lintcode.com/problem/optimalutilization/)
 - Two sum unique pair (two pointers + sort)
-- [Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
-- [Distance Between Nodes in BST	(DFS in order)](https://leetcode.com/problems/minimum-distance-between-bst-nodes)
+- [Distance Between Nodes in BST (DFS in order)](https://leetcode.com/problems/minimum-distance-between-bst-nodes)
 - [Prime Air Route/Two sum to the closest (Two Pointer))](https://leetcode.com/discuss/interview-question/1025705/Amazon-or-OA-or-Prime-Air-time)
+- [LRU Count Cache misses](https://jincheng8841.gitbooks.io/leetcode-note/content/lrucache_count_miss.html)
 
 ## Interview process
 

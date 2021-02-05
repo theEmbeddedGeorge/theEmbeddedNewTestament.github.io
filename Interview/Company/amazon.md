@@ -6,7 +6,6 @@
 - Gifting Groups	
 
 ***To-do:***
-- [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
 ```C++
 #include <algorithm>
 #include <unordered_map>
@@ -60,7 +59,7 @@ int main() {
 ```
 - [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
 - [Beta Testing](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)
-- Largest Item Association
+- [Largest Item Association](https://leetcode.com/discuss/interview-question/844979/Amazon-or-OA-2020-or-Largest-Item-Association)
 - [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
 ```C++
 #include <bits/stdc++.h>
@@ -182,8 +181,29 @@ private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
 ```
 - Amazon Fulfillment Builder
 - [Items in Containers](https://algo.monster/problems/items_in_containers)
+```c++
+function numberOfItems(s, startIndices, endIndices) {
+    int sum = 0;
+    int currCount = 0;
+    bool start = false;
+    const prefix = s.split('').map((x) => {
+    if (!start && x === '|') {
+        start = true;
+    }
+    if (start && x === '|') {
+        if (currCount != 0) {
+            sum += currCount;
+            currCount = 0;
+        }
+    }
+    if (start && x === '*') {
+        currCount += 1;
+    }
+return sum;
+```
 - [Shopping Patterns](https://algo.monster/problems/shopping_patterns)
 - [Substrings of Size K with K-1 Distinct Chars](https://leetcode.com/discuss/interview-question/370112/) (sliding window)
+- [Substrings of Size K with K-1 Distinct Chars](https://www.lintcode.com/problem/k-substring-with-k-different-characters/solution)
 ```JAVA
  public List<String> Count(String S,int k){
         int distinct=0,i=0;
@@ -214,10 +234,10 @@ private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
 ```
 - [Rover Control](https://leetcode.com/discuss/interview-question/985703/Amazon-or-OA-or-Rover-Control) 
 ```C++
-  public static int roverMove(String[] cmnds, int n){
+  static int roverMove(vector<string> cmnds, int n){
 	int row=0;
 	int col=0;
-	for(String cmnd:cmnds) {
+	for(auto cmnd:cmnds) {
 		if(cmnd=="RIGHT") {
 			if(col<n-1)col=col+1;
 		}
@@ -236,6 +256,8 @@ private static int freshPromotion(String[][] codeList, String[] shoppingCart) {
 ```
 
 ***Completed:***
+- [Reorder Data in Log Files](https://leetcode.com/problems/reorder-data-in-log-files/submissions/)
+- [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
 - [Number of Islands (BFS/DFS)](https://leetcode.com/problems/number-of-islands)
 - [Most Common Word  (hashmap)](https://leetcode.com/problems/most-common-word)
 - [Rotting Orange (BFS)](https://leetcode.com/problems/rotting-oranges)

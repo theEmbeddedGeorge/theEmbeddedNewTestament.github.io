@@ -329,7 +329,7 @@
 5.  [Cisco](Interview/Company/Cisco.md)
 6.  [Intuitive Surgical](Interview/Company/intuitive/README.md)
 7.  [Verkada](Interview/Company/Verkada/Phone_screen.md)
-8.  Amazon
+8.  [Amazon](Interview/Company/amazon.md)
 9.  [Lyft](Interview/Company/lyft.md)
 10. FaceBook
 11. Zoox

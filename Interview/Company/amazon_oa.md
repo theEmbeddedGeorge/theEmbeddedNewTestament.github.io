@@ -235,7 +235,7 @@ public:
 
 **Tips**: BFS/DFS
 
-```c++
+```C++
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -245,7 +245,7 @@ using namespace std;
 
 // BFS
 int minStepsBFS(vector<vector<char>>& island) {
-    int dirs[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     int m = island.size(), n = island[0].size();
 
     queue<pair<int, int>> q;

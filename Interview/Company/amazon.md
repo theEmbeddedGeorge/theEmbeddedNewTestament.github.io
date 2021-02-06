@@ -33,7 +33,7 @@
 - [Friend Circles](https://leetcode.com/problems/number-of-provinces/)
 - [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
 - [Items in Containers](https://algo.monster/problems/items_in_containers)
-- [Optimal Utilization (two pointer)](https://www.lintcode.com/problem/optimalutilization/)
+- [Optimal Utilization/Two sum to the closest (two pointer)](https://www.lintcode.com/problem/optimalutilization/)
 
 
 - [Distance Between Nodes in BST (DFS in order)](https://leetcode.com/problems/minimum-distance-between-bst-nodes)

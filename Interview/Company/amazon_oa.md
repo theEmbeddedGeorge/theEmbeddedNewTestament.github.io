@@ -35,7 +35,6 @@ https://algo.monster/problems/amazon_online_assessment_questions
 - [K Closest Points to Origin (Priority Queue/Minheap)](https://leetcode.com/problems/k-closest-points-to-origin)
 - [Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
 - [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
-
 - [Optimal Utilization (two pointer)](https://www.lintcode.com/problem/optimalutilization/)
 - [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
 - [LRUcache Count misses](https://jincheng8841.gitbooks.io/leetcode-note/content/lrucache_count_miss.html)
@@ -928,16 +927,17 @@ public:
 
 **Tips**: 
 
-**Big O**: 
+**Big O**: O(n^2)
 
 ```C++
 int fiveStarReviews(vector<vector<int>> data, int ratingsThreshold) {
     int result = 0;
     int totalProducts = data.size();
+    // calculate the threashold value Sum
     double reqSum = ratingsThreshold * totalProducts * 1.0 / 100;
     double cSum = 0;
     
-    // while current score is smaller than threshold
+    // while current score sum is smaller than threshold sum
     while(cSum < reqSum){
         cSum = 0;
         double maxCon = 0;
@@ -945,14 +945,18 @@ int fiveStarReviews(vector<vector<int>> data, int ratingsThreshold) {
         for (int i = 0; i < data.size(); i++)
         {
             // add a five star to ith product
+            // test which product we should add a five star to so that
+            // can maximize the score
             double c = (data[i][0] + 1)* 1.0/ (data[i][1] + 1) - data[i][0] * 1.0/ data[i][1];
             if(maxCon < c){
                 maxCon = c;
                 productItem = i;
             }
+            // calculate current scores
             cSum += data[i][0] * 1.0 / data[i][1];
         }
         
+        // subtract the old score for the product item and add the score after adding a five-star score
         cSum = cSum - data[productItem][0] * 1.0 / data[productItem][1];
         data[productItem][0] = data[productItem][0] + 1;
         data[productItem][1] = data[productItem][1] + 1;
@@ -970,6 +974,79 @@ int main() {
     cout << result << endl;
 }
 ```
+### [Optimal Utilization](https://www.lintcode.com/problem/1797/)
+
+**Difficulty**: Easy
+
+**Frequency**: High
+
+**Tips**: two pointer
+
+**Big O:** O(n^2)
+
+```C++
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <iostream>
+
+using namespace std;
+
+vector<vector<int>> optimal(vector<vector<int>>& a, vector<vector<int>>& b, int target)
+{
+    // sort two arrays base on their item values
+    std::sort(a.begin(), a.end(), [](vector<int>& a, vector<int>& b) { return a[1] < b[1];});
+    std::sort(b.begin(), b.end(), [](vector<int>& a, vector<int>& b) { return a[1] < b[1];});
+
+    auto aptr = a.begin();
+    auto bptr = b.rbegin();
+
+    int minSum = INT_MIN;
+    vector<vector<int>> res;
+
+    while(aptr != a.end() && bptr != b.rend())
+    {
+        // calculate the sum from the smallest
+        int sum = (*aptr)[1] + (*bptr)[1];
+        if(sum > target)
+            //increment bptr
+            ++bptr;
+        else
+        {
+            //sum <= to target which is what we want
+            if(sum > minSum)
+            {
+                res.clear();
+            }
+            res.push_back({(*aptr)[0], (*bptr)[0]});
+            minSum = sum;
+            ++aptr;
+        }
+    }
+    return res;
+}
+
+void test(vector<vector<int>> a, vector<vector<int>> b, int target)
+{
+    vector<vector<int>> res = optimal(a, b, target);
+    for(auto i = res.begin(); i != res.end(); ++i)
+    {
+        for(auto j = (*i).begin(); j != (*i).end(); ++j)
+            cout << ' ' << *j;
+        cout << '\n';
+    }
+
+    cout << endl;
+}
+
+int main()
+{
+    test({{1, 2}, {2, 4}, {3, 6}}, {{1, 2}}, 7);
+    test({{1, 3}, {2, 5}, {3, 7}, {4, 10}}, {{1, 2}, {2, 3}, {3, 4}, {4, 5}}, 10);
+    test({{1, 8}, {2, 7}, {3, 14}}, {{1, 5}, {2, 7}, {3, 14}}, 20);
+    return 0;
+}
+```
 
 ### [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
 
@@ -977,7 +1054,9 @@ int main() {
 
 **Frequency**: High
 
-**Tips**: 
+**Tips**:
+
+**Big O**: O(n^2)
 
 ```c++
 bool hasOrder(vector<string> shoppingCart, int idx, vector<string> order) {

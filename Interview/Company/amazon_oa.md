@@ -18,23 +18,28 @@ https://aonecode.com/amazon-online-assessment-questions
 https://algo.monster/problems/amazon_online_assessment_questions
 
 ## Problems List
-- [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
-- [Robotics Challenge](https://leetcode.com/problems/baseball-game/)
-- [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
+- [Items in Container](https://aonecode.com/amazon-online-assessment-items-in-containers)
+- [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
+- [Friend Circles](https://leetcode.com/problems/number-of-provinces/)
+- [Substrings of Size K with K-1 Distinct Chars](https://algo.monster/problems/reorder_data_in_log_files)  
+- [Utilization Checks/Auto Scale policy](https://aonecode.com/amazon-online-assessment-utilization-checks)
+- [Reorder Data in Log Files](https://leetcode.com/problems/reorder-data-in-log-files/submissions/)
 - [Most Common Word  (hashmap)](https://leetcode.com/problems/most-common-word)
-- [Rotting Orange (BFS)](https://leetcode.com/problems/rotting-oranges)
-- [zombie in matrix (BFS)](https://www.lintcode.com/problem/zombie-in-matrix/description)
-- [Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
+- [Robotics Challenge](https://leetcode.com/problems/baseball-game/)
 - [Rover Control](https://leetcode.com/discuss/interview-question/985703/Amazon-or-OA-or-Rover-Control)
 - [Amazon Go stores/Number of Islands (BFS/DFS)](https://leetcode.com/problems/number-of-islands)
+- [Treasure Island](https://leetcode.com/discuss/interview-question/347457/Amazon-or-OA-2019-or-Treasure-Island)
+- [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
+- [zombie in matrix/Rotting Orange (BFS)](https://www.lintcode.com/problem/zombie-in-matrix/description)
 - [Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)](https://www.lintcode.com/problem/top-k-frequently-mentioned-keywords/)
-- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
-- [Reorder Data in Log Files](https://leetcode.com/problems/reorder-data-in-log-files/submissions/)
 - [K Closest Points to Origin (Priority Queue/Minheap)](https://leetcode.com/problems/k-closest-points-to-origin)
-- [Utilization Checks](https://aonecode.com/amazon-online-assessment-utilization-checks)
-- [Substrings of Size K with K-1 Distinct Chars](https://algo.monster/problems/reorder_data_in_log_files)
-- [Friend Circles](https://leetcode.com/problems/number-of-provinces/)
-- [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
+- [Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
+- [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
+
+- [Optimal Utilization (two pointer)](https://www.lintcode.com/problem/optimalutilization/)
+- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
+- [LRUcache Count misses](https://jincheng8841.gitbooks.io/leetcode-note/content/lrucache_count_miss.html)
+
 
 ## Implementations
 
@@ -56,10 +61,14 @@ https://algo.monster/problems/amazon_online_assessment_questions
 
 **Tips**: Two pointer
 
+**Big O**: O(m*n) m: number of indices pair, n: size of string 
+
 ```c++
 #include <vector>
 using namespace std;
 
+// Iterate left to the last '|' character and check how many stars on the way
+// If no star or no '|', return 0
 int countStar(string &s, int cur, int start) {
     int count{};
     cur--;
@@ -73,7 +82,8 @@ int countStar(string &s, int cur, int start) {
     return count;
 }
 
-
+// Iterate through pairs of indices, for each <start, end> pairs, iterate through
+// in the right and whenever meets a '|', start "*" check to the left
 vector<int> numberOfItems(string s, vector<int>start, vector<int>end) {
     vector<int> output(start.size(), 0);
     
@@ -87,7 +97,6 @@ vector<int> numberOfItems(string s, vector<int>start, vector<int>end) {
 
     return output;
 }
-    
    
 int main() {
     cout << "test1" << endl;
@@ -113,14 +122,15 @@ int main() {
 }
 
 ```
-
 ### [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
 
 **Difficulty**: Medium
 
 **Frequency**: High
 
-**Tips**: 
+**Tips**: Two Queues
+
+**Big O**: O(n), space: O(n)
 
 **Leetcode Link**: https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile
 
@@ -131,6 +141,7 @@ using namespace std;
 class Solution {
 public:
   vector<int> solve(vector<int> &t, vector<int> &dir) {
+    // Create two queues for entry and exit times
     queue<pair<int, int>> exit, entry; // pair <time[index], index>
     int N = t.size();
     vector<int> res(N);
@@ -212,7 +223,6 @@ int main() {
   return 0;
 }
 ```
-
 ### [Friend Circles](https://algo.monster/problems/friend_circles)
 
 **Difficulty**: Medium
@@ -220,6 +230,8 @@ int main() {
 **Frequency**: High
 
 **Tips**: dfs
+
+**Big O**: O(n^2) space: O(n)
 
 **Leetcode Link**: https://leetcode.com/problems/number-of-provinces/
 
@@ -259,28 +271,32 @@ public:
 
 **Frequency**: High
 
-**Tips**: HashSet
+**Tips**: Sliding window + Hashset
+
+**Big O**: O(n), space: O(n)
 
 **Leetcode Link**: https://www.lintcode.com/problem/k-substring-with-k-different-characters/solution
 ```c++
 class Solution {
-public:
-   
+public: 
     int KSubstring(string &stringIn, int K) {
         // Write your code here
-        int Map[5000];
+        int Map[5000]; // Implement a hash to record how character appearance counts
         memset( Map , 0 , sizeof(Map));
         set<string> s;
         int cnt = 0,res = 0;
+        // Count character counts for the first K
         for(int i = 0 ; i < K && i < stringIn.length() ; i++) {
             if(!Map[int(stringIn[i])]) {
                 cnt ++ ;
             }
             Map[int(stringIn[i])] ++ ;
         }
+        // ans ++ if the first K has distinctive characters
         if(cnt == K) {
             s.insert(stringIn.substr(0 , K));
         } 
+        // Do sliding window
         for(int i = K; i < stringIn.length() ; i++) {
             Map[int(stringIn[i - K])] -- ;
             if(! Map[int(stringIn[i - K])])
@@ -306,6 +322,8 @@ public:
 
 **Tips**:
 
+**Big O**: O(n)
+
 ```c++
 #include <math.h> 
 using namespace std;
@@ -316,7 +334,7 @@ int utilizationChecks (int instances, vector<int> averageUtil) {
         if (item < 25 && instances > 1) {
             instances = ceil(instances/2.0);
             i += 10;
-        } else if (item > 60 && instances < 200000000) {
+        } else if (item > 60 && instances < 2*pow(10,8)) {
             instances *= 2;
             i += 10;
         }
@@ -338,15 +356,19 @@ int main() {
 
 **Frequency**: High
 
-**Tips**: sort
+**Tips**: two queues + sort
 
-**Leetcode Link**: https://leetcode.com/problems/reorder-data-in-log-files/submissions/
+**Big O**: O(nlog(n)) space: O(n)
+
+**Leetcode Link**: https://leetcode.com/problems/reorder-data-in-log-files
 
 ```c++
 bool compare(const string &A, const string &B) {
+    // strip the identifier
     string cont1 = A.substr(A.find(' ')+1);
     string cont2 = B.substr(B.find(' ')+1);
     
+    // if content is equal, compare the identifier
     return cont1 == cont2 ? A < B : cont1 < cont2;
 }
 
@@ -356,6 +378,7 @@ public:
         vector<string> ret;
         vector<string> let_log, dig_log;
         
+        // divide all logs into letter logs and digit logs
         for (auto str : logs) {
             if (isalpha(str[str.size()-1]))
                 let_log.push_back(str);
@@ -363,12 +386,14 @@ public:
                 dig_log.push_back(str);
         }
         
+        // sort letter logs according to the compare rules specified
         sort(let_log.begin(), let_log.end(), compare);
         ret = vector<string>(let_log.begin(), let_log.end());
         
-        for (auto str : dig_log) {
+        /*for (auto str : dig_log) {
             ret.push_back(str);
-        }
+        }*/
+        ret.insert(ret.end(), dig_log.begin(), dig_log.end()); // insert digit logs after letter logs
         
         return ret;
     }
@@ -383,19 +408,25 @@ public:
 
 **Tips**: Hashmap + hashset
 
+**Big O**: O(n) space: O(n)
+
 **Leetcode Link**: https://leetcode.com/problems/most-common-word
 
 ```c++
 string mostCommonWord(string paragraph, vector<string>& banned) {
 
+    // string preprocessing, turn all punctuation into space, and all upper letter to lower case
 	for(auto&c : paragraph)
 		c = ispunct(c) ? ' ' : tolower(c);
 
-	string str, res;
+    // create hash map to record string appearance frequency
+    // and hash set to store ban word lists 
 	unordered_map<string, int> freq;
 	unordered_set<string> b(banned.begin(), banned.end());
 	stringstream ss(paragraph);
+    string str, res;
 
+    // for words in paragraph, if not present in ban list and most frequent words, record it
 	while(ss>>str)
 		if(b.count(str)==0 && freq[res]<++freq[str]) 
 			res = str;
@@ -411,6 +442,8 @@ string mostCommonWord(string paragraph, vector<string>& banned) {
 **Frequency**: High
 
 **Tips**: Stack
+
+**Big O**: O(n) space: O(n)
 
 **Leetcode Link**: https://leetcode.com/problems/baseball-game/submissions/
 ```c++
@@ -453,6 +486,8 @@ public:
 
 **Tips**: hashmap
 
+**Big O**: O(n) space: O(n)
+
 **Leetcode link:** https://github.com/LacticAcidCYC/CS_Interview_Notes/blob/master/OA/Twitter_OA.md
 
 ```c++
@@ -476,6 +511,7 @@ int roverMove(int size, vector<string> cmds) {
             pj = nj;
         }
     }
+    // calculate how many steps has been moved
     return pi*size+pj;
 }
 ```
@@ -487,6 +523,8 @@ int roverMove(int size, vector<string> cmds) {
 **Frequency**: Very High
 
 **Tips**: BFS/DFS
+
+**Big O**: O(n+m)
 
 ```c++
 // DFS
@@ -595,6 +633,8 @@ public:
 
 **Tips**: BFS/DFS
 
+**Big O**: O(n+m)
+
 ```C++
 #include <iostream>
 #include <vector>
@@ -677,7 +717,9 @@ int main() {
 
 **Frequency**: Very High
 
-**Tips**: hashmap
+**Tips**: hashmap + sort
+
+**Big O**: O(nlog(n)) space: O(n)
 
 **Leetcode links:** https://leetcode.com/discuss/interview-question/989768/Amazon-or-OA-2020-or-Transaction-logs
 ```c++
@@ -685,6 +727,8 @@ vector<string> get_fraud_id(vector<string>& uid, int threshold) {
     vector<string> result;
     unordered_map <string, int> ump;
     
+    // iterate through logs, if id1 != id2, transactions for both id increment
+    // otherwise only increment one
     for (auto str : uid) {
         vector<string> temp;
         stringstream ss(str);
@@ -705,6 +749,7 @@ vector<string> get_fraud_id(vector<string>& uid, int threshold) {
             result.push_back(i1.first);
     }
 
+    // display restult based on id in ascending order
     sort(result.begin(), result.end(), [](const string& a, const string& b)
                                             {return stoi(a) > stoi(b); });
 
@@ -732,68 +777,63 @@ int main() {
 
 **Tips**: BFS
 
+**Big O**: O(n+m)
+
 **leetcode link:** https://www.lintcode.com/problem/zombie-in-matrix/
 
 ```c++
+class Position {
+public:
+    int x, y;
+    Position(int xx, int yy):x(xx), y(yy) {}
+};
+
 class Solution {
 public:
     /**
-     * @param grid: a 2D integer grid
-     * @return: an integer
+     * @param grid  a 2D integer grid
+     * @return an integer
      */
-    int zombie(vector<vector<int>> &grid) {
-        // write your code here
-        queue<pair<int, int>> zombies{};
-        
-        if (grid.size() == 0 && grid[0].size() == 0)
-            return -1;
-        
-        for(int x = 0; x < grid.size(); x ++) {
-            for (int y = 0; y < grid[0].size(); y++) {
-                if (grid[x][y] == 1)
-                    zombies.push(pair<int, int>(x, y));
-            }
-        }
-        
+    int zombie(vector<vector<int>>& grid) {
+        // Write your code here
+        queue<Position> q;
+        int n = grid.size();
+        if (n == 0)
+            return 0;
+        int m = grid[0].size();
+        if (m == 0)
+            return 0;
+
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                if (grid[i][j] == 1)
+                    q.push(Position(i, j));
+
+        int d[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         int days = 0;
-        while (!zombies.empty()) {
-            int size = zombies.size();
+        while (!q.empty()) {
             days ++;
-            while (size--) {
-                pair<int, int> old_z = zombies.front();
-                zombies.pop(); 
-                
-                if (old_z.first-1 >= 0 && grid[old_z.first-1][old_z.second] == 0) {
-                    zombies.push(pair<int, int>(old_z.first-1, old_z.second));
-                    grid[old_z.first-1][old_z.second] = 1;
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                Position head = q.front();
+                q.pop();
+                for (int k = 0; k < 4; ++k) {
+                    int x = head.x + d[k][0];
+                    int y = head.y + d[k][1];
+                    if (x >= 0 && x < n && y >=0 && y < m && grid[x][y] == 0) {
+                        grid[x][y] = 1;
+                        q.push(Position(x, y));
+                    }
                 }
-                
-                if (old_z.first+1 < grid.size() && grid[old_z.first+1][old_z.second] == 0) {
-                    zombies.push(pair<int, int>(old_z.first+1, old_z.second));
-                    grid[old_z.first+1][old_z.second] = 1;
-                }
-                
-                if (old_z.second-1 >= 0 && grid[old_z.first][old_z.second-1] == 0) {
-                    zombies.push(pair<int, int>(old_z.first, old_z.second-1));
-                    grid[old_z.first][old_z.second-1] = 1;
-                }
-                
-                if (old_z.second+1 < grid[0].size() && grid[old_z.first][old_z.second+1] == 0) {
-                    zombies.push(pair<int, int>(old_z.first, old_z.second+1));
-                    grid[old_z.first][old_z.second+1] = 1;
-                }
-                
             }
         }
-        
-         for(int x = 0; x < grid.size(); x ++) {
-            for (int y = 0; y < grid[0].size(); y++) {
-                if (grid[x][y] == 0)
+
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                if (grid[i][j] == 0)
                     return -1;
-            }
-        }
-        
-        return days > 0 ? days-1 : 0;
+
+        return days - 1;
     }
 };
 ```
@@ -806,6 +846,8 @@ public:
 
 **Tips**: Modulous
 
+**Big O**: O(n) space: O(n)
+
 **leetcode link:** https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/submissions/
 
 ```c++
@@ -816,10 +858,11 @@ public:
      * @return: calc the number of pair of music
      */
     long long musicPairs(vector<int> &musics) {
-        // write your code here
         vector<int> ms(60, 0);
         long long ans{};
         
+        // For each number, we simply need to count ms[60-cur] to know how many
+        // pairs are divisible by 60
         for (int i = 0; i < musics.size(); i++) {
             int curr = musics[i] % 60;
             ans += (curr == 0) ? ms[0] : ms[60 - curr];
@@ -839,6 +882,8 @@ public:
 
 **Tips**: Hashmap + PriorityQueue
 
+**Big O**: O(n) space: O(n)
+
 **leetcode link:** https://leetcode.com/problems/top-k-frequent-words/submissions/
 
 ```c++
@@ -851,18 +896,20 @@ class compare {
 
 class Solution {
 public:
-    
     vector<string> topKFrequent(vector<string>& words, int k) {
         unordered_map<string, int> umap;
         priority_queue<pair<int, string>, vector<pair<int, string>>, compare> pq;
         vector<string> ret;
         
+        // Record word appearance frequency
         for (auto str : words)
             umap[str] ++;
         
+        // Push them into priority queue (Maxheap)
         for (auto it : umap)
             pq.push(make_pair(it.second, it.first));
         
+        // push the first k items into the return vector
         while(k-- && !pq.empty()) {
             ret.push_back(pq.top().second);
             pq.pop();
@@ -881,19 +928,23 @@ public:
 
 **Tips**: 
 
-```c++
+**Big O**: 
+
+```C++
 int fiveStarReviews(vector<vector<int>> data, int ratingsThreshold) {
     int result = 0;
     int totalProducts = data.size();
     double reqSum = ratingsThreshold * totalProducts * 1.0 / 100;
     double cSum = 0;
     
+    // while current score is smaller than threshold
     while(cSum < reqSum){
         cSum = 0;
         double maxCon = 0;
         int productItem = -1;
         for (int i = 0; i < data.size(); i++)
         {
+            // add a five star to ith product
             double c = (data[i][0] + 1)* 1.0/ (data[i][1] + 1) - data[i][0] * 1.0/ data[i][1];
             if(maxCon < c){
                 maxCon = c;
@@ -919,7 +970,6 @@ int main() {
     cout << result << endl;
 }
 ```
-
 
 ### [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
 
@@ -978,6 +1028,64 @@ int main() {
     codeList = {{"apple", "apple"}, {"apple", "apple", "banana"}};
     shoppingCart = {"apple", "apple", "apple", "banana"};
     cout << freshPromotion(codeList, shoppingCart) << endl;
+}
+```
+### [LRUcache count misses](https://jincheng8841.gitbooks.io/leetcode-note/content/lrucache_count_miss.html)
+
+**Difficulty**: Medium
+
+**Frequency**: High
+
+**Tips**: 
+
+**Big O:**
+
+```C++
+class Solution {
+  public:
+    int countMiss(vector<int> input, int size) {
+      unordered_map<int, int> map;
+      priority_queue<pair<int, int> > minHeap;
+      int n = input.size();
+      int count = 0;
+      for ( int i = 0; i < n; i++ ) {
+        if ( map.find(input[i]) == map.end() and map.size() < size ) {
+          // case of count
+          map[input[i]] = i;
+          minHeap.push(pair<int, int>(-i, input[i]));
+          count += 1;
+          continue;
+        }
+        if ( map.find(input[i]) != map.end() ) {
+          // case of hit
+          map[input[i]] = i; // will update in heap in later manipulation;
+          continue;
+        }
+        while ( true ) {
+          int j = -minHeap.top().first, val = minHeap.top().second;
+          minHeap.pop();
+          if ( map[val] != j ) minHeap.push(pair<int, int>(-map[val], val));
+          else {
+            map.erase(map.find(val));
+            break;
+          }
+        }
+        map[input[i]] = i;
+        minHeap.push(pair<int, int>(-i, input[i]));
+        count += 1;
+      }
+      return count;
+    }
+};
+
+int main() {
+  Solution sol;
+  int arr[7] = {1,2,3,4,5,4,1};
+  vector<int> input(arr, arr + sizeof(arr)/sizeof(arr[0]));
+  int size = 5;
+  int res = sol.countMiss(input, size);
+  cout << res << endl;
+  return 0;
 }
 ```
 

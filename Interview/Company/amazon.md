@@ -9,6 +9,9 @@
 - [Beta Testing](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)
 - [Shopping Patterns](https://algo.monster/problems/shopping_patterns) -> graph
 - [Optimizing Box Weights/Amazon Fulfillment Builder](https://leetcode.com/discuss/interview-question/1021441/Amazon-OA-or-optimizating-Box-Weight)
+- [Largest Item Association](https://www.lintcode.com/problem/maximum-association-set/)
+- [LRU Count Cache misses](https://jincheng8841.gitbooks.io/leetcode-note/content/lrucache_count_miss.html)
+- Two sum unique pair (two pointers + sort)
 
 ***Completed:***
 - [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
@@ -30,13 +33,12 @@
 - [Friend Circles](https://leetcode.com/problems/number-of-provinces/)
 - [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
 - [Items in Containers](https://algo.monster/problems/items_in_containers)
-
 - [Optimal Utilization (two pointer)](https://www.lintcode.com/problem/optimalutilization/)
-- Two sum unique pair (two pointers + sort)
+
+
 - [Distance Between Nodes in BST (DFS in order)](https://leetcode.com/problems/minimum-distance-between-bst-nodes)
 - [Prime Air Route/Two sum to the closest (Two Pointer))](https://leetcode.com/discuss/interview-question/1025705/Amazon-or-OA-or-Prime-Air-time)
-- [LRU Count Cache misses](https://jincheng8841.gitbooks.io/leetcode-note/content/lrucache_count_miss.html)
-- [Largest Item Association](https://www.lintcode.com/problem/maximum-association-set/)
+
 
 ## Interview process
 

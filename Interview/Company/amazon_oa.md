@@ -1,5 +1,5 @@
-## 2020/2021 Amazon OA questions
-### Key algorithm to review before you start
+# 2020/2021 Amazon OA questions (Experienced)
+## Key algorithm to review before you start
 
 - DFS
 - BFS
@@ -7,13 +7,373 @@
 - Tree
 - LinkedList.
 
-### Reference
+## Reference
 
 https://www.xiakexing.me/forum.php?mod=viewthread&tid=6336&highlight=Prime%2BAir%2BRoute
 
 https://github.com/neerazz/FAANG/tree/master/Algorithms/Neeraj/topAmazonQuestions
 
 https://aonecode.com/amazon-online-assessment-questions
+
+https://algo.monster/problems/amazon_online_assessment_questions
+
+## Problems List
+- [Five Star Sellers](https://algo.monster/problems/five_star_sellers)
+- [Robotics Challenge](https://leetcode.com/problems/baseball-game/)
+- [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
+- [Most Common Word  (hashmap)](https://leetcode.com/problems/most-common-word)
+- [Rotting Orange (BFS)](https://leetcode.com/problems/rotting-oranges)
+- [zombie in matrix (BFS)](https://www.lintcode.com/problem/zombie-in-matrix/description)
+- [Amazon Music Pairs/Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
+- [Rover Control](https://leetcode.com/discuss/interview-question/985703/Amazon-or-OA-or-Rover-Control)
+- [Amazon Go stores/Number of Islands (BFS/DFS)](https://leetcode.com/problems/number-of-islands)
+- [Top K Frequently Mentioned Keywords (Priority Queue/Minheap + hash_map)](https://www.lintcode.com/problem/top-k-frequently-mentioned-keywords/)
+- [Amazon Fresh Promotion](https://leetcode.com/discuss/interview-question/1002811/Amazon-or-OA-2021-or-Fresh-Promotion)
+- [Reorder Data in Log Files](https://leetcode.com/problems/reorder-data-in-log-files/submissions/)
+- [K Closest Points to Origin (Priority Queue/Minheap)](https://leetcode.com/problems/k-closest-points-to-origin)
+- [Utilization Checks](https://aonecode.com/amazon-online-assessment-utilization-checks)
+- [Substrings of Size K with K-1 Distinct Chars](https://algo.monster/problems/reorder_data_in_log_files)
+- [Friend Circles](https://leetcode.com/problems/number-of-provinces/)
+- [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
+
+## Implementations
+
+### [K Closest Points to Origin](https://algo.monster/problems/reorder_data_in_log_files)
+
+**Difficulty**: Medium
+
+**Frequency**: High
+
+**Tips**: Priority Queue/Minheap
+
+**Leetcode Link**: https://leetcode.com/problems/k-closest-points-to-origin
+
+### [Items in Container](https://aonecode.com/amazon-online-assessment-items-in-containers)
+
+**Difficulty**: Easy
+
+**Frequency**: High
+
+**Tips**: Two pointer
+
+```c++
+#include <vector>
+using namespace std;
+
+int countStar(string &s, int cur, int start) {
+    int count{};
+    cur--;
+    while(cur >= start && s[cur] != '|' ) {
+        count = (s[cur] == '*') ? count + 1 : count;
+        cur --;
+    }
+    if (cur < start)
+        return 0;
+        
+    return count;
+}
+
+
+vector<int> numberOfItems(string s, vector<int>start, vector<int>end) {
+    vector<int> output(start.size(), 0);
+    
+    for (int i = 0; i < start.size(); i++) {
+        for (int j = start[i]-1; j <= end[i]-1; j++) {
+            if (s[j]=='|') {
+                output[i] += countStar(s, j, start[i]-1);
+            }
+        }
+    }
+
+    return output;
+}
+    
+   
+int main() {
+    cout << "test1" << endl;
+    vector<int> res = numberOfItems("|**|*|*", {1,1}, {5,6});
+    for (auto val : res)
+        cout << val << endl;
+    cout << "test2" << endl;
+    res = numberOfItems("*|*|*|", {1}, {6});
+    for (auto val : res)
+        cout << val << endl;
+    cout << "test3" << endl;
+    res = numberOfItems("*|*|", {1}, {3});
+    for (auto val : res)
+        cout << val << endl;
+    cout << "test4" << endl;
+    res = numberOfItems("*|*|*|", {1}, {6});
+    for (auto val : res)
+        cout << val << endl;
+    cout << "test5" << endl;
+    res = numberOfItems("||||*|||*|||*|", {1}, {12});
+    for (auto val : res)
+        cout << val << endl;
+}
+
+```
+
+### [Turnstile](https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile)
+
+**Difficulty**: Medium
+
+**Frequency**: High
+
+**Tips**: 
+
+**Leetcode Link**: https://leetcode.com/discuss/interview-question/699973/Goldman-Sachs-or-OA-or-Turnstile
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+  vector<int> solve(vector<int> &t, vector<int> &dir) {
+    queue<pair<int, int>> exit, entry; // pair <time[index], index>
+    int N = t.size();
+    vector<int> res(N);
+
+    for (int i = 0; i < N; i++) {
+      if (dir[i] == 1)
+        exit.push({t[i], i});
+      else
+        entry.push({t[i], i});
+    }
+
+    int ct = 0, lc = -1; // ct is the current time & lc indicates who used
+                         // turnstile in the previous second lc = -1 if none
+                         // used the turnstile in the last second
+
+    while (!exit.empty() || !entry.empty()) {
+      // checking for exit queue
+      if (!exit.empty() && exit.front().first <= ct &&
+          (lc == 1 || lc == -1 || entry.empty() ||
+           (entry.front().first > ct))) {
+        res[exit.front().second] = ct;
+        lc = 1;
+        exit.pop();
+      }
+      // checking for entry queue
+      else if (!entry.empty() && entry.front().first <= ct) {
+        res[entry.front().second] = ct;
+        lc = 0;
+        entry.pop();
+      } else {
+        lc = -1;
+      }
+
+      ct++;
+    }
+
+    return res;
+  }
+};
+
+static int i = 1;
+void test(Solution &sol, vector<int> &t, vector<int> &dir,
+          vector<int> &expected) {
+  cout << "Run test case " << i++ << endl;
+  auto res = sol.solve(t, dir);
+  for (auto &item : res)
+    cout << item << " ";
+  cout << endl;
+  for (auto &item : expected)
+    cout << item << " ";
+  cout << endl;
+
+  assert(res == expected);
+  cout << "Success!" << endl;
+}
+
+int main() {
+  Solution sol;
+  vector<int> t = {0, 0, 1, 5};
+  vector<int> dir = {0, 1, 1, 0};
+  vector<int> expected = {2, 0, 1, 5};
+  test(sol, t, dir, expected);
+
+  vector<int> t2 = {1, 2, 4};
+  vector<int> dir2 = {0, 1, 1};
+  vector<int> expected2 = {1, 2, 4};
+  test(sol, t2, dir2, expected2);
+
+  vector<int> t3 = {1, 1};
+  vector<int> dir3 = {1, 1};
+  vector<int> expected3 = {1, 2};
+  test(sol, t3, dir3, expected3);
+
+  vector<int> t4 = {1, 1, 3, 3, 4, 5, 6, 7, 7};
+  vector<int> dir4 = {1, 1, 0, 0, 0, 1, 1, 1, 1};
+  vector<int> expected4 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  test(sol, t4, dir4, expected4);
+
+  return 0;
+}
+```
+
+### [Friend Circles](https://algo.monster/problems/friend_circles)
+
+**Difficulty**: Medium
+
+**Frequency**: High
+
+**Tips**: dfs
+
+**Leetcode Link**: https://leetcode.com/problems/number-of-provinces/
+
+```c++
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& M) {
+        int n=M.size(),ans=0;
+        if(n==0) return 0;
+
+        vector<bool>vis(n,false);
+
+        for(int i=0;i<n;i++)
+        {
+            if(!vis[i])
+            {
+                ans++;
+                dfs(M,vis,i);
+            }
+        }
+        return ans;
+    }
+
+    void dfs(vector<vector<int>>& M, vector<bool>& vis, int i)
+    {
+        vis[i]=true;
+        for(int j=0;j<M.size();j++)
+            if(M[i][j]==1 && !vis[j])
+                dfs(M,vis,j);
+    }
+};
+```
+
+### [Substrings of Size K with K-1 Distinct Chars](https://algo.monster/problems/reorder_data_in_log_files)
+
+**Difficulty**: Medium
+
+**Frequency**: High
+
+**Tips**: HashSet
+
+**Leetcode Link**: https://www.lintcode.com/problem/k-substring-with-k-different-characters/solution
+```c++
+class Solution {
+public:
+   
+    int KSubstring(string &stringIn, int K) {
+        // Write your code here
+        int Map[5000];
+        memset( Map , 0 , sizeof(Map));
+        set<string> s;
+        int cnt = 0,res = 0;
+        for(int i = 0 ; i < K && i < stringIn.length() ; i++) {
+            if(!Map[int(stringIn[i])]) {
+                cnt ++ ;
+            }
+            Map[int(stringIn[i])] ++ ;
+        }
+        if(cnt == K) {
+            s.insert(stringIn.substr(0 , K));
+        } 
+        for(int i = K; i < stringIn.length() ; i++) {
+            Map[int(stringIn[i - K])] -- ;
+            if(! Map[int(stringIn[i - K])])
+                cnt -- ;
+            if(! Map[int(stringIn[i])]) {
+                cnt ++ ;
+            }
+            Map[int(stringIn[i])] ++ ;
+            if(cnt == K) {
+                s.insert(stringIn.substr(i - K + 1 , K));
+            }
+        }
+        return s.size();
+    }
+};
+```	
+
+### [Utilization Checks](https://aonecode.com/amazon-online-assessment-utilization-checks)
+
+**Difficulty**: Easy
+
+**Frequency**: High
+
+**Tips**:
+
+```c++
+#include <math.h> 
+using namespace std;
+
+int utilizationChecks (int instances, vector<int> averageUtil) {
+    for (int i = 0; i <= averageUtil.size(); i++) {
+        int item = averageUtil[i];
+        if (item < 25 && instances > 1) {
+            instances = ceil(instances/2.0);
+            i += 10;
+        } else if (item > 60 && instances < 200000000) {
+            instances *= 2;
+            i += 10;
+        }
+    }
+    
+    return instances;
+}
+
+int main() {
+    cout << utilizationChecks(2, {25, 23, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 76, 80}) << endl;
+    cout << utilizationChecks(1, {5, 10, 80}) << endl;
+    cout << utilizationChecks(5, {30, 5, 4, 8, 19, 89}) << endl;
+}
+```
+
+### [Reorder Data in Log Files](https://algo.monster/problems/reorder_data_in_log_files)
+
+**Difficulty**: Easy
+
+**Frequency**: High
+
+**Tips**: sort
+
+**Leetcode Link**: https://leetcode.com/problems/reorder-data-in-log-files/submissions/
+
+```c++
+bool compare(const string &A, const string &B) {
+    string cont1 = A.substr(A.find(' ')+1);
+    string cont2 = B.substr(B.find(' ')+1);
+    
+    return cont1 == cont2 ? A < B : cont1 < cont2;
+}
+
+class Solution {
+public:
+    vector<string> reorderLogFiles(vector<string>& logs) {
+        vector<string> ret;
+        vector<string> let_log, dig_log;
+        
+        for (auto str : logs) {
+            if (isalpha(str[str.size()-1]))
+                let_log.push_back(str);
+            else
+                dig_log.push_back(str);
+        }
+        
+        sort(let_log.begin(), let_log.end(), compare);
+        ret = vector<string>(let_log.begin(), let_log.end());
+        
+        for (auto str : dig_log) {
+            ret.push_back(str);
+        }
+        
+        return ret;
+    }
+};
+```
 
 ### [Most Common Word](https://algo.monster/problems/most_common_word)
 
@@ -311,7 +671,7 @@ int main() {
 }
 ```
 
-### [Transaction Logs](https://algo.monster/problems/transaction_logs)
+### [Transaction Logs](https://aonecode.com/amazon-online-assessment-transaction-logs)
 
 **Difficulty**: Easy
 
@@ -582,21 +942,21 @@ bool hasOrder(vector<string> shoppingCart, int idx, vector<string> order) {
 }
 
 int freshPromotion(vector<vector<string>> codeList, vector<string> shoppingCart) {
-        // Start at 0 index for both the code list and shopping cart.
-        int cartIdx = 0, codeIdx = 0;
-        string cur;
-        while (cartIdx < shoppingCart.size() && codeIdx < codeList.size()) {
-            cur = shoppingCart[cartIdx];
+    // Start at 0 index for both the code list and shopping cart.
+    int cartIdx = 0, codeIdx = 0;
+    string cur;
+    while (cartIdx < shoppingCart.size() && codeIdx < codeList.size()) {
+        cur = shoppingCart[cartIdx];
 
-            // If the first fruit of the codeList is anything or if it matches the current fruit at the cart idx.
-            if ((codeList[codeIdx][0] == "anything" || codeList[codeIdx][0] == cur) && hasOrder(shoppingCart, cartIdx, codeList[codeIdx])){
-                cartIdx += codeList[codeIdx++].size();
-            } else
-                cartIdx ++;
-        }
-        // If the all the codeList is present then return 1, else 0.
-        return codeIdx == codeList.size() ? 1 : 0;
+        // If the first fruit of the codeList is anything or if it matches the current fruit at the cart idx.
+        if ((codeList[codeIdx][0] == "anything" || codeList[codeIdx][0] == cur) && hasOrder(shoppingCart, cartIdx, codeList[codeIdx])){
+            cartIdx += codeList[codeIdx++].size();
+        } else
+            cartIdx ++;
     }
+    // If the all the codeList is present then return 1, else 0.
+    return codeIdx == codeList.size() ? 1 : 0;
+}
 
 int main() {
     // example 1:
@@ -621,75 +981,3 @@ int main() {
 }
 ```
 
-### [Turnstile](https://algo.monster/problems/turnstile)
-
-**Frequency**: Very High
-
-**Tips**: 
-
-### [Fill the Truck](https://algo.monster/problems/fill_the_truck)
-
-**Frequency**: Very High
-
-**Tips**: Two sum
-
-
-### top n competitors
-
-### [Amaon Fresh Promotions](https://github.com/crazy-developers-dev/AmazonOA/blob/master/P1_AmazonFreshPromotion.java)
-
-
-Substrings of Size K with K-1 Distinct Cars: https://algo.monster/problems/substrings_of_size_K_with_K_distinct_chars
-
-Max Disk Space: https://algo.monster/problems/find_the_maximum_available_disk_space
-
-Nearest City: https://algo.monster/problems/nearest_cities
-
-Break a Palindrome: https://algo.monster/problems/break_a_palindrome
-
-Subtree with Maximum Average: https://algo.monster/problems/subtree_with_maximum_average
-
-Smallest Negative Balance/Debt record: https://algo.monster/problems/debt_records
-
-Find The Highest Profit: https://algo.monster/problems/find_the_highest_profit
-
-Fetch Items to Display: https://algo.monster/problems/fetch_items_to_display
-
-LRU Cache Misses: https://algo.monster/problems/count_lru_cache_misses
-
-Items in Containers: https://algo.monster/problems/items_in_containers
-
-Minimum Difficulty of a Job Schedule: https://algo.monster/problems/min_job_difficulty
-
-Utilization Checks: https://algo.monster/problems/autoscale_policy
-
-Optimal Utilization: https://algo.monster/problems/optimal_utilization
-
-Min Cost to Connect All Nodes: https://algo.monster/problems/min_cost_to_connect_all_nodes
-
-Five Star Sellers: https://algo.monster/problems/five_star_sellers
-
-Friend Circles: https://algo.monster/problems/friend_circles
-
-Labeling System: https://algo.monster/problems/labeling_system
-
-Merge Two Sorted Lists https://leetcode.com/problems/merge-sorted-array/
-
-Two Sum — Unique Pairs: https://algo.monster/problems/two_sum_unique_pairs
-
-Cut off Rank: https://algo.monster/problems/cut_off_rank
-
-Minimum Total Container Size: https://algo.monster/problems/minimum_total_container_size
-
-Winning Sequence: https://algo.monster/problems/winning_sequence
-
-Multiprocessor System: https://algo.monster/problems/multiprocessor_system
-
-Shopping Patterns: https://algo.monster/problems/shopping_patterns
-
-Earliest Time To Complete Deliveries: https://algo.monster/problems/earliest_time_to_complete_deliveries
-
-Choose A Flask: https://algo.monster/problems/choose_a_flask
-Throttling Gateway: https://algo.monster/problems/throttling_gateway
-
-Slowest Key: https://algo.monster/problems/slowest_key  

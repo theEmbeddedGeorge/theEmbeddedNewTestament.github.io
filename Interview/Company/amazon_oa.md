@@ -5,7 +5,10 @@
 - BFS
 - Sliding Window
 - Tree
-- LinkedList.
+- LinkedList
+- Two pointer
+- Graph theory
+- Min/Max Heap
 
 ## Reference
 

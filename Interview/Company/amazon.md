@@ -131,3 +131,156 @@ Distance Between Nodes in BST	2020	Experienced	SHL	USA/UK
 Robotics Challenge	2020	Experienced	SHL	USA/UK
 K Closest Points to Origin	2020	Experienced	SHL	USA
 Shopping Patterns	2020	Experienced	SHL/HackerRank	USA/India
+
+
+#include <limits.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef enum 
+{
+  SUCCESS, /* If the command is successfully parsed */
+  NULL_PARAM, /* If any pointer in the input is NULL */
+  INVALID_UNDO_CMD /* If the requested undo command is not valid */
+} FuncStatus_t;
+
+typedef enum 
+{
+  FWD, /* +Y */
+  BCK, /* -Y */
+  RGT, /* +X */
+  LFT, /* -X */
+  UND /* Undo */
+} CommandType_t;
+
+typedef struct 
+{
+  CommandType_t cmd_type;
+  int32_t value;
+} Command_t;
+
+#include <unordered_map> 
+
+FuncStatus_t ParseCommands(const Command_t cmds[], const uint32_t num_cmds, int32_t * out_x, int32_t * out_y)
+{
+    /* Warning: You can use stdout for debugging, but doing so will cause the test cases to fail. */
+    int px{}, py{}, lx{}, ly{};
+    Command_t lc{};
+    
+    if (out_x == nullptr || out_y == nullptr || cmds == nullptr)
+        return NULL_PARAM;
+    
+    for (int i = 0; i < num_cmds; i++) {
+        int val = cmds[i].value;
+        
+        switch(cmds[i].cmd_type) {
+            case FWD:
+                py += val;
+                lx = 0;
+                ly = val;
+                break;
+            case BCK:
+                py -= val;
+                lx = 0;
+                ly = -val;
+                break;
+            case RGT:
+                px += val;
+                lx = val;
+                ly = 0;
+                break;
+            case LFT:
+                px -= val;
+                lx = -val;
+                ly = 0;
+                break;
+            case UND:
+                if (i == 0) return INVALID_UNDO_CMD;
+                if (val != 1) return INVALID_UNDO_CMD;
+                if (i > 0 && cmds[i-1].cmd_type == UND) return INVALID_UNDO_CMD;
+                px -= lx;
+                py -= ly;
+                break;
+        }
+    }
+    
+    *out_x = px;
+    *out_y = py;
+    return SUCCESS;
+}
+
+#include <limits.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <inttypes.h>
+#include <stdbool.h>
+
+typedef enum 
+{
+  STATUS_SUCCESS,
+  STATUS_BAD_POINTER,
+  STATUS_BAD_ARRAY_LENGTH,
+  STATUS_NO_SENSOR_DATA,
+} FuncStatus_t;
+
+#include <iostream>
+#include <stdint.h>
+
+using namespace std;
+
+int countBits(uint8_t val) {
+    int count{};
+    
+    while(val) {
+        count ++;
+        val &= (val - 1);   
+    }
+    
+    return count;
+}
+
+size_t MSB(uint8_t val) {
+    size_t res{};
+    
+    while (val) {
+        res++;
+        val >>= 1;
+    }
+    
+    return res;
+}
+
+FuncStatus_t TransformData(
+    const size_t inputDataLength, const uint8_t inputDataValues[], const size_t outputDataLength, uint8_t outputDataValues[]) {
+
+    if (inputDataValues == nullptr || outputDataValues == nullptr)
+        return STATUS_BAD_POINTER;
+    
+    int numS = countBits(inputDataValues[0]);
+    if (numS == 0)
+        return STATUS_NO_SENSOR_DATA;
+    
+    size_t msb = MSB(inputDataValues[0]);
+    if (inputDataLength < 1+msb || outputDataLength < 1+(msb*4))
+        return STATUS_BAD_ARRAY_LENGTH;
+    
+    int shift = 0;
+    uint8_t input_mk = inputDataValues[0];
+    
+    outputDataValues[0] = numS;
+    
+    uint32_t *o_data = (uint32_t*) &outputDataValues[1];
+    while (shift < 8) {
+        if(input_mk & (1 << shift)) {
+            uint8_t s_data = inputDataValues[shift+1];
+            *(o_data + shift) = (uint32_t) s_data * (1 << (shift)); 
+        }
+        shift ++;
+    }
+    
+    return STATUS_SUCCESS;
+}

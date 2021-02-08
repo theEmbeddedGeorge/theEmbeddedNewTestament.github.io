@@ -2,7 +2,7 @@
 ### Leetcode/Lintcode Algorithm Questions List
 
 ***Linked List:***
-1. Remove Nth Node From End of List
+1. Remove Nth Node From End of List            v
 2. Plus One Linked List                        v
 3. Intersection of Two Linked Lists            v
 4. Linked List Cycle                           v
@@ -16,32 +16,178 @@
 12. Remove Duplicates from Sorted List II      v
 13. Rotate List                                v
 14. Insert into a Sorted Circular Linked List    
-15. Odd Even Linked List    
+15. Odd Even Linked List                       v
 16. Copy List with Random Pointer
 17. Swap Nodes in Pairs 
+18. Add Two Numbers II                         v
 
 ***Bit Manipulation:***
-1. Reverse Bits                                 v 
-2. Hamming Distance                             v
-3. Single Number                                v
-4. Majority Element                             v
+1. Reverse Bits                                v 
+2. Hamming Distance                            v
+3. Single Number                               v
+4. Majority Element                            v
 
 ***Array:***
-1. Remove Duplicates from Sorted Array          v
+1. Remove Duplicates from Sorted Array         v
 2. Find First and Last Position of Element in Sorted Array
-3. Find the Duplicate Number
-4. Remove Element                               v               
+3. Find the Duplicate Number                   v
+4. Remove Element                              v               
 
 ***Math:***
-1.  Add Binary                                  v
-2.  Plus One                                    v        
-3.  Add Two Numbers II    
-4.  Add strings                                 v   
-5.  Fibonacci Number   
-6.  Find the Duplicate Number
-7.  Pow(x, n)    
+1.  Add Binary                                 v
+2.  Plus One                                   v           
+3.  Add strings                                v   
+4.  Fibonacci Number                           v
+5.  Pow(x, n)    
      
 ### Impplementations
+Fibonacci Number
+```c++
+//recursion [Runtime: 12 ms, faster than 27.75% ]
+class Solution {
+public:
+    int fib(int n) {
+         if (n <= 1) 
+            return n; 
+         return fib(n-1) + fib(n-2); 
+    }
+};
+//memoization 
+class Solution {
+public:
+    int fib(int n,int dp[]) {
+        if (n <= 1) 
+           return n; 
+        
+        if (dp[n] != -1) 
+           return dp[n];
+        
+        return dp[n]=fib(n-1) + fib(n-2);
+    }
+    int fib(int n) {
+        int dp[31];
+        memset(dp, -1, sizeof(dp)); 
+        return fib(n,dp);
+    }
+};
+```
+Odd Even Linked List
+```c++
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        ListNode *odd, *even, *pre, *cur, *nxt;
+        
+        if (!head || !head->next || !head->next->next)
+            return head;
+        
+        odd = head; 
+        even = head->next;
+        
+        pre = odd;
+        cur = even;
+        nxt = cur->next;
+        
+        int count = 0;
+        while(nxt) {
+            count ++;
+            pre->next = nxt;
+            
+            pre = cur;
+            cur = nxt;
+            nxt = nxt->next;
+        }
+        cout << pre->val << endl;
+        if (count%2 == 0) {
+            pre->next = even;
+            cur->next = nullptr;
+        } else {
+            cur->next = even;
+            pre->next = nullptr;
+        }
+        
+        return odd;
+    }
+};
+```
+Add Two Numbers II 
+```c++
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        string a, b;
+        ListNode *result = nullptr;
+        while(l1) { a.push_back(l1->val+'0'); l1 = l1->next;}
+        while(l2) { b.push_back(l2->val+'0'); l2 = l2->next;}
+        int l = a.size()-1, r = b.size()-1, carry = 0;
+        while(l >= 0 || r >= 0 || carry == 1) {
+            int c = (l >= 0 ? a[l--]-'0' : 0) + ( r >= 0 ? b[r--]-'0' : 0) + carry;
+            ListNode *temp = new ListNode(c%10);
+            temp->next = result;
+            result = temp;
+            carry = c/10;
+        }        
+        return result;
+    }
+};
+```
+Remove Nth Node From End of List
+```c++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (!head) return nullptr;
+        
+        ListNode dummy;
+        dummy.next = head;
+        
+        ListNode *cur = &dummy;
+        while(n--) {
+            cur = cur->next;
+        }
+        ListNode *tmp = &dummy, *pre;
+        
+        pre = nullptr;
+        while(cur) {
+            pre = tmp;
+            tmp = tmp->next;
+            cur = cur->next;
+        }
+        
+        pre->next = pre->next->next;
+        
+        return dummy.next;
+    }
+};
+```
+Find the Duplicate Number
+```c++
+class Solution
+{
+public:
+    int findDuplicate(vector<int> &nums)
+    {
+        int slow = nums[0];
+        int fast = nums[nums[0]];
+
+        while (fast != slow)
+        {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }
+
+        fast = 0;
+        while (slow != fast)
+        {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        //slow or fast doesn't matter here
+        return slow;
+    }
+};
+```
 Remove Duplicate from Sorted Array
 ```c++
 class Solution {

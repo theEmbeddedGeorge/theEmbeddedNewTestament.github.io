@@ -12,20 +12,23 @@
 8. Reverse Linked List II                      v
 9. Delete Node in a Linked List                v
 10. Delete N Nodes After M Nodes of a Linked List   v
-11. Merge Two Sorted Lists
+11. Merge Two Sorted Lists                     v
 12. Remove Duplicates from Sorted List II      v
 13. Rotate List                                v
 14. Insert into a Sorted Circular Linked List    
 15. Odd Even Linked List                       v
 16. Copy List with Random Pointer
-17. Swap Nodes in Pairs 
-18. Add Two Numbers II                         v
+17. Swap Nodes in Pairs                        v
+18. Add Two Numbers                            v
+19. Add Two Numbers II                         v
+20. Linked List Insetion Sort                  v
 
 ***Bit Manipulation:***
 1. Reverse Bits                                v 
 2. Hamming Distance                            v
 3. Single Number                               v
 4. Majority Element                            v
+5. Range bitwise AND                           v
 
 ***Array:***
 1. Remove Duplicates from Sorted Array         v
@@ -41,6 +44,155 @@
 5.  Pow(x, n)    
      
 ### Impplementations
+Range bitwise and
+```c++
+int rangeBitwiseAnd(int m, int n) {
+        int curr = m & n;
+        int diff = n - m;
+        if (!diff) {
+            return curr;
+        }
+        int mask = 1;
+        while (diff > 1) {
+            diff >>= 1;
+            mask |= 1;
+            mask <<= 1; 
+        }
+        mask |= 1;
+        return curr & (~mask);
+    }
+```
+Add Two Numbers
+```c++
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *tail, head;
+        int sum{0}, carry{0}, first{0}, second{0};
+        
+        if (!l1 && !l2)
+            return nullptr;
+        
+        tail = &head;
+        while (l1 || l2 || carry) {
+            first = l1 ? l1->val : 0;
+            second = l2 ? l2->val : 0;
+            
+            sum = first + second + carry;
+            carry = sum/10;
+            
+            tail->next = new ListNode(sum%10, nullptr);
+            tail = tail->next;
+            
+            l1 = l1 ? l1->next : nullptr;
+            l2 = l2 ? l2->next : nullptr;
+        }
+        
+        return head.next;
+    }
+};
+```
+Swap Nodes in Pairs
+```c++
+class Solution {
+public:
+    /**
+    * @param head: a ListNode
+    * @return: a ListNode
+    */
+    ListNode * swapPairs(ListNode * head) {
+        // write your code here
+        ListNode *node;
+        int tmp;
+        
+        if (!head || !head->next)
+            return head;
+        
+        node = head;
+        
+        while (node && node->next) {
+            tmp = node->next->val;
+            node->next->val = node->val;
+            node->val = tmp;
+            node = node->next->next;
+        }
+        
+        return head;
+    }
+};
+```
+Merge Sorted linked lists
+```c++
+class Solution {
+public:
+    ListNode * mergeTwoLists(ListNode * l1, ListNode * l2) {
+        // write your code here
+        if (!l1)
+            return l2; 
+        
+        if (!l2)
+            return l1;
+            
+        ListNode *head, *dummy;
+        
+        head = new ListNode(0);
+        dummy = head;
+        
+        while (l1 && l2) {
+            if (l1->val < l2->val) {
+                dummy->next = l1;
+                l1 = l1->next; 
+            } else {
+                dummy->next = l2;
+                l2 = l2->next; 
+            }
+            dummy = dummy->next;
+        }
+        dummy->next = (l1) ? l1 : l2;
+        
+        return head->next;
+    }
+};
+```
+Linked List Insetion Sort 
+```c++
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        if (!head) return NULL;
+        ListNode *tail = head, *curr, *iter;
+        while (tail->next) {
+            // checking if the next one is already the next bigger
+            if (tail->val <= tail->next->val) {
+                tail = tail->next;
+                continue;
+            }
+            // taking a new node to parse, curr, out of the list
+            curr = tail->next;
+            tail->next = curr->next;
+            // checking if curr will become the new head
+            if (curr->val < head->val) {
+                curr->next = head;
+                head = curr;
+                continue;
+            }
+            // all the other cases
+            iter = head;
+            while (iter != tail) {
+                // checking when we can splice curr between iter and the following value
+                if (curr->val < iter->next->val) {
+                    curr->next = iter->next;
+                    iter->next = curr;
+                    break;
+                }
+                // moving to the next!
+                iter = iter->next;
+            }
+        }
+        return head;
+    }
+};
+```
 Fibonacci Number
 ```c++
 //recursion [Runtime: 12 ms, faster than 27.75% ]

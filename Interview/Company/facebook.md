@@ -27,14 +27,28 @@
 1. Reverse Bits                                v 
 2. Hamming Distance                            v
 3. Single Number                               v
-4. Majority Element                            v
-5. Range bitwise AND                           v
+4. Single Number II    
+5. Majority Element                            v
+6. Range bitwise AND                           v
+7. UTF-8 Validation    
+8. Subsets  
+9. Majority Element    
+10. Maximum Length of a Concatenated String with Unique Characters    
+11. Sum of Two Integers    
+12. Missing Number    
+13. Repeated DNA Sequences 
+14. Maximum XOR of Two Numbers in an Array  
+15. Counting Bits   
+16. Maximum Number of Occurrences of a Substring  
 
 ***Array:***
 1. Remove Duplicates from Sorted Array         v
 2. Find First and Last Position of Element in Sorted Array
 3. Find the Duplicate Number                   v
-4. Remove Element                              v               
+4. Remove Element                              v         
+5. Product of array Except Self                v
+6. Merge Sorted Array                          v
+7. Subarray Sum Equals K
 
 ***Math:***
 1.  Add Binary                                 v
@@ -44,6 +58,50 @@
 5.  Pow(x, n)    
      
 ### Impplementations
+Merge Sorted Array
+```c++
+class Solution {
+    public void mergeSortedArray(int[] A, int m, int[] B, int n) {
+        int i = m-1, j = n-1, index = m + n - 1;
+        while (i >= 0 && j >= 0) {
+            if (A[i] > B[j]) {
+                A[index--] = A[i--];
+            } else {
+                A[index--] = B[j--];
+            }
+        }
+        while (i >= 0) {
+            A[index--] = A[i--];
+        }
+        while (j >= 0) {
+            A[index--] = B[j--];
+        }
+    }
+}
+```
+Product of array Except Self
+```c++
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        // setting up the necessary variables
+        int len = nums.size(), prod = nums[len - 1];
+        vector<int> res(len);
+        // ruling out an edge case
+        if (!len) return res;
+        // initialising res and using it for the first pass
+        res[0] = 1;
+        // each cell will be the product of the previous and the matching previous value in nums
+        for (int i = 1; i < len; i++) res[i] = res[i - 1] * nums[i - 1];
+        // second pass, from the right
+        for (int i = --len - 1; i >= 0; --i) {
+            res[i] *= prod;
+            prod *= nums[i];
+        }
+        return res;
+    }
+};
+```
 Range bitwise and
 ```c++
 int rangeBitwiseAnd(int m, int n) {

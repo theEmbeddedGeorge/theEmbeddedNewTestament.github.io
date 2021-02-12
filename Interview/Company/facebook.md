@@ -27,7 +27,7 @@
 1. Reverse Bits                                v 
 2. Hamming Distance                            v
 3. Single Number                               v
-4. Single Number II    
+4. Single Number II                            v
 5. Majority Element                            v
 6. Range bitwise AND                           v
 7. UTF-8 Validation    
@@ -43,12 +43,14 @@
 
 ***Array:***
 1. Remove Duplicates from Sorted Array         v
-2. Find First and Last Position of Element in Sorted Array
+2. Find First and Last Position of Element in Sorted Array  v
 3. Find the Duplicate Number                   v
 4. Remove Element                              v         
 5. Product of array Except Self                v
 6. Merge Sorted Array                          v
-7. Subarray Sum Equals K
+7. Subarray Sum Equals K                       v
+8. Task Scheduler                              v
+9. Leftmost Column with at Least a One
 
 ***Math:***
 1.  Add Binary                                 v
@@ -58,6 +60,101 @@
 5.  Pow(x, n)    
      
 ### Impplementations
+Single Number II
+```c++
+class Solution {
+public:
+    void count_bits(int arr[], int val) {
+        for (int i = 0; i < 32; i++) {
+            if (val & (0x1 << i))
+                arr[i] ++;
+        }
+    }
+    
+    int singleNumber(vector<int>& nums) {
+        int arr[32] = {};
+        int ret = 0;
+        
+        for (auto num : nums) {
+            count_bits(arr, num);
+        }
+        
+        for (int i = 0; i < 32; i++) {
+            arr[i] = arr[i]%3;
+            ret |= (arr[i] << i);
+        }
+        
+        return ret;
+    }
+};
+```
+Find First and Last Position of Element in Sorted Array
+```c++
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        int mid;
+        vector<int> ret;
+        
+        if (nums.size() == 0)
+            return {-1, -1};
+        
+        while(l < r) {
+            mid = l + (r-l)/2;
+            
+            if (nums[mid] >= target) {
+                r = mid;
+            } else {
+                l = mid+1;
+            }
+        }
+        
+        if (nums[r] != target)
+            return {-1, -1};
+        else {
+            ret.push_back(r);
+            while(r < nums.size() && nums[r] == target) {
+                r ++;
+            }
+            ret.push_back(r-1);
+        }
+        return ret;
+    }
+};
+```
+Subarray Sum Equals K
+```c++
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int count = 0, sum = 0;
+        unordered_map<int, int> m;
+        m[0] = 1;
+        for (int i=0; i<nums.size(); i++) {
+            sum += nums[i];
+            if (m.find(sum - k) != m.end())
+                count += m[sum - k];
+            m[sum]++;
+        }
+        return count;
+    }
+};
+```
+Task Scheduler
+```c++
+class Solution {
+public:
+    int cnt[26], maxcnt = 0, e = 0;
+    int leastInterval(vector<char>& tasks, int n) {
+        for (char c : tasks) cnt[c-'A']++;
+        for (int i = 0; i < 26; i++) maxcnt = max(maxcnt, cnt[i]);
+        for (int i = 0; i < 26; i++) 
+            if (cnt[i] == maxcnt) e++;
+        return max(tasks.size(), (maxcnt-1)*(n+1) + e);
+    }
+};
+```
 Merge Sorted Array
 ```c++
 class Solution {

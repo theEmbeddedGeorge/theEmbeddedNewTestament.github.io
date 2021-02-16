@@ -15,6 +15,8 @@
 9. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
 10. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
 11. Inline functions
+    1.  [Inline Assembly](https://wiki.osdev.org/Inline_Assembly)
+    2.  [Inline Assembly examples](https://wiki.osdev.org/Inline_Assembly/Examples)
 12. Declarations in C
 13. Runtime data strtuctures 
 14. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
@@ -138,7 +140,7 @@
     2.  Sychronization Facilities
 4.  Memory Management
     1.  Memory Hardware
-    2.  [Virtual Memory](Operating_System/virtual_memory.md)
+    2.  [Virtual Addressing/Memory](Operating_System/virtual_memory.md)
 5.  File System Management
 6.  Device I/O Management
 7.  RTOS
@@ -151,29 +153,35 @@
         6.  [API Reference](https://www.freertos.org/a00106.html)
     2.  [QNX](http://www.qnx.com/developers/docs/qnxcar2/index.jsp?topic=%2Fcom.qnx.doc.neutrino.getting_started%2Ftopic%2Fs3_qnx2nto_Device_driver_model.html)
 8.  [Linux](https://0xax.gitbooks.io/linux-insides/content/)
-    - [Great linux overview](http://www.wowotech.net/sort/linux_kenrel)
-    1.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
-    2.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
-    3.  Synchronization primitives
-    4.  Booting
-    5.  [Linux Booting Process](Operating_System/Linux/booting.md)
-    6.  Intialization
-    7.  Interrupt
-    8.  [System Call](Operating_System/Linux/syscall.md)
-    9.  [Boot Loader](Operating_System/Linux/boot_loader.md)
-    10. Timers and time management
-    11. Memory Managment
-    12. [Process Management](https://tldp.org/LDP/intro-linux/html/chap_04.html)
-    13. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
-    14. [Linux Socket Programming](https://www.tenouk.com/cnlinuxsockettutorials.html)
+    1.  [Linux Kernel Overview Blogs](http://www.wowotech.net/sort/linux_kenrel)
+    2.  [Kernel Source Code All Versions](https://elixir.bootlin.com/linux/v4.9.242/source)
+    3.  [Linux Device Model](./Operating_System/Linux/Linux_device_model.md)
+    4.  Synchronization primitives
+    5.  Booting
+    6.  [Linux Booting Process](Operating_System/Linux/booting.md)
+    7.  Intialization
+    8.  Interrupt
+    9.  [System Call](Operating_System/Linux/syscall.md)
+    10. [Boot Loader](Operating_System/Linux/boot_loader.md)
+    11. Timers and time management
+    12. Memory Managment
+    13. [Process Management](https://tldp.org/LDP/intro-linux/html/chap_04.html)
+    14. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
+    15. [Linux Socket Programming](https://www.tenouk.com/cnlinuxsockettutorials.html)
 
 ### I. Computer Architecture
 1.  ARM programmer's model
 2.  Pipeline
 3.  CPU Architecture
     1.  ARM
-        1.  [ARM Assembly](https://azeria-labs.com/writing-arm-assembly-part-1/)
+        1.  [ARM overview](https://wiki.osdev.org/ARM_Overview)
+        2.  [ARM Assembly](https://azeria-labs.com/writing-arm-assembly-part-1/)
+        3.  [ARM Paging](https://wiki.osdev.org/ARM_Paging)
     2.  Intel
+        1.  [GDT Tutorial](https://wiki.osdev.org/GDT_Tutorial)
+        2.  [Interrupt Descriptor Table](https://wiki.osdev.org/Interrupt_Descriptor_Table)
+        3.  [IDT problems](https://wiki.osdev.org/IDT_problems#Problems_with_IDTs)
+        4.  [Advanced Programmable Interrupt Controller (APIC)](https://wiki.osdev.org/APIC)
 4.  Memory Hierachy
 5.  [Cache coherence](https://www.geeksforgeeks.org/cache-coherence/)
 6.  [DMA](./Computer_architecture/dma.md)
@@ -187,10 +195,15 @@
 2.  [Flash Storage](./HW_Module/Flash_Storage.md)
 3.  LED/LCD
 4.  Timer
+    1.  [HPET](https://wiki.osdev.org/HPET)
+    2.  [HPET Spec](https://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/software-developers-hpet-spec-1-0a.pdf)
+    3.  [APIC Timer](https://wiki.osdev.org/APIC_timer)
+    4.  [Programmable Interval Timer (PIT)](https://wiki.osdev.org/Programmable_Interval_Timer)
+    5.  [RTC](https://wiki.osdev.org/RTC)
 5.  Sensors
 6.  Bluetooth/BLE
 7.  Wifi
-8.  LTE
+8.  LTE Modem
 9.  USB devices
 10. Memory Protection Unit (MPU)
 11. Memory Management Unit (MMU)
@@ -202,8 +215,10 @@
 1.  [JTAG](https://www.xjtag.com/about-jtag/jtag-a-technical-overview/)
 2.  Trace
 3.  [GDB](http://beej.us/guide/bggdb/)
+    1.  [Remote GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/Remote-Debugging.html#Remote-Debugging)
 4.  Sysfs
 5.  Printk
+6.  [Kernel Debugging](https://wiki.osdev.org/How_Do_I_Use_A_Debugger_With_My_OS)
 
 ### L. Version Control
 1.  GIT
@@ -345,7 +360,11 @@
 2.  [C++ Mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#C++%20Programming%20Mock%20Tests)
 3.  [Operating system mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Operating%20Systems%20Mock%20Tests)
 
-### H. [Interview Preparation](Interview/Preparation/prepare.md)
+### I. [Interview Preparation](Interview/Preparation/prepare.md)
+
+### J. Take-Home challenges
+1. [Fan Controll System](Interview\Company\intuitive\README.md)
+2. [Dynamic Memory Profiling]()
 
 ## Hands-On Projects
 ### A. Raspberry Pi
@@ -394,3 +413,7 @@
 [bogotobogo](https://www.bogotobogo.com/cplusplus/multithreading_pthread.php)
 
 [bogotobogo Linux](https://www.bogotobogo.com/Linux/)
+
+[OSDev.org](https://wiki.osdev.org/Main_Page)
+
+[OS projects](https://wiki.osdev.org/Projects)

@@ -1,6 +1,6 @@
 ## Interprocess Communications
 
-#### Methods in Interprocess Communication
+#### **Methods in Interprocess Communication**
 Inter-process communication (IPC) is set of interfaces, which is usually programmed in order for the programs to communicate between series of processes. This allows running programs concurrently in an Operating System. These are the methods in IPC:
 
 - Pipes (Same Process)
@@ -36,3 +36,9 @@ Inter-process communication (IPC) is set of interfaces, which is usually program
 - [Shared Address Space](https://courses.engr.illinois.edu/cs241/sp2012/lectures/29-IPC.pdf) (Shared Memory, Memory Mapped Files)
 - [Message transported by OS from one address space to another](https://courses.engr.illinois.edu/cs241/sp2012/lectures/30-IPC.pdf)(Files, Pipes and FIFOs)
 - [Some POSIX Examples](https://courses.engr.illinois.edu/cs241/fa2010/ppt/31-IPC.pdf)
+
+
+#### Implementation
+[Brendan's Multi-tasking Tutorial](https://wiki.osdev.org/Brendan%27s_Multi-tasking_Tutorial)
+
+This tutorial will describe a way to implement multi-tasking and task switching for a kernel that uses "kernel stack per task". It has been designed to allow the reader to implement a full featured scheduler (while avoiding common pitfalls) in steps that can be tested before moving on to the next step.

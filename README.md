@@ -139,8 +139,9 @@
     1.  [IPC](Operating_System/Process/IPC.md)
     2.  Sychronization Facilities
 4.  Memory Management
-    1.  Memory Hardware
-    2.  [Virtual Addressing/Memory](Operating_System/virtual_memory.md)
+    1.  [Memory Management Reference](https://www.memorymanagement.org/index.html)
+    2.  Memory Hardware
+    3.  [Virtual Addressing/Memory](Operating_System/virtual_memory.md)
 5.  File System Management
 6.  Device I/O Management
 7.  RTOS
@@ -164,7 +165,7 @@
     9.  [System Call](Operating_System/Linux/syscall.md)
     10. [Boot Loader](Operating_System/Linux/boot_loader.md)
     11. Timers and time management
-    12. Memory Managment
+    12. [Linux Memory Managment](https://linux-mm.org/)
     13. [Process Management](https://tldp.org/LDP/intro-linux/html/chap_04.html)
     14. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
     15. [Linux Socket Programming](https://www.tenouk.com/cnlinuxsockettutorials.html)

@@ -347,6 +347,14 @@
 
 ### H. [Interview Preparation](Interview/Preparation/prepare.md)
 
+## Hands-On Projects
+### A. Raspberry Pi
+1.  [Learning operating system development using Linux kernel and Raspberry Pi](https://github.com/s-matyukevich/raspberry-pi-os)
+2.  [Raspberry-Pi-Multicore](https://github.com/LdB-ECM/Raspberry-Pi)
+3.  [David Welch's tutorials](https://github.com/dwelch67/raspberrypi)
+4.  [Cambridge tutorials](https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/)
+5.  [Bare Metal Programming on Raspberry Pi 3](https://github.com/bztsrc/raspi3-tutorial)
+
 ## Book Recommendation
 1.  Network
     1. Unix Network Programming, volumes 1-2 by W. Richard Stevens.

@@ -30,16 +30,21 @@
 4. Single Number II                            v
 5. Majority Element                            v
 6. Range bitwise AND                           v
-7. UTF-8 Validation    
+7. UTF-8 Validation                            v  
 8. Subsets  
-9. Majority Element    
+9. Majority Element                            v    
 10. Maximum Length of a Concatenated String with Unique Characters    
 11. Sum of Two Integers    
 12. Missing Number    
-13. Repeated DNA Sequences 
+13. Repeated DNA Sequences                     v
 14. Maximum XOR of Two Numbers in an Array  
 15. Counting Bits   
 16. Maximum Number of Occurrences of a Substring  
+17. Number Complement                          v
+18. Convert a Number to Hexadecimal            v
+19. Power of Four                              v
+20. XOR Operation in an Array                  v
+21. XOR Queries of a Subarray                  v
 
 ***Array:***
 1. Remove Duplicates from Sorted Array         v
@@ -50,7 +55,10 @@
 6. Merge Sorted Array                          v
 7. Subarray Sum Equals K                       v
 8. Task Scheduler                              v
-9. Leftmost Column with at Least a One
+9. Leftmost Column with at Least a One         v
+10. First Bad Version                          v
+11. Count and Say                              v
+12. Maximum Number of Occurrences of a Substring  v
 
 ***Math:***
 1.  Add Binary                                 v
@@ -60,6 +68,256 @@
 5.  Pow(x, n)    
      
 ### Impplementations
+Maximum Number of Occurrences of a Substring
+```c++
+class Solution {
+    
+public:
+    unordered_map<string, int> occur;
+    unordered_map<char, int> umap;
+    
+    int maxFreq(string s, int maxLetters, int minSize, int maxSize) {
+        int max_val = 0;
+        
+        string tmp = s.substr(0, minSize);
+        for (auto c : tmp)
+            umap[c] ++;
+
+        if (umap.size() <= maxLetters) {
+            occur[tmp]++;
+            max_val = max(max_val, occur[tmp]);
+        }
+
+        for (int end = minSize; end < s.size(); end++) {
+            if (--umap[s[end-minSize]] == 0)
+                umap.erase(s[end-minSize]);
+            umap[s[end]] ++;
+            
+            if (umap.size() <= maxLetters) {
+                string str_tmp = s.substr(end-minSize+1, minSize);
+                occur[str_tmp]++;
+                max_val = max(max_val, occur[str_tmp]);
+            }
+        }
+        
+        return max_val;
+    }
+};
+```
+XOR Queries of a Subarray
+```c++
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+        vector<int> res;
+        
+        for (int i = 1; i < arr.size(); i++) {
+            arr[i] ^= arr[i-1];
+        }
+        
+        for (auto &v : queries) {
+            if (v[0] == 0)
+                res.push_back(arr[v[1]]);
+            else {
+                res.push_back(arr[v[1]]^arr[v[0]-1]);
+            }
+            
+        }
+        
+        return res;
+    }
+};
+```
+Count and Say
+```c++
+class Solution {
+public:
+    string countAndSay(int n) {
+        string res = "1";
+        for (int i = 2; i <= n; i++) {
+            string tmp = "";
+            char c = res[0];
+            int count = 1;
+            for (int j = 1; j < res.size(); j++) {
+                if (res[j] != c) {
+                    tmp.push_back('0' + count);
+                    tmp.push_back(c);
+                    count = 0;
+                    c = res[j];
+                }
+                count ++;
+            }
+            tmp.push_back('0' + count);
+            tmp.push_back(c);
+            res = tmp;
+        }
+        
+        return res;
+    }
+};
+```
+Repeated DNA Sequences
+```c++
+class Solution {
+public:
+    int get_int(string &s) {
+        int ret = 0;
+        for(int i = 0; i < 10; i++) {
+            char c = s[i];
+            int tmp;
+            switch(c) {
+                case 'A':
+                    tmp = 0x0;
+                    break;
+                case 'C':
+                    tmp = 0x1;
+                    break;
+                case 'G':
+                    tmp = 0x2;
+                    break;
+                case 'T':
+                    tmp = 0x3;
+                    break;
+            }
+            ret <<= 2;
+            ret |= tmp;
+        }
+        
+        return ret;
+    }
+    
+    vector<string> findRepeatedDnaSequences(string s) {
+        vector<string> res;
+        unordered_map<int, int> um;
+        
+        if (s.size() <= 10)
+            return res;
+        
+        for (int i = 0; i < s.size() - 9; i++) {
+            string tmp = s.substr(i, 10);
+            int ret_int = get_int(tmp);
+            um[ret_int] ++;
+            if (um[ret_int] == 2)
+                res.push_back(tmp);
+        }
+        
+        return res;
+    }
+};
+```
+XOR Operation in an Array
+```c++
+class Solution {
+public:
+    int xorOperation(int n, int start) {
+        int res = 0;
+        
+        for (int i = 0; i < n; i++) {
+            res ^= start;
+            start += 2;
+        }
+        
+        return res;
+    }
+};
+```
+Power of Four
+```c++
+class Solution {
+public:
+    bool isPowerOfFour(int num) {
+        return (num > 0) && ((num & (num - 1)) == 0) && ((num & 0xaaaaaaaa) == 0);
+    }
+};
+```
+Convert a Number to Hexadecimal
+```c++
+class Solution {
+public:
+    string toHex(int num) {
+        if(num == 0){
+            return "0";
+        }
+        unsigned int num1 = num; // takes care of negative integers automatically
+        string hex = "";
+        int base = 16;
+        int rem;
+        while(num1 > 0){
+            rem = num1 % base;
+            if(rem < 10){
+                hex.insert(hex.begin(), ('0' + (rem)));
+            }else{
+                hex.insert(hex.begin(), ('a' + (rem%10)));
+            }
+            num1 = num1 / base;
+        }
+
+        return hex;
+    }
+};
+```
+Number Complement
+```c++
+class Solution {
+public:
+    int findComplement(int num) {
+        int bit = 1, tp = num;
+        while(tp) {
+            num ^= bit;
+            bit <<= 1;
+            tp >>= 1;
+        }
+        return num;
+    }
+};
+```
+First Bad Version
+```Binary Search, O(Log(n))```
+```c++
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int st = 1;
+        int end = n;
+        
+        while (st < end) {
+            int mid = st + (end - st)/2;
+            
+            if (isBadVersion(mid)) {
+                end = mid;
+            } else {
+                st = mid + 1;
+            }
+        }
+        
+        return end;
+    }
+};
+```
+Leftmost Column with at Least a One
+```Binary Search fron the end of column, update the min column on the way. O(MLog(N))```
+```c++
+class Solution {
+    public:
+        int leftMostColumnWithOne(BinaryMatrix &binaryMatrix) {
+            int rows = binaryMatrix.dimensions().front();
+            int max_col = binaryMatrix.dimensions().back()-1;
+            int res = -1;
+            for(int i = 0; i < rows; ++i)
+                if(binaryMatrix.get(i, max_col))
+                {
+                    int start = 0, end = max_col;
+                    while(start <= end)
+                    {
+                        int mid = (start+end)/2;
+                        binaryMatrix.get(i, mid) ? end = mid-1 : start = mid+1;
+                    }
+                    res = max_col = start;
+                }
+            return res;
+        }
+};
+```
 Single Number II
 ```c++
 class Solution {

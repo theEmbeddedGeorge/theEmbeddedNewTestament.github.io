@@ -90,6 +90,10 @@ Run level 6 – /etc/rc.d/rc6.d/
 
 There you have it. That is what happens during the Linux boot process.
 
-### Reference
+## [All stages of linux booting process](https://github.com/nu11secur1ty/All-Stages-of-Linux-Booting-Process-)
+
+This github repo provides more details about Linux booting process.
+
+## Reference
 
 https://leetcode.com/discuss/interview-question/124638/what-happens-in-the-background-from-the-time-you-press-the-Power-button-until-the-Linux-login-prompt-appears/

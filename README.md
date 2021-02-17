@@ -15,8 +15,9 @@
 9. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
 10. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
 11. Inline functions
-    1.  [Inline Assembly](https://wiki.osdev.org/Inline_Assembly)
-    2.  [Inline Assembly examples](https://wiki.osdev.org/Inline_Assembly/Examples)
+    1.  [GCC Inline Assembly](https://www.ibiblio.org/gferg/ldp/GCC-Inline-Assembly-HOWTO.html)
+    2.  [Inline Assembly](https://wiki.osdev.org/Inline_Assembly)
+    3.  [Inline Assembly examples](https://wiki.osdev.org/Inline_Assembly/Examples)
 12. Declarations in C
 13. Runtime data strtuctures 
 14. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
@@ -84,7 +85,7 @@
 
 
 ### D. Basic Algorithms
-1. Sort
+1. [Sort](https://www.cnblogs.com/onepixel/p/7674659.html)
    1.  [Bubble Sort](/Data_Struct_Implementation/bubbleSort/bubbleSort.md)
    2.  [Merge Sort](/Data_Struct_Implementation/mergeSort/mergeSort.md)
    3.  [Quick Sort](/Data_Struct_Implementation/quickSort/quicksort.md)
@@ -183,7 +184,7 @@
         2.  [Interrupt Descriptor Table](https://wiki.osdev.org/Interrupt_Descriptor_Table)
         3.  [IDT problems](https://wiki.osdev.org/IDT_problems#Problems_with_IDTs)
         4.  [Advanced Programmable Interrupt Controller (APIC)](https://wiki.osdev.org/APIC)
-4.  Memory Hierachy
+4.  [Memory Hierachy](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
 5.  [Cache coherence](https://www.geeksforgeeks.org/cache-coherence/)
 6.  [DMA](./Computer_architecture/dma.md)
 7.  TCM

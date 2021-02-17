@@ -1,12 +1,13 @@
 CC=gcc
 CFLGAS=-Wall
-OBJ = quicksort.o
+DEPS = 
+OBJ = quicksort
 
-%.o: %.c
+%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-quicksort: $(OBJ)
+$(OBJ): $(OBJ).o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f  quicksort quicksort.o
+	rm -f $(OBJ) $(OBJ).o

@@ -1,181 +1,118 @@
 ## Merge Sort
 
+![Animation](https://images2017.cnblogs.com/blog/849589/201710/849589-20171015230557043-37375010.gif)
 
-#### Code (Array Version)
-```c
-void merge(int arr[], int l, int m, int r)
-{
-    int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
- 
-    /* create temp arrays */
-    int L[n1], R[n2];
- 
-    /* Copy data to temp arrays L[] and R[] */
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
- 
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; // Initial index of first subarray
-    j = 0; // Initial index of second subarray
-    k = l; // Initial index of merged subarray
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i++;
-        }
-        else {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
-    }
- 
-    /* Copy the remaining elements of L[], if there
-    are any */
-    while (i < n1) {
-        arr[k] = L[i];
-        i++;
-        k++;
-    }
- 
-    /* Copy the remaining elements of R[], if there
-    are any */
-    while (j < n2) {
-        arr[k] = R[j];
-        j++;
-        k++;
-    }
-}
- 
-/* l is for left index and r is right index of the
-sub-array of arr to be sorted */
-void mergeSort(int arr[], int l, int r)
-{
-    if (l < r) {
-        // Same as (l+r)/2, but avoids overflow for
-        // large l and h
-        int m = l + (r - l) / 2;
- 
-        // Sort first and second halves
-        mergeSort(arr, l, m);
-        mergeSort(arr, m + 1, r);
- 
-        merge(arr, l, m, r);
-    }
-}
- 
-/* UTILITY FUNCTIONS */
-/* Function to print an array */
-void printArray(int A[], int size)
-{
-    int i;
-    for (i = 0; i < size; i++)
-        printf("%d ", A[i]);
-    printf("\n");
-}
- 
-/* Driver code */
-int main()
-{
-    int arr[] = { 12, 11, 13, 5, 6, 7 };
-    int arr_size = sizeof(arr) / sizeof(arr[0]);
- 
-    printf("Given array is \n");
-    printArray(arr, arr_size);
- 
-    mergeSort(arr, 0, arr_size - 1);
- 
-    printf("\nSorted array is \n");
-    printArray(arr, arr_size);
-    return 0;
-}
-```
-
-#### Code (Linked List Version)
-[Leetcode 148](https://leetcode.com/problems/sort-list/)
-```c
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
-
-struct ListNode *mergeList(struct ListNode *a, struct ListNode *b) {
-    if(a == b) {
-        return a;
-    }
-    
-    struct ListNode *dummy = (struct ListNode *) malloc (sizeof(struct ListNode));
-    struct ListNode *result = dummy;
-    
-    while(a && b) {
-        if(a->val < b->val) {
-            dummy->next = a;
-            a = a->next;
-        }
-        else {
-            dummy->next = b;
-            b = b->next;
-        }
-        
-        dummy = dummy->next;
-    }
-    
-    if(a) {
-        dummy->next = a;
-    } 
-    else if(b) {
-        dummy->next = b;
-    }
-    
-    struct ListNode *temp = result;
-    result = result->next;
-    free(temp);
-    
-    return result;
-}
-
-struct ListNode* sortList(struct ListNode* head){
-    if(head == NULL) {
-        return NULL;
-    }
-    
-    struct ListNode *fast = head;
-    struct ListNode *slow = head;
-    struct ListNode *pre = head;
-    
-    
-    while(fast && fast->next) {
-        fast = fast->next->next;
-        pre = slow;
-        slow = slow->next;
-    }
-    
-    pre->next = NULL;
-    
-    
-    if(head == slow) {
-        return head;
-    }
-    
-    return mergeList(sortList(head), sortList(slow));
-}
-```
-
-#### Complexity
+### **Complexity**
 - Worst Case Time Complexity: O(nLogn)
 - Average Case Time Complexity: O(nLogn)
 - Best Case Time Complexity: O(nLogn)
 - Auxiliary Space: O(n)
 
-Time Complexity: Sorting arrays on different machines. Merge Sort is a recursive algorithm and time complexity can be expressed as following recurrence relation. 
+Time Complexity: Sorting arrays on different machines. Merge Sort is a recursive algorithm and time complexity can be expressed as following recurrence relation.
 T(n) = 2T(n/2) + θ(n)
 
 The above recurrence can be solved either using the Recurrence Tree method or the Master method. It falls in case II of Master Method and the solution of the recurrence is θ(nLogn). Time complexity of Merge Sort is  θ(nLogn) in all 3 cases (worst, average and best) as merge sort always divides the array into two halves and takes linear time to merge two halves.
 Auxiliary Space: O(n)
+
+### **Code (Array Version)**
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
+
+typedef void (*sortAlgorithm)(int *array, int size);
+
+static void printArray(int arr[], int size) 
+{ 
+    int i; 
+    for (i=0; i < size; i++) 
+        printf("%d ", arr[i]); 
+    printf("\n"); 
+} 
+
+static void merge_helper(int *array, int st_a, int st_b, int size) {
+    int arr[size];
+    
+    int i = st_a;
+    int j = st_b;
+    int k = 0;
+    
+    while (i < st_b && j < (st_a + size)) {
+        arr[k++] = (array[i] > array[j]) ? array[j++] : array[i++];
+    }
+
+    while (i < st_b)
+        arr[k++] = array[i++];
+    
+    while (j < (st_a + size))
+        arr[k++] = array[j++];
+    
+    for (k = 0; k < size; k++)
+        array[st_a++] = arr[k];
+}
+
+static void sort_helper(int *array, int st, int end) {
+    int mid = (end-st)/2 + st;
+    int temp;
+
+    if (st < end) {
+        sort_helper(array, st, mid);
+        sort_helper(array, mid+1, end);
+        merge_helper(array, st, mid+1, end-st+1);
+    }
+}
+
+void mergesort(int *array, int size) {
+    sort_helper(array, 0, size-1);
+}
+
+void tests(int *nums, int size) {
+    sortAlgorithm sort_method = mergesort;
+    clock_t start, end;
+    double cpu_time_used;
+
+    printf("==== Sorted array test results ====\n");
+    printf("Original:\n");
+    printArray(nums, size); 
+
+    start = clock();
+    sort_method(nums, size);
+    end = clock();
+
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+    printf("Sorted:\n");
+    printArray(nums, size); 
+    printf("CPU time used: %f\n\n", cpu_time_used);
+}
+
+int main() {
+    // test 1
+    int nums[] = {10, 7, 8, 9, 1, 5}; 
+    int n = sizeof(nums)/sizeof(nums[0]); 
+    tests(nums, n);
+
+    // test 2
+    int nums2[] = {1, 2, 4, 6, 8, 2, 3, 4, 0, -1, 10, 7, 8, 9, 1, 5}; 
+    n = sizeof(nums2)/sizeof(nums2[0]); 
+    tests(nums2, n);
+    
+    // test 3
+    int nums3[] = {}; 
+    n = sizeof(nums3)/sizeof(nums3[0]); 
+    tests(nums3, n);
+
+    // test 4
+    int nums4[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1}; 
+    n = sizeof(nums4)/sizeof(nums4[0]); 
+    tests(nums4, n);
+
+    // test 5
+    int nums5[] = {1, 2, -4, 6, -8, 2, 3, -4, 0, -1, 10, -1, 5}; 
+    n = sizeof(nums5)/sizeof(nums5[0]); 
+    tests(nums5, n);
+    
+    return 0; 
+}
+```

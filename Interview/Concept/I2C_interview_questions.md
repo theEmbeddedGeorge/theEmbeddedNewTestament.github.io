@@ -134,6 +134,34 @@ For a better understanding, I am taking an example, where two masters try to com
 
 The SCL clock would be the Anding (clk1 & clk2) of clk1 and clk2 and most interesting thing is that highest logic 1 of SCL line defines by the CLK which has lowest logic 1.
 
+## More I2C questions
+
+1. Can devices be added and removed while the system is running (Hot swapping) in I2C ?
+2. What is the standard bus speed in I2C ?
+3. How many devices can be connected in a standard I2C communication ?
+4. What are the 2 roles of nodes in I2C communication ?
+5. What are the modes of operation in I2C communication ?
+6. What is bus arbitration ?
+7. Advantages and limitations of I2C communication ?
+8. How many wires are required for I2C communication ? What are the signals involved in I2C ?
+9. What is START bit and STOP bit ?
+10. How will the master indicate that it is either address / data ? How will it intimate to the slave that it is going to either read / write ?
+11. Is it possible to have multiple masters in I2C ?
+12. In write transaction, the Master monitors the last ACK and issues STOP condition - True/False ?
+13. In read transaction, the master doesnot acknowledge the final byte it receives and issues STOP condition - True/False ?
+14. What is SPI communication ?
+15. How many wires are required for SPI communication ?
+16. What are the 4 logic signals specified by SPI bus ?
+17. Does SPI slave acknowledge the receipt of data ?
+18. SPI has higher throughput than I2C - True / False ?
+19. Is it better to use I2C or SPI for data communication between a microprocessor and DSP ?
+20. Is it better to use I2C or SPI for data communication from ADC ?
+21. Duplex communication is possible by simultaneously using MOSI and MISO during each SPI clock cycle - True / False ?
+22. Is it possible to connect SPI slaves in daisy chain ?
+23. What is the role of shift register in Master and Slave devices in SPI ?
+24. How will the master convey that it is stopping the transmission of data ?
+25. What is bit banging ?
+
 ## More links
 
 https://aticleworld.com/i2c-interview-questions/

@@ -65,7 +65,10 @@
 2.  Plus One                                   v           
 3.  Add strings                                v   
 4.  Fibonacci Number                           v
-5.  Pow(x, n)    
+5.  Pow(x, n)
+
+***Matirx:***
+1.  Give the center of a matrix and then draw circle
      
 ### Impplementations
 Maximum Number of Occurrences of a Substring

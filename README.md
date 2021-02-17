@@ -4,23 +4,25 @@
 ## Concepts by Domain:
 
 ### A. C/C++ Coding Specific
-1.  [Tenouk's Ultimate C/C++ Tutorials](https://www.tenouk.com/Sitemap.html)
-2.  Attributes
-3.  [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
-4.  [C/C++ Type Specifiers](https://www.tenouk.com/Module11.html)
-5.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
-6. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
-7. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
-8. [C/C++ Compile, Link and Running Programs](https://www.tenouk.com/ModuleW.html)
-9. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
-10. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
-11. Inline functions
+1.  [C Overview](https://embeddedworlddevelopers.blogspot.com/p/c-language.html)
+2.  [C++ Overview](https://embeddedworlddevelopers.blogspot.com/p/c-language_12.html)
+3.  [Tenouk's Ultimate C/C++ Tutorials](https://www.tenouk.com/Sitemap.html)
+4.  Attributes
+5.  [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
+6.  [C/C++ Type Specifiers](https://www.tenouk.com/Module11.html)
+7.  [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
+8. [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
+9. [The Function Stack](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html#:~:text=Arguments%20passed%20to%20a%20C,called%20the%20C%20stack%20frame.)
+10. [C/C++ Compile, Link and Running Programs](https://www.tenouk.com/ModuleW.html)
+11. [C Storage Class, Scope and Memory allocation](https://www.tenouk.com/ModuleZ.html)
+12. [C/C++ Storage Classes: const, volatile, local and global](https://www.tenouk.com/Module20.html)
+13. Inline functions
     1.  [GCC Inline Assembly](https://www.ibiblio.org/gferg/ldp/GCC-Inline-Assembly-HOWTO.html)
     2.  [Inline Assembly](https://wiki.osdev.org/Inline_Assembly)
     3.  [Inline Assembly examples](https://wiki.osdev.org/Inline_Assembly/Examples)
-12. Declarations in C
-13. Runtime data strtuctures 
-14. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
+14. Declarations in C
+15. Runtime data strtuctures 
+16. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
     1. [The Basic of x86 Architecture](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1a.html)
     2. [An Assembly Language](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1b.html)
     3. [A Compiler, Assembler, Linker & Loader](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1c.html)
@@ -29,12 +31,12 @@
     6. [The Stack Operation](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow3.html)
     7. [A Stack-based Buffer Overflow](https://www.clublexus.com/how-tos/slideshows/6-mods-every-lexus-rc-owner-should-jump-on-440204#6-weight-reduction)
     8. [A Shellcode: The Payload](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow5.html)
-15. C++ New Standard Specific Topics
+17. C++ New Standard Specific Topics
     1. [auto vs auto & vs auto &&](https://stackoverflow.com/questions/29859796/c-auto-vs-auto)
     2. Copy by value, by reference, by move
-16. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
-17. [C++ STL Cheat Sheet](Resources/STL_Cheatsheet.pdf)
-18. Concurrency
+18. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
+19. [C++ STL Cheat Sheet](Resources/STL_Cheatsheet.pdf)
+20. Concurrency
     1.  [C/C++ MULTI-THREADED programming with Pthread](https://www.bogotobogo.com/cplusplus/multithreading_pthread.php)
     2.  [POSIX Threads Programming](https://computing.llnl.gov/tutorials/pthreads/)
     3.  [OpenMP Programming](https://computing.llnl.gov/tutorials/openMP/)
@@ -58,10 +60,11 @@
 9. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
 10. Simple Task Scheduler
 11. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
-12. Signness Check
-13. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
-14. Array of Bits
-15. Common STL function implementation
+12. Swap Endianess
+13. Signness Check
+14. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+15. Array of Bits
+16. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. atoi
@@ -69,7 +72,7 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
     7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
-16. Concurrency 
+17. Concurrency 
     1.  Implement a Spinlock/Mutex
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
@@ -82,6 +85,13 @@
     7.  [Print In Order](Data_Struct_Implementation/concurrency/PrintInorder.md)
     8.  [Building H2O](Data_Struct_Implementation/concurrency/BuildingH2O.md)
     9.  [The Dining Philosophers](Data_Struct_Implementation/concurrency/TheDiningPhilosophers.md)
+18. Other Implementations
+    1.  Shuffle cards
+    2.  Accurately (emphasize) read 64bit register with read32
+    3.  Given a matrix and its center coordinates, draw the circle
+    4.  Find a 32 bit frame start sequence in a raw byte stream buffer
+    5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
+
 
 
 ### D. Basic Algorithms
@@ -89,9 +99,9 @@
    1.  [Bubble Sort](/Data_Struct_Implementation/bubbleSort/bubbleSort.md)
    2.  [Merge Sort](/Data_Struct_Implementation/mergeSort/mergeSort.md)
    3.  [Quick Sort](/Data_Struct_Implementation/quickSort/quicksort.md)
-   4.  Binary Sort
-   5.  [Heap Sort](/Data_Struct_Implementation/heapSort/heapSort.md)
-   6.  [Insertion Sort](/Data_Struct_Implementation/insertionSort/insertionSort.md)
+   4.  [Heap Sort](/Data_Struct_Implementation/heapSort/heapSort.md)
+   5.  [Insertion Sort](/Data_Struct_Implementation/insertionSort/insertionSort.md)
+   6.  Binary Insertion Sort
 2.  Search
     1.  [Hash](Data_Struct_Implementation/hashTable/README.md)
     2.  [Binary search Tree](Data_Struct_Implementation/BST/README.md)
@@ -273,6 +283,13 @@
    3. [Technical Report on C++ Performance](http://www.open-std.org/jtc1/sc22/wg21/docs/TR18015.pdf)
    4. [bogotobogo blogs for embedded](https://www.bogotobogo.com/Embedded/)
 
+## Interview Psychological Preparation
+### A.  Symptom
+
+### B.  Cause
+
+### C.  Treatment
+
 ## Interview Questions
 
 ### [A.  LeetCode Questions for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
@@ -318,23 +335,31 @@
    4. Synchronization Interview Questions
    5. [General OS questions](https://practice.geeksforgeeks.org/tag-page.php?tag=Operating%20Systems)
    6. [Linux](https://practice.geeksforgeeks.org/tag-page.php?tag=Linux)
+   7. [30 Linux Kernel questions](http://embedded-telecom-interview.blogspot.com/2010/06/linux-kernel-interview-questions.html)
+   8. [70 RTOS interview questions](http://embedded-telecom-interview.blogspot.com/2010/06/rtos-interview-questions.html)
+   9. [50 Linux device driver questions](http://embedded-telecom-interview.blogspot.com/search/label/Device%20Driver)
 3. Programming Language
    1. [10 Questions on dynamic memory allocation in C](https://aticleworld.com/10-interview-question-on-dynamic-memory-allocation/)
    2. [Top 15 string Interview Questions in C](https://aticleworld.com/string-interview-questions-in-c/)
    3. [C++ Interview Questions](https://aticleworld.com/cpp-interview-questions/)
    4. [C Puzzles](https://www.geeksforgeeks.org/puzzles/#CPuzzles)
+   5. [50 interesting C interview questions](http://embedded-telecom-interview.blogspot.com/2010/06/c-interview-questions.html)
 4. Computer Architecture
-   1. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
-   2.  [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
+   1. [100 ARM architecture questions](http://embedded-telecom-interview.blogspot.com/2011/06/arm-processor-interview-questions.html)
+   2. [Memory](https://practice.geeksforgeeks.org/tag-page.php?tag=memory)
+   3.  [Computer Organization Architecture](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer-Organization-Architecture)
 5. Computer Networks
-   1. [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
-   2. [Commonly asked Computer Networks Interview Questions](https://www.geeksforgeeks.org/commonly-asked-computer-networks-interview-questions-set-1/)
-   
-
-6. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
-7.  [Embedded Interview Questions](Interview/Concept/embedded_interview_questions.md)
-8.  [Embedded Interview Questions Repo](https://github.com/Embedded-Systems-Guide/interview-questions)
-9.  [Embedded C Interview Questions and answers](https://www.wisdomjobs.com/e-university/embedded-c-interview-questions.html)
+   1. [Networking & Telecom Question List](http://embedded-telecom-interview.blogspot.com/2010/06/basic-networktelecom-based-interview.html)
+   2. [Computer Networks](https://practice.geeksforgeeks.org/tag-page.php?tag=Computer%20Networks)
+   3. [Commonly asked Computer Networks Interview Questions](https://www.geeksforgeeks.org/commonly-asked-computer-networks-interview-questions-set-1/)
+   4. [50 Network Questions](http://embedded-telecom-interview.blogspot.com/search/label/Ethernet)
+6. Computer Hardware
+   1. [35 Flash memory questions](http://embedded-telecom-interview.blogspot.com/2010/06/flash-memory-interview-questions.html)
+7. [10 Most Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
+8.  [Embedded Interview Questions](Interview/Concept/embedded_interview_questions.md)
+9.  [Embedded Interview Questions Repo](https://github.com/Embedded-Systems-Guide/interview-questions)
+10. [Embedded C Interview Questions and answers](https://www.wisdomjobs.com/e-university/embedded-c-interview-questions.html)
+11. [50 Multithreading questions](http://embedded-telecom-interview.blogspot.com/2014/10/multithreading-interview-questions.html)
 
 ### D. Behavior Question
 1.  Amazon Leading Principles
@@ -419,3 +444,5 @@
 [OSDev.org](https://wiki.osdev.org/Main_Page)
 
 [OS projects](https://wiki.osdev.org/Projects)
+
+[Embedded Developers World](https://embeddedworlddevelopers.blogspot.com/)

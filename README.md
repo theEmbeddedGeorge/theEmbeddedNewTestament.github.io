@@ -60,14 +60,14 @@
 9. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
 10. Simple Task Scheduler
 11. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
-12. Swap Endianess
+12. [Swap Endianess](Data_Struct_Implementation/endianessSwap/README.md)
 13. Signness Check
-14. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
-15. Array of Bits
+14. [Array of Bits](Data_Struct_Implementation/bitsArray/README.md)
+15. Low Pass Filter
 16. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
-    3. atoi
+    3. [atoi](Data_Struct_Implementation/atoi/README.md)
     4. [sizeof](Data_Struct_Implementation/sizeof/README.md)
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
@@ -91,6 +91,7 @@
     3.  Given a matrix and its center coordinates, draw the circle
     4.  Find a 32 bit frame start sequence in a raw byte stream buffer
     5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
+19. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 
 

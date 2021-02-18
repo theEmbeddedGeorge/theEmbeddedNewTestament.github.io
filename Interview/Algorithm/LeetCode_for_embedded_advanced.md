@@ -1,4 +1,4 @@
-## Facebook Phone Screen Preparation
+## Advance Leetcode questions
 ### Leetcode/Lintcode Algorithm Questions List
 
 ***Linked List:***
@@ -59,6 +59,8 @@
 10. First Bad Version                          v
 11. Count and Say                              v
 12. Maximum Number of Occurrences of a Substring  v
+13. Maximum Subarray                           v
+14. Move Zeroes                                v
 
 ***Math:***
 1.  Add Binary                                 v
@@ -66,11 +68,81 @@
 3.  Add strings                                v   
 4.  Fibonacci Number                           v
 5.  Pow(x, n)
+6.  Divide Two Integers                        v
 
 ***Matirx:***
 1.  Give the center of a matrix and then draw circle
+
+***Data Structure:***
+1. Insert Delete GetRandom O(1)                v
+2. LRU
      
 ### Impplementations
+Divide Two Integers
+```c++
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        long long n=dividend, m=divisor;
+        if(n <= INT_MIN && m == -1) return INT_MAX;
+
+        int sign = (n < 0) ^ (m < 0) ? -1: 1;
+
+        n=abs(n);
+        m=abs(m);
+
+        long long q=0, temp=0;
+
+        for(int i=31; i>=0; i--){
+            if(temp + (m << i) <= n){
+                temp += m << i;
+					q += 1 << i;      //  q |= 1 << i;
+            }
+        }
+        return sign * q;
+    }
+};
+```
+Move Zeroes
+```c++
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int lastNonZeroFoundAt = 0;
+        // If the current element is not 0, then we need to
+        // append it just in front of last non 0 element we found. 
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != 0) {
+                nums[lastNonZeroFoundAt++] = nums[i];
+            }
+        }
+        // After we have finished processing new elements,
+        // all the non-zero elements are already at beginning of array.
+        // We just need to fill remaining array with 0's.
+        for (int i = lastNonZeroFoundAt; i < nums.size(); i++) {
+            nums[i] = 0;
+        }
+    }
+};
+```
+Maximum Subarray
+```c++
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int sum = nums[0];
+        int max_v = sum;
+        
+        for (int i = 1; i < n; i++) {
+            sum = max(nums[i], sum+nums[i]);
+            max_v = max(sum, max_v);
+        }
+        
+        return max_v;  
+    }
+};
+```
 Maximum Number of Occurrences of a Substring
 ```c++
 class Solution {

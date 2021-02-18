@@ -380,7 +380,7 @@
 9.  [Lyft](Interview/Company/lyft.md)
 10. [FaceBook](Interview/Company/facebook.md)
 11. Zoox
-12. Apple
+12. [Apple](Interview/Company/apple.md)
 
 ### H. Mock Tests
 1.  [Computer networks mock tests](https://www.geeksforgeeks.org/quiz-corner-gq/#Computer%20Networks%20Mock%20Tests)

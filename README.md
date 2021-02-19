@@ -91,7 +91,8 @@
     3.  Given a matrix and its center coordinates, draw the circle
     4.  Find a 32 bit frame start sequence in a raw byte stream buffer
     5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
-19. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+    6.  Given an array of angles and an array of voltages for these angles, now there is a new angle coming in, calculate its voltage.
+1.  [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 
 

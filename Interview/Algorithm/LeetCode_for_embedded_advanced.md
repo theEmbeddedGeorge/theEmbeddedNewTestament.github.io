@@ -61,6 +61,9 @@
 12. Maximum Number of Occurrences of a Substring  v
 13. Maximum Subarray                           v
 14. Move Zeroes                                v
+15. Find the Duplicate Number                  v
+16. Container With Most Water                  v
+17. Verifying an Alien Dictionary              v
 
 ***Math:***
 1.  Add Binary                                 v
@@ -72,12 +75,145 @@
 
 ***Matirx:***
 1.  Give the center of a matrix and then draw circle
+2.  Rotate a matrix by 90 degree               v
+3.  Sparse Matrix Multiplication
+4.  Search 2D Matrix
 
 ***Data Structure:***
 1. Insert Delete GetRandom O(1)                v
-2. LRU
+2. LRU Cache
+3. Design Add and Search Words Data Structure
+
+***String:***
+1. Valid Palindrome II                         v
      
 ### Impplementations
+Valid Palindrome II
+```c++
+class Solution {
+
+public:
+    // Checks if string is a palindrome
+    bool isPalin(string &s, int start, int end) {
+        while(start < end) {
+            if(s[start] != s[end])
+                return false;
+            ++start, --end;
+        }
+        return true;
+    }
+    
+    // TC: O(N)
+    // SC: O(1)
+    bool validPalindrome(string s) {
+        for(int i = 0, j = s.size()-1; i < j;  ++i, --j) {
+            // mismatch found, only if it is the first time delete
+            // a char and move on, else not possible
+            if(s[i] != s[j]) {
+                // s[0:i-1] and s[j+1, n-1] matched,
+                // now we check if atleast s[i:j-1] or s[i+1:j] is a palindrome
+                return (isPalin(s, i, j-1) || isPalin(s, i+1, j));
+            }
+        }
+        return true;
+    }
+};
+```
+Verifying an Alien Dictionary
+```c++
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        for (int i = 0; i < words.size() - 1; i++) {
+        string word1 = words[i];
+        string word2 = words[i + 1];
+        int i1 = 0, i2 = 0;
+        while (word1[i1] == word2[i2]) {
+            i1++, i2++;
+        }
+        int r = order.find(word1[i1]);   
+        int s = order.find(word2[i2]);
+        if (r > s) return false;
+    }
+    return true;
+    }
+};
+```
+Container With Most Water
+```c++
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int max_a = 0; 
+        
+        int st = 0, end = height.size()-1;
+        while (st < end) {
+            int water = min(height[st], height[end]) * (end-st);
+            max_a = max(max_a, water);
+            if (height[st] < height[end])
+                st ++;
+            else
+                end --;
+        }
+        
+        return max_a;
+    }
+};
+```
+Find the Duplicate Number
+```c++
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int slow, fast;
+        slow = fast = 0;
+        
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }
+        while (slow != fast);
+        
+        slow = 0;
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        
+        return fast;
+    }
+};
+```
+Rotate a matrix by 90 degree
+```c++
+class Solution {
+public:
+    
+    void swap(int *a, int *b) {
+        int temp = *a;
+        *a = *b;
+        *b = temp;
+    }
+    
+    void rotate(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        
+        for (int x = 0; x < rows; x++) {
+            for (int y = x + 1; y < cols; y++) {
+                swap(&matrix[x][y], &matrix[y][x]);
+            }
+        }
+    
+        for (int x = 0; x < rows; x++) {
+            int st = 0, end = cols - 1;
+            while (st < end) {
+                swap(&matrix[x][st++], &matrix[x][end--]);
+            }
+        }
+    }
+};
+```
 Divide Two Integers
 ```c++
 class Solution {

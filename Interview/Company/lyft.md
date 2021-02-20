@@ -1,5 +1,7 @@
 ### Lyft Level 5 questions
 
+```Disclaimer: all information are from public online resources!```
+
 ### Phone screen
 
 **Question: Interrupts are an important part of embedded systems. Consequently, many compiler vendors offer an extension to standard C to support interrupts. Typically, this new key word is __interrupt. The following code uses __interrupt to define an interrupt service routine. Comment on the code.**

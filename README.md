@@ -49,22 +49,31 @@
 5. Assembly
 
 ### C. Data Structures & Implementation
-1. [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer/README.md)
-2. [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
-3. [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap/README.md)
-4. [Stack](./Data_Struct_Implementation/stack/README.md)
-5. [Queue](./Data_Struct_Implementation/queue/README.md)
-6. [Binary Search Tree](Data_Struct_Implementation/BST/README.md)
-7. Red Black Tree
-8. Minium Spanning Tree (MST)
-9. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
-10. Simple Task Scheduler
-11. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
-12. [Swap Endianess](Data_Struct_Implementation/endianessSwap/README.md)
-13. Signness Check
-14. [Array of Bits](Data_Struct_Implementation/bitsArray/README.md)
-15. Low Pass Filter
-16. Common STL function implementation
+1. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
+2. Simple Task Scheduler
+3. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
+4. [Swap Endianess](Data_Struct_Implementation/endianessSwap/README.md)
+5. Signness Check
+6. [Array of Bits](Data_Struct_Implementation/bitsArray/README.md)
+7. Low Pass Filter
+8. [Memory map IO register manipulation](Data_Struct_Implementation/memoryMap/memory_map_io.md)
+9. Data Structure
+    1.  [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer/README.md)
+    2.  [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
+    3.  [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap/README.md)
+    4.  [Stack](./Data_Struct_Implementation/stack/README.md)
+    5.  [Queue](./Data_Struct_Implementation/queue/README.md)
+    6.  [Binary Search Tree](Data_Struct_Implementation/BST/README.md)
+    7.  Red Black Tree
+    8.  Minium Spanning Tree (MST)
+10. Math
+    1.  Rolling average
+    2.  Taylor Series
+    3.  Dividing by a constant
+    4.  Sine Functions with Lookup table
+    5.  Linear Interpolation
+    6.  Floating Point Arthimetic
+11. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. [atoi](Data_Struct_Implementation/atoi/README.md)
@@ -72,7 +81,7 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
     7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
-17. Concurrency 
+12. Concurrency 
     1.  Implement a Spinlock/Mutex
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
@@ -85,14 +94,14 @@
     7.  [Print In Order](Data_Struct_Implementation/concurrency/PrintInorder.md)
     8.  [Building H2O](Data_Struct_Implementation/concurrency/BuildingH2O.md)
     9.  [The Dining Philosophers](Data_Struct_Implementation/concurrency/TheDiningPhilosophers.md)
-18. Other Implementations
+13. Other Implementations
     1.  Shuffle cards
     2.  Accurately (emphasize) read 64bit register with read32
     3.  Given a matrix and its center coordinates, draw the circle
     4.  Find a 32 bit frame start sequence in a raw byte stream buffer
     5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
     6.  Given an array of angles and an array of voltages for these angles, now there is a new angle coming in, calculate its voltage.
-1.  [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+14. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 
 

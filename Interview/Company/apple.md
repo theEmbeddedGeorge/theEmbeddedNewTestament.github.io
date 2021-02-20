@@ -1,6 +1,6 @@
 ## Apple On-site interview process
 
-```45 minutes per round```
+```Disclaimer: all information are from public online resources!```
 
 ### 1st round
 - Hiring Manager round

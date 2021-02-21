@@ -374,6 +374,8 @@
 
 ### D. Behavior Question
 1.  Amazon Leading Principles
+2.  [Star Method](Interview/Behavior/STAR_Method_Interviews%20(Career%20Questions).pdf)
+3.  Common Behavior Questions
 
 ### E. [Brain Teaser](https://www.geeksforgeeks.org/puzzles/)
 

@@ -68,6 +68,8 @@
 19. Continuous Subarray Sum                    v
 20. Random Pick with Weight                    v
 21. Friends Of Appropriate Ages                v
+22. Trap Rain water                            v
+23. House Robber                               v
 
 ***Math:***
 1.  Add Binary                                 v

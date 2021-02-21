@@ -4,6 +4,8 @@
 2. Continuous Subarray Sum
 3. Random Pick with Weight
 4. Friends Of Appropriate Ages
+5. Trap Rain Water
+6. House Robber
 
 
 ## Implementation
@@ -197,6 +199,105 @@ public:
             count += findRequests (ages, i);
         }
         return count;
+    }
+};
+```
+### **Trap Rain water**
+
+***Big O:*** O(nlog(n)) speed, O(n) space
+```
+Tips: 
+Approache 1:
+
+Use stacks.
+
+Approach 2:
+
+Use two pointers.
+```
+
+```c++
+// Approach 1: stacks
+class Solution {
+public:
+    int trap(vector<int>& height)
+    {
+        int ans = 0, current = 0;
+        stack<int> st;
+        while (current < height.size()) {
+            while (!st.empty() && height[current] > height[st.top()]) {
+                int top = st.top();
+                st.pop();
+                if (st.empty())
+                    break;
+                int distance = current - st.top() - 1;
+                int bounded_height = min(height[current], height[st.top()]) - height[top];
+                ans += distance * bounded_height;
+            }
+            st.push(current++);
+        }
+        return ans;
+    }
+};
+
+// Approach 2: two pointers 
+class Solution {
+public:
+    int trap(vector<int>& height)
+    {
+        int ans = 0;
+        int left = 0, right = height.size()-1;
+        int left_max, right_max;
+        left_max = right_max = 0;
+        
+        while (left < right) {
+            right_max = max(right_max, height[right]);
+            
+            if (height[left] < height[right]) {
+                if (left_max > height[left]) {
+                    ans += (left_max - height[left]);
+                } else {
+                    left_max = height[left];
+                }
+                left ++; 
+            } else {
+                if (right_max > height[right]) {
+                    ans += (right_max - height[right]);
+                } else {
+                    right_max = height[right];
+                }
+                right --; 
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+### **House Robber**
+
+***Big O:*** O(n) speed, O(n) space
+```
+Tips: 
+
+Dynamic programming with memorization
+```
+```c++
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(nums.size() <= 1) return nums.size() == 0 ? 0 : nums[0];
+        
+        vector<int> dp(nums.size(), 0);
+        
+        dp[0] = nums[0];
+        dp[1] = max(nums[0], nums[1]);
+        
+        for (int i = 2; i < nums.size(); i++) {
+            dp[i] = max(dp[i-2] + nums[i], dp[i-1]);
+        }
+        
+        return dp[nums.size()-1];
     }
 };
 ```

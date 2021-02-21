@@ -64,6 +64,10 @@
 15. Find the Duplicate Number                  v
 16. Container With Most Water                  v
 17. Verifying an Alien Dictionary              v
+18. Running Sum of 1d Array                    v
+19. Continuous Subarray Sum                    v
+20. Random Pick with Weight                    v
+21. Friends Of Appropriate Ages                v
 
 ***Math:***
 1.  Add Binary                                 v
@@ -72,6 +76,9 @@
 4.  Fibonacci Number                           v
 5.  Pow(x, n)
 6.  Divide Two Integers                        v
+7.  Reverse Integer without long long          v
+8.  Palindrome Number                          v
+9.  Dot Product of Two Sparse Vectors          v
 
 ***Matirx:***
 1.  Give the center of a matrix and then draw circle

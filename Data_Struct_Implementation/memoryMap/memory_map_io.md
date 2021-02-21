@@ -73,3 +73,7 @@ typedef struct {
     _IO uint32_t ASCR,  
 } GPIO_REG;
 ```
+
+## Reference 
+
+[Yifeng zhu - Embedded Systems with ARM Cortex-M Microcontrollers in Assembly Language and C: Third Edition](https://www.youtube.com/watch?v=aT5XMOrid7Y&list=PLRJhV4hUhIymmp5CCeIFPyxbknsdcXCc8&index=5&ab_channel=EmbeddedSystemswithARMCortex-MMicrocontrollersinAssemblyLanguageandC)

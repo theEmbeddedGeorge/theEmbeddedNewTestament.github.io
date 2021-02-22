@@ -6,6 +6,8 @@
 4. Friends Of Appropriate Ages
 5. Trap Rain Water
 6. House Robber
+7. Degree of an array
+8. Decode Ways
 
 
 ## Implementation
@@ -298,6 +300,81 @@ public:
         }
         
         return dp[nums.size()-1];
+    }
+};
+```
+
+### **Degree of an array**
+
+***Big O:*** O(n) speed, O(n) space
+```
+Tips: 
+
+Hash map to record the number frequency and another map to record the postions of each number. when encounter a number with the same degree, calculate the length and take the minium value of them.
+```
+```c++
+class Solution {
+public:
+    int findShortestSubArray(vector<int>& nums) {
+        
+    map<int, int> freq;
+    map<int, vector<int>> pos;
+    int mx = INT_MIN;
+    
+    /*
+    get frequency of each number in array
+    get highest degree
+    note the positions of frequencies
+    */    
+    for(int i = 0; i < nums.size(); i++)
+    {
+        mx = max(mx, ++freq[nums[i]]);        
+        pos[nums[i]].push_back(i);
+    }
+       
+    //get shortest distance
+    int dist = INT_MAX;
+    for(auto num : nums)
+    {
+        if(freq[num] == mx)            
+            dist = min(dist, pos[num].back() - pos[num].front());         
+    }
+    
+    return dist + 1;
+        
+    }
+};
+```
+
+### **Decode ways**
+
+***Big O:*** O(n) speed, O(n) space
+```
+Tips: 
+
+Dynamic programming
+```
+```c++
+class Solution {
+public:
+    int numDecodings(string s) {
+        // edge cases out - leading zero and single character string
+        if (s[0] == '0') return 0;
+        if (s.size() == 1) return 1;
+        // support variables
+        int len = s.size(), dp[len];
+        // preparing dp
+        dp[0] = 1;
+        dp[1] = (s[0] == '1' || s[0] == '2' && s[1] < '7' ? 1 : 0) + (s[1] != '0');
+        for (int i = 2; i < len; i++) {
+            // edge case: we quit for 2 consecutive zeros
+            if (s[i] == '0' && (s[i - 1] > '2' || s[i - 1] == '0')) return 0;
+            // base case: we always keep the previous set of combinations, unless we met a 0
+            dp[i] = s[i] != '0' ? dp[i - 1] : 0;
+            // we go and look 2 positions behind if we can make a digit in the 10-26 range
+            if (s[i - 1] == '1' || s[i - 1] == '2' && s[i] < '7') dp[i] += dp[i - 2];
+        }
+        return dp[len - 1];
     }
 };
 ```

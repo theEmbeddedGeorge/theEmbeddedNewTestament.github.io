@@ -66,6 +66,7 @@
     6.  [Binary Search Tree](Data_Struct_Implementation/BST/README.md)
     7.  Red Black Tree
     8.  Minium Spanning Tree (MST)
+    9.  Bitwise tries
 10. Math
     1.  Rolling average
     2.  Taylor Series

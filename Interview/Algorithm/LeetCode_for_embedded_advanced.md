@@ -70,13 +70,15 @@
 21. Friends Of Appropriate Ages                v
 22. Trap Rain water                            v
 23. House Robber                               v
+24. Degree of an array                         v
+25. Decode Ways                                v
 
 ***Math:***
 1.  Add Binary                                 v
 2.  Plus One                                   v           
 3.  Add strings                                v   
 4.  Fibonacci Number                           v
-5.  Pow(x, n)
+5.  Pow(x, n)                                  v
 6.  Divide Two Integers                        v
 7.  Reverse Integer without long long          v
 8.  Palindrome Number                          v
@@ -92,42 +94,14 @@
 1. Insert Delete GetRandom O(1)                v
 2. LRU Cache
 3. Design Add and Search Words Data Structure
+4. Find Median from Data Stream                v
 
 ***String:***
 1. Valid Palindrome II                         v
+2. Valid Palindrome                            v
+3. Decode String                               v
      
 ### Impplementations
-Valid Palindrome II
-```c++
-class Solution {
-
-public:
-    // Checks if string is a palindrome
-    bool isPalin(string &s, int start, int end) {
-        while(start < end) {
-            if(s[start] != s[end])
-                return false;
-            ++start, --end;
-        }
-        return true;
-    }
-    
-    // TC: O(N)
-    // SC: O(1)
-    bool validPalindrome(string s) {
-        for(int i = 0, j = s.size()-1; i < j;  ++i, --j) {
-            // mismatch found, only if it is the first time delete
-            // a char and move on, else not possible
-            if(s[i] != s[j]) {
-                // s[0:i-1] and s[j+1, n-1] matched,
-                // now we check if atleast s[i:j-1] or s[i+1:j] is a palindrome
-                return (isPalin(s, i, j-1) || isPalin(s, i+1, j));
-            }
-        }
-        return true;
-    }
-};
-```
 Verifying an Alien Dictionary
 ```c++
 class Solution {

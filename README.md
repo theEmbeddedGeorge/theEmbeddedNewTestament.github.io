@@ -251,11 +251,11 @@
 ### M. [IDE Selection](IDE_Selection/IDE.md)
 
 ### N. Embedded Security
-1.  CRC
-2.  TPM
-3.  [Arm Trust Zone](https://embeddedsecurity.io/?utm_source=linkedin&utm_medium=social&utm_campaign=phillipjohnston&utm_content=linkstoshare)
-4.  Intel SGX
-5.  [Embedded Reverse Engineering](https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on-stm32f103c8t6.html)
+1.  [Trusted Platform Module (TPM 2.0)](Security/TPM.md)
+2.  [Arm Trust Zone](https://embeddedsecurity.io/?utm_source=linkedin&utm_medium=social&utm_campaign=phillipjohnston&utm_content=linkstoshare)
+3.  Intel SGX
+4.  [Embedded Reverse Engineering](https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on-stm32f103c8t6.html)
+5.  Encryption Algorithms
 
 ### O. Network
 1.  [Network OSI layer](https://www.geeksforgeeks.org/layers-of-osi-model/?ref=lbp)
@@ -374,9 +374,9 @@
 11. [50 Multithreading questions](http://embedded-telecom-interview.blogspot.com/2014/10/multithreading-interview-questions.html)
 
 ### D. Behavior Question
-1.  Amazon Leading Principles
-2.  [Star Method](Interview/Behavior/STAR_Method_Interviews%20(Career%20Questions).pdf)
-3.  Common Behavior Questions
+1.  [Most Common 64 HR Interview Questions and Answer](http://hrinterviews.blogspot.com/)
+2.  [Amazon Leading Principles](https://www.linkedin.com/pulse/how-interview-amazon-leadership-david-anderson/)
+3.  [Star Method](Interview/Behavior/STAR_Method_Interviews%20(Career%20Questions).pdf)
 
 ### E. [Brain Teaser](https://www.geeksforgeeks.org/puzzles/)
 

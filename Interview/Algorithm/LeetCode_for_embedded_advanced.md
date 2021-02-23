@@ -72,6 +72,10 @@
 23. House Robber                               v
 24. Degree of an array                         v
 25. Decode Ways                                v
+26. Best time to sell stocks II                v
+27. Monotonic Array                            v
+28. Longest Continuous Increasing Subsequence  v
+29. Maximum Product Subarray                   v
 
 ***Math:***
 1.  Add Binary                                 v
@@ -83,6 +87,7 @@
 7.  Reverse Integer without long long          v
 8.  Palindrome Number                          v
 9.  Dot Product of Two Sparse Vectors          v
+10. Ugly Number                                v
 
 ***Matirx:***
 1.  Give the center of a matrix and then draw circle

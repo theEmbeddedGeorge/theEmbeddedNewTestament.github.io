@@ -8,6 +8,10 @@
 6. House Robber
 7. Degree of an array
 8. Decode Ways
+9. Best Time to sell stocks II
+10. Monotonic Array
+11. Longest Continuous Increasing Subsequence
+12. Maximum Product Subarray
 
 
 ## Implementation
@@ -375,6 +379,113 @@ public:
             if (s[i - 1] == '1' || s[i - 1] == '2' && s[i] < '7') dp[i] += dp[i - 2];
         }
         return dp[len - 1];
+    }
+};
+```
+### **Best Time to sell stocks II**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips: 
+
+Greedy. Buy low, Sell high.
+```
+```c++
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int prev = prices[0], res = 0;
+        for (int curr: prices) {
+            if (prev < curr) res += curr - prev;
+            prev = curr;
+        }
+        return res;
+    }
+};
+```
+
+### **Monotonic Array**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips: 
+
+Self evident.
+```
+```c++
+class Solution {
+public:
+    bool isMonotonic(vector<int>& A) {
+        bool increase = true;
+        bool decrease = true;
+        for(int i = 0; i < A.size() - 1; i++) {
+            if(A[i] > A[i+1]) increase = false;
+            if(A[i] < A[i+1]) decrease = false;
+            if(increase == false && decrease == false) return false;
+        }
+        return true;
+    }
+};
+```
+
+### **Longest Continuous Increasing Subsequence**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips: 
+
+Self evident.
+```
+```c++
+class Solution {
+public:
+    int findLengthOfLCIS(vector<int>& nums) {
+        if(nums.size()<=1)return nums.size();
+        int answer=1,count=1;
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]<nums[i+1]){
+                count++;
+                answer=max(answer,count);
+            }
+            else{
+                count=1;
+            }
+        }
+        return answer;
+    }
+};
+```
+
+### **Maximum Product Subarray**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips: 
+
+Dynamic Programming. While going through numbers in nums, we will have to keep track of the maximum product up to that number (we will call max_so_far) and minimum product up to that number (we will call min_so_far). The reason behind keeping track of max_so_far is to keep track of the accumulated product of positive numbers. The reason behind keeping track of min_so_far is to properly handle negative numbers.
+```
+```c++
+class Solution {
+public:
+    
+    int maxProduct(vector<int>& nums) {
+         if (nums.size() == 0) return 0;
+
+        int max_so_far = nums[0];
+        int min_so_far = nums[0];
+        int result = max_so_far;
+
+        for (int i = 1; i < nums.size(); i++) {
+            int curr = nums[i];
+            int temp_max = max(curr, max(max_so_far * curr, min_so_far * curr));
+            min_so_far = min(curr, min(max_so_far * curr, min_so_far * curr));
+
+            max_so_far = temp_max;
+
+            result = max(max_so_far, result);
+        }
+
+        return result;
     }
 };
 ```

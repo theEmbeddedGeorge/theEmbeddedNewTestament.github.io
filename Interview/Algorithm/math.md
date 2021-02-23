@@ -4,6 +4,7 @@
 2. Palindrome Number
 3. Dot Product of Two Sparse Vectors
 4. Pow(x, n)
+5. Ugly Number
 
 
 ## Implementation
@@ -131,6 +132,28 @@ public:
             current_product = current_product * current_product;
         }
         return ans;
+    }
+};
+```
+
+## **Pow(x, n)**
+
+***Big O:*** O(log(n)) speed, O(1) space
+```
+Tips: 
+
+The idea is simple; you have a base of 3 prime numbers conveniently stored in primes, you loop through them, progressively reducing the initially provided number, if and only as long each of the primes is a divisor of it.
+
+At the end of the run, if what you are left with is == 1, then you had an ugly number, false otherwise (and note that it would also rule out non-positive numbers, but I prefer to just save computation and check initially for it).
+```
+```c++
+class Solution {
+public:
+    vector<int> primes = {2, 3, 5};
+    bool isUgly(int n) {
+        if (n < 1) return false;
+        for (int p: primes) while (n % p == 0) n /=p;
+        return n == 1;
     }
 };
 ```

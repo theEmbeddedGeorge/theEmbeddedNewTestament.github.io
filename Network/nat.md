@@ -1,6 +1,6 @@
 ## NAT
 
-**Network address translation (NAT)** is a method of remapping an IP address space into another by modifying network address information in the IP header of packets while they are in transit across a traffic routing device.[1] The technique was originally used to avoid the need to assign a new address to every host when a network was moved, or when the upstream Internet service provider was replaced, but could not route the networks address space. It has become a popular and essential tool in conserving global address space in the face of IPv4 address exhaustion. One Internet-routable IP address of a NAT gateway can be used for an entire private network.
+**Network address translation (NAT)** is a method of remapping an IP address space into another by modifying network address information in the IP header of packets while they are in transit across a traffic routing device. The technique was originally used to avoid the need to assign a new address to every host when a network was moved, or when the upstream Internet service provider was replaced, but could not route the networks address space. It has become a popular and essential tool in conserving global address space in the face of IPv4 address exhaustion. One Internet-routable IP address of a NAT gateway can be used for an entire private network.
 
 ![NAT translation](images/nat_translation.png)
 
@@ -26,6 +26,23 @@ T- ranslation results in switching path delays.
 - Also, router being a network layer device, should not tamper with port numbers(transport layer) but it has to do so because of NAT.
 
 ## Reference
+
+[Introduction to Network Address Translation](https://nsrc.org/workshops/2018/btnog-wireless/presentations/00_NAT_Introduction.pdf)
+
+This slide provide a comprehensive overview of NAT and illustrate its typical use case with Campus Network Design & Operations Workshop.
+
+[Cisco − How NAT Works](http://academy.delmar.edu/Courses/download/CiscoIOS/NAT_HowItWorks.pdf)
+
+A document published by Cisco that gives a insighful angle of how NAT works.
+
+[A Retrospective View of Network Address Translation](http://web.cs.ucla.edu/~lixia/papers/08IEEE-NAT-Retrospect.pdf)
+
+Today, network address translators, or NATs, are everywhere. Their ubiquitous
+adoption was not promoted by design or planning but by the continued growth of
+the Internet, which places an ever-increasing demand not only on IP address space
+but also on other functional requirements that network address translation is perceived to facilitate. This article presents a personal perspective on the history of
+NATs, their pros and cons in a retrospective light, and the lessons we can learn
+from the NAT experience.
 
 [NAT WIKIpedia](https://en.wikipedia.org/wiki/Network_address_translation)
 

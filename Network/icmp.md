@@ -21,6 +21,7 @@ first place (so that the sender can determine the datagram that caused the error
 
 ## Application
 
+
 - **Ping**: The well-known ping program sends an ICMP type 8 code 0 message to the
 specified host. The destination host, seeing the echo request, sends back a type 0
 code 0 ICMP echo reply
@@ -37,6 +38,20 @@ router from the ICMP message. One of the datagrams will eventually make it all t
 Because this datagram contains a UDP segment with an unlikely port number, the
 destination host sends a port unreachable ICMP message (type 3 code 3) back to the
 source.
+
+### How Does Ping Work?
+
+1. As the ping program initializes, it opens a raw ICMP socket so that it can employ IP directly, circumventing TCP and UDP.
+2. Ping formats an ICMP type 8 message, an Echo Request, and sends it (using the “sendto” function) to
+the designated target address. The system provides the IP header and the data link layer envelope.
+3. As ICMP messages are received, ping has the opportunity to examine each packet to pick out those
+items that are of interest.
+4. The usual behavior is to siphon off ICMP type 0 messages, Echo Replies, which have an identification
+field value that matches the program PID.
+
+[How Does Ping Really Work](http://www.galaxyvisions.com/pdf/white-papers/How_does_Ping_Work_Style_1_GV.pdf)
+
+This inspirational document detailed about how the well-know ping application works. 
 
 ## Reference
 

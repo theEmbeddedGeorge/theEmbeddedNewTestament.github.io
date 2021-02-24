@@ -12,7 +12,10 @@
 10. Monotonic Array
 11. Longest Continuous Increasing Subsequence
 12. Maximum Product Subarray
-
+13. First Missing Positive
+14. Maximum Swap
+15. Meeting Room II
+16. Sort Colors
 
 ## Implementation
 
@@ -455,7 +458,6 @@ public:
     }
 };
 ```
-
 ### **Maximum Product Subarray**
 
 ***Big O:*** O(n) speed, O(1) space
@@ -487,5 +489,136 @@ public:
 
         return result;
     }
+};
+```
+
+### **First Missing Positive**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips: 
+
+Hashmap. 
+```
+```c++
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        unordered_map<int, int> umap;
+        int max_v = 0;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] > 0) {
+                umap[nums[i]] = 1;
+                max_v = max(max_v, nums[i]);
+            }
+        }
+        
+        for (int i = 1; i < max_v; i++) {
+            if (umap.find(i) == umap.end())
+                return i;
+        }
+        
+        return max_v+1;
+    }
+};
+```
+
+### **Maximum Swap**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips: 
+
+Greedy. 
+```
+```c++
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string num_str = to_string(num);
+        int n = num_str.size();
+        int max_val = -1, max_i = -1;
+        int left = -1, right = -1;
+        
+        for (int i = n - 1; i >= 0; i--) {
+            if (num_str[i] > max_val) {
+                max_val = num_str[i];
+                max_i = i;
+            } else if (num_str[i] < max_val) {
+                left = i;
+                right = max_i;
+            }
+        }
+       
+        if (left == -1) return num;
+        char c = num_str[left];
+        num_str[left] = num_str[right];
+        num_str[right] = c;
+        return stoi(num_str);
+    }
+};
+```
+
+### **Meeting Rooms II**
+
+***Big O:*** O(nlog(n)) speed, O(n) space
+```
+Tips: 
+
+Sort + priority queue. Kick people out if their meeting is already finished.
+```
+```c++
+class Solution {
+public:
+    int minMeetingRooms(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end());
+        
+        priority_queue<int, vector<int>, greater<int>> pq;
+        
+        for (auto v : intervals) {
+            // check if the last meetings need to be completed
+            // before this meeting starts.
+            if (!pq.empty() && pq.top() <= v[0]) {
+                pq.pop();
+            }
+            
+            // start this meeting and enter the end time.
+            pq.push(v[1]);
+        }
+        
+        return pq.size();
+    }
+};
+```
+
+### **Sort Colors**
+
+***Big O:*** O(n) speed (one pass), O(1) space
+```
+Tips: 
+
+The idea of solution is to move curr pointer along the array, if nums[curr] = 0 - swap it with nums[p0], if nums[curr] = 2 - swap it with nums[p2].
+```
+```c++
+class Solution {
+
+public: 
+    void sortColors(vector<int>& nums) {
+        int lo = 0, hi = nums.size() - 1, i = 0;
+
+        while (i <= hi) {
+            if      (nums[i] == 0) swap(nums, lo++, i++);
+            else if (nums[i] == 2) swap(nums, i, hi--);
+            else if (nums[i] == 1) i++;
+        }
+    }
+
+    void swap(vector<int>& nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+
 };
 ```

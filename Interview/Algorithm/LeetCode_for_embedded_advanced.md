@@ -22,6 +22,7 @@
 18. Add Two Numbers                            v
 19. Add Two Numbers II                         v
 20. Linked List Insetion Sort                  v
+21. Reorder List                               v
 
 ***Bit Manipulation:***
 1. Reverse Bits                                v 
@@ -76,6 +77,10 @@
 27. Monotonic Array                            v
 28. Longest Continuous Increasing Subsequence  v
 29. Maximum Product Subarray                   v
+30. First Missing Positive                     v
+31. Maximum Swap                               v
+32. Meeting Room II                            v
+33. Sort Colors                                v
 
 ***Math:***
 1.  Add Binary                                 v
@@ -94,6 +99,7 @@
 2.  Rotate a matrix by 90 degree               v
 3.  Sparse Matrix Multiplication
 4.  Search 2D Matrix
+5.  Diagonal Traverse                          v
 
 ***Data Structure:***
 1. Insert Delete GetRandom O(1)                v
@@ -105,6 +111,7 @@
 1. Valid Palindrome II                         v
 2. Valid Palindrome                            v
 3. Decode String                               v
+4. Find All Anagrams in a String               v
      
 ### Impplementations
 Verifying an Alien Dictionary

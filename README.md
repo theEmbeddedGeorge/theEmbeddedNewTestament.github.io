@@ -305,11 +305,12 @@
 ## Interview Questions
 
 ### [A.  LeetCode Questions for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
-1.  Bitwise Operations
+1.  [Advanced Leetcode Questions](Interview/Algorithm/LeetCode_for_embedded_advanced.md)
 2.  [Linked list](Interview/Algorithm/linked_list.md)
-3.  String 
-4.  Array
-5.  Math
+3.  [String]((Interview/Algorithm/string.md)) 
+4.  [Array](Interview/Algorithm/Array.md)
+5.  [Math](Interview/Algorithm/math.md)
+6.  [Data Structure](Interview/Algorithm/dataStructure.md)
 
 ### B.  Other Algorithms Questions
 1.  Sliding Window

@@ -82,7 +82,12 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
     7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
-12. Concurrency 
+12. Bits Manipulation
+    1.  [Length of the Longest Consecutive 1s in Binary Representation](https://www.geeksforgeeks.org/length-longest-consecutive-1s-binary-representation/)
+    2.  [Find most significant set bit of a number](https://www.geeksforgeeks.org/find-significant-set-bit-number/)
+    3.  [Swap two number without temporary varaible](https://www.geeksforgeeks.org/swap-two-numbers-without-using-temporary-variable/)
+    4.  [number is a power of 2](https://www.geeksforgeeks.org/bits-manipulation-important-tactics/)
+13. Concurrency 
     1.  Implement a Spinlock/Mutex
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
@@ -95,14 +100,14 @@
     7.  [Print In Order](Data_Struct_Implementation/concurrency/PrintInorder.md)
     8.  [Building H2O](Data_Struct_Implementation/concurrency/BuildingH2O.md)
     9.  [The Dining Philosophers](Data_Struct_Implementation/concurrency/TheDiningPhilosophers.md)
-13. Other Implementations
+14. Other Implementations
     1.  Shuffle cards
     2.  Accurately (emphasize) read 64bit register with read32
     3.  Given a matrix and its center coordinates, draw the circle
     4.  Find a 32 bit frame start sequence in a raw byte stream buffer
     5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
     6.  Given an array of angles and an array of voltages for these angles, now there is a new angle coming in, calculate its voltage.
-14. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+15. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 
 
@@ -271,7 +276,7 @@
         2.  [ICMP](Network/icmp.md)
         3.  [NAT](Network/nat.md)
         4.  [Routing and Protocols (RIP, OSPF, and BGP)](Network/routing.md)
-        5.  [Router](Network/router_switch.md)
+        5.  [Router](Network/router.md)
     4.  Link layer
         1.  PPP
         2.  [ARP/MAC](Network/ARP.md)
@@ -383,6 +388,16 @@
 
 ### F. System Design
 1. [System Design Primer](https://github.com/donnemartin/system-design-primer)
+2. [System design interview for IT companies Github](https://github.com/checkcheckzz/system-design-interview#intro)
+3. [System Design CheatSheet](https://gist.github.com/vasanthk/485d1c25737e8e72759f)
+4. System Design Basics
+   1. [Characteristics of distributed systems](Interview/SystemDesign/keyCharacterDistributedSystem.md)
+   2. [Load Balancing](Interview/SystemDesign/loadBalancing.md)
+   3. [Caching](Interview/SystemDesign/caching.md)
+   4. Data Partitioning
+   5. Indexes
+   6. Procies
+   7. Redundancy and Replication
 
 ### G. By Company
 1.  [Tesla](Interview/Company/tesla.md)

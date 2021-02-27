@@ -81,6 +81,7 @@
 31. Maximum Swap                               v
 32. Meeting Room II                            v
 33. Sort Colors                                v
+34. 3 Sum                                      v
 
 ***Math:***
 1.  Add Binary                                 v

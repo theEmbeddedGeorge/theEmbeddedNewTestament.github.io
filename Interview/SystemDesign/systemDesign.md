@@ -1,5 +1,12 @@
 ## System Design Interview Preparation
 
+## 4S Approach
+- Scenario
+- Service
+- Storage
+- Scale 
+
+## 7-setp Approach
 ### **Step 1: Requirements clarifications**
 
 It is always a good idea to ask questions about the exact scope of the problem we are trying to solve. Design questions are mostly open-ended, and they don’t have ONE correct answer. That’s why clarifying ambiguities early in the interview becomes critical. Candidates who spend enough time to define the end goals of the system always have a better chance to be successful in the interview. Also, since we only have 35-40 minutes to design a (supposedly) large system, we should clarify what parts of the system we will be focusing on.
@@ -61,3 +68,4 @@ Is there any single point of failure in our system? What are we doing to mitigat
 Do we have enough replicas of the data so that we can still serve our users if we lose a few servers?
 Similarly, do we have enough copies of different services running such that a few failures will not cause a total system shutdown?
 How are we monitoring the performance of our service? Do we get alerts whenever critical components fail or their performance degrades?
+

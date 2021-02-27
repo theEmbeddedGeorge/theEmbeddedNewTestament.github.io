@@ -89,10 +89,11 @@
     3.  [Swap two number without temporary varaible](https://www.geeksforgeeks.org/swap-two-numbers-without-using-temporary-variable/)
     4.  [number is a power of 2](https://www.geeksforgeeks.org/bits-manipulation-important-tactics/)
 14. Concurrency 
-    1.  Implement a Spinlock/Mutex
+    1.  Implement a Spinlock/Mutex/Semaphone
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
         3. Test-and-clear
+        4. Implement Semaphone with Mutex
     2.  [Producer and consumer problem (Bounded Buffer)](https://shivammitra.com/c/producer-consumer-problem-in-c/#)
     3.  [Reader Writer Problem](Data_Struct_Implementation/concurrency/ReaderWritter.md)
     4.  [Leetcode Concurrency Tag](https://leetcode.com/problemset/concurrency/)
@@ -391,7 +392,8 @@
 1. [System Design Primer](https://github.com/donnemartin/system-design-primer)
 2. [System design interview for IT companies Github](https://github.com/checkcheckzz/system-design-interview#intro)
 3. [System Design CheatSheet](https://gist.github.com/vasanthk/485d1c25737e8e72759f)
-4. System Design Basics
+4. [System Design Interview Approach](Interview/SystemDesign/systemDesign.md)
+5. System Design Basics
    1. [Characteristics of distributed systems](Interview/SystemDesign/keyCharacterDistributedSystem.md)
    2. [Load Balancing](Interview/SystemDesign/loadBalancing.md)
    3. [Caching](Interview/SystemDesign/caching.md)
@@ -403,16 +405,17 @@
    9. [CAP Theorem](Interview/SystemDesign/CAPTheorem.md)
    10. [Consistent Hashing](Interview/SystemDesign/consistentHashing.md)
    11. [Long-polling vs WebSockets vs Server-Sent Events](Interview/SystemDesign/longpollingWebSocketsServerEvents.md)
-5. System Design Examples with Embedded Flavor
+6. System Design Examples with Embedded Flavor
    1. Design a Cache
    2. Design a Vending Machine
    3. Design a Traffic Control System
    4. Design a ATM Machine
    5. Design a Elevator System
-   6. Design a Parking Lot System
+   6. [Design a Parking Lot System](https://github.com/donnemartin/system-design-primer/blob/master/solutions/object_oriented_design/parking_lot/parking_lot.ipynb)
    7. Design a File System
-   8. Design a Garbage Collector
-6. [Embedded System Design Pattern Catalogue](https://embeddedartistry.com/fieldatlas/design-pattern-catalogue/)
+   8. [Design a Garbage Collector](http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/)
+   9. [Design a call center](https://github.com/donnemartin/system-design-primer/blob/master/solutions/object_oriented_design/call_center/call_center.ipynb)
+7. [Embedded System Design Pattern Catalogue](https://embeddedartistry.com/fieldatlas/design-pattern-catalogue/)
 
 ### G. By Company
 1.  [Tesla](Interview/Company/tesla.md)

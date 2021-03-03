@@ -18,6 +18,8 @@
 15. Intersection of Two Arrays II       Easy
 16. Sparse Matrix Multiplication        Medium
 17. Rectangle Overlap       Easy
+18. Minimum Window Substring        Hard
+19. Valid Number        Hard
 
 ## Binary Search
 1. Search a 2D Matrix      Easy
@@ -31,6 +33,8 @@
 1. Reverse Linked List II       Medium
 2. Merge K sorted List      Medium
 
+## String
+1. Valid Anagram        Easy
 
 
 ## Implementation
@@ -1077,6 +1081,136 @@ public:
      */
     bool doOverlap(Point &l1, Point &r1, Point &l2, Point &r2) {
         return (min(r1.x, r2.x) > max(l1.x, l2.x)) && (min(l1.y, l2.y) > max(r1.y, r2.y));
+    }
+};
+```
+
+### **Rectangle Overlap**
+
+***Big O:*** O(K + T) speed, O(1) space, K size of s, T size of T
+```
+Tips:
+
+Algorithm
+
+We start with two pointers, leftleft and rightright initially pointing to the first element of the string SS.
+
+We use the rightright pointer to expand the window until we get a desirable window i.e. a window that contains all of the characters of TT.
+
+Once we have a window with all the characters, we can move the left pointer ahead one by one. If the window is still a desirable one we keep on updating the minimum window size.
+
+If the window is not desirable any more, we repeat step \; 2step2 onwards.
+```
+```c++
+
+class Solution {
+
+ public:
+  static string minWindow(const string &str, const string &pattern) {
+  // TODO: Write your code here
+    string ret_str = "";
+    unsigned int min_str = -1, win_s, win_e, match = 0;
+    unordered_map <char, int> umap;
+
+    for (auto chr : pattern)
+      umap[chr] ++;
+
+    for (win_e = win_s = 0; win_e < str.size(); win_e ++) {
+      if (umap.find(str[win_e]) != umap.end()) {
+        if (--umap[str[win_e]] == 0) {
+          match ++;
+        }
+      }
+     
+      while (match == umap.size()) {
+        if ((win_e - win_s + 1) < min_str) {
+          min_str = min(min_str, win_e - win_s + 1);
+          ret_str = str.substr(win_s, win_e - win_s + 1);
+        }
+        
+        if (umap.find(str[win_s]) != umap.end() && ++umap[str[win_s]] > 0) {
+          match --;
+        }
+
+        win_s++;     
+      }
+    }
+
+    return ret_str;
+  }
+};
+```
+### **Valid Number**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Divide and conquer. Divide it into two parts around the e/E symbol and check both sides.
+```
+```c++
+class Solution {
+public:
+	bool ojbk(string s, int k){
+		for(int i=0;i<s.size();i++){
+			if((s[i]=='+' || s[i]=='-') && i!=0) return false;
+		}
+		if(s[0]=='+' || s[0]=='-') s.erase(s.begin());
+		int countDot=0;
+		for(int i=0;i<s.size();i++){
+			if(s[i]=='.') countDot++;
+			else if(!isdigit(s[i])) return false;
+		}
+		if(s=="" || s==".") return false;
+
+		return countDot<=k;
+	}
+	bool isNumber(string s) {
+		while(s.size()>0 && s.back()==' ') s.pop_back();
+		while(s.size()>0 && s[0]==' ') s.erase(s.begin());
+		int countE=0;
+		int pos;
+		for(int i=0;i<s.size();i++){
+			if(s[i]=='e'){
+				countE++;
+				pos=i;
+			}
+		}
+		if(countE>=2) return false;
+		if(countE==0) return ojbk(s,1);
+		return ojbk(s.substr(0,pos),1) && ojbk(s.substr(pos+1),0);
+	}
+};
+```
+
+### **Valid Anagram**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Hash map.
+```
+```c++
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int umap[26] = {};
+        
+        if (s.size() != t.size())
+            return false;
+    
+        for (auto &c : s)
+            umap[c-'a'] ++;
+        
+        int count = 0;
+        for (auto &c : t) {
+            umap[c-'a'] --;
+            if (umap[c-'a'] < 0)
+                return false;
+        }
+        
+        return true;
     }
 };
 ```

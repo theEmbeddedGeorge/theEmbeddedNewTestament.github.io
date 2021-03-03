@@ -214,7 +214,9 @@
         3.  [IDT problems](https://wiki.osdev.org/IDT_problems#Problems_with_IDTs)
         4.  [Advanced Programmable Interrupt Controller (APIC)](https://wiki.osdev.org/APIC)
 4.  [Memory Hierachy](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
-5.  [Cache coherence](https://www.geeksforgeeks.org/cache-coherence/)
+5.  Memory
+    1.  [Cache memory](https://www.geeksforgeeks.org/cache-memory-in-computer-organization/)
+    2.  [Cache coherence](https://www.geeksforgeeks.org/cache-coherence/)
 6.  [DMA](./Computer_architecture/dma.md)
 7.  TCM
 8.  [TLB](./Computer_architecture/tlb.md)

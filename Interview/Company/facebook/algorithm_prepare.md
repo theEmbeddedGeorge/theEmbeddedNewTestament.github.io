@@ -32,9 +32,15 @@
 ## Linked List
 1. Reverse Linked List II       Medium
 2. Merge K sorted List      Medium
+3. Reorder List     Medium
+4. Add two Numbers  Medium
+5. Add two number II        Medium
+6. Linked List Insertion Sort       Medium
+7. Swap Nodes in Pairs      Medium
 
 ## String
 1. Valid Anagram        Easy
+2. Integer to English Words     Hard
 
 
 ## Implementation
@@ -1211,6 +1217,259 @@ public:
         }
         
         return true;
+    }
+};
+```
+
+### **Integer to English Words**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Divide and conquer. Divide it into thousands and conquer it one by one.
+```
+```c++
+class Solution {
+public:
+    string thousandToWords(int num) {
+        string ret = "";
+        if (num >= 100) {
+            ret += digits[num/100] + "Hundred ";
+            num %= 100;
+        }
+        if (num == 0)  return ret;
+        
+        ret += (num < 20) ? digits[num] : tens[num/10] + digits[num%10];
+        return ret;
+    }
+    
+    string numberToWords(int num) {
+        string ans = "";
+        
+        if (num == 0)
+            return "Zero";
+        
+        for (int i = 0; i < 4; i++) {
+            if (num >= units[i].first) {
+                ans += thousandToWords(num/units[i].first) + units[i].second;
+                num %= units[i].first;
+            }
+        }
+        ans += thousandToWords(num);
+        if (ans.size() > 0)
+            ans.pop_back();
+       
+        return ans;
+    }
+    
+private:
+    string digits[20] = {"", "One ", "Two ", "Three ", "Four ", "Five ", "Six ", "Seven ", "Eight ", "Nine ", "Ten ", "Eleven ", "Twelve ", "Thirteen ", "Fourteen ", "Fifteen ", "Sixteen ", "Seventeen ", "Eighteen ", "Nineteen "};
+    string tens[10] = {"", "Ten ", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninety "};
+    pair<int, string> units[4] = {{1000000000, "Billion "}, {1000000, "Million "}, {1000, "Thousand "}, {100, "Hundred "}};
+};
+```
+### **Reorder list**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Find mid node, reverse, and merge.
+```
+```c++
+class Solution {
+public:
+    ListNode *reverseNode (ListNode* head) {
+        ListNode *pre, *cur;
+        
+        pre = nullptr;
+        cur = head;
+        while (cur) {
+            ListNode *nxt = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = nxt;
+        }
+        
+        return pre;
+    }
+    
+    void reorderList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr)
+            return;
+        
+        ListNode *slow, *fast;
+        slow = fast = head;
+        
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next; 
+        }
+        ListNode *tail = reverseNode(slow);
+        ListNode *first = head;
+        
+        while(tail->next != nullptr) {
+            ListNode *tmp = first->next;
+            first->next = tail;
+            first = tmp;
+            
+            tmp = tail->next;
+            tail->next = first;
+            tail = tmp;
+        }
+        
+        return;
+    }
+};
+```
+
+### **Add two number**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Carry ripple adder
+```
+```c++
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry = 0;
+        ListNode dummy, *tmp;
+        
+        tmp = &dummy;
+        while (l2 || l1 || carry) {
+            int sum = 0;
+            
+            if (l1 && l2) 
+                sum = (carry + l1->val + l2->val);
+            else if (l1 != nullptr || l2 != nullptr)
+                sum = (carry + ((l1) ? l1->val : l2->val));
+            else 
+                sum = carry;
+            
+            carry = sum/10;
+            
+            ListNode *new_node = new ListNode(sum%10, nullptr);
+            tmp -> next = new_node;
+            tmp = tmp->next;
+            l1 = l1 ? l1->next : nullptr;
+            l2 = l2 ? l2->next : nullptr;
+        }
+        
+        return dummy.next;
+    }
+};
+```
+
+### **Add two number II**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Approach 1:
+
+Reverse each list and then do add two number.
+
+Approach 2:
+
+Convert the number as string and then calculate from the last position.
+
+Or use two stacks.
+```
+```c++
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        string a, b;
+        ListNode *result = nullptr;
+        while(l1) { a.push_back(l1->val+'0'); l1 = l1->next;}
+        while(l2) { b.push_back(l2->val+'0'); l2 = l2->next;}
+        int l = a.size()-1, r = b.size()-1, carry = 0;
+        while(l >= 0 || r >= 0 || carry == 1) {
+            int c = (l >= 0 ? a[l--]-'0' : 0) + ( r >= 0 ? b[r--]-'0' : 0) + carry;
+            ListNode *temp = new ListNode(c%10);
+            temp->next = result;
+            result = temp;
+            carry = c/10;
+        }        
+        return result;
+    }
+};
+```
+
+### **Linked List Insertion Sort**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Keep a separate sorted list by creating a sentinal node. Compare and insert nodes into that separate list.
+
+```
+```c++
+class Solution {
+public:
+    ListNode * insertionSortList(ListNode * head) {
+        // write your code here
+        ListNode sentinal, *tmp, *tmp_s;
+        sentinal.next = nullptr;
+
+        tmp = head;
+        while (tmp) {
+            ListNode* next = tmp->next;
+            tmp_s = &sentinal;
+
+            while (tmp_s->next != nullptr && tmp_s->next->val < tmp->val) {
+                tmp_s = tmp_s->next;
+            }
+
+            tmp->next = tmp_s->next;
+            tmp_s->next = tmp;
+            tmp = next;
+        }
+
+        return sentinal.next;
+    }
+};
+```
+
+### **Swap nodes in pair**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+We swap the nodes on the go. After swapping a pair of nodes, say A and B, we need to link the node B to the node that was right before A. To establish this linkage we save the previous node of node A in prevNode.
+
+```
+```c++
+class Solution {
+public:
+    ListNode * swapPairs(ListNode * head) {
+        // write your code here
+        if (!head || !head->next)
+            return head;
+        
+        ListNode *l1, *l2, *pre, sentinal;
+    
+        l1 = head;
+        pre = &sentinal;
+
+        while (l1 && l1->next) {
+            l2 = l1->next;
+            ListNode *l2_next = l2->next;
+            l1->next = l2_next;
+            l2->next = l1;
+            pre->next = l2;
+            pre = l1;
+            l1 = l2_next;
+        }        
+
+        return sentinal.next;
     }
 };
 ```

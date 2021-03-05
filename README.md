@@ -54,7 +54,7 @@
 3. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
 4. [Swap Endianess](Data_Struct_Implementation/endianessSwap/README.md)
 5. Signness Check
-6. [Array of Bits](Data_Struct_Implementation/bitsArray/README.md)
+6. [Array of Bits (bit sets/bit map)](Data_Struct_Implementation/bitsArray/README.md)
 7. Low Pass Filter
 8. [Memory map IO register manipulation](Data_Struct_Implementation/memoryMap/memory_map_io.md)
 9. Timer list
@@ -115,11 +115,11 @@
 
 ### D. Basic Algorithms
 1. [Sort](https://www.cnblogs.com/onepixel/p/7674659.html)
-   1.  [Bubble Sort](/Data_Struct_Implementation/bubbleSort/bubbleSort.md)
-   2.  [Merge Sort](/Data_Struct_Implementation/mergeSort/mergeSort.md)
-   3.  [Quick Sort](/Data_Struct_Implementation/quickSort/quicksort.md)
-   4.  [Heap Sort](/Data_Struct_Implementation/heapSort/heapSort.md)
-   5.  [Insertion Sort](/Data_Struct_Implementation/insertionSort/insertionSort.md)
+   1.  [Bubble Sort](Data_Struct_Implementation/bubbleSort/bubbleSort.md)
+   2.  [Merge Sort](Data_Struct_Implementation/mergeSort/mergeSort.md)
+   3.  [Quick Sort](Data_Struct_Implementation/quickSort/quicksort.md)
+   4.  [Heap Sort](Data_Struct_Implementation/heapSort/heapSort.md)
+   5.  [Insertion Sort](Data_Struct_Implementation/insertionSort/insertionSort.md)
    6.  Binary Insertion Sort
 2.  Search
     1.  [Hash](Data_Struct_Implementation/hashTable/README.md)
@@ -173,6 +173,10 @@
     2.  Memory Hardware
     3.  [Virtual Addressing/Memory](Operating_System/virtual_memory.md)
 5.  File System Management
+    1.  Operations on Files
+    2.  Virtual File System
+    3.  Concrete File System
+    4.  Inodes
 6.  Device I/O Management
 7.  RTOS
     1.  FreeRTOS

@@ -68,7 +68,7 @@ please.
 - A abstration data struture that groups all modules and their fans together as well as handles fan hardware related operation such as module temperature value updating and fan speed duty cycle seting and calculation.
 
 ***Fan Control Client:***
-- A program that performs temperature reading and send them out either as a reply to server's request, nor as whenever it feels appropriate to (e.g. need urgent fan speed increase due to overheat)
+- A program that performs temperature reading and send them out either as a reply to server's request, or as whenever it feels appropriate to (e.g. need urgent fan speed increase due to overheat)
 - In real-world scenario, client module process usually has other tasks. However in our app demo, client is assumed to have one task only - to read temperature and send out to server whenever it needs to.
 
 ***Server Msg Queue***

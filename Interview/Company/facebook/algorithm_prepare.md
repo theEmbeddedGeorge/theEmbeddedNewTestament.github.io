@@ -37,11 +37,18 @@
 5. Add two number II        Medium
 6. Linked List Insertion Sort       Medium
 7. Swap Nodes in Pairs      Medium
+8. Odd Even Linked List     Medium
+9. Insert into a Cyclic Sorted List     Medium
+10. Rotate List     Medium
 
 ## String
 1. Valid Anagram        Easy
 2. Integer to English Words     Hard
 
+## Bits Manipulation
+
+## Data Structure
+1. LRU cache
 
 ## Implementation
 
@@ -1471,5 +1478,183 @@ public:
 
         return sentinal.next;
     }
+};
+```
+### **Odd Even Linked List**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Construct the even and odd linked list first. Then hook the even list to the tail of the odd list.
+```
+```c++
+class Solution {
+public:
+    ListNode * oddEvenList(ListNode * head) {
+        // write your code here
+        if (!head || !head->next)
+            return head;
+
+        ListNode odd, even, *iterator, *odd_it, *even_it;
+        iterator = head;
+        odd_it = &odd;
+        even_it = &even;
+        
+        int count = 1;
+        while (iterator) {
+            if (count % 2 != 0) {
+                odd_it->next = iterator;
+                odd_it = odd_it->next;
+            }
+            else {
+                even_it->next = iterator;
+                even_it = even_it->next;
+            }
+            count ++;
+            iterator = iterator->next;
+        }
+        even_it->next = nullptr;
+        odd_it->next = even.next;
+
+        return odd.next;
+    }
+};
+```
+
+### **Insert into a Cyclic Sorted List**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Pre and cur node for single linked list. Watch out for corner cases.
+```
+```c++
+class Solution {
+public:
+    ListNode * insert(ListNode * head, int x) {
+        // write your code here
+        if (!head) {
+            ListNode *new_node = new ListNode(x, nullptr);
+            new_node->next = new_node;
+            return new_node;
+        }
+
+        ListNode *pre = nullptr, *cur = head;
+        do {
+            pre = cur;
+            cur = cur->next;
+
+            if (pre->val <= x && cur->val >= x)
+                break;
+            if (pre->val > cur->val && (x > pre->val || x < cur->val))
+                break;
+        } while (cur != head);
+
+        ListNode *new_node = new ListNode(x, cur);
+        pre->next = new_node;
+
+        return head;
+    }
+};
+```
+### **Rotate List**
+
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Count the nodes and count the effective move. Then rotate starting from the last node. Be careful of step = 1 case.
+```
+```c++
+class Solution {
+public:
+    ListNode * rotateRight(ListNode * head, int k) {
+        // write your code here
+        if (!head || !head->next)
+            return head;
+
+        int nodes_num = 1;
+        ListNode* iterator = head;
+        while (iterator->next) {
+            nodes_num ++;
+            iterator = iterator->next;
+        }
+        int effective_move = k%nodes_num;
+        if (effective_move == 0) return head;
+
+        iterator->next = head;
+        int step = nodes_num - effective_move;
+        while (step--) {
+            iterator = iterator->next;
+        }
+
+        ListNode *new_head = iterator->next;
+        iterator->next = nullptr;
+
+        return new_head;
+    }
+};
+```
+
+### **LRU cache**
+
+***Big O:*** O(1) speed, O(n) space
+```
+Tips:
+
+Double linked list + hashmap
+
+Use stl list to store the data and unordered hash map to record the position of the nodes.
+```
+```c++
+#include <list>
+
+class LRUCache {
+public:
+    struct LRUNode {
+        int value;
+        int key;
+        
+        LRUNode(int k, int v) : key(k), value(v) {}
+    };
+    
+    LRUCache(int capacity) : cap(capacity) {}
+
+    int get(int key) {
+        if (!kv.count(key)) {
+            return -1;
+        }
+        move_front(key);
+        return values.front().value;
+    }
+
+    void set(int key, int value) {
+        if (!kv.count(key)) {
+            values.emplace_front(key, value);
+            kv[key] = values.begin();
+            if (values.size() > cap) {
+                kv.erase(values.back().key);
+                values.pop_back();
+            }
+        } else {
+            kv[key]->value = value;
+            move_front(key);
+        }
+    }
+    
+private:
+    int move_front(int key) {
+        LRUNode node = *kv[key];
+        values.erase(kv[key]);
+        values.push_front(node);
+        kv[key] = values.begin();
+    }
+    
+private:
+    int cap;
+    std::list<LRUNode> values;
+    std::unordered_map<int, list<LRUNode>::iterator> kv;
 };
 ```

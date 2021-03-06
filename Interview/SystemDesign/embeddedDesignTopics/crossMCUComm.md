@@ -1,0 +1,1 @@
+[Multi MCU Comm](https://thenewstack.io/off-shelf-hacker-comms-across-multiple-microcontrollers/)

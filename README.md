@@ -53,12 +53,11 @@
 2. Simple Task Scheduler
 3. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
 4. [Swap Endianess](Data_Struct_Implementation/endianessSwap/README.md)
-5. Signness Check
-6. [Array of Bits (bit sets/bit map)](Data_Struct_Implementation/bitsArray/README.md)
-7. Low Pass Filter
-8. [Memory map IO register manipulation](Data_Struct_Implementation/memoryMap/memory_map_io.md)
-9. Timer list
-10. Data Structure
+5. [Array of Bits (bit sets/bit map)](Data_Struct_Implementation/bitsArray/README.md)
+6. Low Pass Filter
+7. [Memory map IO register manipulation](Data_Struct_Implementation/memoryMap/memory_map_io.md)
+8. Timer list
+9.  Data Structure
     1.  [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer/README.md)
     2.  [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
     3.  [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap/README.md)
@@ -68,14 +67,15 @@
     7.  Red Black Tree
     8.  Minium Spanning Tree (MST)
     9.  Bitwise tries
-11. Math
+10. Math
     1.  Rolling average
     2.  Taylor Series
     3.  Dividing by a constant
     4.  Sine Functions with Lookup table
     5.  Linear Interpolation
     6.  Floating Point Arthimetic
-12. Common STL function implementation
+    7.  Multiply 16-bit integers using an 8-bit multiplier
+11. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. [atoi](Data_Struct_Implementation/atoi/README.md)
@@ -83,12 +83,20 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
     7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
-13. Bits Manipulation
-    1.  [Length of the Longest Consecutive 1s in Binary Representation](https://www.geeksforgeeks.org/length-longest-consecutive-1s-binary-representation/)
-    2.  [Find most significant set bit of a number](https://www.geeksforgeeks.org/find-significant-set-bit-number/)
-    3.  [Swap two number without temporary varaible](https://www.geeksforgeeks.org/swap-two-numbers-without-using-temporary-variable/)
-    4.  [number is a power of 2](https://www.geeksforgeeks.org/bits-manipulation-important-tactics/)
-14. Concurrency 
+12. Bits Manipulation
+    1.  [Reverse Bits](Data_Struct_Implementation/BitsManipulation/reverseBits.md)
+    2.  [Length of the Longest Consecutive 1s in Binary Representation](https://www.geeksforgeeks.org/length-longest-consecutive-1s-binary-representation/)
+    3.  [Find most significant set bit of a number](https://www.geeksforgeeks.org/find-significant-set-bit-number/)
+    4.  [Swap two number without temporary varaible](https://www.geeksforgeeks.org/swap-two-numbers-without-using-temporary-variable/)
+    5.  [Number is a power of 2](https://www.geeksforgeeks.org/bits-manipulation-important-tactics/)
+    6.  [Swap all odd and even bits](Data_Struct_Implementation/BitsManipulation/swapOddEvenBIts.md)
+    7.  [Find position of the only set bit](Data_Struct_Implementation/BitsManipulation/positionOfSetBit.md)
+    8.  [Find the element that appears once and other elements appear 3 times](Data_Struct_Implementation/BitsManipulation/singleNumber.md)
+    9.  [Signness Check for two integers](Data_Struct_Implementation/BitsManipulation/signessCheck.md)
+    10. [Turn off the rightmost set bit](Data_Struct_Implementation/BitsManipulation/turnoffRightmostBit.md)
+    11. [Rotate bits to left/rigtht](Data_Struct_Implementation/BitsManipulation/rotateLeftRight.md)
+    12. [Swap bits in a given number](Data_Struct_Implementation/BitsManipulation/SwapBitsInNumber.md)
+13. Concurrency 
     1.  Implement a Spinlock/Mutex/Semaphone
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
@@ -102,14 +110,14 @@
     7.  [Print In Order](Data_Struct_Implementation/concurrency/PrintInorder.md)
     8.  [Building H2O](Data_Struct_Implementation/concurrency/BuildingH2O.md)
     9.  [The Dining Philosophers](Data_Struct_Implementation/concurrency/TheDiningPhilosophers.md)
-15. Other Implementations
+14. Other Implementations
     1.  Shuffle cards
     2.  Accurately (emphasize) read 64bit register with read32
     3.  Given a matrix and its center coordinates, draw the circle
     4.  Find a 32 bit frame start sequence in a raw byte stream buffer
     5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
     6.  Given an array of angles and an array of voltages for these angles, now there is a new angle coming in, calculate its voltage.
-16. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+15. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 
 
@@ -422,6 +430,11 @@
    8. [Design a Garbage Collector](http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/)
    9. [Design a call center](https://github.com/donnemartin/system-design-primer/blob/master/solutions/object_oriented_design/call_center/call_center.ipynb)
 7. [Embedded System Design Pattern Catalogue](https://embeddedartistry.com/fieldatlas/design-pattern-catalogue/)
+8. Embedded System Design Topics
+   1. Small memory management
+   2. Multi-MCU communication/coordination
+   3. Scheduling
+   4. Excution in place (EIP)
 
 ### G. By Company
 1.  [Tesla](Interview/Company/tesla.md)

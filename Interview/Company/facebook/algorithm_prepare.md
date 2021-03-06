@@ -20,6 +20,7 @@
 17. Rectangle Overlap       Easy
 18. Minimum Window Substring        Hard
 19. Valid Number        Hard
+20. Candy       Hard
 
 ## Binary Search
 1. Search a 2D Matrix      Easy
@@ -40,12 +41,14 @@
 8. Odd Even Linked List     Medium
 9. Insert into a Cyclic Sorted List     Medium
 10. Rotate List     Medium
+11. Plus One Linked List        Medium
 
 ## String
 1. Valid Anagram        Easy
 2. Integer to English Words     Hard
 
 ## Bits Manipulation
+1. Is Power of Four     Easy
 
 ## Data Structure
 1. LRU cache
@@ -1656,5 +1659,112 @@ private:
     int cap;
     std::list<LRUNode> values;
     std::unordered_map<int, list<LRUNode>::iterator> kv;
+};
+```
+
+### **Plus One Linked list**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Keep track of the last none-nine position. Create new node if none-nine position is never incremented. Then do another iteration that increment all pos >= none-nine by 1 and mod with 10.
+```
+```c++
+class Solution {
+public:
+    ListNode* plusOne(ListNode* head) {
+        int posNoneNine = 0;
+        
+        ListNode *iterator = head, sentinal;
+        sentinal.next = head;
+        int counter = 0;
+        while (iterator) {
+            counter ++;
+            if (iterator->val != 9) {
+                posNoneNine = counter;
+            }
+            iterator = iterator->next;
+        }
+        
+        if (posNoneNine == 0) {
+            ListNode *new_node = new ListNode(0, head);
+            sentinal.next = new_node;
+        }
+        
+        iterator = sentinal.next;
+        counter = 0;
+        while (iterator) {
+            counter ++;
+            if (counter >= posNoneNine)
+                iterator->val = (iterator->val + 1)%10;
+            iterator = iterator->next;
+        }
+        
+        return sentinal.next;
+    }
+};
+```
+
+### **Is Power of four**
+
+***Big O:*** O(1) speed, O(1) space
+```
+Tips:
+
+Number is power of four if it is power of 2 and the set bit is at the odd bit position.
+```
+```c++
+class Solution {
+public:
+    /**
+     * @param num: an integer
+     * @return: whether the integer is a power of 4
+     */
+    bool isPowerOfFour(int num) {
+        // Write your code here
+        if (num > 0 && ((num & (num-1)) == 0) && (0x55555555 & num))
+            return true;
+        return false;
+    }
+};
+```
+
+### **Candy**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Iterate the array first in the normal order and then in the reverse order, update the candy array in the process. Sum the candy array at the very end to get the result.
+```
+```c++
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        
+        if (n < 2)
+            return n;
+        
+        vector<int>candy(n,1);
+        
+        for (int i = n-2; i >= 0; i--) {
+            if (ratings[i] > ratings[i+1])
+                candy[i] = candy[i+1]+1;
+        }
+        
+        for (int i = 1; i < n; i++) {
+            if (ratings[i] > ratings[i-1] && candy[i] <= candy[i-1])
+                candy[i] = candy[i-1]+1;
+        }
+        
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            res += candy[i];
+        }
+        
+        return res;
+    }
 };
 ```

@@ -1,12 +1,12 @@
 CC=gcc
 CFLGAS=-Wall
-OBJ = binaryHeap.o
+OBJ = binaryHeap_2.o
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-binaryHeap: $(OBJ)
+binaryHeap_2: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f  binaryHeap binaryHeap.o
+	rm -f  binaryHeap_2 binaryHeap_2.o

@@ -50,6 +50,7 @@
 
 ### C. Data Structures & Implementation
 1. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
+   1. FSM for tasks state
 2. Simple Task Scheduler
 3. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
 4. [Swap Endianess](Data_Struct_Implementation/endianessSwap/README.md)
@@ -85,17 +86,18 @@
     7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
 12. Bits Manipulation
     1.  [Reverse Bits](Data_Struct_Implementation/BitsManipulation/reverseBits.md)
-    2.  [Length of the Longest Consecutive 1s in Binary Representation](https://www.geeksforgeeks.org/length-longest-consecutive-1s-binary-representation/)
-    3.  [Find most significant set bit of a number](https://www.geeksforgeeks.org/find-significant-set-bit-number/)
-    4.  [Swap two number without temporary varaible](https://www.geeksforgeeks.org/swap-two-numbers-without-using-temporary-variable/)
-    5.  [Number is a power of 2](https://www.geeksforgeeks.org/bits-manipulation-important-tactics/)
-    6.  [Swap all odd and even bits](Data_Struct_Implementation/BitsManipulation/swapOddEvenBIts.md)
-    7.  [Find position of the only set bit](Data_Struct_Implementation/BitsManipulation/positionOfSetBit.md)
-    8.  [Find the element that appears once and other elements appear 3 times](Data_Struct_Implementation/BitsManipulation/singleNumber.md)
-    9.  [Signness Check for two integers](Data_Struct_Implementation/BitsManipulation/signessCheck.md)
-    10. [Turn off the rightmost set bit](Data_Struct_Implementation/BitsManipulation/turnoffRightmostBit.md)
-    11. [Rotate bits to left/rigtht](Data_Struct_Implementation/BitsManipulation/rotateLeftRight.md)
-    12. [Swap bits in a given number](Data_Struct_Implementation/BitsManipulation/SwapBitsInNumber.md)
+    2.  Flip Bitmap
+    3.  [Length of the Longest Consecutive 1s in Binary Representation](https://www.geeksforgeeks.org/length-longest-consecutive-1s-binary-representation/)
+    4.  [Find most significant set bit of a number](https://www.geeksforgeeks.org/find-significant-set-bit-number/)
+    5.  [Swap two number without temporary varaible](https://www.geeksforgeeks.org/swap-two-numbers-without-using-temporary-variable/)
+    6.  [Number is a power of 2](https://www.geeksforgeeks.org/bits-manipulation-important-tactics/)
+    7.  [Swap all odd and even bits](Data_Struct_Implementation/BitsManipulation/swapOddEvenBIts.md)
+    8.  [Find position of the only set bit](Data_Struct_Implementation/BitsManipulation/positionOfSetBit.md)
+    9.  [Find the element that appears once and other elements appear 3 times](Data_Struct_Implementation/BitsManipulation/singleNumber.md)
+    10. [Signness Check for two integers](Data_Struct_Implementation/BitsManipulation/signessCheck.md)
+    11. [Turn off the rightmost set bit](Data_Struct_Implementation/BitsManipulation/turnoffRightmostBit.md)
+    12. [Rotate bits to left/rigtht](Data_Struct_Implementation/BitsManipulation/rotateLeftRight.md)
+    13. [Swap bits in a given number](Data_Struct_Implementation/BitsManipulation/SwapBitsInNumber.md)
 13. Concurrency 
     1.  Implement a Spinlock/Mutex/Semaphone
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
@@ -171,15 +173,29 @@
     3. [Re-entrant & Thread Safe Function](https://www.geeksforgeeks.org/reentrant-function/)
 2.  [Process Management](Operating_System/Process/Process.md)
     1.  Process Manager
+        1.  Process/Task Control Block
     2.  [Scheduling](Operating_System/Process/Process_thread_scheduling.md)
+        1.  Context Switch
+        2.  Scheduling policy/algorithm
+        3.  Dispatcher
     3.  [Threads and Concurrency](Operating_System/Process/Threads.md)
+        1.  Multithreading/Multiprocessing
 3.  Interprocess Synchronization/Communication
     1.  [IPC](Operating_System/Process/IPC.md)
+        1.  Pipe
+        2.  Socket
+        3.  Message Queue
+        4.  Shared Memory
+        5.  Signal
     2.  Sychronization Facilities
+        1.  Semaphore
+        2.  Mutex
+        3.  Spinlock
 4.  Memory Management
     1.  [Memory Management Reference](https://www.memorymanagement.org/index.html)
     2.  Memory Hardware
     3.  [Virtual Addressing/Memory](Operating_System/virtual_memory.md)
+    4.  Caching
 5.  File System Management
     1.  Operations on Files
     2.  Virtual File System

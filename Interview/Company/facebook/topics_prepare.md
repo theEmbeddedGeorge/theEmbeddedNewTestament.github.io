@@ -28,4 +28,8 @@
     1.  Multi-mcu communication
     2.  Multi-mcu coordination
 2. Memory management
-3. Scheduling 
+   1. Memory allocation
+   2. virtual memory
+3. Scheduling
+   1. Scheduling Algorithm
+   2. Dispatcher

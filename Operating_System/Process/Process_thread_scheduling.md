@@ -1,5 +1,11 @@
 
-## Contents
+## OS Scheduling
+
+### Scheduler and dispatcher
+
+### Dispatcher
+
+### Scheduling algorithm/policy
 
 ### What is PCB (process control block)?
 Information associated with each process(also called task control block).Entry of the Process Table, Task Struct, or Switchframe) is a data structure in the operating system kernel containing the information needed to manage the scheduling of a particular process.

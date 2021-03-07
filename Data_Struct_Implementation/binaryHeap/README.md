@@ -1,4 +1,26 @@
 ## Heap (Binary Implementation)
+
+In a heap the highest (or lowest) priority element is always stored at the root, hence the name "heap". A heap is not a sorted structure and can be regarded as partially ordered. As you see from the picture, there is no particular relationship among nodes on any given level, even among the siblings.
+
+Since a heap is a complete binary tree, it has a smallest possible height - a heap with N nodes always has O(log N) height.
+
+A heap is useful data structure when you need to remove the object with the highest (or lowest) priority. A common use of a heap is to implement a priority queue.
+
+***Insert***
+
+The new element is initially appended to the end of the heap (as the last element of the array). The heap property is repaired by comparing the added element with its parent and moving the added element up a level (swapping positions with the parent). This process is called "***percolation up/heapify up***". The comparison is repeated until the parent is larger than or equal to the percolating element.
+
+***Pop***
+
+The minimum/maximum element can be found at the root, which is the first element of the array. We remove the root and replace it with the last element of the heap and then restore the heap property by ***percolating/heapify down***. Similar to insertion, the worst-case runtime is O{log n).
+
+***Time Complexity***
+
+Implementation  | Insert | Pop | Remove | getMax/getMin
+----------------|-------|----------|----------|---
+ binary heap|	 O(log n)	| O(log n)	| O(log n) |	 O(1)
+
+
 ### Usage
 ```
 make
@@ -293,3 +315,6 @@ int main() {
 }
 ```
 
+### Reference
+
+[CMU binary Heap](https://www.andrew.cmu.edu/course/15-121/lectures/Binary%20Heaps/heaps.html)

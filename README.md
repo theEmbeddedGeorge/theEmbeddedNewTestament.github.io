@@ -21,8 +21,9 @@
     2.  [Inline Assembly](https://wiki.osdev.org/Inline_Assembly)
     3.  [Inline Assembly examples](https://wiki.osdev.org/Inline_Assembly/Examples)
 14. Declarations in C
-15. Runtime data strtuctures 
-16. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
+15. [C/C++ typedef](https://stackoverflow.com/questions/1675351/typedef-struct-vs-struct-definitions)
+16. Runtime data strtuctures 
+17. [Buffer Overflow](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1.html)
     1. [The Basic of x86 Architecture](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1a.html)
     2. [An Assembly Language](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1b.html)
     3. [A Compiler, Assembler, Linker & Loader](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow1c.html)
@@ -31,12 +32,12 @@
     6. [The Stack Operation](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow3.html)
     7. [A Stack-based Buffer Overflow](https://www.clublexus.com/how-tos/slideshows/6-mods-every-lexus-rc-owner-should-jump-on-440204#6-weight-reduction)
     8. [A Shellcode: The Payload](https://www.tenouk.com/Bufferoverflowc/Bufferoverflow5.html)
-17. C++ New Standard Specific Topics
+18. C++ New Standard Specific Topics
     1. [auto vs auto & vs auto &&](https://stackoverflow.com/questions/29859796/c-auto-vs-auto)
     2. Copy by value, by reference, by move
-18. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
-19. [C++ STL Cheat Sheet](Resources/STL_Cheatsheet.pdf)
-20. Concurrency
+19. [C++ Big O Cheat Sheet](https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md#41-insertion-sort)
+20. [C++ STL Cheat Sheet](Resources/STL_Cheatsheet.pdf)
+21. Concurrency
     1.  [C/C++ MULTI-THREADED programming with Pthread](https://www.bogotobogo.com/cplusplus/multithreading_pthread.php)
     2.  [POSIX Threads Programming](https://computing.llnl.gov/tutorials/pthreads/)
     3.  [OpenMP Programming](https://computing.llnl.gov/tutorials/openMP/)
@@ -51,14 +52,16 @@
 ### C. Data Structures & Implementation
 1. [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
    1. FSM for tasks state
-2. Simple Task Scheduler
+2. Task Scheduler
+   1. [Roud Robin + preemptive in RTOS](Data_Struct_Implementation\taskScheduler\exampleRTOSScheduler\READEME.md)
 3. [Endianess Check](Data_Struct_Implementation/endianess/README.md)
 4. [Swap Endianess](Data_Struct_Implementation/endianessSwap/README.md)
 5. [Array of Bits (bit sets/bit map)](Data_Struct_Implementation/bitsArray/README.md)
 6. Low Pass Filter
 7. [Memory map IO register manipulation](Data_Struct_Implementation/memoryMap/memory_map_io.md)
 8. Timer list
-9.  Data Structure
+9.  [Memory Pool Allocation](Data_Struct_Implementation\memoryPoolAllocator\README.md)
+10. Data Structure
     1.  [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer/README.md)
     2.  [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
     3.  [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap/README.md)
@@ -68,15 +71,15 @@
     7.  Red Black Tree
     8.  Minium Spanning Tree (MST)
     9.  Bitwise tries
-10. Math
+11. Math
     1.  Rolling average
     2.  Taylor Series
     3.  Dividing by a constant
     4.  Sine Functions with Lookup table
     5.  Linear Interpolation
     6.  Floating Point Arthimetic
-    7.  Multiply 16-bit integers using an 8-bit multiplier
-11. Common STL function implementation
+    7.  [Multiply 16-bit integers using an 8-bit multiplier](Data_Struct_Implementation/Math/Multiply16Bitwith8Bit.md)
+12. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. [atoi](Data_Struct_Implementation/atoi/README.md)
@@ -84,9 +87,9 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
     7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
-12. Bits Manipulation
+13. Bits Manipulation
     1.  [Reverse Bits](Data_Struct_Implementation/BitsManipulation/reverseBits.md)
-    2.  Flip Bitmap
+    2.  Flip a monochrome bitmap
     3.  [Length of the Longest Consecutive 1s in Binary Representation](https://www.geeksforgeeks.org/length-longest-consecutive-1s-binary-representation/)
     4.  [Find most significant set bit of a number](https://www.geeksforgeeks.org/find-significant-set-bit-number/)
     5.  [Swap two number without temporary varaible](https://www.geeksforgeeks.org/swap-two-numbers-without-using-temporary-variable/)
@@ -98,7 +101,7 @@
     11. [Turn off the rightmost set bit](Data_Struct_Implementation/BitsManipulation/turnoffRightmostBit.md)
     12. [Rotate bits to left/rigtht](Data_Struct_Implementation/BitsManipulation/rotateLeftRight.md)
     13. [Swap bits in a given number](Data_Struct_Implementation/BitsManipulation/SwapBitsInNumber.md)
-13. Concurrency 
+14. Concurrency 
     1.  Implement a Spinlock/Mutex/Semaphone
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
@@ -112,14 +115,14 @@
     7.  [Print In Order](Data_Struct_Implementation/concurrency/PrintInorder.md)
     8.  [Building H2O](Data_Struct_Implementation/concurrency/BuildingH2O.md)
     9.  [The Dining Philosophers](Data_Struct_Implementation/concurrency/TheDiningPhilosophers.md)
-14. Other Implementations
+15. Other Implementations
     1.  Shuffle cards
     2.  Accurately (emphasize) read 64bit register with read32
     3.  Given a matrix and its center coordinates, draw the circle
     4.  Find a 32 bit frame start sequence in a raw byte stream buffer
     5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
     6.  Given an array of angles and an array of voltages for these angles, now there is a new angle coming in, calculate its voltage.
-15. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+16. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 
 
@@ -450,7 +453,8 @@
    1. Small memory management
    2. Multi-MCU communication/coordination
    3. Scheduling
-   4. Excution in place (EIP)
+   4. Execution in place (XIP)
+   5. Dynamic memory allocation for embedded systems
 
 ### G. By Company
 1.  [Tesla](Interview/Company/tesla.md)

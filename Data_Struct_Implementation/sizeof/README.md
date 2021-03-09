@@ -14,30 +14,67 @@ make
 
 #define my_sizeof(type) (char*)(&type+1)-(char*)(&type) 
 
-// struct size 12 (3*sizeof(int))
+/* suppose this is a 32 bit machine, so a word (4 byte) alignment is required. */
+
+// struct size 12 (3*sizeof(int)), p for padding bytes
 typedef struct Random_item {
-    char a;
-    int b;
-    char c;
+    char a; // 1
+            // 3p
+    int b;  // 4 -> dominant item
+    char c; // 1
+            // 3p to satisfy processor word alignment requirement
 } Random_item;
 
 // struct size 12
 typedef struct Random_item2 {
-    char a;
-    int b;
-    char c;
-    char d;
-    uint16_t e;
+    char a;    // 1
+               // 3
+    int b;     // 4 -> dominant item
+    char c;    // 1
+    char d;    // 1
+    uint16_t e; // 2
 } Random_item2;
 
 // struct size 24 (3*sizeof(long int))
 typedef struct Random_item3 {
-    int b;
-    char d;
-    long int a;  
-    int c;
-    uint16_t f;
+    int b;      // 4
+    char d;     // 1
+                // 3p
+    long int a; // 8 -> if long int is 8byte, then 64 bit machine
+    int c;      // 4
+    uint16_t f; // 2
+                // 2p 
 } Random_item3;
+
+// struct size 32 (4*sizeof(long int))
+typedef struct Random_item4 {
+    int b;        // 4
+    char d;       // 1
+                  // 3p
+    long int a;   // 8 -> if long int is 8byte, then 64 bit machine
+    int c;        // 4
+    uint16_t f;   // 2
+    char e;       // 1
+    char g;       // 1
+    char h;       // 1
+                  // 7p -> to align with 8 byte long int earilier
+} Random_item4;
+
+// struct size 56 
+typedef struct Random_item5 {
+    int b;        // 4
+    char d;       // 1
+                  // 3p
+    long int a;   // 8 
+    int c;        // 4
+    uint16_t f;   // 2
+    char e;       // 1
+                  // 1p
+    Random_item3 random; // 24  <--- we need to break the structure up, otherwise it is hard to judge the padding in between
+    char g; // 1
+    char h; // 1
+            // 6p -> to align with 8 byte long int earilier
+} Random_item5;
 
 // should output 4 or -4
 void argument_alignment_check( char c1, char c2 ) 

@@ -46,12 +46,16 @@
 ## String
 1. Valid Anagram        Easy
 2. Integer to English Words     Hard
+3. Read 4 bytes         Easy
+4. Read 4 bytes II (call multiple times)    Hard
 
 ## Bits Manipulation
 1. Is Power of Four     Easy
+2. Bitwise AND of Numbers Range     Medium
 
-## Data Structure
-1. LRU cache
+## Data Structure   
+1. LRU cache    Hard
+2. Exclusive Time of Functions  Medium
 
 ## Implementation
 
@@ -1768,3 +1772,148 @@ public:
     }
 };
 ```
+
+### **Candy**
+
+***Big O:*** O(1) speed, O(1) space
+```
+Tips:
+
+Only need to count the prefix part of n and m.
+```
+```c++
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        while (m < n) {
+            n &= n - 1;
+        }
+        
+        return m & n;
+    }
+};
+```
+
+### **Read N Characters Given Read4**
+
+***Big O:*** O(log(n)) speed, O(1) space
+```
+Tips:
+
+Use a temperary string to store read4 results. Be careful with situation where read4 returns with fewer than 4 bytes.
+```
+```c++
+class Solution {
+public:
+ 
+    int read(char *buf, int n) {
+        int read_bytes = 0, read4_bytes = 4;
+        char tmp_buf[4];
+        
+        while (read_bytes < n && read4_bytes == 4) {
+            read4_bytes = read4(tmp_buf);
+            
+            for (int i = 0; i < read4_bytes; i++) {
+                if (read_bytes >= n)
+                    return read_bytes;
+                *buf++ = tmp_buf[i];
+                read_bytes ++;
+            }
+        }
+        
+        return read_bytes;
+    }
+};
+```
+
+### **Read N Characters Given Read4 II (call multiple times)**
+
+***Big O:*** O(log(n)) speed, O(1) space
+```
+Tips:
+
+Use private data variables to keep track of the leftover position from last call.
+```
+```c++
+class Solution {
+    int pos = 0, read4_bytes = 0;
+    char tmp_buf[4];
+
+public:
+    int read(char *buf, int n) {
+        int read_bytes = 0;
+        
+        // if there is leftover
+        while (pos < read4_bytes && read_bytes < n) {
+            *buf++ = tmp_buf[pos++];
+            read_bytes ++;
+        }
+        
+        while (read_bytes < n) {
+            read4_bytes = read4(tmp_buf);
+
+            for (pos = 0; pos < read4_bytes;) {
+                if (read_bytes >= n)
+                    return read_bytes;
+
+                *buf++ = tmp_buf[pos++];
+                read_bytes ++;
+            }
+                
+            if (read4_bytes != 4)
+                break;
+        }
+        
+        return read_bytes;
+    }
+};
+```
+
+### **Exclusive Time of Functions**
+
+***Big O:*** O(n) speed, O(n) space
+```
+Tips:
+
+Use of stack. When you update the time, remember to deduce the duplicate time part of the top item in the stack.
+```
+```c++
+class Solution {
+    struct Log {
+        int id;
+        bool isStart;
+        int time;
+    };
+    
+    Log getLog(string& s) {
+        string id, isStart, time;
+        stringstream ss(s);
+        getline(ss, id, ':');
+        getline(ss, isStart, ':');
+        getline(ss, time, ':');
+
+        return {stoi(id), isStart == "start", stoi(time)};
+    }
+    
+public:
+    vector<int> exclusiveTime(int n, vector<string>& logs) {
+        vector<int> exclusive(n, 0);
+        stack<Log> s;
+        
+        for(auto& log: logs) {
+            Log l = getLog(log);
+            if(l.isStart)
+                s.push(l);
+            else {
+                int time = l.time - s.top().time + 1;
+                exclusive[l.id] += time;
+                
+                s.pop();
+                if(!s.empty())
+                    exclusive[s.top().id] -= time;
+            }
+        }
+        
+        return exclusive;
+    }
+};

@@ -456,6 +456,10 @@
    3. Scheduling
    4. Execution in place (XIP)
    5. Dynamic memory allocation for embedded systems
+9. Implementations
+   1.  [Consistent Hashing](Interview/SystemDesign/consistentHashing.md)
+   2.  Memcache
+
 
 ### G. By Company
 1.  [Tesla](Interview/Company/tesla.md)
@@ -468,6 +472,7 @@
 8.  [Amazon](Interview/Company/amazon.md)
 9.  [Lyft](Interview/Company/lyft.md)
 10. [FaceBook](Interview/Company/facebook.md)
+    1.  [Algorithm Prepare](Interview/Company/facebook/algorithm_prepare.md)
 11. Zoox
 12. [Apple](Interview/Company/apple.md)
 

@@ -1,61 +1,78 @@
 ## High Frequency Leetcode questions for Facebook
 
 ## Array
-1. Continuous Subarray Sum          Medium 
-2. Longest Continous increasing subsequence     Easy
-3. Best time to buy and sell stocks     Medium
-4. Best time to buy and sell stocks II      Medium
-5. Best Time to Buy and Sell Stock III      Medium
-6. Best time to buy and sell stock with transcation fee     Medium
-7. Diagnoal Tranverse       Medium
-8. Task Scheduler       Medium
-9. Insert Delete GetRandom O(1)     Medium
-10. Product of Array Except Self        Medium
-11. Kth Smallest Element in a Sorted Matrix     Medium
-12. Rotate Image        Medium
-13. Maximum Swap        Medium
-14. Intersection of Two Arrays      Easy
-15. Intersection of Two Arrays II       Easy
-16. Sparse Matrix Multiplication        Medium
-17. Rectangle Overlap       Easy
-18. Minimum Window Substring        Hard
-19. Valid Number        Hard
-20. Candy       Hard
+1. [Continuous Subarray Sum](#continuous-subarray-sum)          Medium 
+2. [Longest Continous increasing subsequence](#longest-continous-increasing-subsequence)      Easy
+3. [Best time to buy and sell stocks](#best-time-to-buy-and-sell-stocks)     Medium
+4. [Best time to buy and sell stocks II]      Medium
+5. [Best Time to Buy and Sell Stock III]      Medium
+6. [Best time to buy and sell stock with transcation fee](#Best-time-to-buy-and-sell-stock-with-transcation-fee)     Medium
+7. [Diagnoal Tranverse](#diagnoal-tranverse)       Medium
+8. [Insert Delete GetRandom O(1)](#Insert-Delete-GetRandom-O(1))     Medium
+9.  [Product of Array Except Self](#product-of-array-except-self)        Medium
+10. [Kth Smallest Element in a Sorted Matrix](#Kth-Smallest-Element-in-a-Sorted-Matrix)     Medium
+11. [Rotate Image](#Rotate-Image)        Medium
+12. [Maximum Swap](#Maximum-Swap)        Medium
+13. [Intersection of Two Arrays](#Intersection-of-Two-Arrays)      Easy
+14. [Intersection of Two Arrays II](#Intersection-of-Two-Arrays-II)       Easy
+15. [Sparse Matrix Multiplication](#Sparse-Matrix-Multiplication)        Medium
+16. [Rectangle Overlap](#Rectangle-Overlap)       Easy
+17. [Minimum Window Substring](#Minimum-Window-Substring)        Hard
+18. [Valid Number](#Valid-Number)        Hard
+19. [Candy](#Candy)       Hard
 
 ## Binary Search
-1. Search a 2D Matrix      Easy
-2. Search a 2D Matrix II   Medium
-3. First Bad Version        Medium
-4. Find Minimum in Rotated Sorted Array     Medium
-5. Divide Two Integers      Medium
-6. Find First and Last Position of Element in Sorted Array      Medium
+1. [Search a 2D Matrix](#Search-a-2D-Matrix)      Easy
+2. [Search a 2D Matrix II](#Search-a-2D-Matrix-II)   Medium
+3. [First Bad Version](#First-Bad-Version)        Medium
+4. [Find Minimum in Rotated Sorted Array](#Find-Minimum-in-Rotated-Sorted-Array)     Medium
+5. [Divide Two Integers](#Divide-Two-Integers)      Medium
+6. [Find First and Last Position of Element in Sorted Array](#Find-First-and-Last-Position-of-Element-in-Sorted-Array)      Medium
 
 ## Linked List
-1. Reverse Linked List II       Medium
-2. Merge K sorted List      Medium
-3. Reorder List     Medium
-4. Add two Numbers  Medium
-5. Add two number II        Medium
-6. Linked List Insertion Sort       Medium
-7. Swap Nodes in Pairs      Medium
-8. Odd Even Linked List     Medium
-9. Insert into a Cyclic Sorted List     Medium
-10. Rotate List     Medium
-11. Plus One Linked List        Medium
+1. [Reverse Linked List II](#Reverse-Linked-List-II)       Medium
+2. [Merge K sorted List](Merge-K-sorted-List)      Medium
+3. [Reorder List](#Reorder-List)     Medium
+4. [Add two Number](#Add-two-Number)  Medium
+5. [Add two number II](#Add-two-number-II)        Medium
+6. [Linked List Insertion Sort](#Linked-List-Insertion-Sort)       Medium
+7. [Swap Nodes in Pairs](#Swap-Nodes-in-Pairs)      Medium
+8. [Odd Even Linked List](#Odd-Even-Linked-List)     Medium
+9. [Insert into a Cyclic Sorted List](#Insert-into-a-Cyclic-Sorted-List)     Medium
+10. [Rotate List](#Rotate-List)     Medium
+11. [Plus One Linked List](#Plus-One-Linked-List)        Medium
 
 ## String
-1. Valid Anagram        Easy
-2. Integer to English Words     Hard
-3. Read 4 bytes         Easy
-4. Read 4 bytes II (call multiple times)    Hard
+1. [Valid Anagram](#Valid-Anagram)        Easy
+2. [Integer to English Words](#Integer-to-English-Words)     Hard
+3. [Insert five](#Insert-five)      Easy
 
 ## Bits Manipulation
-1. Is Power of Four     Easy
-2. Bitwise AND of Numbers Range     Medium
+1. [Is Power of Four](Is-Power-of-Four)     Easy
+2. [Bitwise AND of Numbers Range](#Bitwise-AND-of-Numbers-Range)     Medium
 
 ## Data Structure   
-1. LRU cache    Hard
-2. Exclusive Time of Functions  Medium
+1. [LRU cache](#LRU-cache)      Hard
+2. [LFU cache](#LFU-cache)      Hard
+
+## OS flavor
+1. [Task Scheduler](#task-scheduler)       Medium
+2. [Read 4 bytes](#Read-4-bytes)         Easy
+3. [Read 4 bytes II (call multiple times)](#Read-4-bytes-II-(call-multiple-times))    Hard
+4. [Exclusive Time of Functions](#Exclusive-Time-of-Functions)  Medium
+
+## Other High Frequency
+1. [Trap Rain Water](#Trap-Rain-Water)      Hard
+2. [One edit distance](#One-edit-distance)      Medium
+3. [Pow(x,n)](#Pow(x,n))        Medium
+4. [Serialize and Deserialize Binary Tree](#Serialize-and-Deserialize-Binary-Tree)      Hard
+5. [Letter Case Permutation](#Letter-Case-Permutation)      Easy
+6. [Excel Sheet Column Title](#Excel-Sheet-Column-Title)    Easy
+7. [Valid Parentheses](#Valid-Parentheses)      Easy
+8. [Count and Say](#Count-and-say)      Easy
+9. [Merge Intervals](#Merge-intervals)      Easy
+10. [Subsets](#Subsets)     Medium
+11. [SubsetsII](#SubsetsII)     Medium
 
 ## Implementation
 
@@ -354,6 +371,28 @@ public:
         for (int i = 0; i < 26; i++) 
             if (cnt[i] == maxcnt) e++;
         return max(tasks.size(), (maxcnt-1)*(n+1) + e);
+    }
+};
+
+// approach 2
+class Solution {
+public:
+    int leastInterval(string &tasks, int n) {
+        // write your code here
+        unordered_map<char,int>mp;
+        int count = 0;
+        for(auto e : tasks) {
+            mp[e]++;
+            count = max(count, mp[e]);
+        }
+        
+        int ans = (count - 1) * (n + 1);
+        for(auto e : mp) {
+            if(e.second == count) {
+                ans ++;
+            }
+        }
+        return max((int)tasks.size(), ans);        
     }
 };
 ```
@@ -1917,3 +1956,579 @@ public:
         return exclusive;
     }
 };
+```
+### **Insert Five**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Convert int to string and then work on the string.
+```
+```c++
+class Solution {
+public:
+    /**
+     * @param a: A number
+     * @return: Returns the maximum number after insertion
+     */
+    int InsertFive(int a) {
+        // write your code here
+        int sign = a < 0;
+        string num = to_string(abs(a));
+        int n = num.size();
+
+        int i;
+        for (i = 0; i < n; i++) {
+            if (sign) {
+                if (num[i] - '0' > 5) {
+                    num.insert(i, "5");
+                    break;
+                }
+            } else {
+                if (num[i] - '0' < 5) {
+                    num.insert(i, "5");
+                    break;
+                }
+            }
+        }
+        if (i == n)
+            num += "5";
+
+        return sign ? -(stoi(num)) : stoi(num);
+    }
+};
+```
+
+### Excel Sheet Column Title
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Be careful of the indexing
+```
+```c++
+class Solution {
+public:
+    string convertToTitle(int n) {
+        // write your code here
+        string res = "";
+
+        while(n) {
+            int rem = (n-1)%26;
+            char c = rem + 'A';
+            res = c + res;
+            n = (n-1)/26;
+        }
+
+        return res;
+    }
+};
+```
+### LFU cache
+![LFU cache design](https://assets.leetcode.com/users/images/4cb3255c-f77a-495d-a3ff-804583a7d5b8_1605533049.7540417.png)
+```c++
+//Just for better readability
+typedef int Key_t;
+typedef int Count_t;
+
+struct Node
+{
+    int value;
+    list<Key_t>::iterator itr;
+};
+
+class LFUCache
+{
+    unordered_map<Key_t, Node> m_values;
+    unordered_map<Key_t, Count_t> m_counts;
+    unordered_map<Count_t, list<Key_t>> m_countKeyMap;
+    int m_lowestFrequency;
+    int m_maxCapacity;
+
+public:
+    LFUCache(int capacity)
+    {
+        m_maxCapacity = capacity;
+        m_lowestFrequency = 0;
+    }
+
+    int get(int key)
+    {
+        if (m_values.find(key) == m_values.end() || m_maxCapacity <= 0)
+        {
+            return -1;
+        }
+        //update frequency, & return value
+        put(key, m_values[key].value);
+        return m_values[key].value;
+    }
+
+    void put(int key, int value)
+    {
+        if (m_maxCapacity <= 0)
+        {
+            return;
+        }
+
+        //If key is not present and capacity has exceeded,
+        //then remove the key entry with least frequency
+        //else just make the new key entry
+        if (m_values.find(key) == m_values.end())
+        {
+            if (m_values.size() == m_maxCapacity)
+            {
+                int keyToDelete = m_countKeyMap[m_lowestFrequency].back(); 
+                m_countKeyMap[m_lowestFrequency].pop_back();
+                if (m_countKeyMap[m_lowestFrequency].empty())
+                {
+                    m_countKeyMap.erase(m_lowestFrequency);
+                }
+                m_values.erase(keyToDelete);
+                m_counts.erase(keyToDelete);
+            }
+            m_values[key].value = value;
+            m_counts[key] = 0;
+            m_lowestFrequency = 0;
+            m_countKeyMap[m_counts[key]].push_front(key);
+            m_values[key].itr = m_countKeyMap[0].begin();
+        }
+        //Just update value and frequency
+        else
+        {
+            m_countKeyMap[m_counts[key]].erase(m_values[key].itr);
+            if (m_countKeyMap[m_counts[key]].empty())
+            {
+                if (m_lowestFrequency == m_counts[key])
+                    m_lowestFrequency++;
+                m_countKeyMap.erase(m_counts[key]);
+            }
+            m_values[key].value = value;
+            m_counts[key]++;
+            m_countKeyMap[m_counts[key]].push_front(key);
+            m_values[key].itr = m_countKeyMap[m_counts[key]].begin();
+        }
+    }
+};
+```
+
+### Trap Rain Water
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Two pointer
+```
+```c++
+class Solution {
+public:
+    int trap(vector<int>& height)
+    {
+        int ans = 0;
+        int left = 0, right = height.size()-1;
+        int left_max, right_max;
+        left_max = right_max = 0;
+        
+        while (left < right) {
+            right_max = max(right_max, height[right]);
+            
+            if (height[left] < height[right]) {
+                if (left_max > height[left]) {
+                    ans += (left_max - height[left]);
+                } else {
+                    left_max = height[left];
+                }
+                left ++; 
+            } else {
+                if (right_max > height[right]) {
+                    ans += (right_max - height[right]);
+                } else {
+                    right_max = height[right];
+                }
+                right --; 
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+
+### One edit distance
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+若两个字符串长度相差大于1或相等，直接返回false。
+反之，顺序判断每一位是否相等，若不相等，执行修改操作。
+最后判断一下即可。
+```
+```c++
+class Solution {
+public:
+    /**
+     * @param s a string
+     * @param t a string
+     * @return true if they are both one edit distance apart or false
+     */
+    bool isOneEditDistance(string& s, string& t) {
+        // Write your code here
+        int m = s.size();
+        int n = t.size();
+        if (m > n)
+            return isOneEditDistance(t, s);
+        if (n - m > 1 || s == t)
+            return false;
+        for (int i = 0; i < m; i++) {
+            if (s[i] != t[i]) {
+                if (m == n) {
+                    s[i] = t[i];
+                } else {
+                    s.insert(i, 1, t[i]);
+                }
+                break;
+            }
+        }
+        return s == t || s + t[n - 1] == t;
+    }
+};
+```
+
+### Pow(x,n)
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+注意 n 可能是负数, 需要求一下倒数, 可以在一开始把x转换成倒数, 也可以到最后再把结果转换为倒数.
+
+那么现在我们实现 pow(x, n), n 是正整数的版本:
+
+二分即可: 有 x^n = x{n/2} * x{n/2}x
+​n
+​​ =xn/2∗xn/2, 因此可以在 O(logn) 的时间复杂度内实现.
+
+又叫快速幂. 有递归实现和循环实现的版本.
+```
+```c++
+// Loop Version
+class Solution {
+private:
+    double _myPow(double x, long long n) {
+        double res = 1.0;
+        for (double i = x; n; n /= 2, i *= i) {
+            if (n % 2)
+                res *= i;
+        }
+        return res;
+    }
+public:
+    /**
+     * @param x: the base number
+     * @param n: the power number
+     * @return: the result
+     */
+    double myPow(double x, int n) {
+        return n < 0 ? 1.0 / _myPow(x, -n) : _myPow(x, n);
+    }
+};
+
+// Recursion version
+class Solution {
+private:
+    double _myPow(double x, long long n) {
+        // 使用long long以避免 -2147483648 边界数据出错
+        if (n == 0)
+            return 1.0;
+        double half = _myPow(x, n / 2);
+        if (n % 2)
+            return half * half * x;
+        else
+            return half * half;
+    }
+public:
+    /**
+     * @param x: the base number
+     * @param n: the power number
+     * @return: the result
+     */
+    double myPow(double x, int n) {
+        return n < 0 ? 1.0 / _myPow(x, -n) : _myPow(x, n);
+    }
+};
+```
+
+### Serialize and Deserialize Binary Tree
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+serialize()采用bfs，对当前二叉树搜索，遍历vector，将当前节点左右儿子依次存入vector，空节点需要删去。
+
+deserialize()首先切割字符串，然后用isLeftChild标记是当前是左右儿子，数字转化为字符串，存为队列首节点的左右儿子。
+```
+```c++
+class Solution {
+public:
+    /**
+     * This method will be invoked first, you should design your own algorithm 
+     * to serialize a binary tree which denote by a root node to a string which
+     * can be easily deserialized by your own "deserialize" method later.
+     */
+    vector<string> split(const string &str, string delim) {
+        vector<string> results;
+        int lastIndex = 0, index;
+        while ((index = str.find(delim, lastIndex)) != string::npos) {
+            results.push_back(str.substr(lastIndex, index - lastIndex));
+            lastIndex = index + delim.length();
+        }
+        if (lastIndex != str.length()) {
+            results.push_back(str.substr(lastIndex, str.length() - lastIndex));
+        }
+        return results;
+    }
+    string serialize(TreeNode *root) {
+        if (root == NULL) {
+            return "{}";
+        }
+        vector<TreeNode *> q;
+        q.push_back(root);
+        for(int  i = 0; i < q.size(); i++) {
+            TreeNode * node = q[i];
+            if (node == NULL) {
+                continue;
+            }
+            q.push_back(node->left);
+            q.push_back(node->right);
+        }
+        while (q[q.size() - 1] == NULL) {
+                q.pop_back();
+        }
+        string sb="";
+        sb += "{";
+        sb += to_string(q[0]->val);
+        for (int i = 1; i < q.size(); i++) {
+            if (q[i] == NULL) {
+                sb += (",#");
+            } 
+            else {
+                sb += ",";
+                sb += to_string(q[i]->val);
+            }
+        }
+        sb += "}";
+        return sb;
+    }
+    /**
+     * This method will be invoked second, the argument data is what exactly
+     * you serialized at method "serialize", that means the data is not given by
+     * system, it's given by your own serialize method. So the format of data is
+     * designed by yourself, and deserialize it here as you serialize it in 
+     * "serialize" method.
+     */
+    TreeNode * deserialize(string &data) {
+        // write your code here
+        if (data == "{}") return NULL;
+        vector<string> vals = split(data.substr(1, data.size() - 2), ",");
+        TreeNode *root = new TreeNode(atoi(vals[0].c_str()));
+        queue<TreeNode *> Q;
+        Q.push(root);
+        bool isLeftChild= true;
+        for (int i = 1; i < vals.size(); i++) {
+            if (vals[i] != "#") {
+                TreeNode *node = new TreeNode(atoi(vals[i].c_str()));
+                if (isLeftChild) Q.front()->left = node;
+                else Q.front()->right = node;
+                Q.push(node);
+            }
+            if (!isLeftChild) {
+                Q.pop();
+            }
+            isLeftChild = !isLeftChild;
+        }
+        return root;
+    }
+};
+```
+
+### Letter case permutation
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Recursion 
+```
+```c++
+class Solution {
+public:
+    vector<string> letterCasePermutation(string S) {
+        vector<string> res;
+        helper(S, res, {}, 0);
+        return res;
+    }
+    // 利用回溯法找到所有的字符串
+    void helper(const string S, vector<string>& res, string path, int start) {
+        if (start == S.size()) {
+            res.push_back(path);
+            return;
+        }
+        if (S[start] >= '0' && S[start] <= '9') {
+            helper(S, res, path + S[start], start + 1);
+        } else {
+            helper(S, res, path + (char)toupper(S[start]), start + 1);
+            helper(S, res, path + (char)tolower(S[start]), start + 1);
+        }
+    }
+};
+```
+
+### Valid Parentheses
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Stack 
+```
+```c++
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> str;
+        
+        for (auto c : s) {
+            if (c == '(' || c == '[' || c == '{')
+                str.push(c);
+            else if (c == ')' || c == ']' || c == '}') {
+                if (str.empty()) return false;
+                switch (c) {
+                    case ')':
+                        if (str.top() != '(') return false;
+                        break;
+                    case ']':
+                        if (str.top() != '[') return false;
+                        break;
+                    case '}':
+                        if (str.top() != '{') return false;
+                        break;
+                    default:
+                        break;
+                }
+                str.pop();
+            }
+        }
+        
+        return str.empty();
+    }
+};
+```
+
+### Count and Say
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Sliding window
+```
+```c++
+class Solution {
+public:
+    string countAndSay(int n) {
+        string res = "1";
+        for (int i = 2; i <= n; i++) {
+            string tmp = "";
+            char c = res[0];
+            int count = 1;
+            for (int j = 1; j < res.size(); j++) {
+                if (res[j] != c) {
+                    tmp.push_back('0' + count);
+                    tmp.push_back(c);
+                    count = 0;
+                    c = res[j];
+                }
+                count ++;
+            }
+            tmp.push_back('0' + count);
+            tmp.push_back(c);
+            res = tmp;
+        }
+        
+        return res;
+    }
+};
+```
+
+### Merge Intervals
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Compare neighboring intervals one by one
+```
+```c++
+class Solution {
+public:
+    /**
+     * @param intervals: interval list.
+     * @return: A new interval list.
+     */
+    vector<Interval> merge(vector<Interval> &intervals) {
+        // write your code here
+        if (intervals.size() < 2) return intervals;
+        
+        sort(intervals.begin(), intervals.end(), [](Interval &a, Interval &b){ return a.start < b.start;});
+        vector<Interval> ans;
+        
+        for (auto &inte : intervals) {
+            if (ans.empty())
+                ans.push_back(inte);
+            else {
+                int sz = ans.size();
+                if (ans[sz-1].end < inte.start)
+                    ans.push_back(inte);
+                else {
+                    ans[sz-1].end = ans[sz-1].end > inte.end ? ans[sz-1].end : inte.end;
+                }
+            }
+        }
+        
+        return ans;
+        
+    }
+};
+```
+
+### Subsets
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Let's start from empty subset in output list. At each step one takes new integer into consideration and generates new subsets from the existing ones.
+```
+![Cascading](https://leetcode.com/problems/subsets/Figures/78/recursion.png)
+```c++
+class Solution {
+ public:
+  static vector<vector<int>> subsets(const vector<int>& nums) {
+    vector<vector<int>> subsets;
+    
+    subsets.push_back(vector<int>());
+    for (auto num : nums) {
+      int n = subsets.size();
+      for (int i = 0; i < n; i++) {
+        vector<int> new_set(subsets[i]);
+        new_set.push_back(num);
+        subsets.push_back(new_set);
+      }
+    }
+
+    return subsets;
+  }
+};
+```
+
+### Subsets II
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Let's start from empty subset in output list. At each step one takes new integer into consideration and generates new subsets from the existing ones.
+```

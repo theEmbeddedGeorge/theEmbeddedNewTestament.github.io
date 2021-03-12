@@ -59,8 +59,8 @@
 5. [Array of Bits (bit sets/bit map)](Data_Struct_Implementation/bitsArray/README.md)
 6. Low Pass Filter
 7. [Memory map IO register manipulation](Data_Struct_Implementation/memoryMap/memory_map_io.md)
-8. Timer list
-9.  [Memory Pool Allocation](Data_Struct_Implementation\memoryPoolAllocator\README.md)
+8. [Simple One-layer Timer list/wheel](Data_Struct_Implementation/timerWheel/README.md)
+9. [Memory Pool Allocation](Data_Struct_Implementation\memoryPoolAllocator\README.md)
 10. Simple Slab Allocator
 11. Data Structure
     1.  [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer/README.md)

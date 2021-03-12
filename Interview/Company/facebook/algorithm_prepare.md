@@ -7,7 +7,7 @@
 4. [Best time to buy and sell stocks II]      Medium
 5. [Best Time to Buy and Sell Stock III]      Medium
 6. [Best time to buy and sell stock with transcation fee](#Best-time-to-buy-and-sell-stock-with-transcation-fee)     Medium
-7. [Diagnoal Tranverse](#diagnoal-tranverse)       Medium
+7. [Diagnose Tranverse](#Diagnose-Tranverse)       Medium
 8. [Insert Delete GetRandom O(1)](#Insert-Delete-GetRandom-O(1))     Medium
 9.  [Product of Array Except Self](#product-of-array-except-self)        Medium
 10. [Kth Smallest Element in a Sorted Matrix](#Kth-Smallest-Element-in-a-Sorted-Matrix)     Medium
@@ -20,6 +20,7 @@
 17. [Minimum Window Substring](#Minimum-Window-Substring)        Hard
 18. [Valid Number](#Valid-Number)        Hard
 19. [Candy](#Candy)       Hard
+20. [Subarray Sum Equals K](#Subarray-Sum-Equals-K)     Medium
 
 ## Binary Search
 1. [Search a 2D Matrix](#Search-a-2D-Matrix)      Easy
@@ -41,6 +42,7 @@
 9. [Insert into a Cyclic Sorted List](#Insert-into-a-Cyclic-Sorted-List)     Medium
 10. [Rotate List](#Rotate-List)     Medium
 11. [Plus One Linked List](#Plus-One-Linked-List)        Medium
+12. [Intersection of Two Linked Lists](#Intersection-of-Two-Linked-Lists)        Medium
 
 ## String
 1. [Valid Anagram](#Valid-Anagram)        Easy
@@ -48,8 +50,9 @@
 3. [Insert five](#Insert-five)      Easy
 
 ## Bits Manipulation
-1. [Is Power of Four](Is-Power-of-Four)     Easy
-2. [Bitwise AND of Numbers Range](#Bitwise-AND-of-Numbers-Range)     Medium
+1. [Is Power of Four](#Is-Power-of-Four)     Easy
+2. [Range Bit And](#Range-Bit-And)     Medium
+3. [Number Complement](#Number-Complement)      Medium
 
 ## Data Structure   
 1. [LRU cache](#LRU-cache)      Hard
@@ -57,8 +60,8 @@
 
 ## OS flavor
 1. [Task Scheduler](#task-scheduler)       Medium
-2. [Read 4 bytes](#Read-4-bytes)         Easy
-3. [Read 4 bytes II (call multiple times)](#Read-4-bytes-II-(call-multiple-times))    Hard
+2. [Read N Characters Given Read4](#Read-N-Characters-Given-Read4)         Easy
+3. [Read N Characters Given Read4 II](#Read-N-Characters-Given-Read4-II)    Hard
 4. [Exclusive Time of Functions](#Exclusive-Time-of-Functions)  Medium
 
 ## Other High Frequency
@@ -73,6 +76,9 @@
 9. [Merge Intervals](#Merge-intervals)      Easy
 10. [Subsets](#Subsets)     Medium
 11. [SubsetsII](#SubsetsII)     Medium
+12. [Verifying a Alien Dictionary](#Verify-a-Alien-Dictionary)        Medium
+13. [Container With Most Water](#Container-With-Most-Water)     Medium
+14. [Move Zeroes](#Move-Zeroes)     Medium
 
 ## Implementation
 
@@ -642,7 +648,7 @@ public:
     int divide(int dividend, int divisor) {
         // write your code here
         if (dividend == INT_MIN && divisor == -1)
-            return 2147483647;
+            return INT_MAX;
         if (abs(divisor) == 1)
             return divisor == 1 ? dividend : -dividend;
 
@@ -1040,6 +1046,32 @@ public:
         }
         
         return num;
+    }
+};
+
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string num_str = to_string(num);
+        int n = num_str.size();
+        int max_val = -1, max_i = -1;
+        int left = -1, right = -1;
+        
+        for (int i = n - 1; i >= 0; i--) {
+            if (num_str[i] > max_val) {
+                max_val = num_str[i];
+                max_i = i;
+            } else if (num_str[i] < max_val) {
+                left = i;
+                right = max_i;
+            }
+        }
+       
+        if (left == -1) return num;
+        char c = num_str[left];
+        num_str[left] = num_str[right];
+        num_str[right] = c;
+        return stoi(num_str);
     }
 };
 ```
@@ -1643,7 +1675,54 @@ public:
     }
 };
 ```
+### **Intersection of Two Linked Lists**
 
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+```
+```c++
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *A, *B;
+        int lenA{}, lenB{}, diff{};
+        
+        if (!headA || !headB)
+            return nullptr;
+        
+        A = headA;
+        B = headB;
+        
+        while(A) {
+            lenA++;
+            A = A->next;
+        }
+        
+        while(B) {
+            lenB++;
+            B = B->next;
+        }
+        
+        diff = abs(lenA-lenB);
+        ListNode *tmp = lenA > lenB ? headA : headB;
+        
+        while(diff--) tmp = tmp->next;
+        
+        headA = lenA > lenB ? tmp : headA;
+        headB = lenB > lenA ? tmp : headB;
+        
+        while(headA && headB) {
+            if (headA == headB) return headA;
+            headA = headA->next;
+            headB = headB->next;
+        }
+        
+        return nullptr;
+    }
+};
+```
 ### **LRU cache**
 
 ***Big O:*** O(1) speed, O(n) space
@@ -1771,6 +1850,67 @@ public:
         return false;
     }
 };
+```
+
+### **Range Bit And**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+本题中，我们需要得到[m,n]所有元素按位与的结果。举个例子，当m=26，n=30时，它们的二进制表示为为：
+11010　　11011　　11100　　11101　　11110
+这个样例的答案是11000，易见我们发现我们只需要找到m和n最左边的公共部分即可。
+
+每次都将n与n-1按位与，当n的二进制为1010时，1010 & 1001 = 1000，相当于把二进制位的最后一个1去掉了。因此我们不断的做n^n-1的操作，直到n小于m相等即可。
+```
+```c++
+public class Solution {
+    /**
+     * @param m: an Integer
+     * @param n: an Integer
+     * @return: the bitwise AND of all numbers in [m,n]
+     */
+    public int rangeBitwiseAnd(int m, int n) {
+        // Write your code here
+        while(m < n) {
+            n = n & (n-1);
+        }
+        return n;
+    }
+}
+```
+
+### **Bitwise XOR in a subarray**
+
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+
+```
+```c++
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+        vector<int> res;
+        
+        for (int i = 1; i < arr.size(); i++) {
+            arr[i] ^= arr[i-1];
+        }
+        
+        for (auto &v : queries) {
+            if (v[0] == 0)
+                res.push_back(arr[v[1]]);
+            else {
+                res.push_back(arr[v[1]]^arr[v[0]-1]);
+            }
+            
+        }
+        
+        return res;
+    }
+}
 ```
 
 ### **Candy**
@@ -2531,4 +2671,188 @@ class Solution {
 Tips:
 
 Let's start from empty subset in output list. At each step one takes new integer into consideration and generates new subsets from the existing ones.
+```
+
+
+
+### Verify a Alien Dictionary
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Compare Adjacent Words.
+```
+```c++
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        for (int i = 0; i < words.size() - 1; i++) {
+        string word1 = words[i];
+        string word2 = words[i + 1];
+        int i1 = 0, i2 = 0;
+        while (word1[i1] == word2[i2]) {
+            i1++, i2++;
+        }
+        int r = order.find(word1[i1]);   
+        int s = order.find(word2[i2]);
+        if (r > s) return false;
+    }
+    return true;
+    }
+};
+```
+
+### Container With Most Water
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Two pointers.
+```
+```c++
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int max_a = 0; 
+        
+        int st = 0, end = height.size()-1;
+        while (st < end) {
+            int water = min(height[st], height[end]) * (end-st);
+            max_a = max(max_a, water);
+            if (height[st] < height[end])
+                st ++;
+            else
+                end --;
+        }
+        
+        return max_a;
+    }
+};
+```
+
+### Move Zeroes
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Keep a lastzero index record.
+```
+```c++
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int lastNonZeroFoundAt = 0;
+        // If the current element is not 0, then we need to
+        // append it just in front of last non 0 element we found. 
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != 0) {
+                nums[lastNonZeroFoundAt++] = nums[i];
+            }
+        }
+        // After we have finished processing new elements,
+        // all the non-zero elements are already at beginning of array.
+        // We just need to fill remaining array with 0's.
+        for (int i = lastNonZeroFoundAt; i < nums.size(); i++) {
+            nums[i] = 0;
+        }
+    }
+};
+```
+
+### Number Complement
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Use Xor
+```
+```c++
+class Solution {
+public:
+    int findComplement(int num) {
+        int bit = 1, tp = num;
+        while(tp) {
+            num ^= bit;
+            bit <<= 1;
+            tp >>= 1;
+        }
+        return num;
+    }
+};
+```
+
+### Subarray Sum Equals K
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Using Cumulative Sum
+```
+```c++
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int count = 0, sum = 0;
+        unordered_map<int, int> m;
+        m[0] = 1;
+        for (int i=0; i<nums.size(); i++) {
+            sum += nums[i];
+            if (m.find(sum - k) != m.end())
+                count += m[sum - k];
+            m[sum]++;
+        }
+        return count;
+    }
+};
+```
+
+
+### Minimum Window Substring
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+We are going to use a two pointer approach to solve this.
+
+The idea here is that 
+1. We will store the characters of t in a map lets say mapt.
+2. We will have two pointers l and r.
+3. Whille we traverse through s we check if the character is found in mapt If so we will store the character into another hash map lets say maps.
+4. If the mapped charcter freq of s is less than or equal to mapt we increment a letter counter variable that will let us know when we have reached the t string size.
+5. We try to find the smallest substring which contains all chracters in t using a while loop.
+
+ S = "ADOBECODEBANC" and T = "ABC"
+```
+```c++
+string minWindow(string s, string t) {
+    unordered_map<char,int> map1;
+    unordered_map<char,int> map2;
+    int check=INT_MAX;
+    string result;
+    for(char &ch:t)map1[ch]++;
+    int slow=0,fast=0,lettercounter=0;
+    for(;fast<s.length();fast++)
+    {
+        char ch=s[fast];
+        if(map1.find(ch)!=map1.end())
+        {
+            map2[ch]++;
+        if(map2[ch]<=map1[ch])
+            lettercounter++;
+        }
+        if(lettercounter>=t.length())
+        {
+            while(map1.find(s[slow])==map1.end()||map2[s[slow]]>map1[s[slow]])
+            {
+                map2[s[slow]]--;
+                slow++;
+            }
+            if(fast-slow+1<check)
+            {
+                check=fast-slow+1;
+                result=s.substr(slow,check);
+            }
+        }
+    }
+    return result;
+}
 ```

@@ -61,7 +61,8 @@
 7. [Memory map IO register manipulation](Data_Struct_Implementation/memoryMap/memory_map_io.md)
 8. Timer list
 9.  [Memory Pool Allocation](Data_Struct_Implementation\memoryPoolAllocator\README.md)
-10. Data Structure
+10. Simple Slab Allocator
+11. Data Structure
     1.  [Ring Buffer](./Data_Struct_Implementation/circularRingBuffer/README.md)
     2.  [Hash Table](./Data_Struct_Implementation/hashTable/README.md)
     3.  [Heap (priority queue)](./Data_Struct_Implementation/binaryHeap/README.md)
@@ -71,7 +72,7 @@
     7.  Red Black Tree
     8.  Minium Spanning Tree (MST)
     9.  Bitwise tries
-11. Math
+12. Math
     1.  Rolling average
     2.  Taylor Series
     3.  Dividing by a constant
@@ -79,7 +80,7 @@
     5.  Linear Interpolation
     6.  Floating Point Arthimetic
     7.  [Multiply 16-bit integers using an 8-bit multiplier](Data_Struct_Implementation/Math/Multiply16Bitwith8Bit.md)
-12. Common STL function implementation
+13. Common STL function implementation
     1. [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
     2. [itoa](Data_Struct_Implementation/itoa/README.md)
     3. [atoi](Data_Struct_Implementation/atoi/README.md)
@@ -87,7 +88,7 @@
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
     7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
-13. Bits Manipulation
+14. Bits Manipulation
     1.  [Reverse Bits](Data_Struct_Implementation/BitsManipulation/reverseBits.md)
     2.  Flip a monochrome bitmap
     3.  [Count bits with lookup table](Data_Struct_Implementation\BitsManipulation\countBitsLookUpTable.md)
@@ -102,7 +103,7 @@
     12. [Turn off the rightmost set bit](Data_Struct_Implementation/BitsManipulation/turnoffRightmostBit.md)
     13. [Rotate bits to left/rigtht](Data_Struct_Implementation/BitsManipulation/rotateLeftRight.md)
     14. [Swap bits in a given number](Data_Struct_Implementation/BitsManipulation/SwapBitsInNumber.md)
-14. Concurrency 
+15. Concurrency 
     1.  Implement a Spinlock/Mutex/Semaphone
         1. [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) 
         2. [Compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap)
@@ -116,14 +117,14 @@
     7.  [Print In Order](Data_Struct_Implementation/concurrency/PrintInorder.md)
     8.  [Building H2O](Data_Struct_Implementation/concurrency/BuildingH2O.md)
     9.  [The Dining Philosophers](Data_Struct_Implementation/concurrency/TheDiningPhilosophers.md)
-15. Other Implementations
+16. Other Implementations
     1.  Shuffle cards
     2.  Accurately (emphasize) read 64bit register with read32
     3.  Given a matrix and its center coordinates, draw the circle
     4.  Find a 32 bit frame start sequence in a raw byte stream buffer
     5.  Memory tracker to hook into glibc library to keep track of dynamic memory allocations, including statistics
     6.  Given an array of angles and an array of voltages for these angles, now there is a new angle coming in, calculate its voltage.
-16. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
+17. [Other Common C algorithm](https://github.com/fragglet/c-algorithms)
 
 
 

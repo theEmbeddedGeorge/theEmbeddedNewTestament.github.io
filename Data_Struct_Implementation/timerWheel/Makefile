@@ -5,7 +5,7 @@ OBJ = timer.o
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-stack: $(OBJ)
+timer: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:

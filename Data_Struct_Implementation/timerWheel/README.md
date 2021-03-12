@@ -1,56 +1,128 @@
-## StrStr
-#### Usage
+## Simple One-layer Timeing Wheel
+### Usage
 ```
 make
-./strstr
+./timer
 ```
 
-#### Analysis
+### Analysis
 
-#### Code
+This is a simple one layer timing wheel design where the wheel contains 10 slices of wheel bin, with each bin it maintains a linked lists of callback function to call. These function will trigger once the timing wheel tick happens and deadline is due.
+
+### Code
 ```c
-#include <stdio.h>
- 
-// returns true if X and Y are same
-int compare(const char *X, const char *Y)
-{
-    while (*X && *Y)
-    {
-        if (*X != *Y)
-            return 0;
- 
-        X++;
-        Y++;
+#include<stdio.h>
+#include<stdint.h>
+#include<stdlib.h>
+#include<time.h>
+#include<unistd.h>
+
+#define WHEEL_BIN_NUMBER 10
+#define GRANULARITY 1000000
+
+typedef void (*timeout_handler)();
+
+typedef struct node {
+    struct node *next;
+    int timestamp;
+    timeout_handler timeout_cb;
+} Node, *pNode;
+
+typedef struct timing_wheel {
+    int cur_slot;
+    int granularity;
+    Node nodes[WHEEL_BIN_NUMBER];
+} TWheel, *pTWheel;
+
+pTWheel init_time_wheel(int gran) {
+    pTWheel new_wheel = (pTWheel) malloc(sizeof(TWheel));
+    new_wheel->granularity = gran;
+    new_wheel->cur_slot = 0;
+    int i;
+    for (i; i < WHEEL_BIN_NUMBER; i++) {
+        new_wheel->nodes[i].next = NULL;
     }
- 
-    return (*Y == '\0');
+    
+    return new_wheel;
 }
- 
-// Function to implement strstr() function
-const char* strstr(const char* X, const char* Y)
-{
-    while (*X != '\0')
-    {
-        if ((*X == *Y) && compare(X, Y))
-            return X;
-        X++;
+
+int install_handler(pTWheel twheel, int deadline, timeout_handler new_cb) {
+    int ret = 0;
+    if (deadline/twheel->granularity >= WHEEL_BIN_NUMBER) {
+        printf("Deadline exceed timing wheel size\n");
+        return -1;
     }
- 
-    return NULL;
+    
+    int index = (twheel->cur_slot + ((deadline/(twheel->granularity))))%WHEEL_BIN_NUMBER;
+    pNode iterator = &(twheel->nodes[index]);
+    
+    while(iterator->next) {
+        iterator = iterator->next;
+    }
+    
+    pNode new_node = (pNode) malloc(sizeof(Node));
+    new_node->timeout_cb = new_cb;
+    new_node->timestamp = deadline;
+    new_node->next = NULL;
+    iterator->next = new_node;
+    
+    return ret;
 }
- 
-// Implement strstr function in C
-int main()
-{
-    char *X = "Techie Delight - Coding made easy";
-    char *Y = "Coding";
- 
-    printf("%s\n", strstr(X, Y));
- 
+
+void tick(pTWheel twheel) {
+    int i;
+    pNode iterator = &twheel->nodes[twheel->cur_slot];
+    while(iterator->next) {
+        pNode tmp = iterator->next;
+        tmp->timeout_cb();
+        printf("Callback at %d deadline triggers\n", tmp->timestamp);
+        iterator->next = iterator->next->next;
+        free(tmp);
+    }
+    twheel->cur_slot = (twheel->cur_slot+1)%WHEEL_BIN_NUMBER;
+}
+
+void print_task() {
+    printf("Hi1\n");
+}
+
+void print_task2() {
+    printf("Hi2\n");
+}
+
+void print_task3() {
+    printf("Hi3\n");
+}
+
+int main(void) {
+    int ret = 0;
+    
+    pTWheel new_wheel = init_time_wheel(GRANULARITY);
+    timeout_handler cb = print_task;
+    install_handler(new_wheel, 4*GRANULARITY, cb);
+    install_handler(new_wheel, 4.25*GRANULARITY, cb);
+    install_handler(new_wheel, 4.9*GRANULARITY, cb);
+    
+    cb = print_task2;
+    install_handler(new_wheel, 8*GRANULARITY, cb);
+    
+    cb = print_task3;
+    install_handler(new_wheel, 8*GRANULARITY, cb);
+
+    install_handler(new_wheel, 12*GRANULARITY, cb);
+    
+    int count = 0;
+    while(count < 15) {
+        tick(new_wheel);
+        usleep(GRANULARITY);
+        printf("Time: %d\n", count++);
+        if (count == 8) {
+            install_handler(new_wheel, 4*GRANULARITY, cb);
+        }
+    }
+    
     return 0;
 }
 ```
 
 ### Reference
-
-https://www.techiedelight.com/implement-strstr-function-c-iterative-recursive/

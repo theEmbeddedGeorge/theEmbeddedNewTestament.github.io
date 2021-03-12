@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stdint.h>
+#include<stdlib.h>
+#include<time.h>
+#include<unistd.h>
 
 #define WHEEL_BIN_NUMBER 10
 #define GRANULARITY 1000000
@@ -46,6 +49,7 @@ int install_handler(pTWheel twheel, int deadline, timeout_handler new_cb) {
     
     pNode new_node = (pNode) malloc(sizeof(Node));
     new_node->timeout_cb = new_cb;
+    new_node->timestamp = deadline;
     new_node->next = NULL;
     iterator->next = new_node;
     
@@ -56,8 +60,9 @@ void tick(pTWheel twheel) {
     int i;
     pNode iterator = &twheel->nodes[twheel->cur_slot];
     while(iterator->next) {
-        iterator->next->timeout_cb();
         pNode tmp = iterator->next;
+        tmp->timeout_cb();
+        printf("Callback at %d deadline triggers\n", tmp->timestamp);
         iterator->next = iterator->next->next;
         free(tmp);
     }
@@ -80,22 +85,27 @@ int main(void) {
     int ret = 0;
     
     pTWheel new_wheel = init_time_wheel(GRANULARITY);
-    timeout_handler cb1 = print_task;
-    install_handler(new_wheel, 4*GRANULARITY, cb1);
+    timeout_handler cb = print_task;
+    install_handler(new_wheel, 4*GRANULARITY, cb);
+    install_handler(new_wheel, 4.25*GRANULARITY, cb);
+    install_handler(new_wheel, 4.9*GRANULARITY, cb);
     
-    timeout_handler cb2 = print_task2;
-    install_handler(new_wheel, 8*GRANULARITY, cb2);
+    cb = print_task2;
+    install_handler(new_wheel, 8*GRANULARITY, cb);
     
-    timeout_handler cb3 = print_task3;
-    install_handler(new_wheel, 8*GRANULARITY, cb3);
-    
-    install_handler(new_wheel, 12*GRANULARITY, cb3);
+    cb = print_task3;
+    install_handler(new_wheel, 8*GRANULARITY, cb);
+
+    install_handler(new_wheel, 12*GRANULARITY, cb);
     
     int count = 0;
-    while(count < 5) {
+    while(count < 15) {
         tick(new_wheel);
         usleep(GRANULARITY);
         printf("Time: %d\n", count++);
+        if (count == 8) {
+            install_handler(new_wheel, 4*GRANULARITY, cb);
+        }
     }
     
     return 0;

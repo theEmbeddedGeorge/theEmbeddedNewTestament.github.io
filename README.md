@@ -443,13 +443,16 @@
 6. System Design Examples with Embedded Flavor
    1. Design a Cache
    2. Design a Vending Machine
-   3. Design a Traffic Control System
+   3. [Design a Traffic Control System](Interview/SystemDesign/examples/airControlSystem.md)
    4. Design a ATM Machine
    5. Design a Elevator System
-   6. [Design a Parking Lot System](https://github.com/donnemartin/system-design-primer/blob/master/solutions/object_oriented_design/parking_lot/parking_lot.ipynb)
-   7. Design a File System
-   8. [Design a Garbage Collector](http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/)
-   9. [Design a call center](https://github.com/donnemartin/system-design-primer/blob/master/solutions/object_oriented_design/call_center/call_center.ipynb)
+   6. Design a Air Traffic Controller
+   7. Design a Amazon Locker System
+   8. Design a service for Alexa devices to report battery status
+   9. [Design a Parking Lot System](https://github.com/donnemartin/system-design-primer/blob/master/solutions/object_oriented_design/parking_lot/parking_lot.ipynb)
+   10. Design a File System
+   11. [Design a Garbage Collector](http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/)
+   12. [Design a call center](https://github.com/donnemartin/system-design-primer/blob/master/solutions/object_oriented_design/call_center/call_center.ipynb)
 7. [Embedded System Design Pattern Catalogue](https://embeddedartistry.com/fieldatlas/design-pattern-catalogue/)
 8. Embedded System Design Topics
    1. Small memory management

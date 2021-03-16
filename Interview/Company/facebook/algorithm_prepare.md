@@ -7,20 +7,25 @@
 4. [Best time to buy and sell stocks II]      Medium
 5. [Best Time to Buy and Sell Stock III]      Medium
 6. [Best time to buy and sell stock with transcation fee](#Best-time-to-buy-and-sell-stock-with-transcation-fee)     Medium
-7. [Diagnose Tranverse](#Diagnose-Tranverse)       Medium
-8. [Insert Delete GetRandom O(1)](#Insert-Delete-GetRandom-O(1))     Medium
-9.  [Product of Array Except Self](#product-of-array-except-self)        Medium
-10. [Kth Smallest Element in a Sorted Matrix](#Kth-Smallest-Element-in-a-Sorted-Matrix)     Medium
-11. [Rotate Image](#Rotate-Image)        Medium
-12. [Maximum Swap](#Maximum-Swap)        Medium
-13. [Intersection of Two Arrays](#Intersection-of-Two-Arrays)      Easy
-14. [Intersection of Two Arrays II](#Intersection-of-Two-Arrays-II)       Easy
-15. [Sparse Matrix Multiplication](#Sparse-Matrix-Multiplication)        Medium
-16. [Rectangle Overlap](#Rectangle-Overlap)       Easy
-17. [Minimum Window Substring](#Minimum-Window-Substring)        Hard
-18. [Valid Number](#Valid-Number)        Hard
-19. [Candy](#Candy)       Hard
-20. [Subarray Sum Equals K](#Subarray-Sum-Equals-K)     Medium
+7. [Insert Delete GetRandom O(1)](#Insert-Delete-GetRandom-O(1))     Medium
+8.  [Product of Array Except Self](#product-of-array-except-self)        Medium
+9.  [Maximum Swap](#Maximum-Swap)        Medium
+10. [Intersection of Two Arrays](#Intersection-of-Two-Arrays)      Easy
+11. [Intersection of Two Arrays II](#Intersection-of-Two-Arrays-II)       Easy
+12. [Sparse Matrix Multiplication](#Sparse-Matrix-Multiplication)        Medium
+13. [Rectangle Overlap](#Rectangle-Overlap)       Easy
+14. [Minimum Window Substring](#Minimum-Window-Substring)        Hard
+15. [Valid Number](#Valid-Number)        Hard
+16. [Candy](#Candy)       Hard
+17. [Subarray Sum Equals K](#Subarray-Sum-Equals-K)     Medium
+18. [Find the Kth largest item](#Find-the-Kth-largest-item)     Medium
+19. [Count Duplicates](#Count-Duplicates)        Medium
+20. [3 Sum](#3-Ssum)
+
+## Matrix
+1.  [Diagnose Tranverse](#Diagnose-Tranverse)       Medium
+2.  [Kth Smallest Element in a Sorted Matrix](#Kth-Smallest-Element-in-a-Sorted-Matrix)     Medium
+3.  [Rotate Image](#Rotate-Image)        Medium
 
 ## Binary Search
 1. [Search a 2D Matrix](#Search-a-2D-Matrix)      Easy
@@ -43,6 +48,8 @@
 10. [Rotate List](#Rotate-List)     Medium
 11. [Plus One Linked List](#Plus-One-Linked-List)        Medium
 12. [Intersection of Two Linked Lists](#Intersection-of-Two-Linked-Lists)        Medium
+13. [Remove Duplicates from Sorted List II](#Remove-Duplicates-from-Sorted-List-II)     Medium
+14. [Remove Nth Node From End of List](#Remove-Nth node-from-the-end-of-list)       Medium
 
 ## String
 1. [Valid Anagram](#Valid-Anagram)        Easy
@@ -2855,4 +2862,180 @@ string minWindow(string s, string t) {
     }
     return result;
 }
+```
+
+### Find the Kth largest item
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Quick Select
+```
+```c++
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+	//partition rule: >=pivot   pivot   <=pivot
+	int left=0,right=nums.size()-1,idx=0;
+	while(1){
+		idx = partition(nums,left,right);
+		if(idx==k-1) break;
+		else if(idx < k-1) left=idx+1;
+		else right= idx-1;
+	}
+	return nums[idx];
+    }
+    int partition(vector<int>& nums,int left,int right){//hoare partition
+        int pivot = nums[left], l=left+1, r = right;
+        while(l<=r){
+            if(nums[l]<pivot && nums[r]>pivot) swap(nums[l++],nums[r--]);
+            if(nums[l]>=pivot) ++l;
+            if(nums[r]<=pivot) --r;
+        }
+        swap(nums[left], nums[r]);
+        return r;
+    }
+};
+```
+
+### Count Duplicates
+***Big O:*** O(n) speed, O(n) space
+```
+Tips:
+
+Hashmap
+```
+```c++
+class Solution {
+public:
+    vector<int> countduplicates(vector<int> &nums) {
+        // write your code here
+        unordered_map<int, bool> dup;
+        vector<int> ans;
+
+        for (auto n : nums) {
+            if ((dup.find(n) != dup.end()) && !dup[n]) {
+                ans.push_back(n);
+                dup[n] = true;
+            }
+            else if (dup.find(n) == dup.end())
+                dup[n] = false;
+        }
+
+        return ans;
+    }
+};
+```
+
+### 3 Sum
+***Big O:*** O(n^2) speed, O(1) space
+```
+Tips:
+
+Sort + 2 Sum II (two pointer).
+
+Be careful with duplicate items.
+```
+```c++
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(begin(nums), end(nums));
+        vector<vector<int>> res;
+        for (int i = 0; i < nums.size() && nums[i] <= 0; ++i)
+            if (i == 0 || nums[i - 1] != nums[i]) {
+                twoSumII(nums, i, res);
+            }
+        return res;
+    }
+    void twoSumII(vector<int>& nums, int i, vector<vector<int>> &res) {
+        int lo = i + 1, hi = nums.size() - 1;
+        while (lo < hi) {
+            int sum = nums[i] + nums[lo] + nums[hi];
+            if (sum < 0) {
+                ++lo;
+            } else if (sum > 0) {
+                --hi;
+            } else {
+                res.push_back({ nums[i], nums[lo++], nums[hi--] });
+                while (lo < hi && nums[lo] == nums[lo - 1])
+                    ++lo;
+            }
+        }
+    }
+};
+```
+
+### Remove Duplicates from Sorted List II
+***Big O:*** O(n) speed, O(1) space
+```
+Tips:
+
+Two pointers pre and cur.
+```
+```c++
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode sentinal, *pre, *cur, *nxt;
+        
+        sentinal.next = head;
+        sentinal.val = INT_MIN;
+        pre = &sentinal;
+        cur = pre;
+        
+        while (cur && cur->next) {
+            while (cur->next && cur->val == cur->next->val) {
+                cur = cur->next;
+            }
+            cur = cur->next;
+            pre->next = cur;
+            
+            if (cur && cur->next && cur->val != cur->next->val)
+                pre = pre->next;
+        }
+        
+        return sentinal.next;
+    }
+};
+```
+
+### Remove Nth node from the end of list
+***Big O:*** O(L) speed, O(1) space
+```
+Tips:
+
+One pass algorithm:
+
+The first pointer advances the list by n+1n+1 steps from the beginning, while the second pointer starts from the beginning of the list. Now, both pointers are exactly separated by nn nodes apart. We maintain this constant gap by advancing both pointers together until the first pointer arrives past the last node. The second pointer will be pointing at the nnth node counting from the last. We relink the next pointer of the node referenced by the second pointer to point to the node's next next node.
+```
+```c++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (head == nullptr || (head->next == nullptr && n > 0))
+            return nullptr;
+        
+        ListNode sentinal, *first, *second;
+        
+        sentinal.next = head;
+        first = &sentinal;
+        second = &sentinal;
+        
+        while(n--) {
+            if (second == nullptr)
+                return nullptr;
+            second = second->next;
+        }
+        
+        while(second->next) {
+            first = first->next;
+            second = second->next;
+        }
+        
+        first->next = first->next->next;
+        
+        return sentinal.next;
+    }
+};
 ```

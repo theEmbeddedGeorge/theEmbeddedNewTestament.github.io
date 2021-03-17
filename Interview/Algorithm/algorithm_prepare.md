@@ -12,7 +12,6 @@
 9.  [Maximum Swap](#Maximum-Swap)        Medium
 10. [Intersection of Two Arrays](#Intersection-of-Two-Arrays)      Easy
 11. [Intersection of Two Arrays II](#Intersection-of-Two-Arrays-II)       Easy
-12. [Sparse Matrix Multiplication](#Sparse-Matrix-Multiplication)        Medium
 13. [Rectangle Overlap](#Rectangle-Overlap)       Easy
 14. [Minimum Window Substring](#Minimum-Window-Substring)        Hard
 15. [Valid Number](#Valid-Number)        Hard
@@ -21,11 +20,13 @@
 18. [Find the Kth largest item](#Find-the-Kth-largest-item)     Medium
 19. [Count Duplicates](#Count-Duplicates)        Medium
 20. [3 Sum](#3-Ssum)
+21. [Majority Item](Majority Item)      Medium
 
 ## Matrix
 1.  [Diagnose Tranverse](#Diagnose-Tranverse)       Medium
 2.  [Kth Smallest Element in a Sorted Matrix](#Kth-Smallest-Element-in-a-Sorted-Matrix)     Medium
 3.  [Rotate Image](#Rotate-Image)        Medium
+4.  [Sparse Matrix Multiplication](#Sparse-Matrix-Multiplication)        Medium
 
 ## Binary Search
 1. [Search a 2D Matrix](#Search-a-2D-Matrix)      Easy
@@ -49,7 +50,7 @@
 11. [Plus One Linked List](#Plus-One-Linked-List)        Medium
 12. [Intersection of Two Linked Lists](#Intersection-of-Two-Linked-Lists)        Medium
 13. [Remove Duplicates from Sorted List II](#Remove-Duplicates-from-Sorted-List-II)     Medium
-14. [Remove Nth Node From End of List](#Remove-Nth node-from-the-end-of-list)       Medium
+14. [Remove Nth Node From End of List](#Remove-Nth-node-from-the-end-of-list)       Medium
 
 ## String
 1. [Valid Anagram](#Valid-Anagram)        Easy
@@ -60,6 +61,7 @@
 1. [Is Power of Four](#Is-Power-of-Four)     Easy
 2. [Range Bit And](#Range-Bit-And)     Medium
 3. [Number Complement](#Number-Complement)      Medium
+4. [Single Number II](#Single-Number-II)        Medium
 
 ## Data Structure   
 1. [LRU cache](#LRU-cache)      Hard
@@ -86,6 +88,7 @@
 12. [Verifying a Alien Dictionary](#Verify-a-Alien-Dictionary)        Medium
 13. [Container With Most Water](#Container-With-Most-Water)     Medium
 14. [Move Zeroes](#Move-Zeroes)     Medium
+15. [Symmetric Tree](#Symmetric-Tree)       Easy
 
 ## Implementation
 
@@ -3036,6 +3039,101 @@ public:
         first->next = first->next->next;
         
         return sentinal.next;
+    }
+};
+```
+
+### Symmetric Tree
+***Big O:*** O(log(n)) speed, O(1) space
+```
+Tips:
+
+Recursion.
+```
+```c++
+class Solution {
+public:
+    /**
+     * @param root: root of the given tree
+     * @return: whether it is a mirror of itself
+     */
+    bool isSymmetric (TreeNode* root) {
+        // Write your code here
+        return root == nullptr || isSymmetricHelp (root->left, root->right);
+    }
+    bool isSymmetricHelp (TreeNode* left, TreeNode* right) {
+        if (left == nullptr || right == nullptr) {
+            return left == nullptr && right == nullptr;
+        }
+        if (left->val != right->val) {
+            return false;
+        }
+        return isSymmetricHelp (left->left, right->right) && isSymmetricHelp (left->right, right->left);
+    }
+};
+```
+
+### Single Number II
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Counting Repeating Bits. If the mod with 3 is one, then that number must have this bit set.
+```
+```c++
+class Solution {
+public:
+    void count_bits(int arr[], int val) {
+        for (int i = 0; i < 32; i++) {
+            if (val & (0x1 << i))
+                arr[i] ++;
+        }
+    }
+    
+    int singleNumber(vector<int>& nums) {
+        int arr[32] = {};
+        int ret = 0;
+        
+        for (auto num : nums) {
+            count_bits(arr, num);
+        }
+        
+        for (int i = 0; i < 32; i++) {
+            arr[i] = arr[i]%3;
+            ret |= (arr[i] << i);
+        }
+        
+        return ret;
+    }
+};
+```
+
+### Majority Item
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+Counting Repeating Bits. If the bit position appears more than n/2 times, then we know it is for sure in the number.
+```
+```c++
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        int ans = 0, bits[32] = {0};
+        
+        for (auto num : nums) {
+            for (int i = 0; i < 32; i++) {
+                bits[i] += ((num >> i) & 0x1);
+            }
+        }
+        
+        for (int i = 0; i < 32; i++) {
+            if (bits[i] > n/2)
+                ans |= (1U << i);
+        }
+        
+        return ans;
     }
 };
 ```

@@ -87,7 +87,7 @@
     4. [sizeof](Data_Struct_Implementation/sizeof/README.md)
     5. [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
     6. Malloc()
-    7. [strstr()](Data_Struct_Implementation\strstr\Makefile)
+    7. [strstr()](Data_Struct_Implementation\strstr\README.md)
 14. Bits Manipulation
     1.  [Reverse Bits](Data_Struct_Implementation/BitsManipulation/reverseBits.md)
     2.  Flip a monochrome bitmap
@@ -348,11 +348,12 @@
 
 ### [A.  LeetCode Questions for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
 1.  [Advanced Leetcode Questions](Interview/Algorithm/LeetCode_for_embedded_advanced.md)
-2.  [Linked list](Interview/Algorithm/linked_list.md)
-3.  [String]((Interview/Algorithm/string.md)) 
-4.  [Array](Interview/Algorithm/Array.md)
-5.  [Math](Interview/Algorithm/math.md)
-6.  [Data Structure](Interview/Algorithm/dataStructure.md)
+2.  [Advanced Leetcode Questions Practices](Interview\Algorithm\algorithm_prepare.md)
+3.  [Linked list](Interview/Algorithm/linked_list.md)
+4.  [String]((Interview/Algorithm/string.md)) 
+5.  [Array](Interview/Algorithm/Array.md)
+6.  [Math](Interview/Algorithm/math.md)
+7.  [Data Structure](Interview/Algorithm/dataStructure.md)
 
 ### B.  Other Algorithms Questions
 1.  Sliding Window
@@ -476,7 +477,6 @@
 8.  [Amazon](Interview/Company/amazon.md)
 9.  [Lyft](Interview/Company/lyft.md)
 10. [FaceBook](Interview/Company/facebook.md)
-    1.  [Algorithm Prepare](Interview/Company/facebook/algorithm_prepare.md)
 11. Zoox
 12. [Apple](Interview/Company/apple.md)
 

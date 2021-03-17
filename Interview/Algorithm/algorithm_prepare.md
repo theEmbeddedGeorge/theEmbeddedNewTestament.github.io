@@ -1360,8 +1360,10 @@ public:
     
 private:
     string digits[20] = {"", "One ", "Two ", "Three ", "Four ", "Five ", "Six ", "Seven ", "Eight ", "Nine ", "Ten ", "Eleven ", "Twelve ", "Thirteen ", "Fourteen ", "Fifteen ", "Sixteen ", "Seventeen ", "Eighteen ", "Nineteen "};
+    
     string tens[10] = {"", "Ten ", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninety "};
-    pair<int, string> units[4] = {{1000000000, "Billion "}, {1000000, "Million "}, {1000, "Thousand "}, {100, "Hundred "}};
+
+    pair<int, string> units[4] = {{1000*1000*1000, "Billion "}, {1000*1000, "Million "}, {1000, "Thousand "}, {100, "Hundred "}};
 };
 ```
 ### **Reorder list**

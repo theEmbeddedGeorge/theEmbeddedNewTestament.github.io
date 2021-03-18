@@ -19,8 +19,8 @@
 17. [Subarray Sum Equals K](#Subarray-Sum-Equals-K)     Medium
 18. [Find the Kth largest item](#Find-the-Kth-largest-item)     Medium
 19. [Count Duplicates](#Count-Duplicates)        Medium
-20. [3 Sum](#3-Ssum)
-21. [Majority Item](Majority Item)      Medium
+20. [3 Sum](#3-Ssum)        Medium
+21. [Majority Item](#Majority-Item)      Medium
 
 ## Matrix
 1.  [Diagnose Tranverse](#Diagnose-Tranverse)       Medium
@@ -56,6 +56,9 @@
 1. [Valid Anagram](#Valid-Anagram)        Easy
 2. [Integer to English Words](#Integer-to-English-Words)     Hard
 3. [Insert five](#Insert-five)      Easy
+4. [Partition Labels](#Partition-Labels)        Medium
+5. [Longest Palindromic Substring](#Longest-Palindromic-Substring)      Medium
+6. [Word Break](#Word-Break)        Medium
 
 ## Bits Manipulation
 1. [Is Power of Four](#Is-Power-of-Four)     Easy
@@ -66,6 +69,7 @@
 ## Data Structure   
 1. [LRU cache](#LRU-cache)      Hard
 2. [LFU cache](#LFU-cache)      Hard
+3. [Min Stack](#Min-Stack)      Easy
 
 ## OS flavor
 1. [Task Scheduler](#task-scheduler)       Medium
@@ -89,6 +93,7 @@
 13. [Container With Most Water](#Container-With-Most-Water)     Medium
 14. [Move Zeroes](#Move-Zeroes)     Medium
 15. [Symmetric Tree](#Symmetric-Tree)       Easy
+16. [Subtree of Another Tree](#Subtree-of-Another-Tree)     Medium
 
 ## Implementation
 
@@ -1363,7 +1368,7 @@ private:
     
     string tens[10] = {"", "Ten ", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninety "};
 
-    pair<int, string> units[4] = {{1000*1000*1000, "Billion "}, {1000*1000, "Million "}, {1000, "Thousand "}, {100, "Hundred "}};
+    pair<int, string> units[4] = { {1000*1000*1000, "Billion "}, {1000*1000, "Million "}, {1000, "Thousand "}, {100, "Hundred "}};
 };
 ```
 ### **Reorder list**
@@ -3136,6 +3141,265 @@ public:
         }
         
         return ans;
+    }
+};
+```
+
+### Partition Labels
+***Big O:*** O(N) speed, O(1) space
+```
+Tips:
+
+First record all the last occurance indexes of each letter. Than go through the array again and partition.
+```
+```c++
+class Solution {
+public:
+    vector<int> partitionLabels(string S) {
+        int letters[26] = {0};
+        int n = S.size();
+        vector<int> ans;
+        
+        if (n == 0)
+            return ans;
+        
+        for (int i = 0; i < n; i++) {
+            // record the last occurance index of the letter
+            letters[S[i]-'a'] = i;
+        }
+        
+        int p_size = letters[S[0]-'a'];
+        for (int i = 0; i < n; i++) {
+            // record the last occurance index of the letter
+            if (i <= p_size) {
+                p_size = max(letters[S[i]-'a'], p_size);
+            } else {
+                ans.push_back(p_size);
+                p_size = letters[S[i]-'a'];
+            }
+        }
+        ans.push_back(p_size);
+        
+        for (int i = ans.size()-1; i >= 1; i--) {
+            ans[i] = ans[i] - ans[i-1];
+        }
+        ans[0] += 1;
+        
+        return ans;
+    }
+};
+```
+
+### Longest Palindromic Substring
+***Big O:*** O(N^2 or N^3) speed, O(1) space
+```
+Tips:
+
+DP method:
+
+To improve over the brute force solution, we first observe how we can avoid unnecessary re-computation while validating palindromes. Consider the case "ababa". If we already knew that "bab" is a palindrome, it is obvious that "ababa" must be a palindrome since the two left and right end letters are the same.
+
+p(i, j) if substring Si...Sj is panlidrome.
+
+Therefore:
+
+p(i, j) = (p(i+1, j-1) && Si == Sj)
+
+Base cases:
+
+p(i, i) = true
+p(i, i+1) = (Si == S_(i+1))
+```
+```c++
+//Brutal Force
+class Solution {
+public:
+    bool isPanlidrome(string &s, int st, int end) {
+        while (st < end) {
+            if (s[st++] != s[end--])
+                return false;
+        }
+        
+        return true;
+    }
+    
+    string longestPalindrome(string s) {
+        int n = s.size();
+        string ans = "";
+     
+        for (int i = 0; i < n; i++) {
+            int st = i, end = n-1; 
+            while (st <= end) {
+                // if it is guanranteed that ans has bigger size, go to the next index
+                if ((end - st + 1) <= ans.size()) {
+                    break;
+                } else if (s[st] == s[end]){
+                    if (isPanlidrome(s, st, end)) {
+                        ans = s.substr(st, end-st+1);
+                    }
+                } else {
+                    end --;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
+
+// DP solution
+string longestPalindrome(string s) {
+	const int n = s.size();
+	if(n==0) return "";
+	int dp[n][n], maxlen =1 , left=0;// maxlen = 1 when only one word
+	memset(dp,0,n*n*sizeof(int));
+	for(int i=0;i<n;++i){
+		dp[i][i] = 1;
+		for(int j=0;j<i;++j){
+			dp[j][i] = (s[j]==s[i]  && (i-j< 2 || dp[j+1][i-1]));
+			if(dp[j][i] && maxlen < i-j+1){
+				left = j;
+				maxlen = i-j+1;
+			}
+		}
+	}
+	return s.substr(left,maxlen);
+}
+```
+
+### Subtree of Another Tree
+***Big O:*** O(M*N) speed, O(1) space
+```
+Tips:
+
+Recursion
+```
+```c++
+class Solution {
+public:
+    bool helper(TreeNode* s, TreeNode* t) {
+        if (s == nullptr && t == nullptr)
+            return true;
+        
+        if ((s == nullptr && t != nullptr) || (s != nullptr && t == nullptr))
+            return false;
+            
+        return s->val == t->val && helper(s->left, t->left) && helper(s->right, t->right);
+    }
+    
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        if ((s == nullptr && t != nullptr) || (s != nullptr && t == nullptr))
+            return false;
+        
+        if (helper(s, t))
+            return true;
+        
+        return isSubtree(s->left, t) || isSubtree(s->right, t);
+    }
+};
+```
+
+### Min Stack
+***Big O:*** O(M*N) speed, O(1) space
+```
+Tips:
+
+In the stack, store the pair of <new_val, current_min>.
+```
+```c++
+class MinStack {
+    stack<pair<int, int>> data;
+    
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        int min_val = (val < getMin()) ? val : getMin();
+        data.push(make_pair(val, min_val));
+    }
+    
+    void pop() {
+        if (!data.empty())
+            data.pop();
+    }
+    
+    int top() {
+        pair<int, int> item = data.top();
+        return item.first;
+    }
+    
+    int getMin() {
+        if (data.empty())
+            return INT_MAX;
+        
+        pair<int, int> item = data.top();
+        return item.second;
+    }
+};
+```
+
+### Word Break
+***Big O:*** O(2^n or n^3) speed, O(1) space
+```
+Tips:
+
+To optimize the brutal force method, we add memorizations:
+
+In the previous approach we can see that many subproblems were redundant, i.e we were calling the recursive function multiple times for a particular string. To avoid this we can use memoization method, where an array memomemo is used to store the result of the subproblems. Now, when the function is called again for a particular string, value will be fetched and returned using the memomemo array, if its value has been already evaluated.
+
+With memoization many redundant subproblems are avoided and recursion tree is pruned and thus it reduces the time complexity by a large factor.
+```
+```c++
+// Brutal Force
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string> word_set(wordDict.begin(), wordDict.end());
+        return wordBreakRecur(s, word_set, 0);
+    }
+
+    bool wordBreakRecur(string& s, set<string>& word_set, int start) {
+        if (start == s.length()) {
+            return true;
+        }
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (word_set.find(s.substr(start, end - start)) != word_set.end() and
+                wordBreakRecur(s, word_set, end)) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+// Recursion with memo
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string> word_set(wordDict.begin(), wordDict.end());
+        // In the memo table, -1 stands for the state not yet reached,
+        // 0 for false and 1 for true
+        vector<int> memo(s.length(), -1);
+        return wordBreakMemo(s, word_set, 0, memo);
+    }
+
+    bool wordBreakMemo(string& s, set<string>& word_set, int start, vector<int>& memo) {
+        if (start == s.length()) {
+            return true;
+        }
+        if (memo[start] != -1) {
+            return memo[start];
+        }
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (word_set.find(s.substr(start, end - start)) != word_set.end() and
+                wordBreakMemo(s, word_set, end, memo)) {
+                return memo[start] = true;
+            }
+        }
+        return memo[start] = false;
     }
 };
 ```

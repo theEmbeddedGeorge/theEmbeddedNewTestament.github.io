@@ -232,6 +232,12 @@
     13. [Process Management](https://tldp.org/LDP/intro-linux/html/chap_04.html)
     14. [Linux Data Structures](https://tldp.org/LDP/tlk/ds/ds.html)
     15. [Linux Socket Programming](https://www.tenouk.com/cnlinuxsockettutorials.html)
+9.  Android
+    1.  IPC
+    2.  Activity
+    3.  Service
+    4.  Content Provider
+    5.  Broadcast Receiver
 
 ### I. Computer Architecture
 1.  ARM programmer's model
@@ -336,6 +342,34 @@
    2. [C++ core guideline by topics](https://www.modernescpp.com/index.php/category/modern-c)
    3. [Technical Report on C++ Performance](http://www.open-std.org/jtc1/sc22/wg21/docs/TR18015.pdf)
    4. [bogotobogo blogs for embedded](https://www.bogotobogo.com/Embedded/)
+
+### Q. Design Patterns
+1. [Creation Patterns](https://refactoring.guru/design-patterns/creational-patterns)
+   1. [Factor Method](https://refactoring.guru/design-patterns/factory-method)
+   2. [Abstract Factory](https://refactoring.guru/design-patterns/abstract-factory)
+   3. [Builder](https://refactoring.guru/design-patterns/builder)
+   4. [Prototype](https://refactoring.guru/design-patterns/prototype)
+   5. [Singleton](https://refactoring.guru/design-patterns/singleton)
+2. [Sturctural Patterns](https://refactoring.guru/design-patterns/structural-patterns)
+   1. [Adapter](https://refactoring.guru/design-patterns/adapter)
+   2. [Bridge](https://refactoring.guru/design-patterns/bridge)
+   3. [Composite](https://refactoring.guru/design-patterns/composite)
+   4. [Decorator](https://refactoring.guru/design-patterns/decorator)
+   5. [Facade](https://refactoring.guru/design-patterns/facade)
+   6. [Flyweight](https://refactoring.guru/design-patterns/flyweight)
+   7. [Proxy](https://refactoring.guru/design-patterns/proxy)
+3. [Behavior Patterns](https://refactoring.guru/design-patterns/behavioral-patterns)
+   1. [Chain of Responsibility](https://refactoring.guru/design-patterns/chain-of-responsibility)
+   2. [Command](https://refactoring.guru/design-patterns/command)
+   3. [Iterator](https://refactoring.guru/design-patterns/iterator)
+   4. [Mediator](https://refactoring.guru/design-patterns/mediator)
+   5. [Memento](https://refactoring.guru/design-patterns/memento)
+   6. [Observer](https://refactoring.guru/design-patterns/observer)
+   7. [State](https://refactoring.guru/design-patterns/state)
+   8. [Strategy](https://refactoring.guru/design-patterns/strategy)
+   9. [Template Method](https://refactoring.guru/design-patterns/template-method)
+   10. [Visitor](https://refactoring.guru/design-patterns/visitor)
+
 
 ## Interview Psychological Preparation
 ### A.  Symptom

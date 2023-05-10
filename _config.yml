@@ -18,7 +18,7 @@ title: The Embedded New Testament
 email:
 description: The "Holy Bible" for embedded engineers
 baseurl: # the optional subpath of your site, e.g. "/blog"
-url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url: https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io
 author:
   name:
   twitter:
@@ -26,7 +26,7 @@ author:
 twitter_username:
 github_username:
 logo: # path of site logo, e.g. "/assets/images/logo.png"
-search: # true, false (default)
+search: true
 search_full_content: false # true, false (default)
 search_provider: # lunr (default), algolia
 algolia:

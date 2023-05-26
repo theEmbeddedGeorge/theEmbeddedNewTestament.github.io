@@ -42,7 +42,7 @@ LeetCode # | Title | Diffculty | Importance | Implemented?
 191 | Number of 1 Bits | Easy | ***** | v
 203 | Remove Linked List Elements | Easy | ***** | v	
 206 | Reverse Linked List | Easy | ***** | v
-36  | Reverse Linked List II | Medium | *** | v
+92  | Reverse Linked List II | Medium | *** | v
 231 | Power of Two | Easy | ***** | v
 234 | Palindrome Linked List | Easy | **** |v
 237 | Delete Node in a Linked List | Easy | ***** | v	

@@ -12,13 +12,13 @@
 ## 🎯 **Quick Start Guide**
 
 ### **🟢 New to Embedded Systems?**
-Start here → [Embedded C Programming](#a-embedded-c-programming-🟢) → [Hardware Fundamentals](#b-hardware-fundamentals-🟢) → [Communication Protocols](#c-communication-protocols-🟡)
+Start here → [Embedded C Programming](#embedded-c-programming) → [Hardware Fundamentals](#hardware-fundamentals) → [Communication Protocols](#communication-protocols)
 
 ### **🟡 Have Some Experience?**
-Jump to → [Real-Time Systems](#d-real-time-systems-🟡) → [Embedded Debugging](#e-embedded-debugging-🟡) → [System Integration](#f-system-integration-🟡)
+Jump to → [Real-Time Systems](#real-time-systems) → [Embedded Debugging](#embedded-debugging) → [System Integration](#system-integration)
 
 ### **🔴 Experienced Engineer?**
-Explore → [Advanced Hardware](#g-advanced-hardware-🔴) → [Embedded Security](#h-embedded-security-🔴) → [Performance Optimization](#i-performance-optimization-🔴)
+Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#embedded-security) → [Performance Optimization](#performance-optimization)
 
 ---
 
@@ -28,178 +28,265 @@ Explore → [Advanced Hardware](#g-advanced-hardware-🔴) → [Embedded Securit
 
 #### **Phase 1: Embedded C Programming (6 weeks)**
 **Core Embedded C Concepts**
-- [C Overview](https://embeddedworlddevelopers.blogspot.com/p/c-language.html)
-- [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
-- [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
-- [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
-- [Volatile, Const, Static Keywords](Data_Struct_Implementation/memoryPoolAllocator/README.md)
-- [Bit Manipulation](Data_Struct_Implementation/BitsManipulation/)
+- **C Language Fundamentals** - Variables, functions, control structures
+- **Memory Management** - Stack vs heap, memory allocation, deallocation
+- **Pointers and Memory Addresses** - Pointer arithmetic, void pointers, function pointers
+- **Type Qualifiers** - const, volatile, restrict keywords and their embedded applications
+- **Bit Manipulation** - Bit operations, bit fields, bit manipulation tricks
+- **Structure Alignment** - Data packing, memory alignment, padding
+- **Inline Functions and Macros** - Performance optimization techniques
+- **Compiler Intrinsics** - Built-in functions for hardware-specific operations
+- **Assembly Integration** - Inline assembly, calling conventions
+- **Memory Models** - Understanding memory layout, .text, .data, .bss, .stack, .heap
 
-**Memory Management**
-- [Memory Pool Allocation](Data_Struct_Implementation/memoryPoolAllocator/README.md)
-- [Aligned Malloc](Data_Struct_Implementation/alignedMalloc/README.md)
-- [Safe memcpy (memmove)](Data_Struct_Implementation/memcpy_memmove/README.md)
-- [Stack vs Heap Management](Operating_System/virtual_memory.md)
+**Advanced Memory Management**
+- **Memory Pool Allocation** - Efficient memory management for embedded systems
+- **Aligned Memory Allocation** - Hardware-aligned memory allocation
+- **Memory Fragmentation** - Understanding and preventing heap fragmentation
+- **Memory Leak Detection** - Tools and techniques for embedded systems
+- **Stack Overflow Prevention** - Stack size analysis and protection
+- **Memory Protection** - Using MPU/MMU for memory safety
+- **Cache-Aware Programming** - Understanding cache behavior and optimization
+- **DMA Buffer Management** - Safe DMA buffer allocation and management
+- **Memory-Mapped I/O** - Direct hardware register access
+- **Shared Memory Programming** - Multi-core memory sharing patterns
 
 #### **Phase 2: Hardware Fundamentals (4 weeks)**
 **GPIO and Basic I/O**
-- [GPIO Programming](HW_Module/Flash_Storage.md)
-- [Timer Programming (PWM, Capture, Compare)](Operating_System/Interrupt.md)
-- [ADC/DAC Interfacing](HW_Module/Flash_Storage.md)
-- [Basic Sensor Integration](HW_Module/Flash_Storage.md)
+- **GPIO Configuration** - Input/Output modes, pull-up/down resistors, drive strength
+- **Digital I/O Programming** - Reading switches, driving LEDs, keypad scanning
+- **Analog I/O** - ADC sampling techniques, DAC output generation
+- **Pulse Width Modulation** - PWM generation, frequency control, duty cycle
+- **Timer/Counter Programming** - Input capture, output compare, frequency measurement
+- **External Interrupts** - Edge/level triggered interrupts, debouncing
+- **Watchdog Timers** - System monitoring and recovery mechanisms
 
 **System Basics**
-- [Interrupts and Exceptions](Operating_System/Interrupt.md)
-- [Exception Handling (ARM64)](Operating_System/Exception_ARM64.md)
-- [Power Management and Sleep Modes](Operating_System/Interrupt.md)
+- **Interrupts and Exceptions** - Interrupt handling, ISR design, interrupt latency
+- **Interrupt Vector Tables** - Setting up interrupt handlers
+- **Interrupt Priority Management** - Nested interrupts, priority levels
+- **Exception Handling** - Fault detection and recovery
+- **Power Management** - Sleep modes, wake-up sources, power consumption optimization
+- **Clock Management** - System clock configuration, PLL setup
+- **Reset Management** - Power-on reset, watchdog reset, software reset
+- **Hardware Abstraction Layer** - Porting code between different MCUs
 
 #### **Phase 3: Communication Protocols (4 weeks)**
 **Serial Communication**
-- [UART Protocol](Bus_Protocol/uart.md) (with flow control, error handling)
-- [RS232/RS422/RS485](Bus_Protocol/RS232_RS422_RS485.md)
+- **UART Protocol** - Baud rate, data bits, parity, stop bits, flow control
+- **RS232/RS422/RS485** - Electrical standards, multi-drop communication
+- **UART Configuration** - Hardware setup, buffering strategies
+- **Error Detection** - Parity checking, frame errors, overrun detection
+- **Protocol Implementation** - Custom protocol design over UART
 
 **Synchronous Protocols**
-- [SPI Protocol](Bus_Protocol/spi.md) (modes, clock polarity, chip select)
-- [I2C Protocol](Bus_Protocol/i2c.md) (addressing, clock stretching, multi-master)
-- CAN Protocol (Coming Soon) (message format, error handling, arbitration)
+- **SPI Protocol** - Clock polarity, phase, data order, chip select management
+- **I2C Protocol** - Addressing, clock stretching, multi-master arbitration
+- **CAN Protocol** - Message format, error handling, arbitration
+- **High-Speed Protocols** - USB, PCIe, Ethernet for embedded systems
+- **Wireless Protocols** - Bluetooth, BLE, WiFi, Zigbee, LoRa
+- **Network Protocols** - TCP/IP, UDP, MQTT, CoAP for IoT
 
 ### **🟡 Intermediate Level (System Integration)**
 
 #### **Phase 1: Real-Time Systems (6 weeks)**
 **RTOS Concepts**
-- [FreeRTOS Basics](Operating_System/freertos/firmware_stack.md)
-- [Task Scheduling and Priorities](Operating_System/Process/Process_thread_scheduling.md)
-- [Inter-task Communication](Data_Struct_Implementation/concurrency/)
-- [Memory Management in RTOS](Operating_System/virtual_memory.md)
+- **FreeRTOS Basics** - Task creation, scheduling, inter-task communication
+- **Task Creation and Management** - Task states, context switching, stack management
+- **Scheduling Algorithms** - Round-robin, priority-based, rate monotonic
+- **Interrupt Handling** - ISR design, interrupt latency, nested interrupts
+- **Kernel Services** - Semaphores, mutexes, message queues, event flags
+- **Memory Protection** - MPU configuration, task isolation
+- **Power Management** - Tickless idle, dynamic frequency scaling
 
 **Real-Time Constraints**
-- [Real-time Performance Analysis](Operating_System/Process/Process_thread_scheduling.md)
-- [Deadline Management](Operating_System/Process/Process_thread_scheduling.md)
-- [Resource Management](Operating_System/Process/IPC.md)
-- [Process Management](Operating_System/Process/Process.md)
+- **Response Time Analysis** - Worst-case execution time, blocking time
+- **Priority Inversion** - Understanding and preventing priority inversion
+- **Deadlock Prevention** - Resource allocation strategies
+- **Real-time Scheduling** - EDF, rate monotonic, deadline monotonic
+- **Performance Monitoring** - CPU utilization, memory usage, timing analysis
+- **Real-time Debugging** - Trace analysis, performance profiling
 
 #### **Phase 2: Embedded Debugging & Testing (4 weeks)**
 **Debugging Techniques**
-- [JTAG Debugging](Debugging/README.md#jtag-debugging)
-- [Logic Analyzer Usage](Debugging/README.md#logic-analyzer-usage)
-- [Oscilloscope Measurements](Debugging/README.md#oscilloscope-measurements)
-- [Code Coverage and Static Analysis](Debugging/README.md#code-coverage-and-static-analysis)
+- **JTAG Debugging** - Hardware debugging, breakpoints, watchpoints
+- **Logic Analyzer Usage** - Protocol analysis, timing measurements
+- **Oscilloscope Measurements** - Signal analysis, noise measurement
+- **Code Coverage and Static Analysis** - Code quality analysis tools
 
 **Testing Strategies**
-- [Unit Testing for Embedded Systems](Debugging/README.md#unit-testing-for-embedded-systems)
-- [Hardware-in-the-Loop Testing](Debugging/README.md#hardware-in-the-loop-testing)
-- [Performance Profiling](Debugging/README.md#performance-profiling)
+- **Unit Testing for Embedded Systems** - Test frameworks, mocking hardware
+- **Hardware-in-the-Loop Testing** - Real hardware testing, simulation
+- **Performance Profiling** - CPU profiling, memory profiling, timing analysis
 
 #### **Phase 3: System Integration (6 weeks)**
 **System Development**
-- [Bootloader Development](System_Integration/README.md#bootloader-development)
-- [Firmware Update Mechanisms](System_Integration/README.md#firmware-update-mechanisms)
-- [Watchdog Timers and System Recovery](System_Integration/README.md#watchdog-timers-and-system-recovery)
-- [Error Handling and Logging](System_Integration/README.md#error-handling-and-logging)
+- **Bootloader Development** - System initialization, application loading
+- **Firmware Update Mechanisms** - OTA updates, version management
+- **Watchdog Timers and System Recovery** - System monitoring, recovery mechanisms
+- **Error Handling and Logging** - Error reporting, system logging
 
 **Development Tools**
-- [Cross-compilation Setup](System_Integration/README.md#cross-compilation-setup)
-- [Build Systems](System_Integration/README.md#build-systems)
-- [Version Control for Embedded Projects](System_Integration/README.md#version-control-for-embedded-projects)
+- **Cross-compilation Setup** - Toolchain configuration, build environment
+- **Build Systems** - Make, CMake, build automation
+- **Version Control for Embedded Projects** - Git workflows, branching strategies
 
 ### **🔴 Advanced Level (Specialized Areas)**
 
 #### **Phase 1: Advanced Hardware (6 weeks)**
 **Hardware Integration**
-- [Reading Schematics and Datasheets](HW_Module/Flash_Storage.md)
-- [PCB Design Considerations](HW_Module/Flash_Storage.md)
-- [Signal Integrity Basics](HW_Module/Flash_Storage.md)
-- [EMI/EMC Considerations](HW_Module/Flash_Storage.md)
+- **Reading Schematics and Datasheets** - Component selection, specification analysis
+- **PCB Design Considerations** - Layout guidelines, signal integrity
+- **Signal Integrity Basics** - Transmission lines, impedance matching
+- **EMI/EMC Considerations** - Electromagnetic compatibility, shielding
+- **Component Selection** - Choosing appropriate components for embedded designs
+- **Power Supply Design** - Voltage regulation, filtering, noise reduction
+- **Clock Distribution** - Clock tree design, jitter analysis
+- **Thermal Management** - Heat dissipation, thermal analysis
 
 **Advanced Hardware Features**
-- [DMA Programming](Computer_architecture/dma.md)
-- [Cache Management and Coherency](Computer_architecture/tlb.md)
-- [Memory Protection Units (MPU)](HW_Module/Flash_Storage.md)
-- [Hardware Accelerators](HW_Module/Flash_Storage.md)
+- **DMA Programming** - Direct memory access, peripheral DMA
+- **Cache Management and Coherency** - Cache policies, coherency protocols
+- **Memory Protection Units (MPU)** - Memory protection, access control
+- **Hardware Accelerators** - Crypto engines, DSP units, graphics accelerators
+- **Multi-core Programming** - Cache coherency, inter-core communication
+- **Vector Processing** - SIMD instructions, vectorization
+- **Floating Point Units** - FPU programming, precision considerations
 
 #### **Phase 2: Embedded Security (6 weeks)**
 **Security Fundamentals**
-- [Secure Boot and Chain of Trust](Security/embedded_security.md#secure-boot-and-chain-of-trust)
-- [Cryptographic Implementations](Security/embedded_security.md#cryptographic-implementations)
-- [Side-channel Attack Prevention](Security/embedded_security.md#side-channel-attack-prevention)
-- [Hardware Security Modules (HSM)](Security/embedded_security.md#hardware-security-modules-hsm)
+- **Secure Boot and Chain of Trust** - Boot security, trusted execution
+- **Cryptographic Implementations** - AES, RSA, hash functions
+- **Side-channel Attack Prevention** - Power analysis, timing attacks
+- **Hardware Security Modules (HSM)** - Secure key storage, crypto acceleration
 
 **Secure Communication**
-- [Secure Communication Protocols](Security/embedded_security.md#secure-communication-protocols)
-- [ARM TrustZone](Security/embedded_security.md#arm-trustzone)
-- [Encryption Algorithms](Security/embedded_security.md#encryption-algorithms)
-- [TPM 2.0](Security/TPM.md)
+- **Secure Communication Protocols** - TLS/SSL, secure bootstrapping
+- **ARM TrustZone** - Secure world, normal world separation
+- **Encryption Algorithms** - AES-GCM, ChaCha20-Poly1305
+- **TPM 2.0** - Trusted Platform Module integration
 
 #### **Phase 3: Performance Optimization (6 weeks)**
 **Code Optimization**
-- [Code Optimization Techniques](Performance/performance_optimization.md#code-optimization-techniques)
-- [Memory Optimization Strategies](Performance/performance_optimization.md#memory-optimization-strategies)
-- [Power Optimization](Performance/performance_optimization.md#power-optimization)
-- [Real-time Performance Analysis](Performance/performance_optimization.md#real-time-performance-analysis)
+- **Code Optimization Techniques** - Compiler optimizations, algorithm optimization
+- **Memory Optimization Strategies** - Memory layout, cache optimization
+- **Power Optimization** - CPU power management, peripheral power management
+- **Real-time Performance Analysis** - Timing analysis, performance profiling
 
 **Profiling and Benchmarking**
-- [Performance Profiling](Performance/performance_optimization.md#profiling-and-benchmarking)
-- [Optimization Tools](Performance/performance_optimization.md#optimization-tools)
-- [Benchmarking Framework](Performance/performance_optimization.md#benchmarking-tools)
+- **Performance Profiling** - Function profiling, memory profiling
+- **Optimization Tools** - Static analysis, dynamic analysis
+- **Benchmarking Framework** - Performance measurement, comparison tools
 
 **Data Structures & Algorithms**
-- [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)
-- [Ring Buffer](Data_Struct_Implementation/circularRingBuffer/README.md)
-- [Hash Table](Data_Struct_Implementation/hashTable/README.md)
-- [Binary Search Tree](Data_Struct_Implementation/BST/README.md)
-- [Heap (Priority Queue)](Data_Struct_Implementation/binaryHeap/README.md)
+- **Finite State Machine** - State machine design, implementation
+- **Ring Buffer** - Circular buffer implementation, thread-safe operations
+- **Hash Table** - Hash functions, collision resolution
+- **Binary Search Tree** - Tree operations, balancing
+- **Heap (Priority Queue)** - Heap operations, priority queue implementation
+- **Linked Lists** - Singly/doubly linked lists, circular lists
+- **Stacks and Queues** - Array-based and linked implementations
+- **Trees and Graphs** - Binary trees, AVL trees, graph algorithms
 
-**Sorting Algorithms**
-- [Bubble Sort](Data_Struct_Implementation/bubbleSort/bubbleSort.md)
-- [Merge Sort](Data_Struct_Implementation/mergeSort/mergeSort.md)
-- [Quick Sort](Data_Struct_Implementation/quickSort/quicksort.md)
-- [Heap Sort](Data_Struct_Implementation/heapSort/heapSort.md)
-- [Insertion Sort](Data_Struct_Implementation/insertionSort/insertionSort.md)
+**Searching and Sorting Algorithms**
+- **Binary Search** - Iterative and recursive implementations
+- **Quick Sort** - Divide and conquer sorting
+- **Merge Sort** - Stable sorting algorithm
+- **Heap Sort** - In-place sorting using heap
+- **Insertion Sort** - Simple sorting for small datasets
+- **Selection Sort** - Simple in-place sorting algorithm
 
-</details>
+### **Additional Core Topics** 🔧
 
-### **J. Interview Preparation** 🎯
-<details>
-<summary>Click to expand</summary>
+#### **Operating Systems & Linux**
+- **Linux Kernel Programming** - Kernel modules, device drivers, system calls
+- **Process Management** - Process creation, scheduling, inter-process communication
+- **Memory Management** - Virtual memory, paging, memory mapping
+- **Device Drivers** - Character drivers, block drivers, network drivers
+- **System Programming** - POSIX APIs, system calls, signal handling
+- **Multi-threading** - pthread programming, thread synchronization
+- **Real-time Linux** - PREEMPT_RT, Xenomai, real-time extensions
+- **Embedded Linux** - Buildroot, Yocto, custom distributions
+
+#### **Computer Architecture**
+- **CPU Architecture** - ARM, x86, RISC-V, instruction sets
+- **Memory Hierarchy** - Cache levels, virtual memory, TLB
+- **Pipeline Architecture** - Instruction pipelining, hazards, forwarding
+- **Multi-core Systems** - Cache coherency, inter-core communication
+- **Vector Processing** - SIMD instructions, vectorization
+- **Floating Point** - IEEE 754, FPU programming, precision
+- **Memory Ordering** - Memory barriers, atomic operations
+- **Performance Counters** - CPU profiling, performance monitoring
+
+#### **Networking & Communication**
+- **Network Protocols** - TCP/IP, UDP, ICMP, ARP
+- **Socket Programming** - Network programming, client-server
+- **Wireless Protocols** - WiFi, Bluetooth, BLE, Zigbee, LoRa
+- **Industrial Protocols** - Modbus, Profinet, EtherCAT
+- **Automotive Networks** - CAN, LIN, FlexRay, Automotive Ethernet
+- **IoT Protocols** - MQTT, CoAP, HTTP, WebSocket
+- **Network Security** - TLS/SSL, VPN, firewall configuration
+- **Network Debugging** - Wireshark, packet analysis
+
+#### **Development Tools & Practices**
+- **Build Systems** - Make, CMake, Autotools, SCons
+- **Version Control** - Git workflows, branching strategies
+- **Continuous Integration** - Jenkins, GitLab CI, automated testing
+- **Code Review** - Review processes, static analysis tools
+- **Documentation** - Doxygen, Sphinx, technical writing
+- **Testing Frameworks** - Unit testing, integration testing
+- **Code Coverage** - Coverage analysis, test quality metrics
+- **Static Analysis** - Lint tools, code quality analysis
+- **Dynamic Analysis** - Valgrind, AddressSanitizer
+- **Performance Profiling** - gprof, perf, flame graphs
+
+### **Interview Preparation** 🎯
 
 #### **Coding Questions**
-1. [LeetCode for Embedded Developers](Interview/Algorithm/LeetCode_for_Embedded_Developer.md)
-2. [Advanced LeetCode Questions](Interview/Algorithm/LeetCode_for_embedded_advanced.md)
-3. [Linked List Problems](Interview/Algorithm/linked_list.md)
-4. [String Problems](Interview/Algorithm/string.md)
-5. [Array Problems](Interview/Algorithm/Array.md)
+- **Bit Manipulation Problems** - Bit operations, bit counting, bit manipulation tricks
+- **Dynamic Programming** - Memoization, tabulation, optimization problems
+- **Graph Algorithms** - DFS, BFS, shortest path, minimum spanning tree
+- **Tree Problems** - Binary tree traversal, tree construction, tree properties
+- **Heap Problems** - Priority queue applications, heap operations
+- **Sliding Window** - Fixed and variable size window problems
+- **Two Pointers** - Array manipulation, linked list problems
+- **Backtracking** - Recursive problem solving, constraint satisfaction
+- **Greedy Algorithms** - Optimal local choices, greedy strategies
+- **Binary Search** - Search in sorted arrays, binary search variations
 
 #### **Concept Questions**
-6. [Common Embedded Interview Questions](Interview/Concept/Common_embedded_interview.md)
-7. [I2C Interview Questions](Interview/Concept/I2C_interview_questions.md)
-8. [SPI Interview Questions](Interview/Concept/SPI_interview_questions.md)
-9. [UART Interview Questions](Interview/Concept/UART_interview_questions.md)
+- **Memory Management Questions** - Memory allocation, fragmentation, memory leaks
+- **Interrupt Questions** - Interrupt handling, priority, nested interrupts
+- **RTOS Questions** - Task scheduling, synchronization, deadlock prevention
+- **Hardware Questions** - GPIO, timers, ADC/DAC, PWM
+- **Communication Protocol Questions** - CAN, USB, Ethernet, wireless protocols
+- **Debugging Questions** - JTAG, oscilloscope, logic analyzer usage
+- **Performance Questions** - Optimization techniques, profiling, benchmarking
+- **Security Questions** - Secure boot, encryption, side-channel attacks
+- **Power Management Questions** - Sleep modes, power consumption optimization
+- **Real-time Systems Questions** - Deadline management, response time analysis
+- **Computer Architecture Questions** - Cache, pipeline, memory hierarchy
 
 #### **System Design**
-10. [System Design Approach](Interview/SystemDesign/systemDesign.md)
-11. [Load Balancing](Interview/SystemDesign/loadBalancing.md)
-12. [Caching Strategies](Interview/SystemDesign/caching.md)
-13. [Consistent Hashing](Interview/SystemDesign/consistentHashing.md)
-
-#### **Company-Specific**
-14. [Tesla](Interview/Company/tesla.md)
-15. [Google](https://www.geeksforgeeks.org/google-interview-preparation/)
-16. [Qualcomm](Interview/Company/qualcomm.md)
-17. [Nvidia](Interview/Company/Nvidia.md)
-18. [Apple](Interview/Company/apple.md)
-
-</details>
+- **Embedded System Design** - Microcontroller selection, sensor integration
+- **Real-time System Design** - Task scheduling, deadline management
+- **IoT System Design** - Sensor networks, cloud integration, edge computing
+- **Automotive System Design** - CAN networks, safety-critical systems
+- **Industrial Control Systems** - PLC programming, SCADA systems
+- **Medical Device Design** - Safety requirements, regulatory compliance
+- **Consumer Electronics Design** - Power management, user interface
+- **Wireless Sensor Networks** - Mesh networking, power optimization
+- **Robotics System Design** - Motor control, sensor fusion, path planning
+- **Security System Design** - Authentication, encryption, secure communication
 
 ---
 
 ## 🛠️ **Hands-On Projects**
 
 ### **Raspberry Pi Projects**
-1. [Learning OS Development with Raspberry Pi](https://github.com/s-matyukevich/raspberry-pi-os)
-2. [Raspberry Pi Multicore Programming](https://github.com/LdB-ECM/Raspberry-Pi)
-3. [David Welch's Tutorials](https://github.com/dwelch67/raspberrypi)
-4. [Cambridge OS Tutorials](https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/)
-5. [Bare Metal Programming on Raspberry Pi 3](https://github.com/bztsrc/raspi3-tutorial)
+- **Learning OS Development with Raspberry Pi** - Bare metal programming, OS development
+- **Raspberry Pi Multicore Programming** - Multi-core ARM programming
+- **Bare Metal Programming on Raspberry Pi 3** - Low-level programming
 
 ---
 
@@ -230,14 +317,11 @@ Explore → [Advanced Hardware](#g-advanced-hardware-🔴) → [Embedded Securit
 ### **Community & References**
 - [Awesome Embedded Systems](https://github.com/embedded-boston/awesome-embedded-systems)
 - [Awesome C](https://github.com/kozross/awesome-c)
-- [Embedded Systems Guide](https://github.com/Embedded-Systems-Guide)
 - [The Linux Documentation Project](https://tldp.org/guides.html)
 - [OSDev.org](https://wiki.osdev.org/Main_Page)
-- [Memory Management References](https://www.memorymanagement.org/)
 
 ### **Interview Resources**
 - [Embedded Software Interview Archive](https://docs.google.com/document/d/1uW030FMfBxKLxXz-eIwyzlMJdERN5DMEwtUnJMYsF-g/edit)
-- [Embedded Noob Engineer Guide](https://drive.google.com/file/d/0B8K8lEdVL_HUZHgwd0t5Zmc1d3c/view?usp=sharing)
 - [Awesome Embedded Interview](https://docs.google.com/document/d/18HMyd-lFu1hWiixFLS2Pc7-SgyzDDqitzXbfAnUVeBE/mobilebasic)
 
 ---

@@ -71,18 +71,25 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 #### **Phase 3: Communication Protocols (4 weeks)**
 **Serial Communication**
 - **[UART Protocol](./Communication_Protocols/UART_Protocol.md)** - Baud rate, data bits, parity, stop bits, flow control
-- **RS232/RS422/RS485** - Electrical standards, multi-drop communication
-- **UART Configuration** - Hardware setup, buffering strategies
-- **Error Detection** - Parity checking, frame errors, overrun detection
-- **Protocol Implementation** - Custom protocol design over UART
+- **[RS232/RS422/RS485 Standards](./Bus_Protocol/RS232_RS422_RS485.md)** - Electrical standards, multi-drop communication, signal levels
+- **[Serial Communication Fundamentals](./Bus_Protocol/Serial_communication.md)** - Basic serial communication concepts and implementation
+- **[UART Configuration and Setup](./Communication_Protocols/UART_Configuration.md)** - Hardware setup, buffering strategies, interrupt handling
+- **[Error Detection and Handling](./Communication_Protocols/Error_Detection.md)** - Parity checking, frame errors, overrun detection, error recovery
+- **[Protocol Implementation](./Communication_Protocols/Protocol_Implementation.md)** - Custom protocol design over UART, message framing, checksums
 
 **Synchronous Protocols**
-- **SPI Protocol** - Clock polarity, phase, data order, chip select management
-- **I2C Protocol** - Addressing, clock stretching, multi-master arbitration
-- **CAN Protocol** - Message format, error handling, arbitration
-- **High-Speed Protocols** - USB, PCIe, Ethernet for embedded systems
-- **Wireless Protocols** - Bluetooth, BLE, WiFi, Zigbee, LoRa
-- **Network Protocols** - TCP/IP, UDP, MQTT, CoAP for IoT
+- **[SPI Protocol](./Bus_Protocol/spi.md)** - Clock polarity, phase, data order, chip select management, multi-slave configuration
+- **[I2C Protocol](./Bus_Protocol/i2c.md)** - Addressing, clock stretching, multi-master arbitration, bus speed modes
+- **[CAN Protocol](./Communication_Protocols/CAN_Protocol.md)** - Message format, error handling, arbitration, CAN-FD extensions
+- **[High-Speed Protocols](./Communication_Protocols/High_Speed_Protocols.md)** - USB, PCIe, Ethernet for embedded systems, signal integrity
+- **[Wireless Protocols](./Communication_Protocols/Wireless_Protocols.md)** - Bluetooth, BLE, WiFi, Zigbee, LoRa, protocol selection
+- **[Network Protocols](./Communication_Protocols/Network_Protocols.md)** - TCP/IP, UDP, MQTT, CoAP for IoT, socket programming
+
+**Advanced Communication Topics**
+- **[Protocol Analysis and Debugging](./Communication_Protocols/Protocol_Analysis.md)** - Logic analyzer usage, protocol debugging, timing analysis
+- **[Multi-Protocol Systems](./Communication_Protocols/Multi_Protocol_Systems.md)** - Protocol gateways, protocol conversion, system integration
+- **[Real-Time Communication](./Communication_Protocols/Real_Time_Communication.md)** - Deterministic communication, latency analysis, QoS
+- **[Secure Communication](./Communication_Protocols/Secure_Communication.md)** - Encryption, authentication, secure protocols for embedded systems
 
 ### **🟡 Intermediate Level (System Integration)**
 

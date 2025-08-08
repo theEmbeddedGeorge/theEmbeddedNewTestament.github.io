@@ -29,18 +29,18 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 #### **Phase 1: Embedded C Programming (6 weeks)**
 **Core Embedded C Concepts**
 - **[C Language Fundamentals](./Embedded_C/C_Language_Fundamentals.md)** - Variables, functions, control structures
-- **Memory Management** - Stack vs heap, memory allocation, deallocation
-- **Pointers and Memory Addresses** - Pointer arithmetic, void pointers, function pointers
+- **[Memory Management](./Embedded_C/Memory_Management.md)** - Stack vs heap, memory allocation, deallocation
+- **[Pointers and Memory Addresses](./Embedded_C/Pointers_Memory_Addresses.md)** - Pointer arithmetic, void pointers, function pointers
 - **[Type Qualifiers](./Embedded_C/Type_Qualifiers.md)** - const, volatile, restrict keywords and their embedded applications
 - **[Bit Manipulation](./Embedded_C/Bit_Manipulation.md)** - Bit operations, bit fields, bit manipulation tricks
 - **[Structure Alignment](./Embedded_C/Structure_Alignment.md)** - Data packing, memory alignment, padding
 - **[Inline Functions and Macros](./Embedded_C/Inline_Functions_Macros.md)** - Performance optimization techniques
 - **[Compiler Intrinsics](./Embedded_C/Compiler_Intrinsics.md)** - Built-in functions for hardware-specific operations
 - **[Assembly Integration](./Embedded_C/Assembly_Integration.md)** - Inline assembly, calling conventions
-- **Memory Models** - Understanding memory layout, .text, .data, .bss, .stack, .heap
+- **[Memory Models](./Embedded_C/Memory_Models.md)** - Understanding memory layout, .text, .data, .bss, .stack, .heap
 
 **Advanced Memory Management**
-- **Memory Pool Allocation** - Efficient memory management for embedded systems
+- **[Memory Pool Allocation](./Embedded_C/Memory_Pool_Allocation.md)** - Efficient memory management for embedded systems
 - **Aligned Memory Allocation** - Hardware-aligned memory allocation
 - **Memory Fragmentation** - Understanding and preventing heap fragmentation
 - **Memory Leak Detection** - Tools and techniques for embedded systems

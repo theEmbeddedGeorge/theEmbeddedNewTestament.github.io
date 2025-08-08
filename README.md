@@ -53,10 +53,10 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 
 #### **Phase 2: Hardware Fundamentals (4 weeks)**
 **GPIO and Basic I/O**
-- **GPIO Configuration** - Input/Output modes, pull-up/down resistors, drive strength
-- **Digital I/O Programming** - Reading switches, driving LEDs, keypad scanning
-- **Analog I/O** - ADC sampling techniques, DAC output generation
-- **Pulse Width Modulation** - PWM generation, frequency control, duty cycle
+- **[GPIO Configuration](./Hardware_Fundamentals/GPIO_Configuration.md)** - Input/Output modes, pull-up/down resistors, drive strength
+- **[Digital I/O Programming](./Hardware_Fundamentals/Digital_IO_Programming.md)** - Reading switches, driving LEDs, keypad scanning
+- **[Analog I/O](./Hardware_Fundamentals/Analog_IO.md)** - ADC sampling techniques, DAC output generation
+- **[Pulse Width Modulation](./Hardware_Fundamentals/Pulse_Width_Modulation.md)** - PWM generation, frequency control, duty cycle
 - **Timer/Counter Programming** - Input capture, output compare, frequency measurement
 - **External Interrupts** - Edge/level triggered interrupts, debouncing
 - **Watchdog Timers** - System monitoring and recovery mechanisms
@@ -73,7 +73,7 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 
 #### **Phase 3: Communication Protocols (4 weeks)**
 **Serial Communication**
-- **UART Protocol** - Baud rate, data bits, parity, stop bits, flow control
+- **[UART Protocol](./Communication_Protocols/UART_Protocol.md)** - Baud rate, data bits, parity, stop bits, flow control
 - **RS232/RS422/RS485** - Electrical standards, multi-drop communication
 - **UART Configuration** - Hardware setup, buffering strategies
 - **Error Detection** - Parity checking, frame errors, overrun detection

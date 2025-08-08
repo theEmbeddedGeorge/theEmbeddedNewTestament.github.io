@@ -41,15 +41,15 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 
 **Advanced Memory Management**
 - **[Memory Pool Allocation](./Embedded_C/Memory_Pool_Allocation.md)** - Efficient memory management for embedded systems
-- **Aligned Memory Allocation** - Hardware-aligned memory allocation
-- **Memory Fragmentation** - Understanding and preventing heap fragmentation
-- **Memory Leak Detection** - Tools and techniques for embedded systems
-- **Stack Overflow Prevention** - Stack size analysis and protection
-- **Memory Protection** - Using MPU/MMU for memory safety
-- **Cache-Aware Programming** - Understanding cache behavior and optimization
-- **DMA Buffer Management** - Safe DMA buffer allocation and management
-- **Memory-Mapped I/O** - Direct hardware register access
-- **Shared Memory Programming** - Multi-core memory sharing patterns
+- **[Aligned Memory Allocation](./Embedded_C/Aligned_Memory_Allocation.md)** - Hardware-aligned memory allocation
+- **[Memory Fragmentation](./Embedded_C/Memory_Fragmentation.md)** - Understanding and preventing heap fragmentation
+- **[Memory Leak Detection](./Embedded_C/Memory_Leak_Detection.md)** - Tools and techniques for embedded systems
+- **[Stack Overflow Prevention](./Embedded_C/Stack_Overflow_Prevention.md)** - Stack size analysis and protection
+- **[Memory Protection](./Embedded_C/Memory_Protection.md)** - Using MPU/MMU for memory safety
+- **[Cache-Aware Programming](./Embedded_C/Cache_Aware_Programming.md)** - Understanding cache behavior and optimization
+- **[DMA Buffer Management](./Embedded_C/DMA_Buffer_Management.md)** - Safe DMA buffer allocation and management
+- **[Memory-Mapped I/O](./Embedded_C/Memory_Mapped_IO.md)** - Direct hardware register access
+- **[Shared Memory Programming](./Embedded_C/Shared_Memory_Programming.md)** - Multi-core memory sharing patterns
 
 #### **Phase 2: Hardware Fundamentals (4 weeks)**
 **GPIO and Basic I/O**

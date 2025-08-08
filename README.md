@@ -57,17 +57,17 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 - **[Digital I/O Programming](./Hardware_Fundamentals/Digital_IO_Programming.md)** - Reading switches, driving LEDs, keypad scanning
 - **[Analog I/O](./Hardware_Fundamentals/Analog_IO.md)** - ADC sampling techniques, DAC output generation
 - **[Pulse Width Modulation](./Hardware_Fundamentals/Pulse_Width_Modulation.md)** - PWM generation, frequency control, duty cycle
-- **Timer/Counter Programming** - Input capture, output compare, frequency measurement
-- **External Interrupts** - Edge/level triggered interrupts, debouncing
-- **Watchdog Timers** - System monitoring and recovery mechanisms
+- **[Timer/Counter Programming](./Hardware_Fundamentals/Timer_Counter_Programming.md)** - Input capture, output compare, frequency measurement
+- **[External Interrupts](./Hardware_Fundamentals/External_Interrupts.md)** - Edge/level triggered interrupts, debouncing
+- **[Watchdog Timers](./Hardware_Fundamentals/Watchdog_Timers.md)** - System monitoring and recovery mechanisms
 
 **System Basics**
-- **Interrupts and Exceptions** - Interrupt handling, ISR design, interrupt latency
+- **[Interrupts and Exceptions](./Hardware_Fundamentals/Interrupts_Exceptions.md)** - Interrupt handling, ISR design, interrupt latency
 - **Interrupt Vector Tables** - Setting up interrupt handlers
 - **Interrupt Priority Management** - Nested interrupts, priority levels
 - **Exception Handling** - Fault detection and recovery
-- **Power Management** - Sleep modes, wake-up sources, power consumption optimization
-- **Clock Management** - System clock configuration, PLL setup
+- **[Power Management](./Hardware_Fundamentals/Power_Management.md)** - Sleep modes, wake-up sources, power consumption optimization
+- **[Clock Management](./Hardware_Fundamentals/Clock_Management.md)** - System clock configuration, PLL setup
 - **Reset Management** - Power-on reset, watchdog reset, software reset
 - **Hardware Abstraction Layer** - Porting code between different MCUs
 

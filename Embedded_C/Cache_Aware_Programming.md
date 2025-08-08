@@ -2,12 +2,14 @@
 
 ## 📋 Table of Contents
 - [Overview](#-overview)
+- [What is Cache-Aware Programming?](#-what-is-cache-aware-programming)
+- [Why is Cache Performance Important?](#-why-is-cache-performance-important)
+- [How CPU Caches Work](#-how-cpu-caches-work)
 - [Cache Architecture](#-cache-architecture)
-- [Cache Line Optimization](#-cache-line-optimization)
+- [Cache Performance Concepts](#-cache-performance-concepts)
 - [Memory Access Patterns](#-memory-access-patterns)
-- [False Sharing Prevention](#-false-sharing-prevention)
-- [Cache Prefetching](#-cache-prefetching)
-- [Cache Flushing and Invalidation](#-cache-flushing-and-invalidation)
+- [Cache Optimization Techniques](#-cache-optimization-techniques)
+- [Implementation](#-implementation)
 - [Multi-core Cache Considerations](#-multi-core-cache-considerations)
 - [Performance Profiling](#-performance-profiling)
 - [Common Pitfalls](#-common-pitfalls)
@@ -19,9 +21,161 @@
 
 Cache-aware programming optimizes code to work efficiently with CPU cache memory, improving performance by reducing cache misses and maximizing cache utilization. In embedded systems, understanding cache behavior is crucial for real-time performance and power efficiency.
 
+### Key Concepts for Embedded Development
+- **Cache locality** - Keeping frequently accessed data close together in memory
+- **Cache line alignment** - Aligning data structures to cache line boundaries
+- **Memory access patterns** - Optimizing how data is accessed sequentially
+- **False sharing prevention** - Avoiding cache line conflicts in multi-threaded code
+- **Cache-aware data structures** - Designing data structures for cache efficiency
+
+## 🤔 What is Cache-Aware Programming?
+
+Cache-aware programming is a technique that optimizes code to work efficiently with the CPU's cache memory hierarchy. It involves understanding how caches work and designing algorithms and data structures to minimize cache misses and maximize cache hits.
+
+### Core Principles
+
+1. **Spatial Locality**: Accessing data that is close together in memory
+2. **Temporal Locality**: Reusing recently accessed data
+3. **Cache Line Awareness**: Understanding cache line boundaries and alignment
+4. **Memory Access Patterns**: Optimizing sequential vs. random access patterns
+5. **Data Structure Design**: Designing structures for cache-friendly access
+
+### Why Cache Performance Matters
+
+Modern CPUs are much faster than memory. The cache acts as a high-speed buffer between the CPU and main memory, significantly reducing memory access latency.
+
+```
+Memory Hierarchy Performance:
+┌─────────────────┬─────────────┬─────────────────┐
+│     Level       │   Latency   │     Size        │
+├─────────────────┼─────────────┼─────────────────┤
+│   L1 Cache      │   1-3 ns    │   32-64 KB      │
+│   L2 Cache      │   10-20 ns  │   256-512 KB    │
+│   L3 Cache      │   40-80 ns  │   4-32 MB       │
+│   Main Memory   │   100-300 ns│   4-32 GB       │
+│   Disk/Flash    │   10-100 μs │   100+ GB       │
+└─────────────────┴─────────────┴─────────────────┘
+```
+
+## 🎯 Why is Cache Performance Important?
+
+### Performance Impact
+
+1. **Speed**: Cache hits are 10-100x faster than memory accesses
+2. **Power Efficiency**: Cache accesses consume less power than memory accesses
+3. **Real-time Performance**: Predictable cache behavior improves real-time performance
+4. **Scalability**: Cache-efficient code scales better with larger datasets
+
+### Real-world Impact
+
+- **10x performance improvement** for cache-friendly algorithms
+- **50% power reduction** in cache-optimized embedded systems
+- **Predictable timing** for real-time applications
+- **Better scalability** for multi-core systems
+
+### When Cache Optimization Matters
+
+**High Impact Scenarios:**
+- Large data processing applications
+- Real-time systems with strict timing requirements
+- Multi-core systems with shared caches
+- Memory-intensive algorithms
+- Embedded systems with limited cache
+
+**Low Impact Scenarios:**
+- Small datasets that fit entirely in cache
+- I/O-bound applications
+- Simple algorithms with minimal memory access
+- Systems with abundant memory bandwidth
+
+## 🧠 How CPU Caches Work
+
+### Cache Basics
+
+A cache is a small, fast memory that stores frequently accessed data. When the CPU needs data, it first checks the cache. If the data is found (cache hit), it's retrieved quickly. If not found (cache miss), the data must be fetched from slower memory.
+
+### Cache Organization
+
+```
+Cache Structure:
+┌─────────────────────────────────────────────────────────────┐
+│                    Cache Memory                             │
+├─────────────────┬─────────────────┬─────────────────┬───────┤
+│   Cache Line 0  │   Cache Line 1  │   Cache Line 2  │  ...  │
+│  ┌─────────────┐│  ┌─────────────┐│  ┌─────────────┐│       │
+│  │   Tag       ││  │   Tag       ││  │   Tag       ││       │
+│  │   Data      ││  │   Data      ││  │   Data      ││       │
+│  │   Valid     ││  │   Valid     ││  │   Valid     ││       │
+│  └─────────────┘│  └─────────────┘│  └─────────────┘│       │
+└─────────────────┴─────────────────┴─────────────────┴───────┘
+```
+
+### Cache Line Concept
+
+A cache line is the smallest unit of data that can be transferred between cache and memory. Typical cache line sizes are 32, 64, or 128 bytes.
+
+```
+Cache Line Structure:
+┌─────────────────────────────────────────────────────────────┐
+│                    Cache Line (64 bytes)                   │
+├─────────┬─────────┬─────────┬─────────┬─────────┬───────────┤
+│  Byte 0 │  Byte 1 │  Byte 2 │  ...    │  Byte 62│  Byte 63  │
+└─────────┴─────────┴─────────┴─────────┴─────────┴───────────┘
+```
+
+### Cache Hit vs Cache Miss
+
+**Cache Hit:**
+1. CPU requests data at address X
+2. Cache controller checks if data is in cache
+3. Data found in cache (hit)
+4. Data returned to CPU quickly (1-3 cycles)
+
+**Cache Miss:**
+1. CPU requests data at address X
+2. Cache controller checks if data is in cache
+3. Data not found in cache (miss)
+4. Cache line containing address X is fetched from memory
+5. Data is stored in cache and returned to CPU (100+ cycles)
+
+### Cache Replacement Policies
+
+When a cache miss occurs and the cache is full, some data must be evicted to make room for new data.
+
+**Common Replacement Policies:**
+1. **LRU (Least Recently Used)**: Evict least recently accessed data
+2. **FIFO (First In, First Out)**: Evict oldest data
+3. **Random**: Randomly select data to evict
+4. **LFU (Least Frequently Used)**: Evict least frequently accessed data
+
 ## 🏗️ Cache Architecture
 
 ### Cache Hierarchy
+
+Modern processors have multiple levels of cache, each with different characteristics:
+
+```
+Cache Hierarchy:
+┌─────────────────────────────────────────────────────────────┐
+│                    CPU Core                                 │
+│  ┌─────────────────┬─────────────────┬─────────────────┐   │
+│  │   L1 Data       │   L1 Instruction│   L1 Unified    │   │
+│  │   Cache         │   Cache         │   Cache         │   │
+│  │   (32-64 KB)    │   (32-64 KB)    │   (32-64 KB)    │   │
+│  └─────────────────┴─────────────────┴─────────────────┘   │
+├─────────────────────────────────────────────────────────────┤
+│                    L2 Cache                                │
+│                  (256-512 KB)                              │
+├─────────────────────────────────────────────────────────────┤
+│                    L3 Cache                                │
+│                   (4-32 MB)                                │
+├─────────────────────────────────────────────────────────────┤
+│                    Main Memory                             │
+│                   (4-32 GB)                                │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Cache Configuration
 ```c
 // Cache configuration for ARM Cortex-M7
 typedef struct {
@@ -68,7 +222,175 @@ typedef struct {
 } __attribute__((aligned(CACHE_LINE_SIZE))) separated_data_t;
 ```
 
-## 🔧 Cache Line Optimization
+## 📊 Cache Performance Concepts
+
+### Locality Principles
+
+**Spatial Locality**: The tendency to access data that is close together in memory.
+
+```
+Example of Spatial Locality:
+┌─────────────────────────────────────────────────────────────┐
+│                    Memory Array                             │
+├─────────┬─────────┬─────────┬─────────┬─────────┬───────────┤
+│  Data[0]│  Data[1]│  Data[2]│  Data[3]│  Data[4]│  Data[5]  │
+└─────────┴─────────┴─────────┴─────────┴─────────┴───────────┘
+         ↑
+    Sequential access pattern
+    (Good spatial locality)
+```
+
+**Temporal Locality**: The tendency to access the same data repeatedly over time.
+
+```
+Example of Temporal Locality:
+for (int i = 0; i < 1000; i++) {
+    sum += data[i];  // data[i] accessed multiple times
+}
+```
+
+### Cache Miss Types
+
+1. **Compulsory Misses**: First access to data (unavoidable)
+2. **Capacity Misses**: Cache is too small to hold all needed data
+3. **Conflict Misses**: Multiple data items map to the same cache location
+4. **Coherence Misses**: Cache invalidation in multi-core systems
+
+### Cache Performance Metrics
+
+**Hit Rate**: Percentage of memory accesses that result in cache hits
+```
+Hit Rate = (Cache Hits) / (Cache Hits + Cache Misses) × 100%
+```
+
+**Miss Rate**: Percentage of memory accesses that result in cache misses
+```
+Miss Rate = (Cache Misses) / (Cache Hits + Cache Misses) × 100%
+```
+
+**Average Memory Access Time (AMAT)**:
+```
+AMAT = Hit Time + Miss Rate × Miss Penalty
+```
+
+## 🔄 Memory Access Patterns
+
+### Sequential Access
+
+Sequential access patterns are cache-friendly because they exhibit good spatial locality.
+
+```
+Sequential Access Pattern:
+┌─────────────────────────────────────────────────────────────┐
+│                    Memory Layout                            │
+├─────────┬─────────┬─────────┬─────────┬─────────┬───────────┤
+│  Data[0]│  Data[1]│  Data[2]│  Data[3]│  Data[4]│  Data[5]  │
+└─────────┴─────────┴─────────┴─────────┴─────────┴───────────┘
+    ↑         ↑         ↑         ↑         ↑         ↑
+   Access 1  Access 2  Access 3  Access 4  Access 5  Access 6
+```
+
+**Benefits:**
+- Excellent spatial locality
+- High cache hit rates
+- Predictable performance
+- Easy to optimize
+
+### Random Access
+
+Random access patterns can cause cache misses and poor performance.
+
+```
+Random Access Pattern:
+┌─────────────────────────────────────────────────────────────┐
+│                    Memory Layout                            │
+├─────────┬─────────┬─────────┬─────────┬─────────┬───────────┤
+│  Data[0]│  Data[1]│  Data[2]│  Data[3]│  Data[4]│  Data[5]  │
+└─────────┴─────────┴─────────┴─────────┴─────────┴───────────┘
+    ↑               ↑         ↑               ↑         ↑
+   Access 1       Access 2   Access 3       Access 4   Access 5
+```
+
+**Challenges:**
+- Poor spatial locality
+- Low cache hit rates
+- Unpredictable performance
+- Difficult to optimize
+
+### Strided Access
+
+Strided access patterns access data with a fixed stride (step size).
+
+```
+Strided Access Pattern (stride = 2):
+┌─────────────────────────────────────────────────────────────┐
+│                    Memory Layout                            │
+├─────────┬─────────┬─────────┬─────────┬─────────┬───────────┤
+│  Data[0]│  Data[1]│  Data[2]│  Data[3]│  Data[4]│  Data[5]  │
+└─────────┴─────────┴─────────┴─────────┴─────────┴───────────┘
+    ↑               ↑               ↑
+   Access 1       Access 2       Access 3
+```
+
+**Optimization Strategies:**
+- Adjust data layout for better locality
+- Use cache-aware data structures
+- Implement prefetching
+
+## 🔧 Cache Optimization Techniques
+
+### Data Structure Alignment
+
+Align data structures to cache line boundaries to avoid cache line splits.
+
+```c
+// Optimize data structures for cache
+typedef struct {
+    uint32_t frequently_accessed;  // Hot data
+    uint32_t rarely_accessed;      // Cold data
+    char padding[CACHE_LINE_SIZE - 8];  // Separate to different cache lines
+} __attribute__((aligned(CACHE_LINE_SIZE))) hot_cold_separated_t;
+
+// Array of structures (AoS) vs Structure of arrays (SoA)
+// AoS - may cause cache misses
+typedef struct {
+    uint32_t x, y, z;
+} point_aos_t;
+
+point_aos_t points_aos[1000];  // Array of structures
+
+// SoA - better cache locality
+typedef struct {
+    uint32_t x[1000];
+    uint32_t y[1000];
+    uint32_t z[1000];
+} points_soa_t;
+
+points_soa_t points_soa;  // Structure of arrays
+```
+
+### Cache Line Padding
+
+Use padding to separate frequently accessed data and prevent false sharing.
+
+```c
+// Cache line padding to prevent false sharing
+typedef struct {
+    uint32_t counter;
+    char padding[CACHE_LINE_SIZE - sizeof(uint32_t)];
+} __attribute__((aligned(CACHE_LINE_SIZE))) padded_counter_t;
+```
+
+### Memory Access Optimization
+
+1. **Loop Optimization**: Optimize loops for cache-friendly access patterns
+2. **Data Layout**: Arrange data for sequential access
+3. **Prefetching**: Prefetch data before it's needed
+4. **Blocking**: Process data in cache-sized blocks
+
+## 🔧 Implementation
+
+### Cache Line Optimization
 
 ### Data Structure Alignment
 ```c
@@ -99,603 +421,388 @@ points_soa_t points_soa;  // Structure of arrays
 
 ### Cache Line Padding
 ```c
-// Prevent false sharing with padding
+// Cache line padding to prevent false sharing
 typedef struct {
-    uint32_t counter1;
-    char padding1[CACHE_LINE_SIZE - 4];
-    uint32_t counter2;
-    char padding2[CACHE_LINE_SIZE - 4];
-} __attribute__((aligned(CACHE_LINE_SIZE))) padded_counters_t;
+    uint32_t counter;
+    char padding[CACHE_LINE_SIZE - sizeof(uint32_t)];
+} __attribute__((aligned(CACHE_LINE_SIZE))) padded_counter_t;
 
-// Multi-core safe counters
-typedef struct {
-    uint32_t core1_counter;
-    char padding1[CACHE_LINE_SIZE - 4];
-    uint32_t core2_counter;
-    char padding2[CACHE_LINE_SIZE - 4];
-    uint32_t core3_counter;
-    char padding3[CACHE_LINE_SIZE - 4];
-    uint32_t core4_counter;
-    char padding4[CACHE_LINE_SIZE - 4];
-} __attribute__((aligned(CACHE_LINE_SIZE))) multi_core_counters_t;
+// Array of padded counters for multi-threaded access
+padded_counter_t counters[NUM_THREADS];
 ```
 
-## 🎯 Memory Access Patterns
+### Memory Access Patterns
 
 ### Sequential Access Optimization
 ```c
-// Optimize sequential memory access
+// Optimized sequential access
 void optimized_sequential_access(uint32_t* data, size_t size) {
-    // Process data in cache-line sized chunks
-    size_t cache_line_elements = CACHE_LINE_SIZE / sizeof(uint32_t);
+    // Process data in cache-line sized blocks
+    const size_t block_size = CACHE_LINE_SIZE / sizeof(uint32_t);
     
-    for (size_t i = 0; i < size; i += cache_line_elements) {
-        size_t chunk_size = (i + cache_line_elements > size) ? 
-                           (size - i) : cache_line_elements;
+    for (size_t i = 0; i < size; i += block_size) {
+        size_t end = (i + block_size < size) ? i + block_size : size;
         
-        // Process chunk - all elements likely in cache
-        for (size_t j = 0; j < chunk_size; j++) {
-            data[i + j] *= 2;  // Sequential access
+        // Process block
+        for (size_t j = i; j < end; j++) {
+            data[j] = process_data(data[j]);
         }
     }
 }
+```
 
-// Cache-friendly matrix access
-void cache_friendly_matrix_multiply(float* a, float* b, float* c, int n) {
-    // Access matrices in row-major order for better cache performance
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            float sum = 0.0f;
-            for (int k = 0; k < n; k++) {
-                sum += a[i * n + k] * b[k * n + j];  // Row-major access
+### Strided Access Optimization
+```c
+// Optimized strided access
+void optimized_strided_access(uint32_t* data, size_t size, size_t stride) {
+    // Use blocking for strided access
+    const size_t block_size = CACHE_LINE_SIZE / sizeof(uint32_t);
+    
+    for (size_t block_start = 0; block_start < size; block_start += block_size * stride) {
+        for (size_t offset = 0; offset < stride; offset++) {
+            for (size_t i = block_start + offset; i < size; i += stride) {
+                if (i < block_start + block_size * stride) {
+                    data[i] = process_data(data[i]);
+                }
             }
-            c[i * n + j] = sum;
         }
     }
 }
 ```
 
-### Random Access Optimization
-```c
-// Optimize random access patterns
-typedef struct {
-    uint32_t key;
-    uint32_t value;
-} key_value_t;
+## 🔒 False Sharing Prevention
 
-// Use hash table for random access
-typedef struct {
-    key_value_t* table;
-    size_t size;
-    size_t capacity;
-} cache_optimized_hash_table_t;
+### What is False Sharing?
 
-cache_optimized_hash_table_t* create_cache_optimized_hash_table(size_t capacity) {
-    cache_optimized_hash_table_t* table = malloc(sizeof(cache_optimized_hash_table_t));
-    if (!table) return NULL;
-    
-    // Align table to cache line
-    size_t aligned_size = ((capacity * sizeof(key_value_t) + CACHE_LINE_SIZE - 1) / 
-                          CACHE_LINE_SIZE) * CACHE_LINE_SIZE;
-    
-    table->table = aligned_alloc(CACHE_LINE_SIZE, aligned_size);
-    table->capacity = capacity;
-    table->size = 0;
-    
-    return table;
-}
+False sharing occurs when two or more threads access different variables that happen to be on the same cache line, causing unnecessary cache invalidations.
+
+```
+False Sharing Example:
+┌─────────────────────────────────────────────────────────────┐
+│                    Cache Line                               │
+├─────────────┬─────────────┬─────────────┬───────────────────┤
+│  Thread 1   │  Thread 2   │  Thread 3   │     Padding      │
+│   Counter   │   Counter   │   Counter   │                  │
+└─────────────┴─────────────┴─────────────┴───────────────────┘
 ```
 
-## 🚫 False Sharing Prevention
+### Prevention Techniques
 
-### Multi-core Data Separation
+1. **Cache Line Padding**: Add padding to separate variables
+2. **Cache Line Alignment**: Align structures to cache line boundaries
+3. **Data Layout**: Arrange data to minimize false sharing
+4. **Thread-Local Storage**: Use thread-local variables
+
 ```c
-// Prevent false sharing between cores
+// Prevent false sharing with padding
 typedef struct {
-    uint32_t core_id;
-    uint32_t local_data;
-    char padding[CACHE_LINE_SIZE - 8];  // Padding to next cache line
-} __attribute__((aligned(CACHE_LINE_SIZE))) per_core_data_t;
+    uint32_t counter;
+    char padding[CACHE_LINE_SIZE - sizeof(uint32_t)];
+} __attribute__((aligned(CACHE_LINE_SIZE))) padded_counter_t;
 
-per_core_data_t* create_per_core_data_array(int num_cores) {
-    size_t total_size = num_cores * sizeof(per_core_data_t);
-    per_core_data_t* array = aligned_alloc(CACHE_LINE_SIZE, total_size);
-    
-    if (array) {
-        for (int i = 0; i < num_cores; i++) {
-            array[i].core_id = i;
-            array[i].local_data = 0;
-        }
-    }
-    
-    return array;
-}
-
-// Thread-local storage with cache alignment
-typedef struct {
-    uint32_t thread_id;
-    uint32_t local_counter;
-    uint32_t local_sum;
-    char padding[CACHE_LINE_SIZE - 12];
-} __attribute__((aligned(CACHE_LINE_SIZE))) thread_local_storage_t;
-```
-
-### Lock-free Data Structures
-```c
-// Lock-free queue with cache optimization
-typedef struct {
-    uint32_t head;
-    char padding1[CACHE_LINE_SIZE - 4];
-    uint32_t tail;
-    char padding2[CACHE_LINE_SIZE - 4];
-    uint32_t data[QUEUE_SIZE];
-} __attribute__((aligned(CACHE_LINE_SIZE))) lock_free_queue_t;
-
-bool lock_free_queue_push(lock_free_queue_t* queue, uint32_t value) {
-    uint32_t tail = queue->tail;
-    uint32_t next_tail = (tail + 1) % QUEUE_SIZE;
-    
-    if (next_tail == queue->head) {
-        return false;  // Queue full
-    }
-    
-    queue->data[tail] = value;
-    queue->tail = next_tail;
-    return true;
-}
-
-bool lock_free_queue_pop(lock_free_queue_t* queue, uint32_t* value) {
-    uint32_t head = queue->head;
-    
-    if (head == queue->tail) {
-        return false;  // Queue empty
-    }
-    
-    *value = queue->data[head];
-    queue->head = (head + 1) % QUEUE_SIZE;
-    return true;
-}
+// Array of padded counters
+padded_counter_t counters[NUM_THREADS];
 ```
 
 ## 🔄 Cache Prefetching
 
-### Manual Prefetching
+### What is Prefetching?
+
+Prefetching is a technique that loads data into cache before it's needed, reducing cache misses.
+
+### Types of Prefetching
+
+1. **Hardware Prefetching**: Automatic prefetching by the CPU
+2. **Software Prefetching**: Explicit prefetching by the programmer
+3. **Compiler Prefetching**: Automatic prefetching by the compiler
+
+### Software Prefetching
 ```c
-// Manual cache prefetching
-void prefetch_optimized_loop(uint32_t* data, size_t size) {
-    size_t prefetch_distance = 4;  // Prefetch 4 cache lines ahead
-    
+// Software prefetching example
+void prefetch_example(uint32_t* data, size_t size) {
     for (size_t i = 0; i < size; i++) {
         // Prefetch next cache line
-        if (i + prefetch_distance < size) {
-            __builtin_prefetch(&data[i + prefetch_distance], 0, 3);
+        if (i + CACHE_LINE_SIZE/sizeof(uint32_t) < size) {
+            __builtin_prefetch(&data[i + CACHE_LINE_SIZE/sizeof(uint32_t)], 0, 3);
         }
         
-        // Process current element
-        data[i] *= 2;
-    }
-}
-
-// Prefetch for linked list traversal
-typedef struct node {
-    uint32_t data;
-    struct node* next;
-} node_t;
-
-void prefetch_linked_list_traversal(node_t* head) {
-    node_t* current = head;
-    
-    while (current) {
-        // Prefetch next node
-        if (current->next) {
-            __builtin_prefetch(current->next, 0, 3);
-        }
-        
-        // Process current node
-        process_node(current);
-        current = current->next;
+        // Process current data
+        data[i] = process_data(data[i]);
     }
 }
 ```
 
-### Compiler Prefetching
-```c
-// Use compiler hints for prefetching
-void compiler_prefetch_loop(uint32_t* data, size_t size) {
-    #pragma unroll(4)
-    for (size_t i = 0; i < size; i++) {
-        // Compiler may generate prefetch instructions
-        data[i] = data[i] * 2 + 1;
-    }
-}
+## 🔄 Cache Flushing and Invalidation
 
-// Loop with prefetch hints
-void hinted_prefetch_loop(uint32_t* data, size_t size) {
-    for (size_t i = 0; i < size; i++) {
-        // Hint that this access pattern is sequential
-        __builtin_expect(i < size - 1, 1);
-        data[i] = data[i] * 2;
-    }
-}
-```
+### When to Flush/Invalidate
 
-## 🧹 Cache Flushing and Invalidation
+1. **DMA Operations**: Before/after DMA transfers
+2. **Multi-core Systems**: When sharing data between cores
+3. **I/O Operations**: Before/after I/O operations
+4. **Security**: When clearing sensitive data
 
-### Cache Maintenance Operations
+### Implementation
 ```c
 // Cache flush and invalidate functions
-void flush_data_cache(void) {
-    // Flush entire data cache
-    __builtin___clear_cache((char*)0, (char*)0xFFFFFFFF);
-}
-
-void invalidate_data_cache(void) {
-    // Invalidate entire data cache
-    __builtin___clear_cache((char*)0, (char*)0xFFFFFFFF);
-}
-
-void flush_cache_range(void* start, void* end) {
-    // Flush specific memory range
-    __builtin___clear_cache((char*)start, (char*)end);
-}
-
-// DMA-safe memory operations
-void* dma_safe_allocate(size_t size) {
-    void* ptr = aligned_alloc(CACHE_LINE_SIZE, size);
-    if (ptr) {
-        // Flush cache for DMA
-        flush_cache_range(ptr, (char*)ptr + size);
-    }
-    return ptr;
-}
-
-void dma_safe_free(void* ptr, size_t size) {
-    if (ptr) {
-        // Invalidate cache after DMA
-        invalidate_cache_range(ptr, (char*)ptr + size);
-        free(ptr);
+void cache_flush(void* addr, size_t size) {
+    // Flush cache lines containing the address range
+    uintptr_t start = (uintptr_t)addr & ~(CACHE_LINE_SIZE - 1);
+    uintptr_t end = ((uintptr_t)addr + size + CACHE_LINE_SIZE - 1) & ~(CACHE_LINE_SIZE - 1);
+    
+    for (uintptr_t addr = start; addr < end; addr += CACHE_LINE_SIZE) {
+        __builtin_arm_dccmvac((void*)addr);
     }
 }
-```
 
-### Cache Coherency
-```c
-// Ensure cache coherency between cores
-typedef struct {
-    volatile uint32_t flag;
-    char padding[CACHE_LINE_SIZE - 4];
-} __attribute__((aligned(CACHE_LINE_SIZE))) cache_coherent_flag_t;
-
-void set_flag_with_coherency(cache_coherent_flag_t* flag) {
-    flag->flag = 1;
-    // Ensure write is visible to other cores
-    __sync_synchronize();
-}
-
-bool check_flag_with_coherency(cache_coherent_flag_t* flag) {
-    // Ensure we read the latest value
-    __sync_synchronize();
-    return flag->flag != 0;
+void cache_invalidate(void* addr, size_t size) {
+    // Invalidate cache lines containing the address range
+    uintptr_t start = (uintptr_t)addr & ~(CACHE_LINE_SIZE - 1);
+    uintptr_t end = ((uintptr_t)addr + size + CACHE_LINE_SIZE - 1) & ~(CACHE_LINE_SIZE - 1);
+    
+    for (uintptr_t addr = start; addr < end; addr += CACHE_LINE_SIZE) {
+        __builtin_arm_dccimvac((void*)addr);
+    }
 }
 ```
 
 ## 🔄 Multi-core Cache Considerations
 
-### Cache Line Sharing
+### Cache Coherency
+
+In multi-core systems, each core has its own cache, and cache coherency protocols ensure data consistency.
+
+### Cache Coherency Protocols
+
+1. **MESI Protocol**: Modified, Exclusive, Shared, Invalid
+2. **MOESI Protocol**: Modified, Owned, Exclusive, Shared, Invalid
+3. **MSI Protocol**: Modified, Shared, Invalid
+
+### Multi-core Optimization
+
+1. **False Sharing Prevention**: Use padding and alignment
+2. **Cache-Aware Data Layout**: Arrange data for minimal contention
+3. **Thread Affinity**: Bind threads to specific cores
+4. **NUMA awareness**: Consider NUMA architecture
+
 ```c
-// Shared data structure with cache optimization
+// Multi-core cache-aware data structure
 typedef struct {
-    uint32_t shared_counter;
-    char padding[CACHE_LINE_SIZE - 4];
-} __attribute__((aligned(CACHE_LINE_SIZE))) shared_counter_t;
-
-shared_counter_t* create_shared_counter(void) {
-    return aligned_alloc(CACHE_LINE_SIZE, sizeof(shared_counter_t));
-}
-
-void atomic_increment_shared_counter(shared_counter_t* counter) {
-    // Use atomic operation to avoid cache line bouncing
-    __sync_fetch_and_add(&counter->shared_counter, 1);
-}
-```
-
-### NUMA-aware Programming
-```c
-// NUMA-aware memory allocation
-typedef struct {
-    uint32_t numa_node;
-    void* local_memory;
-    size_t local_size;
-} numa_aware_allocator_t;
-
-numa_aware_allocator_t* create_numa_aware_allocator(uint32_t numa_node) {
-    numa_aware_allocator_t* allocator = malloc(sizeof(numa_aware_allocator_t));
-    if (!allocator) return NULL;
-    
-    allocator->numa_node = numa_node;
-    // Allocate memory on specific NUMA node
-    allocator->local_memory = numa_alloc_onnode(1024, numa_node);
-    allocator->local_size = 1024;
-    
-    return allocator;
-}
-
-void* numa_aware_allocate(numa_aware_allocator_t* allocator, size_t size) {
-    // Allocate on specific NUMA node
-    return numa_alloc_onnode(size, allocator->numa_node);
-}
+    uint32_t data[NUM_CORES][CACHE_LINE_SIZE/sizeof(uint32_t)];
+} __attribute__((aligned(CACHE_LINE_SIZE))) cache_aligned_data_t;
 ```
 
 ## 📊 Performance Profiling
 
-### Cache Performance Monitoring
+### Cache Performance Metrics
+
+1. **Cache Hit Rate**: Percentage of cache hits
+2. **Cache Miss Rate**: Percentage of cache misses
+3. **Cache Miss Types**: Compulsory, capacity, conflict misses
+4. **Memory Bandwidth**: Data transfer rate
+
+### Profiling Tools
+
+1. **Hardware Counters**: CPU performance counters
+2. **Cachegrind**: Cache simulation tool
+3. **perf**: Linux performance analysis tool
+4. **Intel VTune**: Intel performance profiler
+
+### Profiling Example
 ```c
-// Cache performance counters
-typedef struct {
-    uint64_t cache_misses;
-    uint64_t cache_hits;
-    uint64_t cache_accesses;
-    float hit_ratio;
-} cache_performance_t;
-
-cache_performance_t* create_cache_performance_monitor(void) {
-    cache_performance_t* monitor = malloc(sizeof(cache_performance_t));
-    if (monitor) {
-        monitor->cache_misses = 0;
-        monitor->cache_hits = 0;
-        monitor->cache_accesses = 0;
-        monitor->hit_ratio = 0.0f;
-    }
-    return monitor;
-}
-
-void update_cache_performance(cache_performance_t* monitor, bool hit) {
-    monitor->cache_accesses++;
-    if (hit) {
-        monitor->cache_hits++;
-    } else {
-        monitor->cache_misses++;
-    }
+// Cache performance profiling
+void profile_cache_performance(void) {
+    // Start profiling
+    uint64_t start_cycles = __builtin_readcyclecounter();
     
-    monitor->hit_ratio = (float)monitor->cache_hits / monitor->cache_accesses;
-}
-
-void report_cache_performance(cache_performance_t* monitor) {
-    printf("Cache Performance:\n");
-    printf("  Hits: %lu\n", monitor->cache_hits);
-    printf("  Misses: %lu\n", monitor->cache_misses);
-    printf("  Hit Ratio: %.2f%%\n", monitor->hit_ratio * 100);
-}
-```
-
-### Cache Miss Analysis
-```c
-// Analyze cache miss patterns
-typedef struct {
-    uint32_t* miss_addresses;
-    size_t miss_count;
-    size_t capacity;
-} cache_miss_analyzer_t;
-
-cache_miss_analyzer_t* create_cache_miss_analyzer(size_t capacity) {
-    cache_miss_analyzer_t* analyzer = malloc(sizeof(cache_miss_analyzer_t));
-    if (!analyzer) return NULL;
+    // Perform cache-intensive operation
+    cache_intensive_operation();
     
-    analyzer->miss_addresses = malloc(capacity * sizeof(uint32_t));
-    analyzer->miss_count = 0;
-    analyzer->capacity = capacity;
+    // End profiling
+    uint64_t end_cycles = __builtin_readcyclecounter();
+    uint64_t cycles = end_cycles - start_cycles;
     
-    return analyzer;
-}
-
-void record_cache_miss(cache_miss_analyzer_t* analyzer, uint32_t address) {
-    if (analyzer->miss_count < analyzer->capacity) {
-        analyzer->miss_addresses[analyzer->miss_count++] = address;
-    }
-}
-
-void analyze_cache_misses(cache_miss_analyzer_t* analyzer) {
-    printf("Cache Miss Analysis:\n");
-    printf("  Total Misses: %zu\n", analyzer->miss_count);
-    
-    // Analyze patterns
-    uint32_t sequential_misses = 0;
-    uint32_t random_misses = 0;
-    
-    for (size_t i = 1; i < analyzer->miss_count; i++) {
-        uint32_t diff = analyzer->miss_addresses[i] - analyzer->miss_addresses[i-1];
-        if (diff <= CACHE_LINE_SIZE) {
-            sequential_misses++;
-        } else {
-            random_misses++;
-        }
-    }
-    
-    printf("  Sequential Misses: %u\n", sequential_misses);
-    printf("  Random Misses: %u\n", random_misses);
+    printf("Operation took %llu cycles\n", cycles);
 }
 ```
 
 ## ⚠️ Common Pitfalls
 
-### 1. Cache Line Crossing
+### 1. Ignoring Cache Line Boundaries
+
+**Problem**: Data structures not aligned to cache lines
+**Solution**: Use cache line alignment and padding
+
 ```c
-// WRONG: Data structure crossing cache lines
+// Incorrect: Not aligned
 typedef struct {
-    uint32_t data[16];  // 64 bytes - fits in cache line
-    uint32_t extra_data; // May cause cache line crossing
+    uint32_t a, b, c;
 } unaligned_struct_t;
 
-// CORRECT: Cache line aligned structure
+// Correct: Aligned to cache line
 typedef struct {
-    uint32_t data[16];
-    char padding[CACHE_LINE_SIZE - 64];  // Ensure alignment
+    uint32_t a, b, c;
+    char padding[CACHE_LINE_SIZE - 12];
 } __attribute__((aligned(CACHE_LINE_SIZE))) aligned_struct_t;
 ```
 
 ### 2. False Sharing
-```c
-// WRONG: Shared variables without padding
-typedef struct {
-    uint32_t counter1;
-    uint32_t counter2;  // May be in same cache line
-} shared_counters_t;
 
-// CORRECT: Separate cache lines
+**Problem**: Multiple threads accessing different variables on same cache line
+**Solution**: Use padding and alignment
+
+```c
+// Incorrect: Potential false sharing
+uint32_t counters[NUM_THREADS];
+
+// Correct: Padded to prevent false sharing
 typedef struct {
-    uint32_t counter1;
-    char padding[CACHE_LINE_SIZE - 4];
-    uint32_t counter2;
-    char padding2[CACHE_LINE_SIZE - 4];
-} __attribute__((aligned(CACHE_LINE_SIZE))) separated_counters_t;
+    uint32_t counter;
+    char padding[CACHE_LINE_SIZE - sizeof(uint32_t)];
+} padded_counter_t;
+
+padded_counter_t counters[NUM_THREADS];
 ```
 
-### 3. Inefficient Memory Access Patterns
+### 3. Poor Memory Access Patterns
+
+**Problem**: Random or strided access patterns
+**Solution**: Optimize data layout and access patterns
+
 ```c
-// WRONG: Column-major access in row-major array
-void inefficient_matrix_access(float* matrix, int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            matrix[j * n + i] *= 2;  // Column-major access
-        }
+// Incorrect: Poor access pattern
+for (int i = 0; i < N; i++) {
+    for (int j = 0; j < M; j++) {
+        data[j][i] = process(data[j][i]);  // Column-major access
     }
 }
 
-// CORRECT: Row-major access
-void efficient_matrix_access(float* matrix, int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            matrix[i * n + j] *= 2;  // Row-major access
-        }
+// Correct: Better access pattern
+for (int i = 0; i < N; i++) {
+    for (int j = 0; j < M; j++) {
+        data[i][j] = process(data[i][j]);  // Row-major access
     }
 }
+```
+
+### 4. Ignoring Cache Size
+
+**Problem**: Assuming cache size is larger than actual
+**Solution**: Query cache configuration and design accordingly
+
+```c
+// Query cache configuration
+cache_config_t config = get_cache_config();
+printf("L1 Data Cache: %u KB\n", config.l1_data_size);
+printf("Cache Line Size: %u bytes\n", config.cache_line_size);
 ```
 
 ## ✅ Best Practices
 
-### 1. Cache Line Alignment
-```c
-// Always align data structures to cache lines
-#define CACHE_ALIGN __attribute__((aligned(CACHE_LINE_SIZE)))
+### 1. Data Structure Design
 
-typedef struct {
-    uint32_t data[16];
-} CACHE_ALIGN cache_aligned_data_t;
+- **Align to cache lines**: Use cache line alignment for frequently accessed data
+- **Separate hot and cold data**: Keep frequently and rarely accessed data separate
+- **Use appropriate data structures**: Choose structures for cache-friendly access
+- **Consider data layout**: Arrange data for sequential access patterns
 
-// Use alignment for arrays
-cache_aligned_data_t* create_aligned_array(size_t count) {
-    return aligned_alloc(CACHE_LINE_SIZE, count * sizeof(cache_aligned_data_t));
-}
-```
+### 2. Memory Access Patterns
 
-### 2. Memory Access Optimization
-```c
-// Optimize memory access patterns
-void cache_optimized_copy(void* dst, const void* src, size_t size) {
-    size_t cache_line_elements = CACHE_LINE_SIZE / sizeof(uint32_t);
-    uint32_t* d32 = (uint32_t*)dst;
-    const uint32_t* s32 = (const uint32_t*)src;
-    
-    // Copy in cache-line sized chunks
-    for (size_t i = 0; i < size / sizeof(uint32_t); i += cache_line_elements) {
-        size_t chunk_size = cache_line_elements;
-        if (i + chunk_size > size / sizeof(uint32_t)) {
-            chunk_size = size / sizeof(uint32_t) - i;
-        }
-        
-        // Copy chunk
-        for (size_t j = 0; j < chunk_size; j++) {
-            d32[i + j] = s32[i + j];
-        }
-    }
-}
-```
+- **Sequential access**: Prefer sequential over random access
+- **Blocking**: Process data in cache-sized blocks
+- **Prefetching**: Use prefetching for predictable access patterns
+- **Stride optimization**: Optimize strided access patterns
 
-### 3. Cache Performance Monitoring
-```c
-// Monitor cache performance in development
-#ifdef DEBUG
-    #define MONITOR_CACHE_ACCESS(addr) \
-        do { \
-            record_cache_access(addr); \
-        } while(0)
-#else
-    #define MONITOR_CACHE_ACCESS(addr) ((void)0)
-#endif
+### 3. Multi-core Considerations
 
-void cache_aware_function(uint32_t* data, size_t size) {
-    for (size_t i = 0; i < size; i++) {
-        MONITOR_CACHE_ACCESS(&data[i]);
-        data[i] *= 2;
-    }
-}
-```
+- **False sharing prevention**: Use padding and alignment
+- **Cache coherency**: Understand cache coherency protocols
+- **Thread affinity**: Bind threads to specific cores
+- **NUMA awareness**: Consider NUMA architecture
 
-### 4. Cache-friendly Data Structures
-```c
-// Design cache-friendly data structures
-typedef struct {
-    uint32_t frequently_accessed[16];  // Hot data in first cache line
-    uint32_t rarely_accessed[16];      // Cold data in second cache line
-} CACHE_ALIGN hot_cold_data_t;
+### 4. Performance Monitoring
 
-// Use SoA for better cache performance
-typedef struct {
-    uint32_t x[1000];
-    uint32_t y[1000];
-    uint32_t z[1000];
-} structure_of_arrays_t;
-```
+- **Profile regularly**: Monitor cache performance
+- **Use appropriate tools**: Use cache profiling tools
+- **Measure impact**: Measure the impact of optimizations
+- **Iterate**: Continuously improve cache performance
+
+### 5. Code Organization
+
+- **Cache-aware algorithms**: Design algorithms for cache efficiency
+- **Data locality**: Keep related data close together
+- **Memory layout**: Optimize memory layout for access patterns
+- **Compilation flags**: Use appropriate compilation flags
 
 ## 🎯 Interview Questions
 
 ### Basic Questions
-1. **What is cache-aware programming and why is it important?**
-   - Optimizes code to work efficiently with CPU cache
-   - Important for performance, especially in embedded systems
 
-2. **What is a cache line and how does it affect performance?**
-   - Cache line: smallest unit of cache transfer
-   - Affects performance through cache misses and false sharing
+1. **What is cache-aware programming?**
+   - Technique to optimize code for CPU cache efficiency
+   - Focuses on spatial and temporal locality
+   - Reduces cache misses and improves performance
 
-3. **How can you prevent false sharing?**
-   - Use cache line padding
-   - Separate frequently accessed data
-   - Align data structures to cache lines
+2. **What are the different types of cache misses?**
+   - Compulsory misses: First access to data
+   - Capacity misses: Cache too small
+   - Conflict misses: Multiple data items map to same location
+   - Coherence misses: Cache invalidation in multi-core systems
+
+3. **What is false sharing and how do you prevent it?**
+   - Multiple threads accessing different variables on same cache line
+   - Causes unnecessary cache invalidations
+   - Prevent with padding and alignment
 
 ### Advanced Questions
+
 1. **How would you optimize a matrix multiplication for cache performance?**
-   - Use cache-friendly access patterns
-   - Implement blocking/tiling
-   - Consider cache line size
+   - Use blocking/tiling techniques
+   - Optimize memory access patterns
+   - Consider cache line alignment
+   - Use cache-aware data structures
 
-2. **What are the trade-offs between AoS and SoA?**
-   - AoS: Better for random access to all fields
-   - SoA: Better for sequential access to specific fields
+2. **How would you design a cache-efficient hash table?**
+   - Use cache-line aligned buckets
+   - Optimize for sequential access
+   - Consider cache-friendly collision resolution
+   - Use appropriate data structures
 
-3. **How would you implement cache-aware memory allocation?**
-   - Align allocations to cache lines
-   - Use appropriate allocation sizes
-   - Consider cache hierarchy
+3. **How would you profile cache performance in an embedded system?**
+   - Use hardware performance counters
+   - Implement cache simulation
+   - Monitor cache hit/miss rates
+   - Use profiling tools
+
+### Implementation Questions
+
+1. **Write a cache-efficient matrix multiplication algorithm**
+2. **Implement a cache-aware hash table**
+3. **Design a cache-friendly data structure for multi-threaded access**
+4. **Write code to detect and prevent false sharing**
 
 ## 📚 Additional Resources
 
-### Standards and Documentation
-- **ARM Architecture Reference**: Cache specifications
-- **CPU Cache Documentation**: Cache behavior and optimization
-- **Performance Analysis Tools**: Cache profiling
+### Books
+- "Computer Architecture: A Quantitative Approach" by Hennessy and Patterson
+- "The Art of Computer Programming, Volume 1" by Donald Knuth
+- "High Performance Computing" by Kevin Dowd
 
-### Related Topics
-- **[Memory Pool Allocation](./Memory_Pool_Allocation.md)** - Efficient memory management
-- **[Performance Optimization](./performance_optimization.md)** - General optimization techniques
-- **[Multi-core Programming](./Multi_core_Programming.md)** - Cache considerations in multi-core
-- **[DMA Buffer Management](./DMA_Buffer_Management.md)** - Cache coherency with DMA
+### Online Resources
+- [Cache Performance Tutorial](https://en.wikipedia.org/wiki/Cache_performance)
+- [Memory Hierarchy Optimization](https://www.intel.com/content/www/us/en/developer/articles/technical/memory-hierarchy-optimization.html)
+- [Cache-Aware Programming Guide](https://www.agner.org/optimize/)
 
-### Tools and Libraries
-- **Perf**: Linux performance analysis
+### Tools
 - **Cachegrind**: Cache simulation and profiling
-- **Custom cache monitors**: Embedded-specific solutions
+- **perf**: Linux performance analysis
+- **Intel VTune**: Intel performance profiler
+- **Valgrind**: Memory and cache profiling
+
+### Standards
+- **C11**: C language standard with cache considerations
+- **C++11**: C++ standard with cache-aware features
+- **POSIX**: Portable Operating System Interface
 
 ---
 
-**Next Topic:** [DMA Buffer Management](./DMA_Buffer_Management.md) → [Memory-Mapped I/O](./Memory_Mapped_IO.md)
+**Next Steps**: Explore [Memory Management](./Memory_Management.md) to understand memory allocation strategies, or dive into [Performance Optimization](./Performance_Optimization.md) for broader performance techniques.

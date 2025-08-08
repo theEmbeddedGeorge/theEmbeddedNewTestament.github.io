@@ -9,96 +9,109 @@
 
 ---
 
+## 🎯 **Quick Start Guide**
+
+### **🟢 New to Embedded Systems?**
+Start here → [C Programming Basics](#a-cc-programming-🟢) → [Basic Data Structures](#b-data-structures--implementation-🟡) → [UART Communication](Bus_Protocol/uart.md)
+
+### **🟡 Have Some Experience?**
+Jump to → [Advanced C/C++](#a-cc-programming-🟢) → [Bus Protocols](#c-bus-protocols-🟡) → [Operating Systems](#d-operating-systems-🔴)
+
+### **🔴 Experienced Engineer?**
+Explore → [Computer Architecture](#e-computer-architecture-🔴) → [System Design](#f-interview-preparation-🎯) → [Advanced Topics](#g-hands-on-projects-🛠️)
+
+---
+
 ## 📚 **Learning Paths**
 
-### 🟢 **Beginner Path (0-6 months)**
+### **🟢 Beginner Path (0-6 months)**
 *For those new to embedded systems or transitioning from other fields*
 
 #### **Phase 1: Programming Fundamentals (4 weeks)**
-- [ ] **C Programming Basics**
-  - [C Overview](https://embeddedworlddevelopers.blogspot.com/p/c-language.html)
-  - [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
-  - [C/C++ Type Specifiers](https://www.tenouk.com/Module11.html)
-  - [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
-  - [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
+**C Programming Basics**
+- [C Overview](https://embeddedworlddevelopers.blogspot.com/p/c-language.html)
+- [C/C++ Preprocessor Directives](https://www.tenouk.com/Module10.html)
+- [C/C++ Type Specifiers](https://www.tenouk.com/Module11.html)
+- [Structure Member Alignment, Padding and Data Packing](https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
+- [Memory Alignment](https://embeddedartistry.com/blog/2017/02/22/generating-aligned-memory/)
 
-- [ ] **Basic Data Structures**
-  - [Arrays and Linked Lists](Data_Struct_Implementation/queue/README.md)
-  - [Stacks and Queues](Data_Struct_Implementation/stack/README.md)
-  - [Hash Tables](Data_Struct_Implementation/hashTable/README.md)
+**Basic Data Structures**
+- [Arrays and Linked Lists](Data_Struct_Implementation/queue/README.md)
+- [Stacks and Queues](Data_Struct_Implementation/stack/README.md)
+- [Hash Tables](Data_Struct_Implementation/hashTable/README.md)
 
 #### **Phase 2: Embedded Basics (4 weeks)**
-- [ ] **Hardware Fundamentals**
-  - [GPIO and Basic I/O](HW_Module/Flash_Storage.md)
-  - [Timers and Interrupts](Operating_System/Interrupt.md)
-  - [UART Communication](Bus_Protocol/uart.md)
+**Hardware Fundamentals**
+- [GPIO and Basic I/O](HW_Module/Flash_Storage.md)
+- [Timers and Interrupts](Operating_System/Interrupt.md)
+- [UART Communication](Bus_Protocol/uart.md)
 
-- [ ] **Basic Algorithms**
-  - [Bubble Sort](Data_Struct_Implementation/bubbleSort/bubbleSort.md)
-  - [Insertion Sort](Data_Struct_Implementation/insertionSort/insertionSort.md)
-  - [Binary Search](Data_Struct_Implementation/BST/README.md)
+**Basic Algorithms**
+- [Bubble Sort](Data_Struct_Implementation/bubbleSort/bubbleSort.md)
+- [Insertion Sort](Data_Struct_Implementation/insertionSort/insertionSort.md)
+- [Binary Search](Data_Struct_Implementation/BST/README.md)
 
 #### **Phase 3: System Concepts (4 weeks)**
-- [ ] **Operating System Basics**
-  - [Process Management](Operating_System/Process/Process.md)
-  - [Memory Management](Operating_System/virtual_memory.md)
-  - [Interrupts and Exceptions](Operating_System/Interrupt.md)
+**Operating System Basics**
+- [Process Management](Operating_System/Process/Process.md)
+- [Memory Management](Operating_System/virtual_memory.md)
+- [Interrupts and Exceptions](Operating_System/Interrupt.md)
 
-### 🟡 **Intermediate Path (6-12 months)**
+### **🟡 Intermediate Path (6-12 months)**
 *For those with basic embedded knowledge*
 
 #### **Phase 1: Advanced Programming (6 weeks)**
-- [ ] **Advanced C/C++**
-  - [Inline Assembly](https://wiki.osdev.org/Inline_Assembly)
-  - [Concurrency and Threading](Data_Struct_Implementation/concurrency/)
-  - [Memory Management](Data_Struct_Implementation/memoryPoolAllocator/README.md)
+**Advanced C/C++**
+- [Inline Assembly](https://wiki.osdev.org/Inline_Assembly)
+- [Concurrency and Threading](Data_Struct_Implementation/concurrency/)
+- [Memory Management](Data_Struct_Implementation/memoryPoolAllocator/README.md)
 
-- [ ] **Data Structures & Algorithms**
-  - [Binary Search Trees](Data_Struct_Implementation/BST/README.md)
-  - [Heaps and Priority Queues](Data_Struct_Implementation/binaryHeap/README.md)
-  - [Ring Buffers](Data_Struct_Implementation/circularRingBuffer/README.md)
+**Data Structures & Algorithms**
+- [Binary Search Trees](Data_Struct_Implementation/BST/README.md)
+- [Heaps and Priority Queues](Data_Struct_Implementation/binaryHeap/README.md)
+- [Ring Buffers](Data_Struct_Implementation/circularRingBuffer/README.md)
 
 #### **Phase 2: Communication Protocols (4 weeks)**
-- [ ] **Serial Communication**
-  - [I2C Protocol](Bus_Protocol/i2c.md)
-  - [SPI Protocol](Bus_Protocol/spi.md)
-  - [UART/RS232](Bus_Protocol/uart.md)
+**Serial Communication**
+- [I2C Protocol](Bus_Protocol/i2c.md)
+- [SPI Protocol](Bus_Protocol/spi.md)
+- [UART/RS232](Bus_Protocol/uart.md)
 
-- [ ] **Network Protocols**
-  - [TCP/UDP](Network/tcp_udp_ip.md)
-  - [Ethernet](Network/ethernet.md)
-  - [ARP/MAC](Network/ARP.md)
+**Network Protocols**
+- [TCP/UDP](Network/tcp_udp_ip.md)
+- [Ethernet](Network/ethernet.md)
+- [ARP/MAC](Network/ARP.md)
 
 #### **Phase 3: System Design (6 weeks)**
-- [ ] **Real-Time Systems**
-  - [FreeRTOS Basics](Operating_System/freertos/firmware_stack.md)
-  - [Scheduling Algorithms](Operating_System/Process/Process_thread_scheduling.md)
-  - [State Machines](Data_Struct_Implementation/stateMachine/README.md)
+**Real-Time Systems**
+- [FreeRTOS Basics](Operating_System/freertos/firmware_stack.md)
+- [Scheduling Algorithms](Operating_System/Process/Process_thread_scheduling.md)
+- [State Machines](Data_Struct_Implementation/stateMachine/README.md)
 
-### 🔴 **Advanced Path (12+ months)**
+### **🔴 Advanced Path (12+ months)**
 *For experienced embedded engineers*
 
 #### **Phase 1: Computer Architecture (6 weeks)**
-- [ ] **ARM Architecture**
-  - [ARM Overview](https://wiki.osdev.org/ARM_Overview)
-  - [ARM Assembly](https://azeria-labs.com/writing-arm-assembly-part-1/)
-  - [Memory Hierarchy](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
+**ARM Architecture**
+- [ARM Overview](https://wiki.osdev.org/ARM_Overview)
+- [ARM Assembly](https://azeria-labs.com/writing-arm-assembly-part-1/)
+- [Memory Hierarchy](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
 
-- [ ] **Advanced Memory**
-  - [Cache Memory](https://www.geeksforgeeks.org/cache-memory-in-computer-organization/)
-  - [DMA](Computer_architecture/dma.md)
-  - [TLB](Computer_architecture/tlb.md)
+**Advanced Memory**
+- [Cache Memory](https://www.geeksforgeeks.org/cache-memory-in-computer-organization/)
+- [DMA](Computer_architecture/dma.md)
+- [TLB](Computer_architecture/tlb.md)
 
 #### **Phase 2: System Design (8 weeks)**
-- [ ] **Distributed Systems**
-  - [System Design Basics](Interview/SystemDesign/systemDesign.md)
-  - [Load Balancing](Interview/SystemDesign/loadBalancing.md)
-  - [Caching Strategies](Interview/SystemDesign/caching.md)
+**Distributed Systems**
+- [System Design Basics](Interview/SystemDesign/systemDesign.md)
+- [Load Balancing](Interview/SystemDesign/loadBalancing.md)
+- [Caching Strategies](Interview/SystemDesign/caching.md)
 
-- [ ] **Embedded Security**
-  - [TPM 2.0](Security/TPM.md)
-  - [ARM TrustZone](https://embeddedsecurity.io/)
-  - [Encryption Algorithms](Security/)
+**Embedded Security**
+- [TPM 2.0](Security/TPM.md)
+- [ARM TrustZone](https://embeddedsecurity.io/)
+- [Encryption Algorithms](Security/)
 
 ---
 
@@ -107,11 +120,11 @@
 ### **📖 Core Concepts**
 | Topic | Difficulty | Status |
 |-------|------------|--------|
-| [C/C++ Programming](#a-cc-coding-specific) | 🟢 Beginner | ✅ Complete |
-| [Data Structures & Algorithms](#c-data-structures--implementation) | 🟡 Intermediate | ✅ Complete |
-| [Bus Protocols](#f-bus) | 🟡 Intermediate | ✅ Complete |
-| [Operating Systems](#h-operating-systems) | 🔴 Advanced | ✅ Complete |
-| [Computer Architecture](#i-computer-architecture) | 🔴 Advanced | ✅ Complete |
+| [C/C++ Programming](#a-cc-programming-🟢) | 🟢 Beginner | ✅ Complete |
+| [Data Structures & Algorithms](#b-data-structures--implementation-🟡) | 🟡 Intermediate | ✅ Complete |
+| [Bus Protocols](#c-bus-protocols-🟡) | 🟡 Intermediate | ✅ Complete |
+| [Operating Systems](#d-operating-systems-🔴) | 🔴 Advanced | ✅ Complete |
+| [Computer Architecture](#e-computer-architecture-🔴) | 🔴 Advanced | ✅ Complete |
 
 ### **🔧 Practical Implementation**
 | Implementation | Language | Status |

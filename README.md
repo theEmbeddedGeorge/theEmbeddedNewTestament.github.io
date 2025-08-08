@@ -63,13 +63,10 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 
 **System Basics**
 - **[Interrupts and Exceptions](./Hardware_Fundamentals/Interrupts_Exceptions.md)** - Interrupt handling, ISR design, interrupt latency
-- **Interrupt Vector Tables** - Setting up interrupt handlers
-- **Interrupt Priority Management** - Nested interrupts, priority levels
-- **Exception Handling** - Fault detection and recovery
 - **[Power Management](./Hardware_Fundamentals/Power_Management.md)** - Sleep modes, wake-up sources, power consumption optimization
 - **[Clock Management](./Hardware_Fundamentals/Clock_Management.md)** - System clock configuration, PLL setup
-- **Reset Management** - Power-on reset, watchdog reset, software reset
-- **Hardware Abstraction Layer** - Porting code between different MCUs
+- **[Reset Management](./Hardware_Fundamentals/Reset_Management.md)** - Power-on reset, watchdog reset, software reset
+- **[Hardware Abstraction Layer](./Hardware_Fundamentals/Hardware_Abstraction_Layer.md)** - Porting code between different MCUs
 
 #### **Phase 3: Communication Protocols (4 weeks)**
 **Serial Communication**

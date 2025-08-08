@@ -1,10 +1,12 @@
 # CAN Protocol for Embedded Systems
 
-> **Comprehensive guide to Controller Area Network (CAN) protocol, message format, error handling, and arbitration for embedded systems**
+> **Understanding Controller Area Network (CAN) protocol, message format, error handling, and arbitration for reliable embedded communication**
 
 ## 📋 **Table of Contents**
 - [Overview](#overview)
-- [CAN Fundamentals](#can-fundamentals)
+- [What is CAN Protocol?](#what-is-can-protocol)
+- [Why is CAN Protocol Important?](#why-is-can-protocol-important)
+- [CAN Protocol Concepts](#can-protocol-concepts)
 - [Message Format](#message-format)
 - [Arbitration](#arbitration)
 - [Error Handling](#error-handling)
@@ -13,6 +15,7 @@
 - [Software Implementation](#software-implementation)
 - [Network Management](#network-management)
 - [Performance Optimization](#performance-optimization)
+- [Implementation](#implementation)
 - [Common Pitfalls](#common-pitfalls)
 - [Best Practices](#best-practices)
 - [Interview Questions](#interview-questions)
@@ -21,7 +24,7 @@
 
 ## 🎯 **Overview**
 
-Controller Area Network (CAN) is a robust, real-time communication protocol widely used in automotive, industrial, and embedded systems. It provides reliable, high-speed communication with built-in error detection and fault tolerance.
+Controller Area Network (CAN) is a robust, real-time communication protocol designed for reliable data exchange in harsh environments. Originally developed for automotive applications, CAN has become the standard for embedded systems requiring deterministic communication, fault tolerance, and real-time performance.
 
 ### **Key Concepts**
 - **Multi-master communication** - Any node can transmit when bus is free
@@ -30,678 +33,806 @@ Controller Area Network (CAN) is a robust, real-time communication protocol wide
 - **Error detection** - Built-in error detection and fault confinement
 - **Real-time performance** - Deterministic communication with priority-based access
 
-## 🔧 **CAN Fundamentals**
+## 🤔 **What is CAN Protocol?**
 
-### **CAN Bus Topology**
+CAN protocol is a serial communication standard that enables multiple electronic control units (ECUs) to communicate with each other without a central computer. It uses a message-based communication approach where data is transmitted in frames with unique identifiers, allowing for efficient, reliable, and real-time communication in distributed systems.
 
-**Basic CAN Network:**
-```c
-// CAN node structure
-typedef struct {
-    uint32_t node_id;           // Unique node identifier
-    uint32_t baud_rate;         // Bus speed (typically 125k, 250k, 500k, 1M)
-    uint8_t  node_type;         // Master, slave, or gateway
-    bool     active;            // Node active status
-} CAN_Node_t;
+### **Core Concepts**
 
-// CAN bus configuration
-typedef struct {
-    uint32_t baud_rate;         // Bus speed in bits per second
-    uint8_t  termination;       // Bus termination (120 ohm resistors)
-    uint8_t  node_count;        // Number of nodes on bus
-    uint32_t max_frame_rate;    // Maximum frames per second
-} CAN_Bus_Config_t;
+**Multi-Master Architecture:**
+- **Distributed Control**: No central master controlling the network
+- **Peer-to-Peer Communication**: Any node can initiate communication
+- **Bus Access**: Contention-based access with priority arbitration
+- **Network Scalability**: Support for multiple nodes (typically up to 110)
+
+**Message-Based Communication:**
+- **Frame-Based Transmission**: Data transmitted in structured frames
+- **Identifier-Based Routing**: Messages identified by unique identifiers
+- **Broadcast Communication**: Messages broadcast to all nodes
+- **Filtering**: Nodes filter messages based on identifiers
+
+**Real-Time Performance:**
+- **Deterministic Timing**: Predictable communication timing
+- **Priority-Based Access**: Higher priority messages transmitted first
+- **Bounded Latency**: Maximum latency guaranteed for critical messages
+- **Synchronous Operation**: Synchronized communication across network
+
+**Fault Tolerance:**
+- **Error Detection**: Built-in error detection mechanisms
+- **Fault Confinement**: Faulty nodes isolated from network
+- **Automatic Retransmission**: Automatic retransmission of failed messages
+- **Network Recovery**: Automatic network recovery after errors
+
+### **CAN Network Architecture**
+
+**Physical Layer:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CAN Bus Network                          │
+├─────────────────┬─────────────────┬─────────────────────────┤
+│   Node 1        │   Node 2        │      Node N             │
+│                 │                 │                         │
+│  ┌───────────┐  │  ┌───────────┐  │  ┌─────────────────────┐ │
+│  │ CAN       │  │  │ CAN       │  │  │   CAN               │ │
+│  │ Controller│  │  │   Controller│  │  │   Controller        │ │
+│  └───────────┘  │  └───────────┘  │  └─────────────────────┘ │
+│        │        │        │        │           │              │
+│  ┌───────────┐  │  ┌───────────┐  │  ┌─────────────────────┐ │
+│  │ CAN       │  │  │ CAN       │  │  │   CAN               │ │
+│  │ Transceiver│  │  │ Transceiver│  │  │   Transceiver      │ │
+│  └───────────┘  │  └───────────┘  │  └─────────────────────┘ │
+│        │        │        │        │           │              │
+│        └────────┼────────┼────────┼───────────┘              │
+│                 │        │        │                          │
+│              CAN_H ───────┼─────── CAN_H                     │
+│                           │                                  │
+│              CAN_L ───────┼─────── CAN_L                     │
+│                           │                                  │
+│                    ┌──────┼──────┐                          │
+│                    │  120Ω │ 120Ω │                          │
+│                    │ Resistor│ Resistor│                          │
+│                    └──────┼──────┘                          │
+└───────────────────────────┼──────────────────────────────────┘
 ```
 
-### **CAN Frame Types**
+**Logical Layer:**
+- **Message Arbitration**: Priority-based message transmission
+- **Error Detection**: Built-in error detection and handling
+- **Flow Control**: Automatic flow control and retransmission
+- **Network Management**: Network monitoring and management
 
-**Frame Structure:**
-```c
-// CAN frame types
-typedef enum {
-    CAN_FRAME_DATA = 0,         // Data frame
-    CAN_FRAME_REMOTE = 1,       // Remote frame
-    CAN_FRAME_ERROR = 2,        // Error frame
-    CAN_FRAME_OVERLOAD = 3      // Overload frame
-} CAN_Frame_Type_t;
+**Application Layer:**
+- **Message Interpretation**: Application-specific message handling
+- **Protocol Implementation**: Higher-level protocol implementation
+- **Data Management**: Data formatting and interpretation
+- **System Integration**: Integration with system applications
 
-// CAN frame structure
-typedef struct {
-    uint32_t id;                // Frame identifier (11 or 29 bits)
-    uint8_t  dlc;               // Data length code (0-8 bytes)
-    uint8_t  data[8];           // Frame data
-    uint8_t  frame_type;        // Frame type
-    bool     extended_id;       // Extended identifier flag
-} CAN_Frame_t;
-```
+## 🎯 **Why is CAN Protocol Important?**
+
+### **Embedded System Requirements**
+
+**Reliability and Robustness:**
+- **Error-Free Communication**: Built-in error detection and correction
+- **Fault Tolerance**: Automatic fault detection and isolation
+- **Noise Immunity**: Robust communication in noisy environments
+- **Environmental Resistance**: Operation in harsh environments
+
+**Real-Time Performance:**
+- **Deterministic Timing**: Predictable communication timing
+- **Bounded Latency**: Maximum latency guaranteed for critical messages
+- **Priority-Based Access**: Higher priority messages transmitted first
+- **Synchronous Operation**: Synchronized communication across network
+
+**System Integration:**
+- **Multi-Node Support**: Support for multiple nodes and devices
+- **Scalability**: Scalable network architecture
+- **Interoperability**: Standard protocol for device compatibility
+- **Maintainability**: Easy system maintenance and updates
+
+**Cost Efficiency:**
+- **Reduced Wiring**: Single bus for multiple devices
+- **Standard Components**: Off-the-shelf CAN components
+- **Development Efficiency**: Standardized development tools
+- **System Complexity**: Reduced system complexity
+
+### **Real-world Impact**
+
+**Automotive Applications:**
+- **Vehicle Networks**: Engine, transmission, braking, and safety systems
+- **Diagnostic Systems**: Vehicle diagnostics and maintenance
+- **Infotainment Systems**: Audio, video, and navigation systems
+- **Body Electronics**: Lighting, climate control, and comfort systems
+
+**Industrial Applications:**
+- **Factory Automation**: Machine control and monitoring
+- **Process Control**: Industrial process monitoring and control
+- **Robotics**: Robot control and coordination
+- **Building Automation**: Building management and control systems
+
+**Embedded Systems:**
+- **Medical Devices**: Patient monitoring and diagnostic equipment
+- **Aerospace**: Aircraft systems and avionics
+- **Consumer Electronics**: Home automation and smart devices
+- **IoT Applications**: Internet of Things device communication
+
+### **When CAN Protocol Matters**
+
+**High Impact Scenarios:**
+- Real-time control systems
+- Safety-critical applications
+- Multi-node communication systems
+- Harsh environment applications
+- Automotive and industrial systems
+
+**Low Impact Scenarios:**
+- Simple point-to-point communication
+- Non-critical data transmission
+- Single-node applications
+- Prototype and development systems
+
+## 🧠 **CAN Protocol Concepts**
+
+### **Network Architecture**
+
+**CAN Bus Topology:**
+- **Linear Bus**: Single bus connecting all nodes
+- **Star Topology**: Central hub connecting multiple nodes
+- **Ring Topology**: Ring connection between nodes
+- **Tree Topology**: Hierarchical connection structure
+
+**Node Types:**
+- **Master Nodes**: Nodes that can initiate communication
+- **Slave Nodes**: Nodes that respond to requests
+- **Gateway Nodes**: Nodes that connect different networks
+- **Bridge Nodes**: Nodes that connect different bus segments
+
+**Bus Characteristics:**
+- **Differential Signaling**: CAN_H and CAN_L signals
+- **Termination**: 120Ω resistors at bus ends
+- **Impedance**: Characteristic impedance of 120Ω
+- **Length**: Maximum bus length based on baud rate
+
+### **Message-Based Communication**
+
+**Message Structure:**
+- **Identifier Field**: Unique message identifier (11 or 29 bits)
+- **Control Field**: Message type and data length
+- **Data Field**: Message data (0-8 bytes)
+- **CRC Field**: Cyclic redundancy check
+- **ACK Field**: Acknowledgment field
+
+**Message Types:**
+- **Data Frames**: Transmit data between nodes
+- **Remote Frames**: Request data from other nodes
+- **Error Frames**: Indicate communication errors
+- **Overload Frames**: Indicate node overload conditions
+
+**Message Priority:**
+- **Identifier-Based Priority**: Lower identifier values have higher priority
+- **Arbitration Process**: Non-destructive bit-wise arbitration
+- **Priority Assignment**: Application-specific priority assignment
+- **Priority Management**: Dynamic priority management
+
+### **Arbitration and Access Control**
+
+**Arbitration Process:**
+- **Bit-Wise Arbitration**: Non-destructive arbitration process
+- **Dominant and Recessive Bits**: Bit-level arbitration mechanism
+- **Arbitration Timing**: Timing requirements for arbitration
+- **Arbitration Resolution**: Resolution of simultaneous transmissions
+
+**Access Control:**
+- **CSMA/CA**: Carrier Sense Multiple Access with Collision Avoidance
+- **Bus Idle Detection**: Detection of bus idle condition
+- **Transmission Timing**: Timing requirements for transmission
+- **Backoff Strategy**: Backoff strategy for failed transmissions
+
+**Priority Management:**
+- **Static Priority**: Fixed priority assignment
+- **Dynamic Priority**: Dynamic priority assignment
+- **Priority Inheritance**: Priority inheritance mechanisms
+- **Priority Inversion**: Prevention of priority inversion
 
 ## 📊 **Message Format**
 
 ### **Data Frame Structure**
 
 **Standard Data Frame:**
-```c
-// CAN data frame structure
-typedef struct {
-    // Arbitration field
-    uint32_t identifier;        // 11-bit identifier
-    uint8_t  rtr;              // Remote transmission request
-    
-    // Control field
-    uint8_t  dlc;              // Data length code
-    uint8_t  reserved;         // Reserved bits
-    
-    // Data field
-    uint8_t  data[8];          // 0-8 bytes of data
-    
-    // CRC field
-    uint16_t crc;              // 15-bit CRC
-    
-    // ACK field
-    uint8_t  ack_slot;         // ACK slot
-    uint8_t  ack_delimiter;    // ACK delimiter
-    
-    // End of frame
-    uint8_t  eof;              // End of frame
-} CAN_Data_Frame_t;
-
-// Calculate frame size
-uint8_t can_frame_size_calculate(uint8_t dlc) {
-    // Base frame size: 44 bits (arbitration + control + CRC + ACK + EOF)
-    // Data size: dlc * 8 bits
-    return (44 + (dlc * 8)) / 8;  // Return size in bytes
-}
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CAN Data Frame                           │
+├─────────────────┬─────────────────┬─────────────────────────┤
+│   Arbitration   │    Control      │      Data Field         │
+│     Field       │     Field       │                         │
+│                 │                 │                         │
+│  ┌───────────┐  │  ┌───────────┐  │  ┌─────────────────────┐ │
+│  │ Identifier│  │  │   DLC     │  │  │   Data (0-8 bytes)  │ │
+│  │  (11 bits)│  │  │ (4 bits)  │  │  │                     │ │
+│  └───────────┘  │  └───────────┘  │  └─────────────────────┘ │
+│        │        │        │        │           │              │
+│  ┌───────────┐  │  ┌───────────┐  │  ┌─────────────────────┐ │
+│  │    RTR    │  │  │ Reserved  │  │  │       CRC           │ │
+│  │  (1 bit)  │  │  │ (2 bits)  │  │  │    (15 bits)        │ │
+│  └───────────┘  │  └───────────┘  │  └─────────────────────┘ │
+│        │        │        │        │           │              │
+│  ┌───────────┐  │  ┌───────────┐  │  ┌─────────────────────┐ │
+│  │   ACK     │  │  │   EOF     │  │  │   IFS               │ │
+│  │  (2 bits) │  │  │ (7 bits)  │  │  │  (3 bits)           │ │
+│  └───────────┘  │  └───────────┘  │  └─────────────────────┘ │
+└─────────────────┴─────────────────┴─────────────────────────┘
 ```
 
-### **Extended Frame Format**
+**Extended Data Frame:**
+- **29-bit Identifier**: Extended identifier field
+- **Additional Control Bits**: Extended control field
+- **Compatibility**: Backward compatibility with standard frames
+- **Extended Format**: Extended frame format support
 
-**29-bit Identifier:**
-```c
-// Extended CAN frame structure
-typedef struct {
-    // Arbitration field (29 bits)
-    uint32_t identifier;        // 29-bit identifier
-    uint8_t  srr;              // Substitute remote request
-    uint8_t  ide;              // Identifier extension bit
-    uint8_t  rtr;              // Remote transmission request
-    
-    // Control field
-    uint8_t  dlc;              // Data length code
-    uint8_t  reserved;         // Reserved bits
-    
-    // Data field
-    uint8_t  data[8];          // 0-8 bytes of data
-    
-    // CRC field
-    uint16_t crc;              // 15-bit CRC
-    
-    // ACK field
-    uint8_t  ack_slot;         // ACK slot
-    uint8_t  ack_delimiter;    // ACK delimiter
-    
-    // End of frame
-    uint8_t  eof;              // End of frame
-} CAN_Extended_Frame_t;
+**Frame Fields:**
+- **Start of Frame (SOF)**: Frame start indicator
+- **Arbitration Field**: Identifier and RTR bit
+- **Control Field**: DLC and reserved bits
+- **Data Field**: Message data (0-8 bytes)
+- **CRC Field**: 15-bit cyclic redundancy check
+- **ACK Field**: Acknowledgment field
+- **End of Frame (EOF)**: Frame end indicator
+- **Interframe Space (IFS)**: Interframe spacing
+
+### **Message Types**
+
+**Data Frames:**
+- **Standard Data Frame**: 11-bit identifier
+- **Extended Data Frame**: 29-bit identifier
+- **Data Transmission**: Transmit data between nodes
+- **Data Validation**: Validate transmitted data
+
+**Remote Frames:**
+- **Data Request**: Request data from other nodes
+- **No Data Field**: No data field in remote frames
+- **Response Trigger**: Trigger data transmission from target node
+- **Request Format**: Standard or extended format
+
+**Error Frames:**
+- **Error Indication**: Indicate communication errors
+- **Error Types**: Bit error, stuff error, form error, ACK error
+- **Error Propagation**: Propagate errors across network
+- **Error Recovery**: Automatic error recovery mechanisms
+
+**Overload Frames:**
+- **Overload Indication**: Indicate node overload
+- **Overload Types**: Internal overload, intermission overload
+- **Overload Recovery**: Automatic overload recovery
+- **Overload Prevention**: Prevent overload conditions
+
+## 🔄 **Arbitration**
+
+### **Arbitration Process**
+
+**Bit-Wise Arbitration:**
+- **Dominant Bits**: Logical 0 (dominant state)
+- **Recessive Bits**: Logical 1 (recessive state)
+- **Arbitration Timing**: Timing requirements for arbitration
+- **Arbitration Resolution**: Resolution of simultaneous transmissions
+
+**Arbitration Mechanism:**
+```
+Node A: 1011010... (Identifier)
+Node B: 1011001... (Identifier)
+Node C: 1011000... (Identifier)
+
+Arbitration Result:
+- All nodes transmit simultaneously
+- Dominant bits (0) override recessive bits (1)
+- Node C wins arbitration (lowest identifier)
+- Nodes A and B stop transmitting
+- Node C continues transmission
 ```
 
-## ⚖️ **Arbitration**
-
-### **Bit-Wise Arbitration**
-
-**Arbitration Process:**
-```c
-// CAN arbitration implementation
-typedef struct {
-    uint32_t identifier;        // Node identifier
-    uint8_t  priority;          // Message priority
-    bool     transmitting;      // Transmission status
-} CAN_Arbitration_t;
-
-// Arbitration logic
-bool can_arbitration_win(uint32_t my_id, uint32_t received_id) {
-    // Lower ID has higher priority
-    // Dominant bit (0) wins over recessive bit (1)
-    return (my_id < received_id);
-}
-
-// Transmit with arbitration
-CAN_Status_t can_transmit_with_arbitration(CAN_HandleTypeDef* hcan, CAN_Frame_t* frame) {
-    // Start transmission
-    CAN_Status_t status = HAL_CAN_AddTxMessage(hcan, frame, &frame->id);
-    
-    if (status == HAL_OK) {
-        // Wait for transmission completion or arbitration loss
-        uint32_t timeout = HAL_GetTick() + 100;  // 100ms timeout
-        
-        while (HAL_GetTick() < timeout) {
-            if (HAL_CAN_GetTxMailboxesFreeLevel(hcan) > 0) {
-                // Transmission completed or arbitration lost
-                break;
-            }
-        }
-    }
-    
-    return status;
-}
-```
+**Arbitration Timing:**
+- **Bit Timing**: Precise bit timing requirements
+- **Sample Point**: Optimal sampling point for bit detection
+- **Synchronization**: Bit synchronization across network
+- **Jitter Tolerance**: Tolerance for timing jitter
 
 ### **Priority Management**
 
 **Priority Assignment:**
-```c
-// CAN message priority levels
-typedef enum {
-    CAN_PRIORITY_HIGH = 0,      // High priority (ID: 0x000-0x1FF)
-    CAN_PRIORITY_MEDIUM = 1,    // Medium priority (ID: 0x200-0x3FF)
-    CAN_PRIORITY_LOW = 2,       // Low priority (ID: 0x400-0x7FF)
-    CAN_PRIORITY_SYSTEM = 3     // System messages (ID: 0x780-0x7FF)
-} CAN_Priority_t;
+- **Identifier-Based Priority**: Lower identifier values have higher priority
+- **Application Priority**: Application-specific priority assignment
+- **Dynamic Priority**: Dynamic priority assignment
+- **Priority Inheritance**: Priority inheritance mechanisms
 
-// Calculate priority from ID
-CAN_Priority_t can_priority_from_id(uint32_t id) {
-    if (id <= 0x1FF) return CAN_PRIORITY_HIGH;
-    else if (id <= 0x3FF) return CAN_PRIORITY_MEDIUM;
-    else if (id <= 0x7FF) return CAN_PRIORITY_LOW;
-    else return CAN_PRIORITY_SYSTEM;
-}
-```
+**Priority Strategies:**
+- **Static Priority**: Fixed priority assignment
+- **Dynamic Priority**: Dynamic priority assignment
+- **Priority Aging**: Priority aging mechanisms
+- **Priority Inversion**: Prevention of priority inversion
+
+**Priority Implementation:**
+- **Hardware Priority**: Hardware-based priority implementation
+- **Software Priority**: Software-based priority implementation
+- **Hybrid Priority**: Hybrid priority implementation
+- **Priority Validation**: Priority validation mechanisms
 
 ## ⚠️ **Error Handling**
 
-### **Error Detection**
+### **Error Types**
 
-**Error Types:**
-```c
-// CAN error types
-typedef enum {
-    CAN_ERROR_NONE = 0,
-    CAN_ERROR_BIT,              // Bit error
-    CAN_ERROR_STUFF,            // Stuff error
-    CAN_ERROR_FORM,             // Form error
-    CAN_ERROR_ACK,              // ACK error
-    CAN_ERROR_CRC,              // CRC error
-    CAN_ERROR_OVERLOAD          // Overload error
-} CAN_Error_Type_t;
+**Communication Errors:**
+- **Bit Errors**: Incorrect bit transmission or reception
+- **Stuff Errors**: Incorrect bit stuffing
+- **Form Errors**: Incorrect frame format
+- **ACK Errors**: Missing acknowledgment
 
-// Error handling structure
-typedef struct {
-    CAN_Error_Type_t error_type;
-    uint32_t error_count;
-    uint32_t last_error_time;
-    bool     error_active;
-} CAN_Error_Handler_t;
+**System Errors:**
+- **Hardware Errors**: Hardware failures or malfunctions
+- **Software Errors**: Software errors or bugs
+- **Configuration Errors**: Incorrect configuration
+- **Timing Errors**: Timing-related errors
 
-// Error detection function
-void can_error_detection(CAN_HandleTypeDef* hcan, CAN_Error_Handler_t* error_handler) {
-    CAN_ErrorActiveTypeDef error_active;
-    CAN_ErrorCodeTypeDef error_code;
-    
-    // Get error status
-    HAL_CAN_GetError(hcan, &error_active, &error_code);
-    
-    if (error_active != CAN_ERRORACTIVE_OK) {
-        // Handle error based on type
-        switch (error_code) {
-            case HAL_CAN_ERROR_BOF:
-                error_handler->error_type = CAN_ERROR_BIT;
-                break;
-            case HAL_CAN_ERROR_STF:
-                error_handler->error_type = CAN_ERROR_STUFF;
-                break;
-            case HAL_CAN_ERROR_FOR:
-                error_handler->error_type = CAN_ERROR_FORM;
-                break;
-            case HAL_CAN_ERROR_ACK:
-                error_handler->error_type = CAN_ERROR_ACK;
-                break;
-            case HAL_CAN_ERROR_BR:
-                error_handler->error_type = CAN_ERROR_CRC;
-                break;
-            default:
-                break;
-        }
-        
-        error_handler->error_count++;
-        error_handler->last_error_time = HAL_GetTick();
-        error_handler->error_active = true;
-    }
-}
-```
+**Network Errors:**
+- **Bus Errors**: Bus-related errors or faults
+- **Node Errors**: Node-specific errors or faults
+- **Protocol Errors**: Protocol-related errors
+- **Security Errors**: Security-related errors
 
-### **Fault Confinement**
+### **Error Detection and Recovery**
 
-**Error Recovery:**
-```c
-// Fault confinement states
-typedef enum {
-    CAN_STATE_ERROR_ACTIVE = 0,  // Normal operation
-    CAN_STATE_ERROR_PASSIVE = 1, // Error passive state
-    CAN_STATE_BUS_OFF = 2        // Bus off state
-} CAN_State_t;
+**Error Detection Mechanisms:**
+- **CRC Checking**: Cyclic redundancy check for data integrity
+- **Bit Monitoring**: Continuous bit monitoring
+- **Frame Validation**: Frame format validation
+- **Timing Validation**: Timing validation
 
-// Fault confinement implementation
-void can_fault_confinement(CAN_HandleTypeDef* hcan, CAN_Error_Handler_t* error_handler) {
-    static uint32_t error_count = 0;
-    static uint32_t success_count = 0;
-    
-    if (error_handler->error_active) {
-        error_count++;
-        success_count = 0;
-        
-        // Transition to error passive after 128 errors
-        if (error_count >= 128) {
-            // Enter error passive state
-            can_enter_error_passive(hcan);
-        }
-        
-        // Transition to bus off after 256 errors
-        if (error_count >= 256) {
-            // Enter bus off state
-            can_enter_bus_off(hcan);
-        }
-    } else {
-        success_count++;
-        
-        // Recover from error passive after 128 successful transmissions
-        if (success_count >= 128 && error_count >= 128) {
-            can_enter_error_active(hcan);
-            error_count = 0;
-            success_count = 0;
-        }
-    }
-}
-```
+**Error Recovery Strategies:**
+- **Automatic Retransmission**: Automatic retransmission of failed messages
+- **Error Isolation**: Isolation of faulty nodes
+- **Network Recovery**: Automatic network recovery
+- **Manual Recovery**: Manual recovery procedures
+
+**Error Handling Best Practices:**
+- **Comprehensive Error Detection**: Detect all possible errors
+- **Graceful Error Handling**: Handle errors gracefully
+- **Error Logging**: Log errors for analysis
+- **Error Recovery**: Implement robust error recovery
 
 ## 🚀 **CAN-FD Extensions**
 
+### **CAN-FD Overview**
+
+**CAN-FD Features:**
+- **Flexible Data Rate**: Variable data rate during transmission
+- **Extended Data Field**: Extended data field (up to 64 bytes)
+- **Enhanced CRC**: Enhanced CRC for extended data
+- **Backward Compatibility**: Backward compatibility with CAN 2.0
+
+**CAN-FD Benefits:**
+- **Increased Throughput**: Higher data throughput
+- **Reduced Latency**: Reduced communication latency
+- **Enhanced Reliability**: Enhanced reliability and error detection
+- **Improved Efficiency**: Improved network efficiency
+
+**CAN-FD Implementation:**
+- **Hardware Support**: Hardware support for CAN-FD
+- **Software Support**: Software support for CAN-FD
+- **Network Migration**: Migration from CAN to CAN-FD
+- **Compatibility**: Compatibility with existing CAN networks
+
 ### **CAN-FD Frame Format**
 
-**Flexible Data Rate:**
-```c
-// CAN-FD frame structure
-typedef struct {
-    uint32_t id;                // Frame identifier (11 or 29 bits)
-    uint8_t  dlc;               // Data length code (0-64 bytes)
-    uint8_t  data[64];          // Frame data (up to 64 bytes)
-    uint8_t  frame_type;        // Frame type
-    bool     extended_id;       // Extended identifier flag
-    bool     fd_format;         // CAN-FD format flag
-    uint8_t  bit_rate_switch;   // Bit rate switching flag
-} CAN_FD_Frame_t;
+**CAN-FD Data Frame:**
+- **Extended Data Field**: Up to 64 bytes of data
+- **Flexible Data Rate**: Variable data rate during transmission
+- **Enhanced CRC**: Enhanced CRC for extended data
+- **Backward Compatibility**: Backward compatibility with CAN 2.0
 
-// CAN-FD configuration
-typedef struct {
-    uint32_t nominal_baud_rate; // Nominal bit rate
-    uint32_t data_baud_rate;    // Data bit rate
-    uint8_t  max_dlc;           // Maximum data length
-    bool     bit_rate_switch;   // Enable bit rate switching
-} CAN_FD_Config_t;
-```
-
-### **CAN-FD Implementation**
-
-**CAN-FD Support:**
-```c
-// Initialize CAN-FD
-HAL_StatusTypeDef can_fd_init(CAN_HandleTypeDef* hcan, CAN_FD_Config_t* config) {
-    // Configure CAN-FD parameters
-    hcan->Init.Prescaler = SystemCoreClock / config->nominal_baud_rate;
-    hcan->Init.FrameFormat = CAN_FRAME_FD_BRS;
-    hcan->Init.Mode = CAN_MODE_NORMAL;
-    hcan->Init.AutoRetransmission = DISABLE;
-    hcan->Init.TransmitFifoPriority = DISABLE;
-    hcan->Init.ReceiveFifoLocked = DISABLE;
-    hcan->Init.TransmitFifoPriority = DISABLE;
-    
-    return HAL_CAN_Init(hcan);
-}
-```
+**CAN-FD Features:**
+- **Bit Rate Switching**: Dynamic bit rate switching
+- **Enhanced Error Detection**: Enhanced error detection mechanisms
+- **Improved Performance**: Improved performance and efficiency
+- **Extended Functionality**: Extended functionality and features
 
 ## 🔧 **Hardware Implementation**
 
-### **CAN Controller Configuration**
+### **CAN Controller**
 
-**Hardware Setup:**
-```c
-// CAN hardware configuration
-typedef struct {
-    CAN_HandleTypeDef* hcan;    // CAN handle
-    GPIO_TypeDef* rx_port;      // RX GPIO port
-    uint16_t rx_pin;           // RX GPIO pin
-    GPIO_TypeDef* tx_port;      // TX GPIO port
-    uint16_t tx_pin;           // TX GPIO pin
-    uint32_t baud_rate;        // Baud rate
-} CAN_Hardware_Config_t;
+**Controller Architecture:**
+- **Message Buffers**: Transmit and receive message buffers
+- **Arbitration Logic**: Hardware arbitration logic
+- **Error Detection**: Hardware error detection
+- **Timing Control**: Precise timing control
 
-// Initialize CAN hardware
-void can_hardware_init(CAN_Hardware_Config_t* config) {
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
-    
-    // Enable GPIO clocks
-    if (config->rx_port == GPIOA) __HAL_RCC_GPIOA_CLK_ENABLE();
-    if (config->tx_port == GPIOA) __HAL_RCC_GPIOA_CLK_ENABLE();
-    
-    // Configure RX pin
-    GPIO_InitStruct.Pin = config->rx_pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
-    HAL_GPIO_Init(config->rx_port, &GPIO_InitStruct);
-    
-    // Configure TX pin
-    GPIO_InitStruct.Pin = config->tx_pin;
-    HAL_GPIO_Init(config->tx_port, &GPIO_InitStruct);
-    
-    // Configure CAN
-    config->hcan->Instance = CAN1;
-    config->hcan->Init.Prescaler = SystemCoreClock / config->baud_rate;
-    config->hcan->Init.Mode = CAN_MODE_NORMAL;
-    config->hcan->Init.SyncJumpWidth = CAN_SJW_1TQ;
-    config->hcan->Init.TimeSeg1 = CAN_BS1_3TQ;
-    config->hcan->Init.TimeSeg2 = CAN_BS2_2TQ;
-    config->hcan->Init.TimeTriggeredMode = DISABLE;
-    config->hcan->Init.AutoBusOff = DISABLE;
-    config->hcan->Init.AutoWakeUp = DISABLE;
-    config->hcan->Init.AutoRetransmission = DISABLE;
-    config->hcan->Init.ReceiveFifoLocked = DISABLE;
-    config->hcan->Init.TransmitFifoPriority = DISABLE;
-    
-    HAL_CAN_Init(config->hcan);
-}
-```
+**Controller Features:**
+- **Multiple Buffers**: Multiple transmit and receive buffers
+- **Filtering**: Hardware message filtering
+- **Interrupts**: Interrupt-driven operation
+- **DMA Support**: DMA support for high throughput
+
+**Controller Configuration:**
+- **Baud Rate**: Configurable baud rate
+- **Filtering**: Configurable message filtering
+- **Interrupts**: Configurable interrupts
+- **Timing**: Configurable timing parameters
+
+### **CAN Transceiver**
+
+**Transceiver Functions:**
+- **Signal Conditioning**: Signal conditioning and amplification
+- **Level Conversion**: Level conversion between logic and bus levels
+- **Noise Filtering**: Noise filtering and rejection
+- **Fault Protection**: Fault protection and isolation
+
+**Transceiver Types:**
+- **High-Speed Transceivers**: High-speed CAN transceivers
+- **Low-Speed Transceivers**: Low-speed CAN transceivers
+- **Fault-Tolerant Transceivers**: Fault-tolerant CAN transceivers
+- **Isolated Transceivers**: Isolated CAN transceivers
+
+**Transceiver Selection:**
+- **Speed Requirements**: Speed requirements and capabilities
+- **Environmental Conditions**: Environmental conditions and requirements
+- **Fault Tolerance**: Fault tolerance requirements
+- **Isolation Requirements**: Isolation requirements
 
 ## 💻 **Software Implementation**
 
-### **CAN Message Handling**
+### **CAN Driver**
 
-**Message Processing:**
-```c
-// CAN message handler
-typedef struct {
-    uint32_t id;                // Message ID
-    void (*handler)(CAN_Frame_t* frame);  // Message handler function
-} CAN_Message_Handler_t;
+**Driver Architecture:**
+- **Hardware Abstraction**: Hardware abstraction layer
+- **Message Management**: Message management and buffering
+- **Error Handling**: Error handling and recovery
+- **Interrupt Handling**: Interrupt handling and processing
 
-// CAN message handlers array
-CAN_Message_Handler_t can_handlers[] = {
-    {0x100, handle_sensor_data},
-    {0x200, handle_control_command},
-    {0x300, handle_system_status},
-    {0x400, handle_diagnostic_data}
-};
+**Driver Functions:**
+- **Initialization**: CAN controller initialization
+- **Message Transmission**: Message transmission and reception
+- **Error Handling**: Error detection and handling
+- **Status Monitoring**: Status monitoring and reporting
 
-// Process received message
-void can_process_message(CAN_Frame_t* frame) {
-    for (int i = 0; i < sizeof(can_handlers)/sizeof(can_handlers[0]); i++) {
-        if (can_handlers[i].id == frame->id) {
-            can_handlers[i].handler(frame);
-            break;
-        }
-    }
-}
+**Driver Configuration:**
+- **Baud Rate**: Configurable baud rate
+- **Filtering**: Configurable message filtering
+- **Interrupts**: Configurable interrupts
+- **Timing**: Configurable timing parameters
 
-// CAN receive callback
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan) {
-    CAN_Frame_t frame;
-    uint32_t rx_fifo;
-    
-    if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &frame.id, &frame.dlc, frame.data, &rx_fifo) == HAL_OK) {
-        can_process_message(&frame);
-    }
-}
-```
+### **Application Interface**
 
-### **CAN Transmission**
+**Message Interface:**
+- **Message Structure**: Standard message structure
+- **Message Transmission**: Message transmission interface
+- **Message Reception**: Message reception interface
+- **Message Filtering**: Message filtering interface
 
-**Message Transmission:**
-```c
-// Transmit CAN message
-CAN_Status_t can_transmit_message(CAN_HandleTypeDef* hcan, CAN_Frame_t* frame) {
-    uint32_t mailbox;
-    
-    // Add message to transmission mailbox
-    CAN_Status_t status = HAL_CAN_AddTxMessage(hcan, frame, &mailbox);
-    
-    if (status == HAL_OK) {
-        // Wait for transmission completion
-        while (HAL_CAN_GetTxMailboxesFreeLevel(hcan) == 0) {
-            // Wait for transmission to complete
-        }
-    }
-    
-    return status;
-}
+**Error Interface:**
+- **Error Reporting**: Error reporting interface
+- **Error Handling**: Error handling interface
+- **Status Reporting**: Status reporting interface
+- **Diagnostic Interface**: Diagnostic interface
 
-// Transmit with timeout
-CAN_Status_t can_transmit_with_timeout(CAN_HandleTypeDef* hcan, CAN_Frame_t* frame, uint32_t timeout) {
-    uint32_t start_time = HAL_GetTick();
-    CAN_Status_t status = can_transmit_message(hcan, frame);
-    
-    if (status == HAL_OK) {
-        while (HAL_CAN_GetTxMailboxesFreeLevel(hcan) == 0) {
-            if (HAL_GetTick() - start_time > timeout) {
-                return HAL_TIMEOUT;
-            }
-        }
-    }
-    
-    return status;
-}
-```
+**Configuration Interface:**
+- **Parameter Configuration**: Parameter configuration interface
+- **Filter Configuration**: Filter configuration interface
+- **Interrupt Configuration**: Interrupt configuration interface
+- **Timing Configuration**: Timing configuration interface
 
 ## 🌐 **Network Management**
 
 ### **Network Configuration**
 
+**Network Parameters:**
+- **Baud Rate**: Network baud rate configuration
+- **Node Addresses**: Node address assignment
+- **Message IDs**: Message identifier assignment
+- **Network Topology**: Network topology configuration
+
+**Network Monitoring:**
+- **Bus Monitoring**: Bus monitoring and analysis
+- **Node Monitoring**: Node monitoring and status
+- **Message Monitoring**: Message monitoring and analysis
+- **Error Monitoring**: Error monitoring and reporting
+
 **Network Management:**
+- **Network Initialization**: Network initialization and setup
+- **Network Maintenance**: Network maintenance and updates
+- **Network Diagnostics**: Network diagnostics and troubleshooting
+- **Network Security**: Network security and protection
+
+### **Network Diagnostics**
+
+**Diagnostic Tools:**
+- **Bus Analyzers**: CAN bus analyzers and monitors
+- **Protocol Analyzers**: CAN protocol analyzers
+- **Network Scanners**: Network scanners and discovery tools
+- **Diagnostic Software**: Diagnostic software and tools
+
+**Diagnostic Procedures:**
+- **Network Analysis**: Network analysis and monitoring
+- **Error Analysis**: Error analysis and diagnosis
+- **Performance Analysis**: Performance analysis and optimization
+- **Security Analysis**: Security analysis and assessment
+
+## 🎯 **Performance Optimization**
+
+### **Throughput Optimization**
+
+**Message Optimization:**
+- **Message Size**: Optimize message size and content
+- **Message Frequency**: Optimize message frequency
+- **Message Priority**: Optimize message priority assignment
+- **Message Filtering**: Optimize message filtering
+
+**Network Optimization:**
+- **Baud Rate**: Optimize network baud rate
+- **Network Topology**: Optimize network topology
+- **Node Configuration**: Optimize node configuration
+- **Network Load**: Optimize network load and utilization
+
+**System Optimization:**
+- **Hardware Optimization**: Optimize hardware configuration
+- **Software Optimization**: Optimize software implementation
+- **Resource Utilization**: Optimize resource utilization
+- **Power Consumption**: Optimize power consumption
+
+### **Latency Optimization**
+
+**Timing Optimization:**
+- **Bit Timing**: Optimize bit timing and synchronization
+- **Message Timing**: Optimize message timing and scheduling
+- **Interrupt Timing**: Optimize interrupt timing and processing
+- **System Timing**: Optimize system timing and coordination
+
+**Response Time Optimization:**
+- **Message Response**: Optimize message response time
+- **Error Response**: Optimize error response time
+- **System Response**: Optimize system response time
+- **Network Response**: Optimize network response time
+
+## 💻 **Implementation**
+
+### **Basic CAN Configuration**
+
+**CAN Controller Configuration:**
 ```c
-// CAN network management
+// CAN configuration structure
 typedef struct {
-    uint32_t node_count;        // Number of nodes
-    uint32_t active_nodes;      // Active nodes count
-    uint32_t bus_load;          // Bus load percentage
-    uint32_t error_rate;        // Error rate
-} CAN_Network_Status_t;
-
-// Network monitoring
-void can_network_monitor(CAN_HandleTypeDef* hcan, CAN_Network_Status_t* status) {
-    // Calculate bus load
-    uint32_t tx_count = HAL_CAN_GetTxMailboxesFreeLevel(hcan);
-    uint32_t rx_count = HAL_CAN_GetRxFifoFillLevel(hcan, CAN_RX_FIFO0);
-    
-    status->bus_load = ((3 - tx_count) * 100) / 3;  // 3 mailboxes total
-    
-    // Monitor error rate
-    CAN_ErrorActiveTypeDef error_active;
-    CAN_ErrorCodeTypeDef error_code;
-    HAL_CAN_GetError(hcan, &error_active, &error_code);
-    
-    if (error_active != CAN_ERRORACTIVE_OK) {
-        status->error_rate++;
-    }
-}
-```
-
-## ⚡ **Performance Optimization**
-
-### **Optimization Strategies**
-
-**Performance Tuning:**
-```c
-// CAN performance optimization
-typedef struct {
-    uint32_t baud_rate;         // Optimized baud rate
-    uint8_t  priority_levels;   // Number of priority levels
-    uint16_t buffer_size;       // Buffer size
-    bool     dma_enabled;       // DMA enabled
-} CAN_Performance_Config_t;
-
-// Optimize CAN performance
-void can_optimize_performance(CAN_HandleTypeDef* hcan, CAN_Performance_Config_t* config) {
-    // Configure for maximum performance
-    hcan->Init.AutoRetransmission = DISABLE;  // Disable auto-retransmission
-    hcan->Init.TransmitFifoPriority = ENABLE; // Enable FIFO priority
-    hcan->Init.ReceiveFifoLocked = DISABLE;   // Disable FIFO locking
-    
-    // Configure interrupts for optimal performance
-    __HAL_CAN_ENABLE_IT(hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
-    __HAL_CAN_ENABLE_IT(hcan, CAN_IT_TX_MAILBOX_EMPTY);
-}
-```
-
-## 🎯 **Common Pitfalls**
-
-### **1. Incorrect Baud Rate Configuration**
-
-**Problem**: Mismatched baud rates between nodes
-**Solution**: Always verify baud rate settings
-
-```c
-// ❌ Bad: Hard-coded baud rate
-#define CAN_BAUD_RATE 500000
-
-// ✅ Good: Configurable baud rate
-typedef struct {
-    uint32_t baud_rate;
-    uint32_t prescaler;
-    uint32_t time_seg1;
-    uint32_t time_seg2;
+    uint32_t baud_rate;         // Baud rate in bits per second
+    uint8_t  mode;              // Normal, loopback, or silent mode
+    uint8_t  auto_retransmit;   // Auto retransmission enable
+    uint8_t  auto_bus_off;      // Auto bus-off recovery
+    uint8_t  rx_fifo_locked;    // RX FIFO locked mode
+    uint8_t  tx_fifo_priority;  // TX FIFO priority
 } CAN_Config_t;
+
+// Initialize CAN controller
+HAL_StatusTypeDef can_init(CAN_HandleTypeDef* hcan, CAN_Config_t* config) {
+    hcan->Instance = CAN1;
+    hcan->Init.Prescaler = SystemCoreClock / (config->baud_rate * 18);
+    hcan->Init.Mode = config->mode;
+    hcan->Init.SyncJumpWidth = CAN_SJW_1TQ;
+    hcan->Init.TimeSeg1 = CAN_BS1_15TQ;
+    hcan->Init.TimeSeg2 = CAN_BS2_2TQ;
+    hcan->Init.TimeTriggeredMode = DISABLE;
+    hcan->Init.AutoBusOff = config->auto_bus_off;
+    hcan->Init.AutoWakeUp = DISABLE;
+    hcan->Init.AutoRetransmission = config->auto_retransmit;
+    hcan->Init.ReceiveFifoLocked = config->rx_fifo_locked;
+    hcan->Init.TransmitFifoPriority = config->tx_fifo_priority;
+    
+    return HAL_CAN_Init(hcan);
+}
 ```
 
-### **2. Missing Error Handling**
-
-**Problem**: System crashes due to unhandled errors
-**Solution**: Implement comprehensive error handling
-
+**Message Transmission:**
 ```c
-// ❌ Bad: No error handling
-void can_transmit(CAN_Frame_t* frame) {
-    HAL_CAN_AddTxMessage(hcan, frame, &mailbox);
-}
+// CAN message structure
+typedef struct {
+    uint32_t id;                // Message identifier
+    uint8_t  dlc;               // Data length code
+    uint8_t  data[8];           // Message data
+    uint8_t  rtr;               // Remote transmission request
+    uint8_t  ide;               // Identifier extension
+} CAN_Message_t;
 
-// ✅ Good: With error handling
-CAN_Status_t can_transmit(CAN_Frame_t* frame) {
-    CAN_Status_t status = HAL_CAN_AddTxMessage(hcan, frame, &mailbox);
-    if (status != HAL_OK) {
-        can_error_handler(status);
+// Transmit CAN message
+HAL_StatusTypeDef can_transmit(CAN_HandleTypeDef* hcan, CAN_Message_t* message) {
+    CAN_TxHeaderTypeDef tx_header;
+    
+    tx_header.StdId = message->id & 0x7FF;
+    tx_header.ExtId = message->id >> 11;
+    tx_header.IDE = message->ide;
+    tx_header.RTR = message->rtr;
+    tx_header.DLC = message->dlc;
+    tx_header.TransmitGlobalTime = DISABLE;
+    
+    uint32_t tx_mailbox;
+    return HAL_CAN_AddTxMessage(hcan, &tx_header, message->data, &tx_mailbox);
+}
+```
+
+### **Message Reception**
+
+**Message Reception:**
+```c
+// Receive CAN message
+HAL_StatusTypeDef can_receive(CAN_HandleTypeDef* hcan, CAN_Message_t* message) {
+    CAN_RxHeaderTypeDef rx_header;
+    
+    HAL_StatusTypeDef status = HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rx_header, message->data);
+    if (status == HAL_OK) {
+        message->id = rx_header.IDE == CAN_ID_STD ? rx_header.StdId : rx_header.ExtId;
+        message->dlc = rx_header.DLC;
+        message->rtr = rx_header.RTR;
+        message->ide = rx_header.IDE;
     }
+    
     return status;
 }
 ```
 
-### **3. Insufficient Buffer Sizing**
+## ⚠️ **Common Pitfalls**
 
-**Problem**: Message loss due to buffer overflow
-**Solution**: Proper buffer sizing
+### **Configuration Errors**
 
-```c
-// ❌ Bad: Small buffer
-uint8_t can_rx_buffer[64];
+**Baud Rate Mismatch:**
+- **Symptom**: No communication or garbled data
+- **Cause**: Mismatched baud rates between nodes
+- **Solution**: Ensure identical baud rate configuration
+- **Prevention**: Use standard baud rates and validate configuration
 
-// ✅ Good: Calculated buffer size
-uint16_t buffer_size = calculate_can_buffer_size(baud_rate, message_frequency);
-uint8_t* can_rx_buffer = malloc(buffer_size);
-```
+**Message ID Conflicts:**
+- **Symptom**: Message corruption or loss
+- **Cause**: Duplicate message identifiers
+- **Solution**: Ensure unique message identifiers
+- **Prevention**: Implement message ID management
+
+**Bus Termination Issues:**
+- **Symptom**: Signal reflections and communication errors
+- **Cause**: Incorrect or missing bus termination
+- **Solution**: Proper bus termination (120Ω resistors)
+- **Prevention**: Validate bus termination during design
+
+### **Implementation Errors**
+
+**Interrupt Handling Issues:**
+- **Symptom**: Missed messages or system instability
+- **Cause**: Poor interrupt handling or priority issues
+- **Solution**: Optimize interrupt handling and priorities
+- **Prevention**: Follow interrupt handling best practices
+
+**Buffer Management Issues:**
+- **Symptom**: Message loss or system overflow
+- **Cause**: Insufficient buffer size or poor management
+- **Solution**: Optimize buffer size and management
+- **Prevention**: Monitor buffer usage and implement overflow protection
+
+**Error Handling Issues:**
+- **Symptom**: System instability or communication failures
+- **Cause**: Inadequate error handling or recovery
+- **Solution**: Implement comprehensive error handling
+- **Prevention**: Test error scenarios and recovery mechanisms
 
 ## ✅ **Best Practices**
 
-### **1. Message Design**
+### **Design Best Practices**
 
-- **ID assignment**: Use consistent ID assignment scheme
-- **Data length**: Optimize data length for efficiency
-- **Message frequency**: Design appropriate message frequencies
-- **Priority management**: Use priority-based ID assignment
+**Network Design:**
+- **Topology Planning**: Plan network topology carefully
+- **Node Placement**: Optimize node placement and routing
+- **Cable Selection**: Select appropriate cables and connectors
+- **Termination**: Implement proper bus termination
 
-### **2. Error Handling**
+**Message Design:**
+- **Message Structure**: Design clear message structures
+- **Identifier Assignment**: Implement systematic identifier assignment
+- **Data Format**: Use consistent data formats
+- **Documentation**: Document message formats and usage
 
-- **Comprehensive error detection**: Handle all error types
-- **Error recovery**: Implement recovery mechanisms
-- **Error logging**: Log errors for debugging
-- **Fault confinement**: Implement proper fault confinement
+**System Integration:**
+- **Hardware Selection**: Select appropriate hardware components
+- **Software Architecture**: Design robust software architecture
+- **Testing Strategy**: Implement comprehensive testing strategy
+- **Documentation**: Maintain comprehensive documentation
 
-### **3. Performance Optimization**
+### **Implementation Best Practices**
 
-- **Baud rate selection**: Choose appropriate baud rate
-- **Buffer sizing**: Optimize buffer sizes
-- **Interrupt handling**: Use efficient interrupt handling
-- **DMA usage**: Use DMA for high-speed communication
+**Code Quality:**
+- **Modular Design**: Implement modular and maintainable code
+- **Error Handling**: Implement comprehensive error handling
+- **Resource Management**: Implement proper resource management
+- **Performance Optimization**: Optimize for performance and efficiency
 
-### **4. Network Management**
+**Testing and Validation:**
+- **Unit Testing**: Implement comprehensive unit testing
+- **Integration Testing**: Implement integration testing
+- **System Testing**: Implement system testing
+- **Validation**: Validate system requirements and performance
 
-- **Bus load monitoring**: Monitor bus load
-- **Error rate monitoring**: Track error rates
-- **Network diagnostics**: Implement diagnostic features
-- **Node management**: Manage node status
+**Maintenance and Support:**
+- **Monitoring**: Implement system monitoring and diagnostics
+- **Documentation**: Maintain up-to-date documentation
+- **Training**: Provide training and support
+- **Updates**: Implement regular updates and maintenance
 
-## 🎯 **Interview Questions**
+## ❓ **Interview Questions**
 
 ### **Basic Questions**
 
 1. **What is CAN protocol and why is it used?**
-   - Multi-master communication protocol
-   - Real-time, reliable communication
-   - Built-in error detection and fault tolerance
-   - Widely used in automotive and industrial applications
+   - CAN is a robust, real-time communication protocol for embedded systems
+   - Used for reliable, high-speed communication with built-in error detection
 
-2. **How does CAN arbitration work?**
-   - Bit-wise arbitration
-   - Lower ID has higher priority
-   - Non-destructive arbitration
-   - Dominant bit (0) wins over recessive bit (1)
+2. **What are the key features of CAN protocol?**
+   - Multi-master communication, message-based protocol, arbitration, error detection
+   - Real-time performance, fault tolerance, and scalability
 
-3. **What are the different CAN frame types?**
-   - Data frame: Contains data
-   - Remote frame: Requests data
-   - Error frame: Indicates error
-   - Overload frame: Indicates overload
+3. **How does CAN arbitration work?**
+   - Non-destructive bit-wise arbitration using dominant and recessive bits
+   - Lower identifier values have higher priority
+
+4. **What are the different CAN frame types?**
+   - Data frames, remote frames, error frames, and overload frames
+   - Each type serves specific communication purposes
 
 ### **Advanced Questions**
 
-1. **How would you implement CAN error handling?**
-   - Detect all error types
-   - Implement fault confinement
-   - Use error counters
-   - Implement recovery mechanisms
+1. **How do you implement CAN error handling?**
+   - Implement error detection, reporting, and recovery mechanisms
+   - Use hardware and software error detection capabilities
 
-2. **How would you optimize CAN performance?**
-   - Choose appropriate baud rate
-   - Optimize buffer sizes
-   - Use efficient interrupt handling
-   - Implement DMA for high-speed communication
+2. **What are the considerations for CAN network design?**
+   - Network topology, node placement, cable selection, termination
+   - Performance requirements, reliability, and scalability
 
-3. **How would you design a CAN network?**
-   - Plan node IDs and priorities
-   - Calculate bus load
-   - Design message frequencies
-   - Implement network management
+3. **How do you optimize CAN performance?**
+   - Optimize message design, network configuration, and system integration
+   - Consider throughput, latency, and resource utilization
 
-### **Implementation Questions**
+4. **What are the differences between CAN and CAN-FD?**
+   - CAN-FD supports flexible data rates and extended data fields
+   - Enhanced CRC, backward compatibility, and improved performance
 
-1. **Write a function to transmit CAN message with arbitration**
-2. **Implement CAN error detection and handling**
-3. **Design a CAN message processing system**
-4. **Create a CAN network monitoring function**
+### **System Integration Questions**
+
+1. **How do you integrate CAN with other communication protocols?**
+   - Implement protocol conversion, gateway functionality, and system integration
+   - Consider compatibility, performance, and reliability requirements
+
+2. **What are the considerations for implementing CAN in automotive systems?**
+   - Safety requirements, reliability, performance, and compliance
+   - Automotive standards, testing, and validation
+
+3. **How do you implement CAN in industrial applications?**
+   - Industrial requirements, environmental conditions, and reliability
+   - Industrial standards, testing, and validation
+
+4. **What are the security considerations for CAN communication?**
+   - Implement encryption, authentication, and secure communication
+   - Consider data protection, access control, and security requirements
 
 ## 📚 **Additional Resources**
 
-### **Books**
+### **Technical Documentation**
+- [CAN Specification](https://en.wikipedia.org/wiki/CAN_bus)
+- [CAN-FD Specification](https://en.wikipedia.org/wiki/CAN_FD)
+- [Automotive CAN Standards](https://en.wikipedia.org/wiki/CAN_bus)
+
+### **Implementation Guides**
+- [STM32 CAN Programming](https://www.st.com/resource/en/user_manual/dm00122015-description-of-stm32f4-hal-and-ll-drivers-stmicroelectronics.pdf)
+- [ARM Cortex-M CAN Programming](https://developer.arm.com/documentation/dui0552/a/the-cortex-m3-processor/peripherals/can)
+- [Embedded CAN Programming](https://en.wikipedia.org/wiki/Embedded_system)
+
+### **Tools and Software**
+- [CAN Bus Analyzers](https://en.wikipedia.org/wiki/CAN_bus)
+- [CAN Protocol Analyzers](https://en.wikipedia.org/wiki/Protocol_analyzer)
+- [Embedded Development Tools](https://en.wikipedia.org/wiki/Embedded_system)
+
+### **Community and Forums**
+- [Embedded Systems Stack Exchange](https://electronics.stackexchange.com/questions/tagged/embedded)
+- [CAN Bus Community](https://en.wikipedia.org/wiki/CAN_bus)
+- [Automotive Electronics Community](https://en.wikipedia.org/wiki/Automotive_electronics)
+
+### **Books and Publications**
 - "Controller Area Network: Basics, Protocols, Chips and Applications" by Konrad Etschberger
 - "CAN System Engineering: From Theory to Practical Applications" by Wolfhard Lawrenz
-- "Automotive Software Engineering" by Jörg Schäuffele
-
-### **Online Resources**
-- [CAN Protocol Tutorial](https://www.tutorialspoint.com/can-protocol)
-- [CAN Specification](https://www.iso.org/standard/11898-1.html)
-- [STM32 CAN Documentation](https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf)
-
-### **Tools**
-- **CAN Analyzer**: Protocol analysis and debugging
-- **CAN Bus Simulator**: Network simulation and testing
-- **CAN Monitor**: Real-time bus monitoring
-- **CAN Logger**: Message logging and analysis
-
----
-
-**Next Steps**: Explore [High-Speed Protocols](./High_Speed_Protocols.md) to understand USB, PCIe, and Ethernet, or dive into [Wireless Protocols](./Wireless_Protocols.md) for Bluetooth, BLE, and WiFi.
+- "Embedded Systems Design" by Steve Heath

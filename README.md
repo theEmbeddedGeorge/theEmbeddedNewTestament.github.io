@@ -80,27 +80,27 @@ Explore → [Advanced Hardware](#g-advanced-hardware-🔴) → [Embedded Securit
 
 #### **Phase 2: Embedded Debugging & Testing (4 weeks)**
 **Debugging Techniques**
-- [JTAG Debugging](Operating_System/Interrupt.md)
-- [Logic Analyzer Usage](Operating_System/Interrupt.md)
-- [Oscilloscope Measurements](Operating_System/Interrupt.md)
-- [Code Coverage and Static Analysis](Operating_System/Interrupt.md)
+- [JTAG Debugging](Debugging/README.md#jtag-debugging)
+- [Logic Analyzer Usage](Debugging/README.md#logic-analyzer-usage)
+- [Oscilloscope Measurements](Debugging/README.md#oscilloscope-measurements)
+- [Code Coverage and Static Analysis](Debugging/README.md#code-coverage-and-static-analysis)
 
 **Testing Strategies**
-- [Unit Testing for Embedded Systems](Operating_System/Interrupt.md)
-- [Hardware-in-the-Loop Testing](Operating_System/Interrupt.md)
-- [Performance Profiling](Operating_System/Interrupt.md)
+- [Unit Testing for Embedded Systems](Debugging/README.md#unit-testing-for-embedded-systems)
+- [Hardware-in-the-Loop Testing](Debugging/README.md#hardware-in-the-loop-testing)
+- [Performance Profiling](Debugging/README.md#performance-profiling)
 
 #### **Phase 3: System Integration (6 weeks)**
 **System Development**
-- [Bootloader Development](Operating_System/Linux/boot_loader.md)
-- [Firmware Update Mechanisms](Operating_System/Linux/booting.md)
-- [Watchdog Timers and System Recovery](Operating_System/Interrupt.md)
-- [Error Handling and Logging](Operating_System/Interrupt.md)
+- [Bootloader Development](System_Integration/README.md#bootloader-development)
+- [Firmware Update Mechanisms](System_Integration/README.md#firmware-update-mechanisms)
+- [Watchdog Timers and System Recovery](System_Integration/README.md#watchdog-timers-and-system-recovery)
+- [Error Handling and Logging](System_Integration/README.md#error-handling-and-logging)
 
 **Development Tools**
-- [Cross-compilation Setup](Operating_System/Interrupt.md)
-- [Build Systems (Make, CMake)](Operating_System/Interrupt.md)
-- [Version Control for Embedded Projects](Operating_System/Interrupt.md)
+- [Cross-compilation Setup](System_Integration/README.md#cross-compilation-setup)
+- [Build Systems](System_Integration/README.md#build-systems)
+- [Version Control for Embedded Projects](System_Integration/README.md#version-control-for-embedded-projects)
 
 ### **🔴 Advanced Level (Specialized Areas)**
 
@@ -119,23 +119,28 @@ Explore → [Advanced Hardware](#g-advanced-hardware-🔴) → [Embedded Securit
 
 #### **Phase 2: Embedded Security (6 weeks)**
 **Security Fundamentals**
-- [Secure Boot and Chain of Trust](Security/TPM.md)
-- [Cryptographic Implementations](Security/)
-- [Side-channel Attack Prevention](Security/)
-- [Hardware Security Modules (HSM)](Security/TPM.md)
+- [Secure Boot and Chain of Trust](Security/embedded_security.md#secure-boot-and-chain-of-trust)
+- [Cryptographic Implementations](Security/embedded_security.md#cryptographic-implementations)
+- [Side-channel Attack Prevention](Security/embedded_security.md#side-channel-attack-prevention)
+- [Hardware Security Modules (HSM)](Security/embedded_security.md#hardware-security-modules-hsm)
 
 **Secure Communication**
-- [Secure Communication Protocols](Security/)
-- [ARM TrustZone](https://embeddedsecurity.io/)
-- [Encryption Algorithms](Security/)
+- [Secure Communication Protocols](Security/embedded_security.md#secure-communication-protocols)
+- [ARM TrustZone](Security/embedded_security.md#arm-trustzone)
+- [Encryption Algorithms](Security/embedded_security.md#encryption-algorithms)
 - [TPM 2.0](Security/TPM.md)
 
 #### **Phase 3: Performance Optimization (6 weeks)**
 **Code Optimization**
-- [Code Optimization Techniques](Data_Struct_Implementation/)
-- [Memory Optimization Strategies](Data_Struct_Implementation/memoryPoolAllocator/README.md)
-- [Power Optimization](Operating_System/Interrupt.md)
-- [Real-time Performance Analysis](Operating_System/Process/Process_thread_scheduling.md)
+- [Code Optimization Techniques](Performance/performance_optimization.md#code-optimization-techniques)
+- [Memory Optimization Strategies](Performance/performance_optimization.md#memory-optimization-strategies)
+- [Power Optimization](Performance/performance_optimization.md#power-optimization)
+- [Real-time Performance Analysis](Performance/performance_optimization.md#real-time-performance-analysis)
+
+**Profiling and Benchmarking**
+- [Performance Profiling](Performance/performance_optimization.md#profiling-and-benchmarking)
+- [Optimization Tools](Performance/performance_optimization.md#optimization-tools)
+- [Benchmarking Framework](Performance/performance_optimization.md#benchmarking-tools)
 
 **Data Structures & Algorithms**
 - [Finite State Machine](Data_Struct_Implementation/stateMachine/README.md)

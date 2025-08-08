@@ -71,15 +71,15 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 #### **Phase 3: Communication Protocols (4 weeks)**
 **Serial Communication**
 - **[UART Protocol](./Communication_Protocols/UART_Protocol.md)** - Baud rate, data bits, parity, stop bits, flow control
-- **[RS232/RS422/RS485 Standards](./Bus_Protocol/RS232_RS422_RS485.md)** - Electrical standards, multi-drop communication, signal levels
-- **[Serial Communication Fundamentals](./Bus_Protocol/Serial_communication.md)** - Basic serial communication concepts and implementation
+- **[RS232/RS422/RS485 Standards](./Communication_Protocols/RS232_RS422_RS485_Standards.md)** - Electrical standards, multi-drop communication, signal levels
+- **[Serial Communication Fundamentals](./Communication_Protocols/Serial_Communication_Fundamentals.md)** - Basic serial communication concepts and implementation
 - **[UART Configuration and Setup](./Communication_Protocols/UART_Configuration.md)** - Hardware setup, buffering strategies, interrupt handling
 - **[Error Detection and Handling](./Communication_Protocols/Error_Detection.md)** - Parity checking, frame errors, overrun detection, error recovery
 - **[Protocol Implementation](./Communication_Protocols/Protocol_Implementation.md)** - Custom protocol design over UART, message framing, checksums
 
 **Synchronous Protocols**
-- **[SPI Protocol](./Bus_Protocol/spi.md)** - Clock polarity, phase, data order, chip select management, multi-slave configuration
-- **[I2C Protocol](./Bus_Protocol/i2c.md)** - Addressing, clock stretching, multi-master arbitration, bus speed modes
+- **[SPI Protocol](./Communication_Protocols/SPI_Protocol.md)** - Clock polarity, phase, data order, chip select management, multi-slave configuration
+- **[I2C Protocol](./Communication_Protocols/I2C_Protocol.md)** - Addressing, clock stretching, multi-master arbitration, bus speed modes
 - **[CAN Protocol](./Communication_Protocols/CAN_Protocol.md)** - Message format, error handling, arbitration, CAN-FD extensions
 - **[High-Speed Protocols](./Communication_Protocols/High_Speed_Protocols.md)** - USB, PCIe, Ethernet for embedded systems, signal integrity
 - **[Wireless Protocols](./Communication_Protocols/Wireless_Protocols.md)** - Bluetooth, BLE, WiFi, Zigbee, LoRa, protocol selection

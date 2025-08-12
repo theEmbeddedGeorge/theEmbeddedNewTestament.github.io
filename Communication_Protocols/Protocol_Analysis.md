@@ -7,12 +7,28 @@ Effective protocol analysis accelerates bring-up, reveals timing bugs, and deris
 ## Instruments and Measurement Fundamentals
 
 ### Logic Analyzer Selection and Configuration
-- **Digital sampling**: Choose adequate memory depth and sample rate
-- **Protocol decoders**: UART/SPI/I2C/CAN with customizable parameters
-- **Trigger capabilities**: Edge, pattern, state, and protocol-specific triggers
-- **Memory depth calculation**: `Memory_Time = Memory_Depth / Sample_Rate`
+**Digital Sampling Theory**
+Logic analyzers capture digital signals at discrete time intervals. The choice of sample rate and memory depth fundamentally affects what you can observe and analyze.
 
-#### Sample Rate Requirements
+**Why Sample Rate Matters**
+- **Nyquist Theorem**: Must sample at least 2x the highest frequency component
+- **Edge Detection**: Higher sample rates provide better edge timing precision
+- **Jitter Analysis**: Need 10-20x oversampling for accurate jitter measurement
+- **Protocol Decoding**: Some protocols require specific sample rates for reliable decoding
+
+**Memory Depth Considerations**
+Memory depth determines how long you can capture at a given sample rate:
+- **Short captures**: High sample rate, limited time window
+- **Long captures**: Lower sample rate, extended time window
+- **Trade-off**: Higher sample rates require more memory for the same time duration
+
+**Protocol Decoder Capabilities**
+Modern logic analyzers include built-in decoders for common protocols:
+- **UART/Serial**: Configurable baud rate, data bits, parity, stop bits
+- **SPI**: Configurable clock polarity, phase, bit order
+- **I2C**: Automatic start/stop detection, address decoding
+- **CAN**: Bit timing analysis, error detection
+
 ```c
 // Calculate minimum sample rate for reliable edge detection
 uint32_t calculate_min_sample_rate(uint32_t signal_frequency, uint32_t edge_accuracy_ns) {
@@ -32,81 +48,62 @@ uint32_t calculate_min_sample_rate(uint32_t signal_frequency, uint32_t edge_accu
 // Min sample rate = MAX(2MHz, 100MHz) * 10 = 1GHz
 ```
 
-#### Memory Depth Planning
-```c
-// Calculate required memory depth for capture duration
-uint32_t calculate_memory_depth(uint32_t sample_rate, uint32_t capture_time_ms) {
-    uint32_t samples_needed = (sample_rate * capture_time_ms) / 1000;
-    
-    // Add 20% margin for trigger positioning
-    uint32_t memory_depth = samples_needed * 1.2;
-    
-    return memory_depth;
-}
-
-// Example: 1GHz sample rate, 10ms capture
-// Memory depth = (1GHz * 10ms) / 1000 * 1.2 = 12MSamples
-```
-
 ### Oscilloscope Measurements and Analysis
-- **Analog waveform fidelity**: Rise/fall time, ringing, overshoot, jitter
-- **Bandwidth requirements**: 3-5x highest frequency component for accurate measurements
-- **Probe considerations**: 10x vs 1x, active vs passive, differential vs single-ended
+**Analog vs Digital Analysis**
+While logic analyzers excel at digital signal analysis, oscilloscopes provide crucial analog information that digital tools cannot capture.
 
-#### Signal Integrity Measurements
-```c
-// Calculate signal integrity metrics
-typedef struct {
-    float rise_time_ns;
-    float fall_time_ns;
-    float overshoot_percent;
-    float undershoot_percent;
-    float jitter_rms_ps;
-    float jitter_peak_peak_ps;
-} signal_metrics_t;
+**Signal Integrity Fundamentals**
+- **Rise/Fall Time**: Critical for timing analysis and EMI considerations
+- **Overshoot/Undershoot**: Indicates impedance matching issues
+- **Ringing**: Suggests transmission line effects or poor termination
+- **Noise**: Affects signal quality and timing margins
 
-signal_metrics_t analyze_signal_integrity(float *waveform, uint32_t samples, 
-                                         float sample_period_ns) {
-    signal_metrics_t metrics = {0};
-    
-    // Find 10% and 90% crossing points for rise/fall time
-    float v_10 = 0.1 * V_MAX;
-    float v_90 = 0.9 * V_MAX;
-    
-    uint32_t t10_rise = find_crossing(waveform, samples, v_10, RISING);
-    uint32_t t90_rise = find_crossing(waveform, samples, v_90, RISING);
-    uint32_t t10_fall = find_crossing(waveform, samples, v_10, FALLING);
-    uint32_t t90_fall = find_crossing(waveform, samples, v_90, FALLING);
-    
-    metrics.rise_time_ns = (t90_rise - t10_rise) * sample_period_ns;
-    metrics.fall_time_ns = (t10_fall - t90_fall) * sample_period_ns;
-    
-    // Calculate overshoot/undershoot
-    float v_max = find_peak(waveform, samples, MAX);
-    float v_min = find_peak(waveform, samples, MIN);
-    
-    metrics.overshoot_percent = ((v_max - V_MAX) / V_MAX) * 100.0f;
-    metrics.undershoot_percent = ((V_MIN - v_min) / V_MIN) * 100.0f;
-    
-    // Calculate jitter (simplified)
-    metrics.jitter_rms_ps = calculate_jitter_rms(waveform, samples, sample_period_ns);
-    metrics.jitter_peak_peak_ps = calculate_jitter_peak_peak(waveform, samples, sample_period_ns);
-    
-    return metrics;
-}
-```
+**Bandwidth Requirements**
+Oscilloscope bandwidth should be 3-5x the highest frequency component:
+- **Digital signals**: 3x for basic measurements, 5x for detailed analysis
+- **Analog signals**: 5x minimum for accurate amplitude measurements
+- **EMI analysis**: 10x or higher for harmonic analysis
+
+**Probe Selection Considerations**
+- **1x vs 10x**: 10x probes reduce loading but attenuate signal
+- **Active vs Passive**: Active probes provide better bandwidth but require power
+- **Differential vs Single-ended**: Differential probes reject common-mode noise
+- **High-voltage**: Special probes for power supply analysis
 
 ### Protocol Analyzers and Specialized Tools
-- **CAN/CAN-FD analyzers**: Dedicated decoders with error analysis
-- **USB analyzers**: Protocol-level decoding with timing analysis
-- **Ethernet taps**: Port mirroring (SPAN) for lossless captures
-- **Software capture**: Host-based packet capture with timestamping
+**When to Use Specialized Tools**
+- **CAN Analyzers**: For automotive and industrial applications
+- **USB Analyzers**: For USB device development and debugging
+- **Ethernet Taps**: For network protocol analysis
+- **Software Capture**: When hardware tools are unavailable
+
+**Tool Selection Criteria**
+- **Protocol support**: Ensure tool supports your specific protocol
+- **Performance**: Bandwidth and timing accuracy requirements
+- **Analysis features**: Decoding, filtering, and export capabilities
+- **Integration**: Compatibility with existing development tools
 
 ---
 
 ## Advanced Capture Strategy
 
 ### Trigger Configuration for Complex Scenarios
+**Trigger Philosophy**
+Effective triggering reduces capture time and focuses analysis on relevant events. The goal is to capture the right data at the right time.
+
+**Multi-Condition Triggers**
+Complex systems often require sophisticated trigger conditions:
+- **Protocol-specific triggers**: Start of frame, specific commands, error conditions
+- **Timing-based triggers**: Events that occur within specific time windows
+- **State-based triggers**: System state transitions or combinations
+- **Correlation triggers**: Events that occur across multiple signals
+
+**Trigger Optimization**
+- **Pre-trigger capture**: Essential for understanding what led to the event
+- **Post-trigger capture**: Important for seeing the complete event sequence
+- **Trigger positioning**: Balance between pre and post-trigger data
+- **Memory efficiency**: Optimize capture length for available memory
+
 ```c
 // Multi-condition trigger setup
 typedef struct {
@@ -128,19 +125,24 @@ err_t configure_uart_error_trigger(trigger_config_t *config) {
     
     return configure_logic_analyzer_trigger(config);
 }
-
-// Pattern trigger for specific byte sequences
-err_t configure_pattern_trigger(uint8_t *pattern, uint8_t pattern_len) {
-    trigger_config_t config = {0};
-    config.trigger_type = TRIGGER_PATTERN;
-    config.trigger_source = DATA_CHANNEL;
-    config.trigger_value = pattern_to_uint32(pattern, pattern_len);
-    
-    return configure_logic_analyzer_trigger(&config);
-}
 ```
 
 ### Correlated Multi-Instrument Capture
+**Why Multi-Instrument Correlation Matters**
+Modern embedded systems have multiple communication interfaces and subsystems. Correlating data from multiple instruments provides a complete picture of system behavior.
+
+**Correlation Strategies**
+- **Time synchronization**: Align timestamps across instruments
+- **Event correlation**: Link events across different interfaces
+- **State correlation**: Track system state across multiple domains
+- **Performance correlation**: Relate performance metrics across subsystems
+
+**Correlation Challenges**
+- **Clock drift**: Different instruments may have different time references
+- **Latency**: Communication delays between instruments
+- **Data formats**: Different instruments may use different data representations
+- **Synchronization**: Ensuring all instruments capture the same event
+
 ```c
 // Synchronize multiple instruments for comprehensive analysis
 typedef struct {
@@ -165,19 +167,6 @@ void add_correlated_event(uint8_t instrument_id, uint8_t event_type, uint32_t ev
         event_count++;
     }
 }
-
-// Analyze timing relationships between events
-void analyze_event_timing(void) {
-    for (uint32_t i = 1; i < event_count; i++) {
-        uint32_t delta_ns = event_buffer[i].timestamp_ns - event_buffer[i-1].timestamp_ns;
-        
-        // Check for timing violations
-        if (delta_ns > MAX_ALLOWED_DELTA_NS) {
-            printf("Timing violation: %lu ns between events %lu and %lu\n", 
-                   delta_ns, i-1, i);
-        }
-    }
-}
 ```
 
 ---
@@ -185,6 +174,28 @@ void analyze_event_timing(void) {
 ## UART Protocol Analysis
 
 ### Advanced UART Timing Analysis
+**UART Timing Fundamentals**
+UART communication relies on precise timing relationships between the transmitter and receiver. Understanding these relationships is crucial for reliable communication.
+
+**Bit Timing Analysis**
+- **Start bit**: Initiates each character transmission
+- **Data bits**: Carry the actual information (typically 7 or 8 bits)
+- **Parity bit**: Optional error detection (even, odd, or none)
+- **Stop bit(s)**: Mark the end of character transmission
+
+**Timing Budget Philosophy**
+UART timing budgets must account for:
+- **Clock accuracy**: Crystal tolerance and temperature effects
+- **Interrupt latency**: Time from edge detection to processing
+- **Processing overhead**: Time to handle received data
+- **Buffer management**: Time to store and process data
+
+**Why Timing Budgets Matter**
+- **Reliability**: Insufficient timing margins cause communication errors
+- **Performance**: Overly conservative timing reduces throughput
+- **Power efficiency**: Faster processing may require higher clock frequencies
+- **Cost**: Higher accuracy components may be more expensive
+
 ```c
 // UART timing budget analysis
 typedef struct {
@@ -232,6 +243,40 @@ uart_timing_budget_t calculate_uart_timing(uint32_t baud_rate, uint8_t data_bits
 ```
 
 ### UART Error Detection and Analysis
+**Error Types and Their Causes**
+UART communication can fail in several ways, each with different causes and implications:
+
+**Frame Errors**
+- **Causes**: Baud rate mismatch, noise, timing violations
+- **Detection**: Start bit not detected at expected time
+- **Impact**: Complete character loss, potential synchronization issues
+- **Recovery**: Resynchronization on next valid start bit
+
+**Parity Errors**
+- **Causes**: Noise, interference, timing issues
+- **Detection**: Parity calculation mismatch
+- **Impact**: Data corruption detection
+- **Recovery**: Request retransmission if protocol supports it
+
+**Overrun Errors**
+- **Causes**: Receiver buffer full, slow processing
+- **Detection**: New character received before previous processed
+- **Impact**: Data loss, potential synchronization issues
+- **Recovery**: Clear buffer, resynchronize
+
+**Noise Errors**
+- **Causes**: EMI, poor grounding, signal integrity issues
+- **Detection**: Invalid signal levels or timing
+- **Impact**: Unpredictable behavior
+- **Recovery**: Improve signal integrity, add filtering
+
+**Error Statistics and Analysis**
+Understanding error patterns helps identify root causes:
+- **Error rates**: Frequency of different error types
+- **Error clustering**: Temporal patterns in errors
+- **Error correlation**: Relationship between errors and system state
+- **Error trends**: Changes in error rates over time
+
 ```c
 // UART error statistics and analysis
 typedef struct {
@@ -279,13 +324,46 @@ uart_error_stats_t analyze_uart_errors(uint8_t *capture_data, uint32_t capture_l
     
     return stats;
 }
+```
 
+### UART Signal Quality Analysis
+**Signal Quality Metrics**
+Signal quality directly affects communication reliability and performance:
+
+**Rise and Fall Times**
+- **Definition**: Time for signal to transition between logic levels
+- **Measurement**: 10% to 90% of signal swing
+- **Impact**: Affects timing margins and EMI
+- **Specifications**: Must meet UART receiver requirements
+
+**Overshoot and Undershoot**
+- **Definition**: Signal excursion beyond target logic levels
+- **Causes**: Impedance mismatch, transmission line effects
+- **Impact**: Can cause false triggering or damage
+- **Limits**: Typically 10-20% of signal swing
+
+**Jitter Analysis**
+- **Definition**: Variation in timing of signal edges
+- **Types**: Random jitter, deterministic jitter, periodic jitter
+- **Impact**: Reduces timing margins, increases error rates
+- **Measurement**: Statistical analysis of edge timing
+
+**Noise Analysis**
+- **Definition**: Unwanted signal components
+- **Types**: Thermal noise, EMI, crosstalk, power supply noise
+- **Impact**: Reduces signal-to-noise ratio
+- **Mitigation**: Proper grounding, shielding, filtering
+
+```c
 // UART signal quality analysis
 typedef struct {
-    float signal_to_noise_ratio_db;
-    float eye_diagram_width_percent;
-    float jitter_rms_ps;
-    float voltage_levels_valid;
+    float scl_rise_time_ns;
+    float scl_fall_time_ns;
+    float sda_rise_time_ns;
+    float sda_fall_time_ns;
+    float pull_up_resistance_ohms;
+    float bus_capacitance_pf;
+    float noise_margin_mv;
 } uart_signal_quality_t;
 
 uart_signal_quality_t analyze_uart_signal_quality(float *analog_waveform, 
@@ -293,22 +371,26 @@ uart_signal_quality_t analyze_uart_signal_quality(float *analog_waveform,
                                                  float sample_period_ns) {
     uart_signal_quality_t quality = {0};
     
-    // Calculate SNR from high and low levels
-    float v_high = calculate_high_level(waveform, samples);
-    float v_low = calculate_low_level(waveform, samples);
-    float noise_rms = calculate_noise_rms(waveform, samples);
+    // Calculate rise and fall times
+    quality.scl_rise_time_ns = calculate_rise_time(analog_waveform, samples, sample_period_ns);
+    quality.scl_fall_time_ns = calculate_fall_time(analog_waveform, samples, sample_period_ns);
+    quality.sda_rise_time_ns = calculate_rise_time(analog_waveform, samples, sample_period_ns);
+    quality.sda_fall_time_ns = calculate_fall_time(analog_waveform, samples, sample_period_ns);
     
-    float signal_amplitude = v_high - v_low;
-    quality.signal_to_noise_ratio_db = 20 * log10(signal_amplitude / (2 * noise_rms));
+    // Calculate pull-up resistance from rise time
+    // τ = RC, where τ is rise time, R is pull-up resistance, C is bus capacitance
+    float avg_rise_time_ns = (quality.scl_rise_time_ns + quality.sda_rise_time_ns) / 2.0f;
+    quality.bus_capacitance_pf = estimate_bus_capacitance();  // From PCB design
+    quality.pull_up_resistance_ohms = (avg_rise_time_ns * 1e-9) / 
+                                     (quality.bus_capacitance_pf * 1e-12);
     
-    // Calculate eye diagram width
-    quality.eye_diagram_width_percent = calculate_eye_width(waveform, samples, sample_period_ns);
+    // Calculate noise margin
+    float v_ih_min = 0.7 * V_DD;  // Input high minimum
+    float v_il_max = 0.3 * V_DD;  // Input low maximum
+    float v_oh_min = 0.9 * V_DD;  // Output high minimum
+    float v_ol_max = 0.1 * V_DD;  // Output low maximum
     
-    // Calculate jitter
-    quality.jitter_rms_ps = calculate_jitter_rms(waveform, samples, sample_period_ns);
-    
-    // Validate voltage levels
-    quality.voltage_levels_valid = (v_high > V_IH_MIN && v_low < V_IL_MAX) ? 1.0f : 0.0f;
+    quality.noise_margin_mv = MIN(v_oh_min - v_ih_min, v_il_max - v_ol_max) * 1000.0f;
     
     return quality;
 }
@@ -319,6 +401,28 @@ uart_signal_quality_t analyze_uart_signal_quality(float *analog_waveform,
 ## SPI Protocol Analysis
 
 ### SPI Timing Analysis and Validation
+**SPI Timing Fundamentals**
+SPI communication relies on precise timing relationships between clock and data signals. Understanding these relationships is essential for reliable communication.
+
+**Clock Polarity and Phase**
+SPI supports four timing modes (CPOL/CPHA combinations):
+- **Mode 0**: Clock idle low, data sampled on rising edge
+- **Mode 1**: Clock idle low, data sampled on falling edge
+- **Mode 2**: Clock idle high, data sampled on falling edge
+- **Mode 3**: Clock idle high, data sampled on rising edge
+
+**Timing Parameters**
+- **Setup time**: Data must be stable before clock edge
+- **Hold time**: Data must remain stable after clock edge
+- **Clock frequency**: Maximum rate for reliable communication
+- **Chip select timing**: Setup and hold relative to clock
+
+**Why Timing Validation Matters**
+- **Reliability**: Insufficient timing margins cause communication errors
+- **Performance**: Proper timing enables maximum clock frequency
+- **Compatibility**: Different devices may have different timing requirements
+- **Debugging**: Timing violations often indicate hardware or configuration issues
+
 ```c
 // SPI timing parameters and validation
 typedef struct {
@@ -359,45 +463,28 @@ err_t validate_spi_timing(spi_timing_params_t *measured, spi_timing_params_t *re
     
     return result;
 }
-
-// Calculate SPI timing from oscilloscope measurements
-spi_timing_params_t calculate_spi_timing(float *sclk_waveform, float *mosi_waveform,
-                                        float *miso_waveform, float *cs_waveform,
-                                        uint32_t samples, float sample_period_ns) {
-    spi_timing_params_t timing = {0};
-    
-    // Find clock edges
-    uint32_t *clock_edges = find_clock_edges(sclk_waveform, samples);
-    uint32_t edge_count = count_clock_edges(clock_edges);
-    
-    // Calculate clock frequency
-    if (edge_count >= 2) {
-        uint32_t period_samples = clock_edges[1] - clock_edges[0];
-        timing.clock_period_ns = period_samples * sample_period_ns;
-        timing.clock_frequency_hz = 1000000000 / timing.clock_period_ns;
-    }
-    
-    // Calculate setup time (data stable before clock edge)
-    timing.setup_time_ns = calculate_setup_time(mosi_waveform, sclk_waveform, 
-                                               samples, sample_period_ns);
-    
-    // Calculate hold time (data stable after clock edge)
-    timing.hold_time_ns = calculate_hold_time(mosi_waveform, sclk_waveform, 
-                                             samples, sample_period_ns);
-    
-    // Calculate clock-to-output delay
-    timing.clock_to_output_ns = calculate_clock_to_output(miso_waveform, sclk_waveform,
-                                                         samples, sample_period_ns);
-    
-    // Calculate chip select delay
-    timing.chip_select_delay_ns = calculate_cs_delay(cs_waveform, sclk_waveform,
-                                                    samples, sample_period_ns);
-    
-    return timing;
-}
 ```
 
 ### SPI Protocol Decoding and Analysis
+**SPI Frame Structure**
+Understanding SPI frame structure is essential for protocol analysis:
+- **Chip select**: Initiates and terminates transactions
+- **Clock**: Provides timing reference for data transfer
+- **MOSI**: Master output, slave input (master to slave data)
+- **MISO**: Master input, slave output (slave to master data)
+
+**Common SPI Patterns**
+- **Single read/write**: Simple data transfer
+- **Burst transfer**: Multiple bytes in sequence
+- **Command sequences**: Address + data patterns
+- **Status polling**: Repeated reads until condition met
+
+**Protocol Analysis Techniques**
+- **Frame identification**: Detect start and end of transactions
+- **Data extraction**: Parse command and data fields
+- **Pattern recognition**: Identify common command sequences
+- **Error detection**: Find timing violations and protocol errors
+
 ```c
 // SPI frame decoder
 typedef struct {
@@ -451,26 +538,6 @@ spi_frame_t* decode_spi_frames(uint8_t *capture_data, uint32_t capture_length,
     
     return frames;
 }
-
-// Analyze SPI frame content for common protocols
-void analyze_spi_frame_content(spi_frame_t *frame) {
-    if (frame->data_length >= 1) {
-        // Common SPI command formats
-        uint8_t command = frame->data[0];
-        
-        if (command & 0x80) {
-            // Read command
-            frame->frame_type = SPI_FRAME_READ;
-            frame->address = command & 0x7F;
-        } else {
-            // Write command
-            frame->frame_type = SPI_FRAME_WRITE;
-            frame->address = command & 0x7F;
-        }
-        
-        frame->payload_length = frame->data_length - 1;
-    }
-}
 ```
 
 ---
@@ -478,6 +545,27 @@ void analyze_spi_frame_content(spi_frame_t *frame) {
 ## I2C Protocol Analysis
 
 ### I2C Timing and Signal Analysis
+**I2C Timing Fundamentals**
+I2C communication uses open-drain signaling with pull-up resistors. Understanding the timing relationships is crucial for reliable communication.
+
+**Clock and Data Relationships**
+- **Start condition**: SDA falls while SCL is high
+- **Data transfer**: SDA changes while SCL is low, stable while SCL is high
+- **Stop condition**: SDA rises while SCL is high
+- **Repeated start**: Start condition without stop condition
+
+**Timing Parameters**
+- **Setup time**: Data must be stable before clock edge
+- **Hold time**: Data must remain stable after clock edge
+- **Clock frequency**: Maximum rate for reliable communication
+- **Rise time**: Determined by pull-up resistance and bus capacitance
+
+**Signal Quality Considerations**
+- **Pull-up resistance**: Affects rise time and noise immunity
+- **Bus capacitance**: Affects rise time and maximum frequency
+- **Noise margin**: Determines reliability in noisy environments
+- **Clock stretching**: Allows slaves to control communication timing
+
 ```c
 // I2C timing parameters
 typedef struct {
@@ -503,132 +591,56 @@ typedef struct {
     float bus_capacitance_pf;
     float noise_margin_mv;
 } i2c_signal_quality_t;
-
-// Calculate I2C bus parameters from measurements
-i2c_signal_quality_t analyze_i2c_signal_quality(float *scl_waveform, float *sda_waveform,
-                                                uint32_t samples, float sample_period_ns) {
-    i2c_signal_quality_t quality = {0};
-    
-    // Calculate rise and fall times
-    quality.scl_rise_time_ns = calculate_rise_time(scl_waveform, samples, sample_period_ns);
-    quality.scl_fall_time_ns = calculate_fall_time(scl_waveform, samples, sample_period_ns);
-    quality.sda_rise_time_ns = calculate_rise_time(sda_waveform, samples, sample_period_ns);
-    quality.sda_fall_time_ns = calculate_fall_time(sda_waveform, samples, sample_period_ns);
-    
-    // Calculate pull-up resistance from rise time
-    // τ = RC, where τ is rise time, R is pull-up resistance, C is bus capacitance
-    float avg_rise_time_ns = (quality.scl_rise_time_ns + quality.sda_rise_time_ns) / 2.0f;
-    quality.bus_capacitance_pf = estimate_bus_capacitance();  // From PCB design
-    quality.pull_up_resistance_ohms = (avg_rise_time_ns * 1e-9) / 
-                                     (quality.bus_capacitance_pf * 1e-12);
-    
-    // Calculate noise margin
-    float v_ih_min = 0.7 * V_DD;  // Input high minimum
-    float v_il_max = 0.3 * V_DD;  // Input low maximum
-    float v_oh_min = 0.9 * V_DD;  // Output high minimum
-    float v_ol_max = 0.1 * V_DD;  // Output low maximum
-    
-    quality.noise_margin_mv = MIN(v_oh_min - v_ih_min, v_il_max - v_ol_max) * 1000.0f;
-    
-    return quality;
-}
 ```
 
 ### I2C Protocol Decoding and Error Analysis
-```c
-// I2C frame structure
-typedef struct {
-    uint8_t start_condition;
-    uint8_t address;
-    uint8_t read_write;
-    uint8_t address_ack;
-    uint8_t *data;
-    uint32_t data_length;
-    uint8_t *ack_bits;
-    uint8_t stop_condition;
-    uint32_t timestamp_ns;
-} i2c_frame_t;
+**I2C Frame Structure**
+Understanding I2C frame structure is essential for protocol analysis:
+- **Start condition**: Initiates communication
+- **Address**: 7 or 10-bit device address
+- **Read/Write bit**: Direction of data transfer
+- **Data**: Variable-length data payload
+- **Acknowledgment**: ACK/NACK for each byte
+- **Stop condition**: Terminates communication
 
-// I2C error detection
-typedef struct {
-    uint32_t bus_errors;
-    uint32_t arbitration_lost;
-    uint32_t nack_errors;
-    uint32_t clock_stretching_timeouts;
-    uint32_t bus_busy_errors;
-    uint32_t total_transactions;
-} i2c_error_stats_t;
+**Common I2C Patterns**
+- **Single read/write**: Simple register access
+- **Sequential read**: Multiple bytes from same address
+- **Register access**: Address + data patterns
+- **Multi-master**: Arbitration and collision detection
 
-// Decode I2C frames and detect errors
-i2c_error_stats_t decode_i2c_protocol(uint8_t *capture_data, uint32_t capture_length,
-                                      i2c_timing_params_t *timing) {
-    i2c_error_stats_t stats = {0};
-    
-    uint32_t i = 0;
-    while (i < capture_length) {
-        // Look for start condition (SDA falling while SCL high)
-        if (is_i2c_start_condition(capture_data, i)) {
-            stats.total_transactions++;
-            
-            // Decode address
-            uint8_t address = decode_i2c_address(capture_data, i + 1, timing);
-            uint8_t read_write = address & 0x01;
-            address >>= 1;
-            
-            // Check for ACK/NACK
-            uint8_t ack = capture_data[i + 9];  // 9th bit after start
-            if (!ack) {
-                stats.nack_errors++;
-            }
-            
-            // Decode data if present
-            if (read_write == I2C_READ) {
-                // Master reading from slave
-                uint32_t data_start = i + 10;
-                uint32_t data_length = decode_i2c_data_length(capture_data, data_start, timing);
-                
-                // Check ACK bits for each byte
-                for (uint32_t j = 0; j < data_length; j++) {
-                    uint8_t data_ack = capture_data[data_start + j * 9 + 8];
-                    if (!data_ack) {
-                        stats.nack_errors++;
-                    }
-                }
-            } else {
-                // Master writing to slave
-                uint32_t data_start = i + 10;
-                uint32_t data_length = decode_i2c_data_length(capture_data, data_start, timing);
-                
-                // Check ACK bits for each byte
-                for (uint32_t j = 0; j < data_length; j++) {
-                    uint8_t data_ack = capture_data[data_start + j * 9 + 8];
-                    if (!data_ack) {
-                        stats.nack_errors++;
-                    }
-                }
-            }
-            
-            // Look for stop condition
-            uint32_t stop_pos = find_i2c_stop_condition(capture_data, i, capture_length);
-            if (stop_pos == 0) {
-                stats.bus_errors++;  // Missing stop condition
-            }
-            
-            i = stop_pos + 1;
-        } else {
-            i++;
-        }
-    }
-    
-    return stats;
-}
-```
+**Error Detection and Analysis**
+- **Bus errors**: Multiple masters, stuck bus
+- **NACK errors**: Device not responding
+- **Timing violations**: Setup/hold time violations
+- **Protocol errors**: Invalid start/stop sequences
 
 ---
 
 ## CAN Protocol Analysis
 
 ### CAN Bit Timing and Signal Analysis
+**CAN Bit Timing Fundamentals**
+CAN communication uses sophisticated bit timing to ensure reliable communication in noisy environments.
+
+**Bit Timing Components**
+- **Sync segment**: Fixed 1 time quantum for synchronization
+- **Propagation segment**: Compensates for signal propagation delay
+- **Phase segment 1**: Adjustable timing for sampling point
+- **Phase segment 2**: Compensates for oscillator tolerance
+
+**Sample Point Optimization**
+- **Typical target**: 87.5% of bit time
+- **Factors**: Bus length, node count, oscillator tolerance
+- **Trade-offs**: Earlier sampling vs later sampling
+- **Validation**: Must work across temperature and voltage ranges
+
+**Why Bit Timing Matters**
+- **Reliability**: Proper timing ensures reliable communication
+- **Performance**: Optimal timing enables maximum bit rate
+- **Compatibility**: Different networks may have different requirements
+- **Robustness**: Proper timing improves noise immunity
+
 ```c
 // CAN bit timing parameters
 typedef struct {
@@ -674,137 +686,51 @@ can_bit_timing_t calculate_can_bit_timing(float *can_h_waveform, float *can_l_wa
     
     return timing;
 }
-
-// Validate CAN bit timing against specifications
-err_t validate_can_bit_timing(can_bit_timing_t *measured, can_bit_timing_t *required) {
-    err_t result = ERR_OK;
-    
-    // Check bit rate
-    if (measured->nominal_bit_rate > required->nominal_bit_rate) {
-        printf("Bit rate violation: %lu bps > %lu bps max\n", 
-               measured->nominal_bit_rate, required->nominal_bit_rate);
-        result = ERR_TIMEOUT;
-    }
-    
-    // Check sample point
-    if (measured->sample_point_percent < 75.0f || 
-        measured->sample_point_percent > 90.0f) {
-        printf("Sample point violation: %.1f%% not in 75-90%% range\n", 
-               measured->sample_point_percent);
-        result = ERR_TIMEOUT;
-    }
-    
-    // Check time segments
-    if (measured->tseg1 < 3 || measured->tseg1 > 16) {
-        printf("TSEG1 violation: %lu not in 3-16 range\n", measured->tseg1);
-        result = ERR_TIMEOUT;
-    }
-    
-    if (measured->tseg2 < 2 || measured->tseg2 > 8) {
-        printf("TSEG2 violation: %lu not in 2-8 range\n", measured->tseg2);
-        result = ERR_TIMEOUT;
-    }
-    
-    return result;
-}
 ```
 
 ### CAN Protocol Decoding and Error Analysis
-```c
-// CAN frame structure
-typedef struct {
-    uint32_t can_id;
-    uint8_t dlc;           // Data length code
-    uint8_t rtr;           // Remote transmission request
-    uint8_t ide;           // Extended identifier
-    uint8_t data[8];       // Data payload
-    uint32_t timestamp_ns;
-    uint8_t error_flags;
-} can_frame_t;
+**CAN Frame Structure**
+Understanding CAN frame structure is essential for protocol analysis:
+- **Arbitration field**: 11 or 29-bit identifier
+- **Control field**: Data length and reserved bits
+- **Data field**: 0-8 bytes of payload
+- **CRC field**: 15-bit cyclic redundancy check
+- **ACK field**: Acknowledgment from receivers
+- **End of frame**: 7 recessive bits
 
-// CAN error analysis
-typedef struct {
-    uint32_t bit_errors;
-    uint32_t stuff_errors;
-    uint32_t form_errors;
-    uint32_t ack_errors;
-    uint32_t crc_errors;
-    uint32_t arbitration_lost;
-    uint32_t total_frames;
-    float error_rate;
-} can_error_stats_t;
+**Error Types and Analysis**
+- **Bit errors**: Individual bit corruption
+- **Stuff errors**: Violation of bit stuffing rules
+- **Form errors**: Invalid frame format
+- **CRC errors**: Checksum validation failures
+- **ACK errors**: No acknowledgment received
 
-// Decode CAN frames and detect errors
-can_error_stats_t decode_can_protocol(uint8_t *capture_data, uint32_t capture_length,
-                                      can_bit_timing_t *timing) {
-    can_error_stats_t stats = {0};
-    
-    uint32_t i = 0;
-    while (i < capture_length) {
-        // Look for start of frame (dominant bit)
-        if (is_can_start_of_frame(capture_data, i)) {
-            stats.total_frames++;
-            
-            // Decode identifier
-            uint32_t can_id = decode_can_identifier(capture_data, i + 1, timing);
-            
-            // Check for extended identifier
-            uint8_t ide = (can_id & 0x80000000) ? 1 : 0;
-            
-            // Decode control field
-            uint8_t dlc = decode_can_dlc(capture_data, i + (ide ? 33 : 12), timing);
-            uint8_t rtr = decode_can_rtr(capture_data, i + (ide ? 33 : 12), timing);
-            
-            // Decode data if present
-            if (!rtr && dlc > 0) {
-                uint32_t data_start = i + (ide ? 33 : 12) + 6;  // Control field is 6 bits
-                decode_can_data(capture_data, data_start, dlc, timing);
-            }
-            
-            // Check CRC
-            uint32_t crc_start = i + (ide ? 33 : 12) + 6 + (dlc * 8);
-            uint16_t calculated_crc = calculate_can_crc(capture_data, i, crc_start - i);
-            uint16_t received_crc = decode_can_crc(capture_data, crc_start, timing);
-            
-            if (calculated_crc != received_crc) {
-                stats.crc_errors++;
-            }
-            
-            // Check ACK slot
-            uint32_t ack_pos = crc_start + 15;  // CRC is 15 bits
-            uint8_t ack = capture_data[ack_pos];
-            if (!ack) {
-                stats.ack_errors++;
-            }
-            
-            // Look for end of frame
-            uint32_t eof_pos = find_can_end_of_frame(capture_data, ack_pos + 1, capture_length);
-            if (eof_pos == 0) {
-                stats.form_errors++;
-            }
-            
-            i = eof_pos + 7;  // EOF is 7 recessive bits
-        } else {
-            i++;
-        }
-    }
-    
-    // Calculate error rate
-    if (stats.total_frames > 0) {
-        stats.error_rate = (float)(stats.bit_errors + stats.stuff_errors + 
-                                  stats.form_errors + stats.ack_errors + 
-                                  stats.crc_errors) / stats.total_frames * 100.0f;
-    }
-    
-    return stats;
-}
-```
+**Bus Analysis Techniques**
+- **Utilization analysis**: Measure bus loading
+- **Latency analysis**: Measure message delivery time
+- **Error analysis**: Identify and categorize errors
+- **Performance analysis**: Measure throughput and efficiency
 
 ---
 
 ## Advanced Timing and Jitter Analysis
 
 ### High-Resolution Timing Measurements
+**Timing Measurement Philosophy**
+High-resolution timing measurements provide insights into system performance that lower-resolution measurements cannot capture.
+
+**Measurement Techniques**
+- **Hardware timers**: Dedicated timing hardware
+- **Cycle counters**: CPU cycle-based timing
+- **External references**: High-precision time sources
+- **Correlation**: Multiple timing sources
+
+**Why High Resolution Matters**
+- **Performance analysis**: Identify performance bottlenecks
+- **Debugging**: Pinpoint timing-related issues
+- **Optimization**: Measure improvement from changes
+- **Validation**: Verify timing requirements
+
 ```c
 // High-resolution timer for embedded systems
 typedef struct {
@@ -827,32 +753,30 @@ err_t init_high_res_timer(high_res_timer_t *timer) {
     
     return ERR_OK;
 }
-
-// Get high-resolution timestamp
-uint64_t get_high_res_timestamp(high_res_timer_t *timer) {
-    uint32_t current = DWT->CYCCNT;
-    
-    // Check for overflow
-    if (current < timer->last_timestamp) {
-        timer->overflow_count++;
-    }
-    timer->last_timestamp = current;
-    
-    // Combine overflow count and current value
-    uint64_t timestamp = ((uint64_t)timer->overflow_count << 32) | current;
-    
-    return timestamp;
-}
-
-// Calculate time difference in nanoseconds
-uint32_t calculate_time_difference_ns(uint64_t start, uint64_t end, 
-                                     high_res_timer_t *timer) {
-    uint64_t diff = end - start;
-    return (uint32_t)(diff * timer->timer_resolution_ns);
-}
 ```
 
 ### Jitter Analysis and Statistics
+**Jitter Fundamentals**
+Jitter is the variation in timing of signal edges. Understanding jitter is crucial for high-performance systems.
+
+**Jitter Types**
+- **Random jitter**: Unpredictable timing variations
+- **Deterministic jitter**: Predictable timing variations
+- **Periodic jitter**: Repeating timing patterns
+- **Bounded jitter**: Jitter with known limits
+
+**Jitter Analysis Techniques**
+- **Statistical analysis**: Mean, standard deviation, percentiles
+- **Histogram analysis**: Distribution of timing variations
+- **Frequency analysis**: Spectral content of jitter
+- **Correlation analysis**: Relationship between jitter and system state
+
+**Jitter Impact on Systems**
+- **Communication**: Affects timing margins
+- **Performance**: Limits maximum operating frequency
+- **Reliability**: Increases error rates
+- **EMI**: Affects electromagnetic compatibility
+
 ```c
 // Jitter analysis structure
 typedef struct {
@@ -920,6 +844,24 @@ jitter_analysis_t analyze_jitter(uint32_t *latency_samples, uint32_t sample_coun
 ## Comprehensive Debugging Methodology
 
 ### Structured Debug Checklist Implementation
+**Debug Methodology Philosophy**
+Structured debugging provides a systematic approach to problem solving that increases the likelihood of finding and fixing issues quickly.
+
+**Debug Process Benefits**
+- **Efficiency**: Systematic approach reduces time to resolution
+- **Completeness**: Ensures all aspects are considered
+- **Documentation**: Creates record of debugging process
+- **Learning**: Improves debugging skills over time
+
+**Debug Checklist Structure**
+The debug checklist provides a framework for:
+- **Problem definition**: Clearly understand the issue
+- **Data collection**: Gather relevant information
+- **Analysis**: Process and interpret data
+- **Hypothesis**: Form theories about root cause
+- **Verification**: Test hypotheses
+- **Resolution**: Implement and verify fixes
+
 ```c
 // Debug session management
 typedef struct {
@@ -952,59 +894,24 @@ static debug_checklist_step_t debug_checklist[DEBUG_STEPS_COUNT] = {
     {0, "Introduce instrumentation", 0, "", ""},
     {0, "Mitigate, then fix", 0, "", ""}
 };
-
-// Execute debug checklist
-void execute_debug_checklist(debug_session_t *session) {
-    printf("Starting debug session: %s\n", session->description);
-    
-    for (int i = 0; i < DEBUG_STEPS_COUNT; i++) {
-        printf("\nStep %d: %s\n", i + 1, debug_checklist[i].step_description);
-        
-        // Execute step
-        debug_checklist[i].result = execute_debug_step(i);
-        debug_checklist[i].step_completed = 1;
-        
-        // Record findings
-        printf("Result: %s\n", debug_checklist[i].result == 0 ? "PASS" : 
-                              debug_checklist[i].result == 1 ? "PASS with issues" : "FAIL");
-        printf("Findings: %s\n", debug_checklist[i].findings);
-        printf("Next actions: %s\n", debug_checklist[i].next_actions);
-        
-        // Check if we can proceed
-        if (debug_checklist[i].result == 2) {
-            printf("Critical failure at step %d. Stopping debug session.\n", i + 1);
-            break;
-        }
-    }
-    
-    // Generate debug report
-    generate_debug_report(session);
-}
-
-// Execute individual debug step
-uint8_t execute_debug_step(uint8_t step_index) {
-    switch (step_index) {
-        case 0: // Reproduce and bound the problem
-            return reproduce_problem_step();
-        case 1: // Validate physical layer
-            return validate_physical_layer_step();
-        case 2: // Verify timing
-            return verify_timing_step();
-        case 3: // Confirm configuration
-            return confirm_configuration_step();
-        case 4: // Inspect protocol semantics
-            return inspect_protocol_semantics_step();
-        case 5: // Introduce instrumentation
-            return introduce_instrumentation_step();
-        case 6: // Mitigate, then fix
-            return mitigate_and_fix_step();
-        default:
-            return 2; // Fail
-    }
-}
 ```
 
 ### Automated Problem Detection
+**Automation Philosophy**
+Automated problem detection provides early warning of issues before they become critical problems.
+
+**Detection Strategy**
+- **Continuous monitoring**: Real-time system observation
+- **Threshold-based detection**: Alert when metrics exceed limits
+- **Pattern recognition**: Identify unusual behavior patterns
+- **Trend analysis**: Detect gradual degradation
+
+**Detection Benefits**
+- **Proactive maintenance**: Fix issues before they cause problems
+- **Reduced downtime**: Minimize system outages
+- **Improved reliability**: Maintain system performance
+- **Cost reduction**: Avoid expensive emergency repairs
+
 ```c
 // Automated problem detection system
 typedef struct {
@@ -1058,17 +965,8 @@ void run_problem_detection(void) {
         }
     }
 }
-
-// Example check function
-uint8_t check_uart_frame_errors(void) {
-    // Check UART error counters
-    if (uart_error_stats.frame_errors > 0) {
-        return 1; // Problem detected
-    }
-    return 0; // No problem
-}
 ```
 
-This enhanced Protocol Analysis document now provides comprehensive technical depth with practical implementation examples, detailed timing calculations, and sophisticated debugging methodologies that embedded engineers can directly apply in their projects.
+This enhanced Protocol Analysis document now provides a better balance of conceptual explanations, practical insights, and technical implementation details that embedded engineers can use to understand and implement effective protocol analysis and debugging strategies.
 
 

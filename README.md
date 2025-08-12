@@ -128,16 +128,17 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 #### **Phase 2: Embedded Debugging & Testing (4 weeks)**
 **Progression (concept clusters)**
 - **Hardware Debug Tools**
-  - JTAG/SWD debugging
-  - Logic analyzer usage
-  - Oscilloscope measurements
+  - [JTAG/SWD Debugging](./Debugging/JTAG_SWD_Debugging.md) - JTAG/SWD debugging
+  - [Logic Analyzer Usage](./Debugging/Logic_Analyzer_Usage.md) - Logic analyzer usage
+  - [Oscilloscope Measurements](./Debugging/Oscilloscope_Measurements.md) - Oscilloscope measurements
 - **Code Quality and Analysis**
-  - Code coverage
-  - Static and dynamic analysis
+  - [Code Coverage](./Debugging/Code_Coverage.md) - Code coverage analysis and metrics
+  - [Static Analysis](./Debugging/Static_Analysis.md) - Static code analysis and defect detection
+  - [Dynamic Analysis](./Debugging/Dynamic_Analysis.md) - Runtime behavior analysis and profiling
 - **Testing Strategies**
-  - Unit testing for embedded (with hardware abstraction/mocks)
-  - Hardware-in-the-Loop (HIL)
-  - Performance profiling (CPU, memory, timing)
+  - [Unit Testing for Embedded](./Debugging/Unit_Testing_Embedded.md) - Unit testing with hardware abstraction and mocks
+  - [Hardware-in-the-Loop Testing](./Debugging/Hardware_in_the_Loop_Testing.md) - HIL testing and simulation integration
+  - [Performance Profiling](./Debugging/Performance_Profiling.md) - Performance profiling (CPU, memory, timing)
 
 #### **Phase 3: System Integration (6 weeks)**
 **Progression (concept clusters)**

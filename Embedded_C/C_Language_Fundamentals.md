@@ -165,6 +165,22 @@ C Memory Layout:
 
 ### **Compilation Process**
 
+C on embedded targets compiles into multiple object files (translation units) that the linker places into memory regions defined by a linker script. Understanding this flow helps you read the map file and control where data/code lands.
+
+### Concept: Translation units, linkage, and the linker script
+- A source + its headers → a translation unit → one object file.
+- The linker merges objects and libraries, resolving external symbols.
+- The linker script maps sections (\`.text\`, \`.rodata\`, \`.data\`, \`.bss\`) into Flash/RAM.
+
+### Try it
+1. Build with `-Wl,-Map=out.map` and open the map file. Locate a `static const` table vs a non-const global.
+2. Change a symbol from `static` to non-`static` and observe its visibility (external vs internal linkage).
+
+### Takeaways
+- The map file is your truth for footprint and placement.
+- `static` at file scope gives internal linkage; keep symbols local by default.
+- Use sections/attributes only when you must control placement; prefer defaults first.
+
 C programs go through several stages before execution:
 
 ```
@@ -199,6 +215,39 @@ C uses a **static type system** with **weak typing**:
 - **Global**: Variables that exist for the entire program
 
 ## 🔢 **Variables and Data Types**
+
+### Concept: Where does the object live and when does it die?
+
+Rather than memorizing types, think in terms of storage duration and lifetime: who owns the object, where is it placed in memory, and when is it initialized/destroyed. On MCUs, these choices affect RAM usage, startup cost, determinism, and safety.
+
+### Why it matters in embedded
+- Static objects may be zero‑initialized by the startup code and can live in Flash (if `const`), reducing RAM.
+- Automatic (stack) objects are fast and deterministic to allocate but are uninitialized by default.
+- Dynamic (heap) objects increase flexibility but can hurt predictability and fragment memory.
+
+### Minimal example
+```c
+int g1;                 // Zero-initialized (\`.bss\`)
+static int g2 = 42;     // Pre-initialized (\`.data\`)
+
+void f(void) {
+  int a;                // Uninitialized (stack, indeterminate)
+  static int b;         // Zero-initialized, retains value across calls
+  static const int lut[] = {1,2,3}; // Often placed in Flash/ROM
+  (void)a; (void)b; (void)lut;
+}
+```
+
+### Try it
+1. Print addresses of `g1`, `g2`, a local variable, and `b`. Inspect the linker map to see section placement (\`.text\`, \`.data\`, \`.bss\`, stack).
+2. Make `lut` large and observe Flash vs RAM usage in the map file when `const` is present vs removed.
+
+### Takeaways
+- Only static storage duration is guaranteed zero‑init. Stack locals are indeterminate until assigned.
+- `static` inside a function behaves like a global with function scope.
+- `const` data may reside in non‑volatile memory; don’t cast away `const` to write to it.
+
+> Platform note: On Cortex‑M, large zero‑initialized objects increase \`.bss\` and extend startup clear time; large initialized objects increase \`.data\` copy time from Flash to RAM.
 
 ### **What are Variables?**
 
@@ -300,6 +349,39 @@ typedef enum {
 
 ## 🔧 **Functions**
 
+### Concept: Keep work small, pure when possible, and observable
+
+In embedded, function design drives predictability and testability. Prefer small, single-purpose functions with explicit inputs/outputs. Avoid hidden dependencies (globals) except for well-defined hardware interfaces behind an abstraction.
+
+### Why it matters in embedded
+- Smaller functions improve stack usage estimation and inlining opportunities.
+- Pure functions are easier to unit test off-target.
+- Explicit interfaces reduce coupling to hardware and timing.
+
+### Minimal example: refactor side effects
+```c
+// Before: mixes IO, computation, and policy
+void control_loop(void) {
+  int raw = adc_read();
+  float temp = convert_to_celsius(raw);
+  if (temp > 30.0f) fan_on(); else fan_off();
+}
+
+// After: separate IO from policy
+float read_temperature_c(void) { return convert_to_celsius(adc_read()); }
+bool fan_required(float temp_c) { return temp_c > 30.0f; }
+void apply_fan(bool on) { if (on) fan_on(); else fan_off(); }
+```
+
+### Try it
+1. Write a unit test for `fan_required` off-target (no hardware) to validate thresholds and hysteresis.
+2. Inspect call sites to ensure high-frequency paths remain small enough to inline.
+
+### Takeaways
+- Separate policy from mechanism for testability and reuse.
+- Minimize global state; pass data via parameters and return values.
+- Consider `static inline` for very small helpers on hot paths.
+
 ### **What are Functions?**
 
 Functions are reusable blocks of code that perform specific tasks. They are the primary mechanism for code organization and reuse in C programming.
@@ -382,6 +464,37 @@ bool validate_sensor_data(uint16_t value, uint16_t min, uint16_t max) {
 ```
 
 ## 🔄 **Control Structures**
+
+### Concept: Prefer early returns and shallow nesting
+
+Deeply nested branches increase cyclomatic complexity and code size on MCUs. Early returns with guard clauses keep critical paths obvious and reduce stack pressure in error paths.
+
+### Minimal example
+```c
+// Nested
+bool handle_packet(const pkt_t* p) {
+  if (p) {
+    if (valid_crc(p)) {
+      if (!seq_replay(p)) { process(p); return true; }
+    }
+  }
+  return false;
+}
+
+// Guarded
+bool handle_packet(const pkt_t* p) {
+  if (!p) return false;
+  if (!valid_crc(p)) return false;
+  if (seq_replay(p)) return false;
+  process(p);
+  return true;
+}
+```
+
+### Takeaways
+- Shallow nesting improves readability and timing analysis.
+- Use switch for dense dispatch; avoid fall-through unless deliberate and documented.
+- In ISR-adjacent code, keep branches short and avoid loops without clear bounds.
 
 ### **What are Control Structures?**
 
@@ -646,6 +759,42 @@ process_data(42, data_handler);
 
 ## 📊 **Arrays and Strings**
 
+### Mental model: Arrays are blocks; pointers are addresses with intent
+
+An array name in an expression decays to a pointer to its first element. The array itself has a fixed size and lives where it was defined (stack, \`.bss\`, \`.data\`). A pointer is just an address that can point anywhere and can be reseated.
+
+### Why it matters in embedded
+- Knowing when decay happens prevents bugs with `sizeof` and parameter passing.
+- Arrays placed in Flash as `static const` look like ordinary arrays but are read‑only and may require `volatile` when mapped to hardware.
+
+### Minimal example: decay and sizeof
+```c
+static uint8_t table[16];
+
+size_t size_in_caller = sizeof table;      // 16
+
+void use_array(uint8_t *p) {
+  size_t size_in_callee = sizeof p;        // size of pointer, not array
+  (void)size_in_callee;
+}
+
+void demo(void) {
+  use_array(table);                        // array decays to uint8_t*
+}
+```
+
+### Try it
+1. Print `sizeof table` in the defining scope and inside a callee parameter.
+2. Change the parameter to `uint8_t a[16]` and observe it’s still a pointer in the callee.
+3. Create `static const uint16_t lut[] = { ... }` and verify via the map file whether it resides in Flash/ROM.
+
+### Takeaways
+- Arrays are not pointers; they decay to pointers at most expression boundaries.
+- `sizeof(param)` inside a function where `param` is declared as `type param[]` yields the pointer size.
+- Prefer passing `(ptr, length)` pairs, or wrap in a `struct` to preserve size information.
+
+> Cross‑links: See `Type_Qualifiers.md` for `const/volatile` on memory‑mapped regions, and `Structure_Alignment.md` for layout implications.
+
 ### **What are Arrays?**
 
 Arrays are collections of elements of the same type stored in contiguous memory locations. They provide efficient access to multiple related data items.
@@ -812,6 +961,8 @@ typedef union {
 ```
 
 ## 🔧 **Preprocessor Directives**
+
+> Guideline: Keep macros minimal and local. Prefer `static inline` functions for type safety, debuggability, and better compiler analysis unless you truly need token pasting/stringification or compile‑time branching.
 
 ### **What are Preprocessor Directives?**
 

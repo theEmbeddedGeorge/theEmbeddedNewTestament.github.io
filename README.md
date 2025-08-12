@@ -27,69 +27,102 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 ### **🟢 Foundation Level (Essential for All Embedded Engineers)**
 
 #### **Phase 1: Embedded C Programming (6 weeks)**
-**Core Embedded C Concepts**
-- **[C Language Fundamentals](./Embedded_C/C_Language_Fundamentals.md)** - Variables, functions, control structures
-- **[Memory Management](./Embedded_C/Memory_Management.md)** - Stack vs heap, memory allocation, deallocation
-- **[Pointers and Memory Addresses](./Embedded_C/Pointers_Memory_Addresses.md)** - Pointer arithmetic, void pointers, function pointers
-- **[Type Qualifiers](./Embedded_C/Type_Qualifiers.md)** - const, volatile, restrict keywords and their embedded applications
-- **[Bit Manipulation](./Embedded_C/Bit_Manipulation.md)** - Bit operations, bit fields, bit manipulation tricks
-- **[Structure Alignment](./Embedded_C/Structure_Alignment.md)** - Data packing, memory alignment, padding
-- **[Inline Functions and Macros](./Embedded_C/Inline_Functions_Macros.md)** - Performance optimization techniques
-- **[Compiler Intrinsics](./Embedded_C/Compiler_Intrinsics.md)** - Built-in functions for hardware-specific operations
-- **[Assembly Integration](./Embedded_C/Assembly_Integration.md)** - Inline assembly, calling conventions
-- **[Memory Models](./Embedded_C/Memory_Models.md)** - Understanding memory layout, .text, .data, .bss, .stack, .heap
 
-**Advanced Memory Management**
-- **[Memory Pool Allocation](./Embedded_C/Memory_Pool_Allocation.md)** - Efficient memory management for embedded systems
-- **[Aligned Memory Allocation](./Embedded_C/Aligned_Memory_Allocation.md)** - Hardware-aligned memory allocation
-- **[Memory Fragmentation](./Embedded_C/Memory_Fragmentation.md)** - Understanding and preventing heap fragmentation
-- **[Memory Leak Detection](./Embedded_C/Memory_Leak_Detection.md)** - Tools and techniques for embedded systems
-- **[Stack Overflow Prevention](./Embedded_C/Stack_Overflow_Prevention.md)** - Stack size analysis and protection
-- **[Memory Protection](./Embedded_C/Memory_Protection.md)** - Using MPU/MMU for memory safety
-- **[Cache-Aware Programming](./Embedded_C/Cache_Aware_Programming.md)** - Understanding cache behavior and optimization
-- **[DMA Buffer Management](./Embedded_C/DMA_Buffer_Management.md)** - Safe DMA buffer allocation and management
-- **[Memory-Mapped I/O](./Embedded_C/Memory_Mapped_IO.md)** - Direct hardware register access
-- **[Shared Memory Programming](./Embedded_C/Shared_Memory_Programming.md)** - Multi-core memory sharing patterns
+**Progression (concept clusters, in order)**
+- **Language and Addressing Foundations**
+  - [C Language Fundamentals](./Embedded_C/C_Language_Fundamentals.md)
+  - [Pointers and Memory Addresses](./Embedded_C/Pointers_Memory_Addresses.md)
+- **Low-level Correctness**
+  - [Type Qualifiers](./Embedded_C/Type_Qualifiers.md)
+  - [Bit Manipulation](./Embedded_C/Bit_Manipulation.md)
+- **Data Layout and Memory Model**
+  - [Structure Alignment](./Embedded_C/Structure_Alignment.md)
+  - [Memory Models](./Embedded_C/Memory_Models.md)
+- **Memory Management and Hardware Access**
+  - [Memory Management](./Embedded_C/Memory_Management.md)
+  - [Memory-Mapped I/O](./Embedded_C/Memory_Mapped_IO.md)
+- **Deterministic Allocation Techniques**
+  - [Memory Pool Allocation](./Embedded_C/Memory_Pool_Allocation.md)
+  - [Aligned Memory Allocation](./Embedded_C/Aligned_Memory_Allocation.md)
+  - [Memory Fragmentation](./Embedded_C/Memory_Fragmentation.md)
+- **Performance and Hardware Integration**
+  - [Inline Functions and Macros](./Embedded_C/Inline_Functions_Macros.md)
+  - [Compiler Intrinsics](./Embedded_C/Compiler_Intrinsics.md)
+  - [Assembly Integration](./Embedded_C/Assembly_Integration.md)
+  - [Cache-Aware Programming](./Embedded_C/Cache_Aware_Programming.md)
+  - [DMA Buffer Management](./Embedded_C/DMA_Buffer_Management.md)
+
+**Reference index**
+- **Core Embedded C Concepts**
+  - **[C Language Fundamentals](./Embedded_C/C_Language_Fundamentals.md)** - Variables, functions, control structures
+  - **[Memory Management](./Embedded_C/Memory_Management.md)** - Stack vs heap, allocation, deallocation
+  - **[Pointers and Memory Addresses](./Embedded_C/Pointers_Memory_Addresses.md)** - Pointer arithmetic, void pointers, function pointers
+  - **[Type Qualifiers](./Embedded_C/Type_Qualifiers.md)** - const, volatile, restrict
+  - **[Bit Manipulation](./Embedded_C/Bit_Manipulation.md)** - Bit ops, bit fields, masks
+  - **[Structure Alignment](./Embedded_C/Structure_Alignment.md)** - Packing, alignment, padding
+  - **[Inline Functions and Macros](./Embedded_C/Inline_Functions_Macros.md)** - Performance-focused usage
+  - **[Compiler Intrinsics](./Embedded_C/Compiler_Intrinsics.md)** - Built-ins for hardware-specific ops
+  - **[Assembly Integration](./Embedded_C/Assembly_Integration.md)** - Inline asm, calling conventions
+  - **[Memory Models](./Embedded_C/Memory_Models.md)** - .text, .data, .bss, stack, heap
+
+- **Advanced Memory Management**
+  - **[Memory Pool Allocation](./Embedded_C/Memory_Pool_Allocation.md)** - Deterministic allocators
+  - **[Aligned Memory Allocation](./Embedded_C/Aligned_Memory_Allocation.md)** - HW-aligned allocations
+  - **[Memory Fragmentation](./Embedded_C/Memory_Fragmentation.md)** - Preventing/mitigating fragmentation
+  - **[Memory Leak Detection](./Embedded_C/Memory_Leak_Detection.md)** - Tools and techniques
+  - **[Stack Overflow Prevention](./Embedded_C/Stack_Overflow_Prevention.md)** - Analysis and protection
+  - **[Memory Protection](./Embedded_C/Memory_Protection.md)** - MPU/MMU basics
+  - **[Cache-Aware Programming](./Embedded_C/Cache_Aware_Programming.md)** - Cache behavior and optimization
+  - **[DMA Buffer Management](./Embedded_C/DMA_Buffer_Management.md)** - Safe DMA buffer management
+  - **[Memory-Mapped I/O](./Embedded_C/Memory_Mapped_IO.md)** - Direct register access
+  - **[Shared Memory Programming](./Embedded_C/Shared_Memory_Programming.md)** - Multi-core sharing patterns
+
+> Note: Examples assume bare‑metal MCUs by default. Where MMU/cache/OS features are mentioned, the docs call out platform assumptions explicitly.
 
 #### **Phase 2: Hardware Fundamentals (4 weeks)**
-**GPIO and Basic I/O**
-- **[GPIO Configuration](./Hardware_Fundamentals/GPIO_Configuration.md)** - Input/Output modes, pull-up/down resistors, drive strength
-- **[Digital I/O Programming](./Hardware_Fundamentals/Digital_IO_Programming.md)** - Reading switches, driving LEDs, keypad scanning
-- **[Analog I/O](./Hardware_Fundamentals/Analog_IO.md)** - ADC sampling techniques, DAC output generation
-- **[Pulse Width Modulation](./Hardware_Fundamentals/Pulse_Width_Modulation.md)** - PWM generation, frequency control, duty cycle
-- **[Timer/Counter Programming](./Hardware_Fundamentals/Timer_Counter_Programming.md)** - Input capture, output compare, frequency measurement
-- **[External Interrupts](./Hardware_Fundamentals/External_Interrupts.md)** - Edge/level triggered interrupts, debouncing
-- **[Watchdog Timers](./Hardware_Fundamentals/Watchdog_Timers.md)** - System monitoring and recovery mechanisms
-
-**System Basics**
-- **[Interrupts and Exceptions](./Hardware_Fundamentals/Interrupts_Exceptions.md)** - Interrupt handling, ISR design, interrupt latency
-- **[Power Management](./Hardware_Fundamentals/Power_Management.md)** - Sleep modes, wake-up sources, power consumption optimization
-- **[Clock Management](./Hardware_Fundamentals/Clock_Management.md)** - System clock configuration, PLL setup
-- **[Reset Management](./Hardware_Fundamentals/Reset_Management.md)** - Power-on reset, watchdog reset, software reset
-- **[Hardware Abstraction Layer](./Hardware_Fundamentals/Hardware_Abstraction_Layer.md)** - Porting code between different MCUs
+**Progression (concept clusters)**
+- **Digital I/O Foundations**
+  - [GPIO Configuration](./Hardware_Fundamentals/GPIO_Configuration.md)
+  - [Digital I/O Programming](./Hardware_Fundamentals/Digital_IO_Programming.md)
+- **Analog and PWM**
+  - [Analog I/O](./Hardware_Fundamentals/Analog_IO.md)
+  - [Pulse Width Modulation](./Hardware_Fundamentals/Pulse_Width_Modulation.md)
+- **Timing and Events**
+  - [Timer/Counter Programming](./Hardware_Fundamentals/Timer_Counter_Programming.md)
+  - [External Interrupts](./Hardware_Fundamentals/External_Interrupts.md)
+- **System Reliability**
+  - [Watchdog Timers](./Hardware_Fundamentals/Watchdog_Timers.md)
+  - [Interrupts and Exceptions](./Hardware_Fundamentals/Interrupts_Exceptions.md)
+- **System Control**
+  - [Power Management](./Hardware_Fundamentals/Power_Management.md)
+  - [Clock Management](./Hardware_Fundamentals/Clock_Management.md)
+  - [Reset Management](./Hardware_Fundamentals/Reset_Management.md)
+- **Portability**
+  - [Hardware Abstraction Layer](./Hardware_Fundamentals/Hardware_Abstraction_Layer.md)
 
 #### **Phase 3: Communication Protocols (4 weeks)**
-**Serial Communication**
-- **[UART Protocol](./Communication_Protocols/UART_Protocol.md)** - Baud rate, data bits, parity, stop bits, flow control
-- **[RS232/RS422/RS485 Standards](./Communication_Protocols/RS232_RS422_RS485_Standards.md)** - Electrical standards, multi-drop communication, signal levels
-- **[Serial Communication Fundamentals](./Communication_Protocols/Serial_Communication_Fundamentals.md)** - Basic serial communication concepts and implementation
-- **[UART Configuration and Setup](./Communication_Protocols/UART_Configuration.md)** - Hardware setup, buffering strategies, interrupt handling
-- **[Error Detection and Handling](./Communication_Protocols/Error_Detection.md)** - Parity checking, frame errors, overrun detection, error recovery
-- **[Protocol Implementation](./Communication_Protocols/Protocol_Implementation.md)** - Custom protocol design over UART, message framing, checksums
-
-**Synchronous Protocols**
-- **[SPI Protocol](./Communication_Protocols/SPI_Protocol.md)** - Clock polarity, phase, data order, chip select management, multi-slave configuration
-- **[I2C Protocol](./Communication_Protocols/I2C_Protocol.md)** - Addressing, clock stretching, multi-master arbitration, bus speed modes
-- **[CAN Protocol](./Communication_Protocols/CAN_Protocol.md)** - Message format, error handling, arbitration, CAN-FD extensions
-- **[High-Speed Protocols](./Communication_Protocols/High_Speed_Protocols.md)** - USB, PCIe, Ethernet for embedded systems, signal integrity
-- **[Wireless Protocols](./Communication_Protocols/Wireless_Protocols.md)** - Bluetooth, BLE, WiFi, Zigbee, LoRa, protocol selection
-- **[Network Protocols](./Communication_Protocols/Network_Protocols.md)** - TCP/IP, UDP, MQTT, CoAP for IoT, socket programming
-
-**Advanced Communication Topics**
-- **[Protocol Analysis and Debugging](./Communication_Protocols/Protocol_Analysis.md)** - Logic analyzer usage, protocol debugging, timing analysis
-- **[Multi-Protocol Systems](./Communication_Protocols/Multi_Protocol_Systems.md)** - Protocol gateways, protocol conversion, system integration
-- **[Real-Time Communication](./Communication_Protocols/Real_Time_Communication.md)** - Deterministic communication, latency analysis, QoS
-- **[Secure Communication](./Communication_Protocols/Secure_Communication.md)** - Encryption, authentication, secure protocols for embedded systems
+**Progression (concept clusters)**
+- **Serial Fundamentals**
+  - [Serial Communication Fundamentals](./Communication_Protocols/Serial_Communication_Fundamentals.md)
+  - [UART Protocol](./Communication_Protocols/UART_Protocol.md)
+  - [UART Configuration and Setup](./Communication_Protocols/UART_Configuration.md)
+  - [RS232/RS422/RS485 Standards](./Communication_Protocols/RS232_RS422_RS485_Standards.md)
+- **Reliability and Framing**
+  - [Error Detection and Handling](./Communication_Protocols/Error_Detection.md)
+  - [Protocol Implementation](./Communication_Protocols/Protocol_Implementation.md)
+- **Synchronous Buses**
+  - [SPI Protocol](./Communication_Protocols/SPI_Protocol.md)
+  - [I2C Protocol](./Communication_Protocols/I2C_Protocol.md)
+  - [CAN Protocol](./Communication_Protocols/CAN_Protocol.md)
+- **Networks and Wireless**
+  - [Network Protocols](./Communication_Protocols/Network_Protocols.md)
+  - [Wireless Protocols](./Communication_Protocols/Wireless_Protocols.md)
+- **High-Speed and Advanced Topics**
+  - [High-Speed Protocols](./Communication_Protocols/High_Speed_Protocols.md)
+  - [Protocol Analysis and Debugging](./Communication_Protocols/Protocol_Analysis.md)
+  - [Multi-Protocol Systems](./Communication_Protocols/Multi_Protocol_Systems.md)
+  - [Real-Time Communication](./Communication_Protocols/Real_Time_Communication.md)
+  - [Secure Communication](./Communication_Protocols/Secure_Communication.md)
 
 ### **🟡 Intermediate Level (System Integration)**
 

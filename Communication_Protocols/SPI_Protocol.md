@@ -113,10 +113,10 @@ Master Device                    Slave Device
 - **Low Latency**: Low communication latency
 
 **Reliability and Robustness:**
-- **Synchronous Operation**: Reliable synchronous communication
-- **Error Detection**: Built-in error detection mechanisms
-- **Noise Immunity**: Robust communication in noisy environments
-- **Signal Integrity**: High signal integrity and quality
+- **Synchronous Operation**: Clocked communication driven by the master
+- **Error Detection**: Not defined by SPI itself; add protocol-level CRC/parity if needed
+- **Noise Considerations**: Single-ended signals; keep traces short and use proper routing/termination for high speeds
+- **Signal Integrity**: Depends on board design, IO drive, loading, and wiring length
 
 **System Integration:**
 - **Peripheral Support**: Wide range of peripheral device support

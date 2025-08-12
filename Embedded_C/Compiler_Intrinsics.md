@@ -80,7 +80,9 @@ uint32_t count_bits(uint32_t value) {
 ```c
 // Intrinsic - maps to specific CPU instruction
 uint32_t count_bits_intrinsic(uint32_t value) {
-    return __builtin_popcount(value);  // Maps to POPCNT instruction
+    // Maps to a target-specific instruction when available.
+    // On ARM Cortex-M, this may compile to CLZ/POPCNT sequences if supported.
+    return __builtin_popcount(value);
 }
 ```
 
@@ -142,18 +144,21 @@ uint32_t count_bits_intrinsic(uint32_t value) {
 **Hardware Feature Access:**
 ```c
 // Access to hardware-specific features
+// ARM-specific intrinsics (GCC/Clang). Guard to avoid non-ARM builds failing.
+#if defined(__arm__) || defined(__aarch64__)
 void enable_interrupts(void) {
-    __builtin_arm_cpsie_i();  // ARM-specific interrupt enable
+    __builtin_arm_cpsie_i();
 }
 
 void disable_interrupts(void) {
-    __builtin_arm_cpsid_i();  // ARM-specific interrupt disable
+    __builtin_arm_cpsid_i();
 }
 
-// Memory barriers for multi-core systems
+// Memory barriers for ordered I/O and SMP (on MCUs without SMP, still useful for I/O ordering)
 void memory_barrier(void) {
-    __builtin_arm_dmb(0xF);  // Data memory barrier
+    __builtin_arm_dmb(0xF);
 }
+#endif
 ```
 
 **Cross-platform Compatibility:**
@@ -223,8 +228,8 @@ uint32_t count_bits_platform_independent(uint32_t value) {
 
 **Memory Operations:**
 - **Memory Barriers**: Control memory access ordering
-- **Cache Operations**: Cache line operations
-- **Atomic Operations**: Atomic read/write operations
+- **Cache Operations**: Cache line operations (platform-specific; often not available on Cortex‑M)
+- **Atomic Operations**: Atomic read/write operations (availability varies by core)
 - **Memory Copy**: Optimized memory copying
 
 **Mathematical Operations:**
@@ -249,9 +254,9 @@ uint32_t count_bits_platform_independent(uint32_t value) {
 
 **MSVC Support:**
 - **Intrinsic Functions**: _* intrinsic functions
-- **Platform-specific**: Windows-specific intrinsics
-- **SIMD Support**: SSE/AVX intrinsics
-- **ARM Support**: ARM intrinsics in recent versions
+- **Platform-specific**: Windows desktop/embedded
+- **SIMD Support**: SSE/AVX intrinsics on x86/x64
+- **ARM Support**: Limited depending on toolchain/target
 
 **Cross-platform Strategies:**
 - **Feature Detection**: Detect available features at compile time

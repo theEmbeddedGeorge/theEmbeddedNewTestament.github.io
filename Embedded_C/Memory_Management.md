@@ -77,7 +77,7 @@ void stack_operations() {
     uint32_t stack_var = 0x12345678;
     uint8_t stack_array[64];
     
-    // Stack variables are automatically initialized
+    // NOTE: In C, automatic (stack) variables are NOT automatically initialized.
     // Memory is automatically freed
     // No fragmentation issues
 }
@@ -93,9 +93,10 @@ void heap_operations() {
     
     // Use memory...
     
-    // Must free in reverse order to avoid fragmentation
-    free(ptr2);
+    // Freeing order does not need to be reverse; fragmentation behavior
+    // depends on the allocator. Prefer fixed-size pools to avoid fragmentation.
     free(ptr1);
+    free(ptr2);
 }
 ```
 
@@ -156,6 +157,10 @@ void* safe_malloc(size_t size) {
 }
 
 // Allocate with alignment
+// NOTE: posix_memalign is POSIX-specific and often unavailable on bare-metal.
+// Use it only on hosted POSIX targets. For bare-metal, prefer statically
+// aligned storage or a custom pool.
+#if defined(__unix__) || defined(__APPLE__)
 void* aligned_malloc(size_t size, size_t alignment) {
     void* ptr = NULL;
     if (posix_memalign(&ptr, alignment, size) != 0) {
@@ -163,6 +168,14 @@ void* aligned_malloc(size_t size, size_t alignment) {
     }
     return ptr;
 }
+#endif
+
+// Statically aligned buffer (portable approach for bare-metal)
+#if defined(__GNUC__) || defined(__clang__)
+__attribute__((aligned(32))) static uint8_t dma_buffer[1024];
+#elif defined(_MSC_VER)
+__declspec(align(32)) static uint8_t dma_buffer[1024];
+#endif
 ```
 
 ### Memory Pool Implementation
@@ -318,6 +331,20 @@ void secure_memset(void* ptr, int value, size_t size) {
 void clear_sensitive_data(uint8_t* data, size_t size) {
     secure_memset(data, 0, size);
 }
+
+// NOTE: Using a volatile write loop is a common technique to prevent the
+// compiler from optimizing the clear, but the C standard does not fully
+// guarantee it. Where available, prefer a conforming API such as memset_s
+// (C11 Annex K, optional) or compiler-specific intrinsics/pragmas.
+#if defined(__STDC_LIB_EXT1__)
+void clear_sensitive_data_portable(uint8_t* data, rsize_t size) {
+    memset_s(data, size, 0, size);
+}
+#endif
+
+> Platform note: On freestanding/bare‑metal targets, `malloc`/`free` may be
+> unavailable or undesirable in real-time paths. Favor static allocation and
+> memory pools for predictability.
 ```
 
 ## ⚠️ Common Pitfalls

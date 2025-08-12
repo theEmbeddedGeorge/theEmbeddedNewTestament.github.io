@@ -135,10 +135,10 @@ Master Device                    Slave Device
 - **Real-time Operation**: Real-time operation and response
 
 **Reliability and Robustness:**
-- **Error Detection**: Built-in error detection and handling
-- **Fault Tolerance**: Fault tolerance and error recovery
-- **Noise Immunity**: Good noise immunity and signal integrity
-- **Robust Communication**: Robust communication in various environments
+- **ACK/NACK Handshake**: Byte-level acknowledge for presence and flow control
+- **Clock Stretching**: Slaves can slow the bus when needed
+- **Arbitration**: Non-destructive arbitration among masters
+- **Noise Considerations**: Open-drain single-ended signaling; noise immunity depends on pull-ups, bus capacitance, and speed
 
 **Cost and Complexity:**
 - **Low Cost**: Low cost implementation and components

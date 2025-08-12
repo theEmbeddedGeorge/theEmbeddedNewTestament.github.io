@@ -133,6 +133,7 @@ void process_data(uint32_t* data, size_t size) {
 ```c
 // C implementation - compiler optimized
 uint32_t multiply_by_16_c(uint32_t value) {
+    // Modern compilers typically strength-reduce this to a shift automatically.
     return value * 16;
 }
 
@@ -147,24 +148,25 @@ uint32_t multiply_by_16_asm(uint32_t value) {
     return result;
 }
 
-// Performance comparison:
-// C: May use multiply instruction (slower)
-// Assembly: Uses shift instruction (faster)
+// Note: Compilers usually generate a shift for multiply-by-constant; hand-written
+// asm is rarely faster for simple cases and may hinder optimization and portability.
 ```
 
 **Hardware Access:**
 ```c
 // Direct hardware register access
+// Guard ARM-specific inline assembly to avoid build errors on other targets
+#if defined(__arm__) || defined(__aarch64__)
 void enable_interrupts_asm(void) {
     __asm volatile (
-        "cpsie i\n"  // Enable interrupts
+        "cpsie i\n"
         : : : "memory"
     );
 }
 
 void disable_interrupts_asm(void) {
     __asm volatile (
-        "cpsid i\n"  // Disable interrupts
+        "cpsid i\n"
         : : : "memory"
     );
 }
@@ -172,15 +174,16 @@ void disable_interrupts_asm(void) {
 // Memory barrier for multi-core systems
 void memory_barrier_asm(void) {
     __asm volatile (
-        "dmb 0xF\n"  // Data memory barrier
+        "dmb 0xF\n"
         : : : "memory"
     );
 }
+#endif
 ```
 
 **Interrupt Handling:**
 ```c
-// Fast interrupt service routine
+// Example interrupt service routine attribute is compiler/target-specific
 void __attribute__((interrupt)) fast_isr(void) {
     // Assembly for fast interrupt handling
     __asm volatile (

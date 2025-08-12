@@ -112,7 +112,7 @@ CAN protocol is a serial communication standard that enables multiple electronic
 ### **Embedded System Requirements**
 
 **Reliability and Robustness:**
-- **Error-Free Communication**: Built-in error detection and correction
+- **Error Handling**: Built-in error detection (CRC, bit, form, stuff errors) and retransmission; not forward error correction
 - **Fault Tolerance**: Automatic fault detection and isolation
 - **Noise Immunity**: Robust communication in noisy environments
 - **Environmental Resistance**: Operation in harsh environments

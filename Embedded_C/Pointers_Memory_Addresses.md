@@ -103,7 +103,8 @@ int value = *ptr;    // Dereference: get value 0x42 from address 0x1000
 **Hardware Register Access:**
 ```c
 // Access GPIO registers
-volatile uint32_t* const GPIOA_ODR = (uint32_t*)0x40020014;
+// Use 'volatile' on memory-mapped registers so reads/writes are not optimized away
+volatile uint32_t* const GPIOA_ODR = (volatile uint32_t*)0x40020014;
 *GPIOA_ODR |= (1 << 5);  // Set bit 5
 ```
 
@@ -175,10 +176,11 @@ Memory Hierarchy:
 - Required for DMA operations
 
 **Virtual Addresses:**
-- Addresses used by software
+- Addresses used by software on hosted/OS systems with an MMU
 - Translated to physical addresses by MMU
 - Provide memory protection and isolation
-- Enable memory paging and swapping
+- Enable paging and advanced protection
+- Many microcontrollers (e.g., ARM Cortex‑M) lack an MMU; they use physical addresses only
 
 **Memory-Mapped Addresses:**
 - Addresses that map to hardware registers

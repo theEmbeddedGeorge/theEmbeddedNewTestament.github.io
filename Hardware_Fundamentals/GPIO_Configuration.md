@@ -50,7 +50,9 @@ GPIO (General Purpose Input/Output) is a digital signal pin on a microcontroller
 **Hardware Interface:**
 - **Physical Pins**: Actual physical connections on the microcontroller
 - **Electrical Characteristics**: Voltage levels, current drive capability, timing
-- **Protection**: Built-in protection against overvoltage and overcurrent
+- **Protection**: Typically limited to ESD diodes/clamps. You must respect absolute
+  maximum ratings; add series resistors, level shifting, or external protection for
+  overvoltage/overcurrent conditions.
 - **Packaging**: Pins arranged in packages (DIP, QFP, BGA, etc.)
 
 **Software Control:**

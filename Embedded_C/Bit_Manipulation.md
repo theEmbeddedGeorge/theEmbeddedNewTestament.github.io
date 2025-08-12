@@ -23,6 +23,38 @@
 
 ## 🎯 **Overview**
 
+### Concept: Bits are a contract with hardware and protocols
+
+Bit operations must match datasheet-defined fields exactly; correctness and portability depend on using widths, masks, and shifts that are well-defined in C.
+
+### Why it matters in embedded
+- Register fields require precise masking/shifting without UB.
+- Protocol packing/unpacking must respect endianness and widths.
+- Shifting negative or too far is undefined; rely on fixed-width types.
+
+### Minimal example: safe field update
+```c
+#define REG (*(volatile uint32_t*)0x40000000u)
+#define MODE_Pos  4u
+#define MODE_Msk  (0x7u << MODE_Pos) // 3-bit field
+
+static inline void reg_set_mode(uint32_t mode) {
+  mode &= 0x7u;                // clamp
+  uint32_t v = REG;
+  v = (v & ~MODE_Msk) | (mode << MODE_Pos);
+  REG = v;
+}
+```
+
+### Try it
+1. Implement `get_mode()` and verify round-trip for all values 0..7.
+2. Pack a struct into a `uint32_t` payload; send over UART; unpack and verify.
+
+### Takeaways
+- Use `uint*_t`, never shift signed values.
+- Define `*_Pos` and `*_Msk` macros or enums; avoid magic numbers.
+- Document endianness where on-wire vs in-memory order differs.
+
 Bit manipulation is crucial in embedded systems for:
 - **Hardware register access** - Setting/clearing individual bits
 - **Memory efficiency** - Packing multiple values into single variables

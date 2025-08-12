@@ -17,6 +17,38 @@
 
 ## 🎯 Overview
 
+### Concept: Typed volatile views over fixed addresses
+
+Treat peripheral registers as `volatile` objects at known addresses with precise widths. Use minimal, typed accessors and avoid accidental non-volatile aliases.
+
+### Why it matters in embedded
+- Prevents the compiler from eliding or reordering critical I/O operations.
+- Clarifies intent (read-only status vs write-only command registers).
+- Eases review and static analysis.
+
+### Minimal example
+```c
+typedef struct {
+  volatile uint32_t CTRL;
+  volatile const uint32_t STAT;  // read-only
+  volatile uint32_t DATA;
+} periph_t;
+
+#define PERIPH ((periph_t*)0x40010000u)
+
+static inline void periph_enable(void) { PERIPH->CTRL |= 1u; }
+static inline uint32_t periph_ready(void) { return (PERIPH->STAT & 1u) != 0u; }
+```
+
+### Try it
+1. Intentionally drop `volatile` and compile with `-O2`; show hoisted loads or removed writes.
+2. Add a memory barrier where required by the architecture (e.g., after enabling clocks) and measure behavior.
+
+### Takeaways
+- Always access registers through `volatile`-qualified types/pointers.
+- Be explicit about read-only/write-only semantics via `const` on `volatile` fields.
+- Consider memory barriers for ordering on platforms that require them.
+
 Memory-mapped I/O allows direct access to hardware registers through memory addresses, enabling efficient communication with peripherals. This technique is fundamental in embedded systems for controlling hardware without dedicated I/O instructions.
 
 ## 🔧 Memory-Mapped I/O Basics

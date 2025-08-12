@@ -22,6 +22,24 @@
 
 ## 🎯 **Overview**
 
+### Concept: Sections map to cost at startup and at runtime
+
+Know which data ends up in Flash vs RAM and what the startup code must zero or copy. Use the map file to make footprint visible and deliberate.
+
+### Why it matters in embedded
+- `.data` increases Flash (init image) and RAM (runtime) and costs boot copy time.
+- `.bss` increases RAM and costs boot zeroing time.
+- `const` moves to ROM (`.rodata`), reducing RAM.
+
+### Try it
+1. Build with a map file; identify largest contributors to `.data` and `.bss`.
+2. Move large tables to `static const` and observe `.rodata` vs `.data` changes.
+
+### Takeaways
+- Prefer `static const` for lookup tables.
+- Avoid large automatic arrays on the stack; use static storage or pools.
+- For freestanding targets, keep startup work small to reduce boot latency.
+
 Understanding memory models is crucial for embedded systems programming. Memory layout, segmentation, and access patterns directly impact performance, reliability, and security of embedded applications.
 
 ### **Key Concepts for Embedded Development**

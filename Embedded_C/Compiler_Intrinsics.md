@@ -23,6 +23,24 @@
 
 ## 🎯 **Overview**
 
+### Concept: Intrinsics are contracts to the backend, not magic
+
+They promise the compiler a specific operation; when supported, you get a single instruction, otherwise a correct fallback. Guard for architecture, and always keep a portable path.
+
+### Minimal example & Try it
+```c
+// Measure vs loop implementation
+static inline uint32_t popcnt_loop(uint32_t v){ uint32_t c=0; while(v){c+=v&1u; v>>=1;} return c; }
+static inline uint32_t popcnt_intrin(uint32_t v){ return __builtin_popcount(v); }
+```
+1. Benchmark both at `-O0` and `-O2` on your target.
+2. Guard with `#ifdef` and provide a loop fallback to keep portability.
+
+### Takeaways
+- Guard arch-specific intrinsics; keep fallbacks for other compilers/targets.
+- Intrinsics can be faster or smaller, but measure on your hardware.
+- Don’t conflate intrinsics with undefined behavior fixes; they don’t change language rules.
+
 Compiler intrinsics are built-in functions that provide:
 - **Hardware-specific operations** - Direct access to CPU instructions
 - **Performance optimization** - Optimized implementations

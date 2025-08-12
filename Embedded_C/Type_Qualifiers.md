@@ -20,6 +20,41 @@
 
 ## 🎯 **Overview**
 
+### Concept: Tell the compiler the truth about how data changes
+
+Think of qualifiers as contracts:
+- `const`: intent is read-only at this access point
+- `volatile`: value may change outside the compiler’s view (hardware/ISR)
+- `restrict`: this pointer is the only way to access the referenced object
+
+### Why it matters in embedded
+- Correct `volatile` prevents the compiler from caching HW register values.
+- `const` enables placement in ROM and better optimization.
+- `restrict` allows the compiler to vectorize/memcpy efficiently in hot paths.
+
+### Minimal examples
+```c
+// Read-only lookup table likely in Flash
+static const uint16_t lut[] = {1,2,3,4};
+
+// Memory-mapped I/O register
+#define GPIOA_ODR (*(volatile uint32_t*)0x40020014u)
+
+// Non-aliasing buffers (improves copy performance)
+void copy_fast(uint8_t * restrict dst, const uint8_t * restrict src, size_t n);
+```
+
+### Try it
+1. Remove `volatile` from a polled status register read and compile with `-O2`; inspect assembly to see hoisted loads.
+2. Add/Remove `restrict` on a memset/memcpy-like loop and measure on target.
+
+### Takeaways
+- `volatile` is about visibility, not atomicity or ordering.
+- `const` expresses intent and may change placement; don’t cast it away to write.
+- Use `restrict` only when you can prove no aliasing.
+
+> Platform note: For I/O ordering on some MCUs/SoCs, pair volatile accesses with memory barriers when required by the architecture.
+
 Type qualifiers in C provide important hints to the compiler about how variables should be treated:
 - **const** - Indicates read-only data
 - **volatile** - Indicates data that can change unexpectedly

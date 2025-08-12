@@ -22,6 +22,30 @@
 
 ## 🎯 **Overview**
 
+### Concept: Layout trades size for speed and safety
+
+Field order and alignment determine padding, access efficiency, and sometimes correctness for hardware overlays. Optimize for fewer accesses and aligned loads/stores; avoid `packed` unless absolutely necessary.
+
+### Why it matters in embedded
+- Misaligned access can fault or incur penalties on some MCUs.
+- Register overlays require exact widths and `volatile` access.
+- Packing to save bytes can increase access cycles or break HW requirements.
+
+### Minimal example
+```c
+typedef struct { uint8_t a; uint32_t b; uint8_t c; } poor_t;   // likely 12B
+typedef struct { uint32_t b; uint8_t a, c; } better_t;         // likely 8B
+```
+
+### Try it
+1. Compare `sizeof(poor_t)` vs `better_t`; inspect the map to see cumulative RAM impact.
+2. Benchmark a tight loop that reads/writes these structures to see aligned vs misaligned effects.
+
+### Takeaways
+- Reorder fields to minimize padding and align to natural sizes.
+- Avoid `__attribute__((packed))` for HW registers; use explicit `uint*_t` fields and document reserved bits.
+- For on-wire protocol structs, serialize/deserialize explicitly to avoid ABI/layout surprises.
+
 Structure alignment is critical in embedded systems for:
 - **Memory efficiency** - Minimizing wasted memory space
 - **Performance optimization** - Aligned access is faster

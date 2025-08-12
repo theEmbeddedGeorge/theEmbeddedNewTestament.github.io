@@ -22,6 +22,32 @@
 
 ## 🎯 **Overview**
 
+### Concept: Use assembly only where C cannot clearly express intent
+
+Reach for inline/standalone assembly when you need exact instructions, special registers, or calling conventions C cannot provide. Keep interfaces small, stable, and documented.
+
+### Why it matters in embedded
+- Overuse harms portability and can pessimize the optimizer.
+- Clear boundaries simplify review and maintenance.
+- Correct clobbers/constraints prevent subtle bugs.
+
+### Minimal example: small leaf routine
+```c
+// C wrapper with tiny asm core (example, ARM)
+static inline uint32_t rbit32(uint32_t v){
+  uint32_t out; __asm volatile ("rbit %0, %1" : "=r"(out) : "r"(v)); return out;
+}
+```
+
+### Try it
+1. Compare compiler output for a C bit-reverse vs `rbit` intrinsic/asm.
+2. Validate clobber lists by enabling warnings and inspecting disassembly.
+
+### Takeaways
+- Write assembly last, measure first.
+- Keep ABI boundaries clear; document register usage and side effects.
+- Prefer intrinsics when available—they’re easier to port and read.
+
 Assembly integration is essential in embedded systems for:
 - **Direct hardware control** - Access to specific CPU instructions
 - **Performance optimization** - Hand-tuned critical code sections

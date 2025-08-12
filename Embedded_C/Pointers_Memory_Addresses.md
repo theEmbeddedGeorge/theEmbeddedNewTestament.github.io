@@ -20,6 +20,26 @@
 
 ## 🎯 Overview
 
+### Concept: Addresses, objects, and aliasing
+
+A pointer is just an address; correctness depends on the lifetime and effective type of the object it points to. Hardware access requires `volatile`; high-performance memory access benefits from no-aliasing assumptions.
+
+### Minimal example
+```c
+extern uint32_t sensor_value;
+void update(volatile uint32_t* reg, uint32_t v){ *reg = v; }
+
+// Aliasing pitfall: compiler may assume *a and *b don't alias unless told
+void add_buffers(uint16_t* restrict a, const uint16_t* restrict b, size_t n){
+  for(size_t i=0;i<n;i++) a[i]+=b[i];
+}
+```
+
+### Takeaways
+- Use `volatile` for memory-mapped registers and ISR-shared flags.
+- Be mindful of strict aliasing; stick to the same effective type or `memcpy`.
+- Prefer `restrict` only when you can prove non-aliasing.
+
 Pointers are fundamental to embedded programming, enabling direct memory access, hardware register manipulation, and efficient data structures. Understanding pointers is crucial for low-level programming and hardware interaction.
 
 ### Key Concepts for Embedded Development

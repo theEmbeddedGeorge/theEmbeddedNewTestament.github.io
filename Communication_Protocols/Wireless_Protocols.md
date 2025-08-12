@@ -2,6 +2,22 @@
 
 > **Understanding Bluetooth, BLE, WiFi, Zigbee, LoRa, and other wireless communication protocols for embedded systems with focus on protocol selection and wireless communication principles**
 
+---
+
+## Concept → Why it matters → Minimal example → Try it → Takeaways
+
+**Concept**: Wireless protocols in embedded systems are about choosing the right communication method for your specific application requirements. Each protocol offers different trade-offs between range, power consumption, data rate, and reliability, making protocol selection a critical design decision.
+
+**Why it matters**: Wireless connectivity is essential for modern embedded systems, enabling IoT devices, wearable technology, and remote monitoring. Choosing the wrong protocol can lead to poor performance, excessive power consumption, or unreliable communication, while the right choice can enable new applications and improve user experience.
+
+**Minimal example**: A BLE temperature sensor that demonstrates ultra-low power wireless communication with periodic data transmission.
+
+**Try it**: Implement a simple WiFi client that connects to a network and sends data, observing power consumption and connection stability.
+
+**Takeaways**: Wireless protocol selection requires understanding your application's specific needs, environmental constraints, and power requirements. The best protocol balances these factors while providing reliable, efficient communication.
+
+---
+
 ## 📋 **Table of Contents**
 - [Overview](#overview)
 - [What are Wireless Protocols?](#what-are-wireless-protocols)
@@ -779,3 +795,98 @@ WiFi_Status_t wifi_init(WiFi_Config_t* config) {
 - "Wireless Communications" by Andrea Goldsmith
 - "Embedded Systems Design" by Steve Heath
 - "The Art of Programming Embedded Systems" by Jack Ganssle
+
+---
+
+## Guided Labs
+
+### Lab 1: BLE Power Consumption Analysis
+**Objective**: Understand the power consumption characteristics of BLE communication.
+
+**Setup**: Implement a BLE temperature sensor with configurable advertising and connection intervals.
+
+**Steps**:
+1. Configure BLE with different advertising intervals (100ms, 500ms, 1000ms)
+2. Measure current consumption during advertising and connected states
+3. Implement a simple temperature service with configurable update rate
+4. Test with various connection parameters (min/max intervals, slave latency)
+5. Calculate battery life under different operating conditions
+
+**Expected Outcome**: Understanding of how BLE parameters affect power consumption and battery life.
+
+### Lab 2: WiFi Connection Stability Testing
+**Objective**: Evaluate WiFi connection stability under various network conditions.
+
+**Setup**: Create a WiFi client that monitors connection quality and automatically reconnects.
+
+**Steps**:
+1. Implement WiFi connection with configurable retry parameters
+2. Add signal strength monitoring and connection quality metrics
+3. Test connection stability with varying signal strength
+4. Implement automatic reconnection with exponential backoff
+5. Measure reconnection time and success rate under different conditions
+
+**Expected Outcome**: Robust WiFi connection management for embedded applications.
+
+### Lab 3: Protocol Selection Decision Matrix
+**Objective**: Create a systematic approach to wireless protocol selection.
+
+**Setup**: Develop a decision matrix tool that evaluates protocols based on application requirements.
+
+**Steps**:
+1. Define evaluation criteria (range, power, data rate, cost, security)
+2. Assign weights to each criterion based on application importance
+3. Score each protocol (Bluetooth, BLE, WiFi, Zigbee, LoRa) for each criterion
+4. Calculate weighted scores and rank protocols
+5. Validate results with real-world testing and measurements
+
+**Expected Outcome**: Systematic approach to wireless protocol selection for embedded applications.
+
+---
+
+## Check Yourself
+
+### Understanding Check
+- [ ] Can you explain the key differences between Bluetooth Classic and BLE?
+- [ ] Do you understand the trade-offs between WiFi and Zigbee for IoT applications?
+- [ ] Can you explain why LoRa is suitable for long-range, low-power applications?
+- [ ] Do you understand how antenna design affects wireless communication range?
+- [ ] Can you explain the concept of multipath interference and its effects?
+
+### Application Check
+- [ ] Can you select the appropriate wireless protocol for a given application?
+- [ ] Do you know how to configure BLE parameters for optimal power consumption?
+- [ ] Can you implement basic WiFi connection management with error handling?
+- [ ] Do you understand how to design for wireless interference mitigation?
+- [ ] Can you calculate the expected battery life for a wireless sensor node?
+
+### Analysis Check
+- [ ] Can you analyze wireless performance data to identify optimization opportunities?
+- [ ] Do you understand the relationship between protocol parameters and system performance?
+- [ ] Can you evaluate the security implications of different wireless protocols?
+- [ ] Do you know how to troubleshoot common wireless communication issues?
+- [ ] Can you assess the scalability of wireless networks for different applications?
+
+---
+
+## Cross-links
+
+### Related Topics
+- **[Communication Protocols](./UART_Protocol.md)**: Understanding basic communication principles
+- **[Network Protocols](./Network_Protocols.md)**: Integrating wireless with network protocols
+- **[Power Management](./../Hardware_Fundamentals/Power_Management.md)**: Managing power consumption in wireless systems
+- **[System Integration](./../System_Integration/Build_Systems.md)**: Integrating wireless protocols into embedded systems
+
+### Further Reading
+- **Bluetooth Core Specification**: Official Bluetooth protocol specifications
+- **IEEE 802.11 Standards**: WiFi protocol standards and specifications
+- **Zigbee Alliance Documentation**: Zigbee protocol specifications and guides
+- **LoRa Alliance Documentation**: LoRa protocol specifications and guides
+
+### Industry Standards
+- **Bluetooth SIG**: Bluetooth standards and certification
+- **Wi-Fi Alliance**: WiFi standards and certification
+- **Zigbee Alliance**: Zigbee standards and certification
+- **LoRa Alliance**: LoRa standards and certification
+- **IEEE 802.15.4**: Low-rate wireless personal area network standard
+- **3GPP Standards**: Cellular communication standards

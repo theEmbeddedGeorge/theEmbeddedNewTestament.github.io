@@ -3,6 +3,22 @@
 ## Overview
 Embedded security is critical for protecting devices, data, and systems from unauthorized access, tampering, and attacks. This guide covers essential security concepts, implementations, and best practices for embedded systems.
 
+---
+
+## Concept → Why it matters → Minimal example → Try it → Takeaways
+
+**Concept**: Embedded security is about protecting devices and data from unauthorized access, tampering, and attacks. It's not just about encryption, but about building a comprehensive security architecture that includes secure boot, cryptographic implementations, side-channel attack prevention, and secure communication protocols.
+
+**Why it matters**: Security breaches in embedded systems can have serious consequences, from data theft to physical harm. Many embedded devices operate in critical infrastructure, medical devices, or automotive systems where security failures can be catastrophic. Understanding embedded security is essential for building trustworthy systems.
+
+**Minimal example**: A simple secure boot implementation that verifies the integrity of firmware before execution, demonstrating the chain of trust concept.
+
+**Try it**: Implement a basic AES encryption function and then modify it to be resistant to timing attacks, observing how security considerations affect implementation complexity.
+
+**Takeaways**: Embedded security requires a defense-in-depth approach, understanding of cryptographic principles, and awareness of various attack vectors. Security should be designed into the system from the beginning, not added as an afterthought.
+
+---
+
 ## Table of Contents
 1. [Secure Boot and Chain of Trust](#secure-boot-and-chain-of-trust)
 2. [Cryptographic Implementations](#cryptographic-implementations)
@@ -993,3 +1009,97 @@ void chacha20_encrypt(chacha20_context_t *ctx, const uint8_t *input, uint8_t *ou
 - [Cryptography Stack Exchange](https://crypto.stackexchange.com/)
 - [Security Stack Exchange](https://security.stackexchange.com/)
 - [OWASP Embedded Application Security](https://owasp.org/www-project-embedded-application-security/)
+
+---
+
+## Guided Labs
+
+### Lab 1: Secure Boot Implementation
+**Objective**: Implement a basic secure boot mechanism that verifies firmware integrity before execution.
+
+**Setup**: Create a simple bootloader that verifies a digital signature before jumping to the main application.
+
+**Steps**:
+1. Implement a basic SHA-256 hash function
+2. Create a simple digital signature verification function
+3. Modify the bootloader to verify the application signature
+4. Test with valid and invalid signatures
+5. Observe the system behavior when verification fails
+
+**Expected Outcome**: Understanding of how secure boot establishes a chain of trust and prevents unauthorized code execution.
+
+### Lab 2: Side-Channel Attack Prevention
+**Objective**: Learn how to implement cryptographic functions that are resistant to timing attacks.
+
+**Setup**: Implement AES encryption and then modify it to be constant-time.
+
+**Steps**:
+1. Implement basic AES encryption with lookup tables
+2. Profile the function to identify timing variations
+3. Implement constant-time operations for sensitive operations
+4. Re-profile to verify timing consistency
+5. Test with various input patterns to ensure resistance
+
+**Expected Outcome**: Understanding of how side-channel attacks work and how to implement countermeasures.
+
+### Lab 3: Secure Communication Protocol
+**Objective**: Implement a basic secure communication protocol using symmetric encryption.
+
+**Setup**: Create a simple client-server communication system with encryption and authentication.
+
+**Steps**:
+1. Implement AES encryption for data confidentiality
+2. Add HMAC for message authentication
+3. Implement a simple key exchange protocol
+4. Test the protocol with various attack scenarios
+5. Analyze the security properties of the implementation
+
+**Expected Outcome**: Understanding of how to build secure communication protocols and the importance of proper key management.
+
+---
+
+## Check Yourself
+
+### Understanding Check
+- [ ] Can you explain the concept of a chain of trust in secure boot?
+- [ ] Do you understand the difference between symmetric and asymmetric encryption?
+- [ ] Can you explain how side-channel attacks work and how to prevent them?
+- [ ] Do you understand the role of cryptographic hash functions in security?
+- [ ] Can you explain the concept of secure communication protocols?
+
+### Application Check
+- [ ] Can you implement a basic secure boot mechanism?
+- [ ] Do you know how to implement constant-time cryptographic operations?
+- [ ] Can you design a secure key management system?
+- [ ] Do you understand how to implement secure communication protocols?
+- [ ] Can you assess the security implications of different design choices?
+
+### Analysis Check
+- [ ] Can you analyze a security architecture for potential vulnerabilities?
+- [ ] Do you understand the trade-offs between security and performance?
+- [ ] Can you evaluate the security strength of different cryptographic algorithms?
+- [ ] Do you know how to implement secure update mechanisms?
+- [ ] Can you assess the impact of security failures on system reliability?
+
+---
+
+## Cross-links
+
+### Related Topics
+- **[System Integration](./../System_Integration/Build_Systems.md)**: Integrating security into the build and deployment process
+- **[Performance Optimization](./../Performance/performance_optimization.md)**: Balancing security requirements with performance constraints
+- **[Communication Protocols](./../Communication_Protocols/Secure_Communication.md)**: Implementing secure communication protocols
+- **[Real-Time Systems](./../Real_Time_Systems/FreeRTOS_Basics.md)**: Integrating security with real-time constraints
+
+### Further Reading
+- **NIST Cryptographic Standards**: Official cryptographic standards and guidelines
+- **Common Criteria**: International standard for security evaluation
+- **OWASP Embedded Security**: Security guidelines for embedded systems
+- **ARM Security Documentation**: TrustZone and security features documentation
+
+### Industry Standards
+- **FIPS 140-2**: Security requirements for cryptographic modules
+- **Common Criteria**: Security evaluation framework
+- **ISO 27001**: Information security management systems
+- **IEC 62443**: Industrial automation and control systems security
+- **SAE J3061**: Cybersecurity guidebook for cyber-physical vehicle systems

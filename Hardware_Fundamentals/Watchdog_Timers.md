@@ -24,6 +24,22 @@
 
 Watchdog timers are essential safety mechanisms that monitor system health and automatically reset the system if it becomes unresponsive or enters an error state. They are critical for reliable embedded systems, especially in safety-critical applications.
 
+### Concept: Last line of defense; pet with intent
+
+The watchdog should be serviced only after critical system health checks pass. Use windowed watchdogs where available to catch “too-fast” faults.
+
+### Minimal example
+```c
+void watchdog_kick_if_ok(void){
+  if (tasks_alive() && comms_ok() && stacks_ok()) IWDG->KR = 0xAAAA; // refresh
+}
+```
+
+### Takeaways
+- Kick from a low-priority task that runs only if the system is healthy.
+- Log resets and watchdog reasons; expose them at boot.
+- Configure timeouts based on worst-case execution + jitter margins.
+
 ### **Key Concepts**
 - **System Monitoring** - Continuous health checking and fault detection
 - **Timeout Period** - Maximum time between watchdog feeds

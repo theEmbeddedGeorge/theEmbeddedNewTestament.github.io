@@ -115,6 +115,7 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
   - [Interrupt Handling](./Real_Time_Systems/Interrupt_Handling.md)
   - [Kernel Services](./Real_Time_Systems/Kernel_Services.md)
 - **Constraints and Analysis**
+  - [Constraints and Analysis](./Real_Time_Systems/Constraints_and_Analysis.md)
   - Response-time analysis, WCET, blocking time
   - Priority inversion and prevention
   - Deadlock avoidance strategies

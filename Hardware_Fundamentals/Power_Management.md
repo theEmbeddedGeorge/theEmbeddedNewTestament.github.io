@@ -27,6 +27,22 @@
 
 Power management is critical for battery-powered embedded systems and energy-efficient applications. Effective power management extends battery life, reduces heat generation, and enables portable and IoT devices.
 
+### Concept: Budget power per state and per wakeup
+
+Power is owned by your state machine: define active/idle/sleep states with known currents and wakeup sources. Measure, don’t guess.
+
+### Minimal example
+```c
+typedef enum { RUN, IDLE, SLEEP } pm_state_t;
+void enter_idle(void){ /* reduce clocks, gate peripherals */ }
+void enter_sleep(void){ /* tickless idle, stop clocks, enable wakeups */ }
+```
+
+### Takeaways
+- Use tickless idle when latency budget allows; verify wake sources.
+- Gate unused clocks/peripherals; disable pull-ups that leak.
+- Quantify energy/event (uC per sensor read) to compare designs.
+
 ### **Key Concepts**
 - **Sleep Modes** - Different power states for energy conservation
 - **Wake-up Sources** - Events that bring system out of sleep

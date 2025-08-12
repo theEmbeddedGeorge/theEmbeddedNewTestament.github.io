@@ -25,6 +25,10 @@
 
 External interrupts allow embedded systems to respond immediately to external events without polling. They are essential for real-time applications, user interfaces, and efficient system design.
 
+### Concept: Edges vs levels, and clearing the source
+
+Choose edges to capture transitions; levels to detect sustained conditions. Always clear the source appropriately and consider masking during long handlers.
+
 ### **Key Concepts**
 - **Interrupt Vector Table** - Maps interrupt sources to handler functions
 - **Interrupt Priority** - Determines which interrupt takes precedence

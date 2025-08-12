@@ -25,6 +25,21 @@
 
 Reset management is crucial for embedded systems to ensure reliable startup, handle system failures, and maintain system integrity. Understanding reset mechanisms helps design robust systems that can recover from various failure conditions.
 
+### Concept: Know every reset cause and make resets informative
+
+Track POR, BOR, watchdog, software reset, and pin reset. Preserve reset reason across boot and expose it for diagnostics.
+
+### Minimal example
+```c
+uint32_t reset_reason_read(void){ return RCC->CSR & REASON_MASK; }
+void reset_reason_clear(void){ RCC->CSR |= RCC_CSR_RMVF; }
+```
+
+### Takeaways
+- Clear flags early; log to non-volatile memory if needed.
+- Define a boot flow that handles partial initialization after soft resets.
+- Provide a user-visible diagnostic (LED pattern, log) of reset cause.
+
 ### **Key Concepts**
 - **Reset Sources** - Different conditions that trigger system reset
 - **Reset Configuration** - Setting up reset behavior and timing

@@ -22,6 +22,31 @@
 
 ## 🎯 Overview
 
+### Concept: Timers are schedulers and timestampers
+
+Use timers to measure, schedule, and generate pulses with bounded jitter. Configure prescalers and auto‑reload to match your required resolution and range.
+
+### Why it matters in embedded
+- Wrong prescaler causes drift or overflow.
+- Input capture/compare enables precise measurements and pulse generation.
+- Deterministic timing underpins PWM, communication timeouts, and RTOS ticks.
+
+### Minimal example
+```c
+// Configure a periodic interrupt at 1 kHz
+void tim_init_1khz(void){ /* enable clock, set PSC/ARR, enable IRQ */ }
+void TIMx_IRQHandler(void){ /* clear flag; do bounded work; defer heavy work */ }
+```
+
+### Try it
+1. Measure timer ISR jitter with a logic analyzer; vary IRQ priority.
+2. Use input capture to time an external signal; compare to scope measurement.
+
+### Takeaways
+- Choose PSC/ARR from required frequency and clock.
+- Keep ISRs short; use compare events for precise edges instead of software loops.
+- Document time bases centrally to avoid drift errors.
+
 Timers and counters are essential peripherals in embedded systems for precise timing, frequency measurement, PWM generation, and event counting. Understanding timer programming is crucial for real-time applications.
 
 **Key Concepts:**

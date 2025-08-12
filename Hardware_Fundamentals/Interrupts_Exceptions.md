@@ -24,6 +24,22 @@
 
 ## 🎯 **Overview**
 
+### Concept: Bound latency, classify priorities, and clear sources
+
+Design ISRs to be minimal and deterministic. Classify priorities by urgency, not feature importance. Always clear the source and hand off work to threads/tasks.
+
+### Minimal example
+```c
+void EXTIx_IRQHandler(void){
+  if (EXTI->PR & LINE){ EXTI->PR = LINE; xTaskNotifyFromISR(...); }
+}
+```
+
+### Takeaways
+- Keep critical sections short; avoid calling into slow drivers.
+- Validate NVIC priority grouping and rules for RTOS API calls.
+- Measure entry/exit with GPIO toggles or cycle counters.
+
 Interrupts and exceptions are fundamental mechanisms that allow embedded systems to respond to external events and handle errors efficiently. Understanding interrupt handling is crucial for real-time system design and reliable embedded applications.
 
 ### **Key Concepts**

@@ -122,8 +122,8 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
   - [Memory Protection](./Real_Time_Systems/Memory_Protection.md) - Memory Protection (MPU task isolation)
   - [Power Management](./Real_Time_Systems/Power_Management.md) - Power Management (tickless idle, DFS)
 - **Observability**
-  - Performance monitoring (CPU/memory/timing)
-  - Real-time debugging and trace analysis
+  - [Performance Monitoring](./Real_Time_Systems/Performance_Monitoring.md) - Performance monitoring (CPU/memory/timing)
+  - [Real-Time Debugging](./Real_Time_Systems/Real_Time_Debugging.md) - Real-time debugging and trace analysis
 
 #### **Phase 2: Embedded Debugging & Testing (4 weeks)**
 **Progression (concept clusters)**

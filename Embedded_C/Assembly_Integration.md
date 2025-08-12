@@ -48,6 +48,20 @@ static inline uint32_t rbit32(uint32_t v){
 - Keep ABI boundaries clear; document register usage and side effects.
 - Prefer intrinsics when available—they’re easier to port and read.
 
+---
+
+## 🧪 Guided Labs
+- Replace a tight loop in C with an intrinsic and then with inline asm; compare speed and size.
+- Break an inline asm block by omitting a clobber; observe miscompilation and fix.
+
+## ✅ Check Yourself
+- How do you ensure your inline asm doesn’t block reordering that improves performance?
+- When is a separate `.S` file preferable to inline asm?
+
+## 🔗 Cross-links
+- `Embedded_C/Compiler_Intrinsics.md`
+- `Embedded_C/Type_Qualifiers.md` (for `volatile` interactions)
+
 Assembly integration is essential in embedded systems for:
 - **Direct hardware control** - Access to specific CPU instructions
 - **Performance optimization** - Hand-tuned critical code sections

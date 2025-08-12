@@ -40,6 +40,23 @@ void watchdog_kick_if_ok(void){
 - Log resets and watchdog reasons; expose them at boot.
 - Configure timeouts based on worst-case execution + jitter margins.
 
+---
+
+## 🧪 Guided Labs
+1) Watchdog pet timing
+- Measure the time between watchdog pets; observe system behavior when petting too early/late.
+
+2) Reset cause logging
+- Implement a system that logs and displays the cause of the last reset.
+
+## ✅ Check Yourself
+- How do you determine the optimal watchdog timeout for your application?
+- When should you use an external watchdog instead of the built-in one?
+
+## 🔗 Cross-links
+- `Hardware_Fundamentals/Reset_Management.md` for reset handling
+- `Embedded_C/Type_Qualifiers.md` for volatile access
+
 ### **Key Concepts**
 - **System Monitoring** - Continuous health checking and fault detection
 - **Timeout Period** - Maximum time between watchdog feeds

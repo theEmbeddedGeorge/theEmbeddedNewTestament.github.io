@@ -43,6 +43,23 @@ void enter_sleep(void){ /* tickless idle, stop clocks, enable wakeups */ }
 - Gate unused clocks/peripherals; disable pull-ups that leak.
 - Quantify energy/event (uC per sensor read) to compare designs.
 
+---
+
+## 🧪 Guided Labs
+1) Power state measurement
+- Measure current consumption in different power states using a multimeter or power analyzer.
+
+2) Wake-up source testing
+- Test different wake-up sources and measure wake-up time and power consumption.
+
+## ✅ Check Yourself
+- How do you calculate the total power budget for your system?
+- When should you use deep sleep vs light sleep modes?
+
+## 🔗 Cross-links
+- `Hardware_Fundamentals/Clock_Management.md` for clock gating
+- `Hardware_Fundamentals/Watchdog_Timers.md` for wake-up sources
+
 ### **Key Concepts**
 - **Sleep Modes** - Different power states for energy conservation
 - **Wake-up Sources** - Events that bring system out of sleep

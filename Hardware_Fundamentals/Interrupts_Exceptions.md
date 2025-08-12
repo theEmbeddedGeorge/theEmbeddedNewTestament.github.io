@@ -40,6 +40,23 @@ void EXTIx_IRQHandler(void){
 - Validate NVIC priority grouping and rules for RTOS API calls.
 - Measure entry/exit with GPIO toggles or cycle counters.
 
+---
+
+## 🧪 Guided Labs
+1) ISR latency measurement
+- Use a timer to measure the time from interrupt trigger to ISR execution.
+
+2) Priority nesting
+- Configure multiple interrupts with different priorities; observe nesting behavior.
+
+## ✅ Check Yourself
+- How do you handle interrupts that can't be disabled?
+- When should you use interrupt priorities vs polling?
+
+## 🔗 Cross-links
+- `Hardware_Fundamentals/External_Interrupts.md` for external interrupt handling
+- `Embedded_C/Type_Qualifiers.md` for volatile usage
+
 Interrupts and exceptions are fundamental mechanisms that allow embedded systems to respond to external events and handle errors efficiently. Understanding interrupt handling is crucial for real-time system design and reliable embedded applications.
 
 ### **Key Concepts**

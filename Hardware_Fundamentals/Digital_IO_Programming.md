@@ -54,6 +54,23 @@ static inline void led_toggle(void){ /* XOR ODR bit */ }
 - Avoid read-modify-write races by using atomic set/reset registers when available.
 - Encapsulate pin control behind functions/macros for portability.
 
+---
+
+## 🧪 Guided Labs
+1) Jitter measurement
+- Toggle a pin in a tight loop; measure edge-to-edge timing with an oscilloscope or logic analyzer.
+
+2) RMW race avoidance
+- Implement a function that sets/clears individual bits without affecting others; verify atomicity.
+
+## ✅ Check Yourself
+- When do you need to disable interrupts during I/O operations?
+- How can you ensure consistent timing across different optimization levels?
+
+## 🔗 Cross-links
+- `Embedded_C/Type_Qualifiers.md` for volatile usage
+- `Embedded_C/Bit_Manipulation.md` for bit operations
+
 Digital I/O programming is the foundation of embedded system interaction with the physical world. It involves reading digital inputs (switches, sensors) and controlling digital outputs (LEDs, relays, displays).
 
 **Key Concepts:**

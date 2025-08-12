@@ -51,6 +51,23 @@ typedef struct {
 
 ---
 
+## 🧪 Guided Labs
+1) HAL API design
+- Design a HAL for a simple peripheral (e.g., LED, button); implement and test.
+
+2) Portability testing
+- Port your HAL to a different MCU family; identify and fix compatibility issues.
+
+## ✅ Check Yourself
+- How do you handle hardware differences in your HAL?
+- When should you use a HAL vs direct register access?
+
+## 🔗 Cross-links
+- `Embedded_C/Type_Qualifiers.md` for volatile usage
+- `Hardware_Fundamentals/Digital_IO_Programming.md` for GPIO abstraction
+
+---
+
 ## 🏗️ **HAL Architecture**
 
 ### **1. Layered Architecture**

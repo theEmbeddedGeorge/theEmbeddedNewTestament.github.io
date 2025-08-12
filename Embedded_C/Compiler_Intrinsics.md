@@ -41,6 +41,20 @@ static inline uint32_t popcnt_intrin(uint32_t v){ return __builtin_popcount(v); 
 - Intrinsics can be faster or smaller, but measure on your hardware.
 - Don’t conflate intrinsics with undefined behavior fixes; they don’t change language rules.
 
+---
+
+## 🧪 Guided Labs
+- Implement `count_bits` three ways (loop, table, intrinsic); benchmark and inspect code size.
+- Use an ARM memory barrier intrinsic around MMIO and see ordering effects (on applicable hardware).
+
+## ✅ Check Yourself
+- When would an intrinsic be slower than good C on your MCU?
+- How do you keep code portable across GCC/Clang/MSVC?
+
+## 🔗 Cross-links
+- `Embedded_C/Assembly_Integration.md` for when to drop to asm
+- `Embedded_C/Bit_Manipulation.md` for POPCNT use cases
+
 Compiler intrinsics are built-in functions that provide:
 - **Hardware-specific operations** - Direct access to CPU instructions
 - **Performance optimization** - Optimized implementations

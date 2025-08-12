@@ -46,6 +46,23 @@ typedef struct { uint32_t b; uint8_t a, c; } better_t;         // likely 8B
 - Avoid `__attribute__((packed))` for HW registers; use explicit `uint*_t` fields and document reserved bits.
 - For on-wire protocol structs, serialize/deserialize explicitly to avoid ABI/layout surprises.
 
+---
+
+## 🧪 Guided Labs
+1) Size and speed
+- Implement loops that read/write arrays of `poor_t` vs `better_t`; measure cycle counts.
+
+2) Overlay caution
+- Create a `volatile` register struct overlay; verify exact offsets match datasheet using `offsetof`.
+
+## ✅ Check Yourself
+- When is packing justified and what are the side effects?
+- How can you ensure a struct field is at a specific offset portably?
+
+## 🔗 Cross-links
+- `Embedded_C/Memory_Models.md` for sections
+- `Embedded_C/Bit_Manipulation.md` for field macros
+
 Structure alignment is critical in embedded systems for:
 - **Memory efficiency** - Minimizing wasted memory space
 - **Performance optimization** - Aligned access is faster

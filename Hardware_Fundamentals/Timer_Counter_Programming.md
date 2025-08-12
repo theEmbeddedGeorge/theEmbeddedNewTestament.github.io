@@ -47,6 +47,23 @@ void TIMx_IRQHandler(void){ /* clear flag; do bounded work; defer heavy work */ 
 - Keep ISRs short; use compare events for precise edges instead of software loops.
 - Document time bases centrally to avoid drift errors.
 
+---
+
+## 🧪 Guided Labs
+1) Timer as scheduler
+- Configure a timer to trigger tasks at different intervals; measure timing accuracy.
+
+2) ISR jitter measurement
+- Use a timer ISR to toggle a pin; measure edge-to-edge timing with an oscilloscope.
+
+## ✅ Check Yourself
+- How do you calculate the maximum timer frequency for your MCU?
+- When should you use hardware vs software timing?
+
+## 🔗 Cross-links
+- `Hardware_Fundamentals/Interrupts_Exceptions.md` for ISR handling
+- `Embedded_C/Type_Qualifiers.md` for volatile access
+
 Timers and counters are essential peripherals in embedded systems for precise timing, frequency measurement, PWM generation, and event counting. Understanding timer programming is crucial for real-time applications.
 
 **Key Concepts:**

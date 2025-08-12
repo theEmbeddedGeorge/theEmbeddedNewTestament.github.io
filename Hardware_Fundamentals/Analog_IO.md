@@ -62,6 +62,23 @@ void adc_config(uint32_t sample_cycles) { /* set SMPRx fields */ }
 - Treat Vref as a signal; decouple and route carefully.
 - Average/oversample with thought; understand latency and bandwidth tradeoffs.
 
+---
+
+## 🧪 Guided Labs
+1) ENOB measurement
+- Generate a known sine wave; sample and FFT to measure effective bits vs datasheet.
+
+2) Source impedance effects
+- Add series resistance to ADC input; observe settling time and accuracy degradation.
+
+## ✅ Check Yourself
+- How does ADC resolution affect your minimum detectable voltage change?
+- When should you use oversampling and averaging?
+
+## 🔗 Cross-links
+- `Embedded_C/Type_Qualifiers.md` for volatile register access
+- `Hardware_Fundamentals/Timer_Counter_Programming.md` for sampling timing
+
 Analog I/O involves processing continuous voltage or current signals that can take on any value within a specified range. Unlike digital I/O which deals with discrete HIGH/LOW states, analog I/O handles the infinite range of values that represent real-world phenomena.
 
 ### **Core Concepts**

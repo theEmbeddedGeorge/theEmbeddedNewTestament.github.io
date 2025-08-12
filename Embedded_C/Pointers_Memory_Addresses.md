@@ -40,6 +40,20 @@ void add_buffers(uint16_t* restrict a, const uint16_t* restrict b, size_t n){
 - Be mindful of strict aliasing; stick to the same effective type or `memcpy`.
 - Prefer `restrict` only when you can prove non-aliasing.
 
+---
+
+## 🧪 Guided Labs
+- Array decay: print `sizeof` in caller vs callee; confirm pointer vs array.
+- Strict aliasing trap: write via `uint8_t*` and read via `uint32_t*`; compare -O0 vs -O2.
+
+## ✅ Check Yourself
+- When is casting away `const` legal/illegal?
+- How do you model a register block safely with pointers and `volatile`?
+
+## 🔗 Cross-links
+- `Embedded_C/Type_Qualifiers.md`
+- `Embedded_C/Memory_Mapped_IO.md`
+
 Pointers are fundamental to embedded programming, enabling direct memory access, hardware register manipulation, and efficient data structures. Understanding pointers is crucial for low-level programming and hardware interaction.
 
 ### Key Concepts for Embedded Development

@@ -735,6 +735,23 @@ void process_interrupts(void) {
 
 ---
 
+## 🧪 Guided Labs
+1) Debouncing comparison
+- Implement software debouncing vs hardware RC filter; measure response time and reliability.
+
+2) Edge vs level triggering
+- Configure the same pin for both edge and level interrupts; observe behavior differences.
+
+## ✅ Check Yourself
+- When should you use level-triggered interrupts instead of edge-triggered?
+- How do you handle multiple interrupt sources on the same pin?
+
+## 🔗 Cross-links
+- `Hardware_Fundamentals/Interrupts_Exceptions.md` for interrupt handling
+- `Hardware_Fundamentals/Digital_IO_Programming.md` for pin configuration
+
+---
+
 ## 🔗 **Related Topics**
 
 - **[Timer/Counter Programming](./Timer_Counter_Programming.md)** - Input capture, output compare, frequency measurement

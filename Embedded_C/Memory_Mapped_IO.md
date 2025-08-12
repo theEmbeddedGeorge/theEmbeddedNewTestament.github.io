@@ -49,6 +49,23 @@ static inline uint32_t periph_ready(void) { return (PERIPH->STAT & 1u) != 0u; }
 - Be explicit about read-only/write-only semantics via `const` on `volatile` fields.
 - Consider memory barriers for ordering on platforms that require them.
 
+---
+
+## 🧪 Guided Labs
+1) Optimization surprise
+- Access the same register through `volatile` and non-`volatile` aliases; compare generated code.
+
+2) Ordering
+- Insert a write to enable a peripheral followed immediately by a dependent read; add/remove a barrier and observe behavior on a platform that requires ordering.
+
+## ✅ Check Yourself
+- What does `volatile` not guarantee (e.g., atomicity)?
+- How would you model a write-only register field safely?
+
+## 🔗 Cross-links
+- `Embedded_C/Type_Qualifiers.md` for qualifiers
+- `Embedded_C/Compiler_Intrinsics.md` for barriers
+
 Memory-mapped I/O allows direct access to hardware registers through memory addresses, enabling efficient communication with peripherals. This technique is fundamental in embedded systems for controlling hardware without dedicated I/O instructions.
 
 ## 🔧 Memory-Mapped I/O Basics

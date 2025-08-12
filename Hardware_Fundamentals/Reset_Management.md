@@ -40,6 +40,23 @@ void reset_reason_clear(void){ RCC->CSR |= RCC_CSR_RMVF; }
 - Define a boot flow that handles partial initialization after soft resets.
 - Provide a user-visible diagnostic (LED pattern, log) of reset cause.
 
+---
+
+## 🧪 Guided Labs
+1) Reset cause logging
+- Implement a system that logs and displays the cause of the last reset.
+
+2) Reset flag handling
+- Test different reset scenarios and verify flag handling.
+
+## ✅ Check Yourself
+- How do you distinguish between different types of resets?
+- When should you use a soft reset vs a hard reset?
+
+## 🔗 Cross-links
+- `Hardware_Fundamentals/Watchdog_Timers.md` for watchdog resets
+- `Embedded_C/Type_Qualifiers.md` for volatile access
+
 ### **Key Concepts**
 - **Reset Sources** - Different conditions that trigger system reset
 - **Reset Configuration** - Setting up reset behavior and timing

@@ -95,8 +95,11 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 
 #### **Phase 1: Real-Time Systems (6 weeks)**
 **RTOS Concepts**
-- **FreeRTOS Basics** - Task creation, scheduling, inter-task communication
-- **Task Creation and Management** - Task states, context switching, stack management
+- **[FreeRTOS Basics](./Real_Time_Systems/FreeRTOS_Basics.md)** - Determinism, tick, scheduler, kernel objects
+- **[Task Creation and Management](./Real_Time_Systems/Task_Creation_Management.md)** - Lifecycle, priorities, stack sizing, timing
+- **[Scheduling Algorithms](./Real_Time_Systems/Scheduling_Algorithms.md)** - RM, DM, EDF, schedulability, jitter
+- **[Interrupt Handling](./Real_Time_Systems/Interrupt_Handling.md)** - ISR design, priorities, FromISR APIs, latency
+ - **[Kernel Services](./Real_Time_Systems/Kernel_Services.md)** - Queues, semaphores, mutexes, event groups, notifications
 - **Scheduling Algorithms** - Round-robin, priority-based, rate monotonic
 - **Interrupt Handling** - ISR design, interrupt latency, nested interrupts
 - **Kernel Services** - Semaphores, mutexes, message queues, event flags

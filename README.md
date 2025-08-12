@@ -119,8 +119,8 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
   - [Priority Inversion Prevention](./Real_Time_Systems/Priority_Inversion_Prevention.md) - Priority inversion and prevention
   - [Deadlock Avoidance](./Real_Time_Systems/Deadlock_Avoidance.md) - Deadlock avoidance strategies
 - **Power and Protection**
-  - Memory Protection (MPU task isolation)
-  - Power Management (tickless idle, DFS)
+  - [Memory Protection](./Real_Time_Systems/Memory_Protection.md) - Memory Protection (MPU task isolation)
+  - [Power Management](./Real_Time_Systems/Power_Management.md) - Power Management (tickless idle, DFS)
 - **Observability**
   - Performance monitoring (CPU/memory/timing)
   - Real-time debugging and trace analysis

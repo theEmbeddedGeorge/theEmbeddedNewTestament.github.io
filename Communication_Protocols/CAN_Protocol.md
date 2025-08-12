@@ -836,3 +836,84 @@ HAL_StatusTypeDef can_receive(CAN_HandleTypeDef* hcan, CAN_Message_t* message) {
 - "Controller Area Network: Basics, Protocols, Chips and Applications" by Konrad Etschberger
 - "CAN System Engineering: From Theory to Practical Applications" by Wolfhard Lawrenz
 - "Embedded Systems Design" by Steve Heath
+
+---
+
+## 🧪 **Guided Labs**
+
+### **Lab 1: CAN Message Transmission**
+**Objective**: Understand CAN message structure and transmission.
+**Setup**: Configure a CAN controller and connect to a CAN bus.
+**Steps**:
+1. Initialize CAN controller with 500 kbps bit rate
+2. Configure message ID and data length
+3. Send a simple message
+4. Monitor transmission on oscilloscope
+5. Verify message acknowledgment
+**Expected Outcome**: Successful CAN message transmission with proper acknowledgment.
+
+### **Lab 2: CAN Error Injection and Detection**
+**Objective**: Test CAN error detection capabilities.
+**Setup**: Use a CAN analyzer or create intentional errors.
+**Steps**:
+1. Send valid CAN messages
+2. Introduce bit errors by manipulating signals
+3. Observe error frame generation
+4. Test different error types (bit, stuff, form)
+5. Verify error recovery
+**Expected Outcome**: Understanding of CAN error detection and recovery mechanisms.
+
+### **Lab 3: CAN Bus Arbitration**
+**Objective**: Demonstrate CAN message priority and arbitration.
+**Setup**: Multiple CAN nodes with different message priorities.
+**Steps**:
+1. Configure nodes with different message IDs
+2. Start simultaneous transmissions
+3. Monitor bus for arbitration
+4. Observe which message wins
+5. Analyze priority vs. ID relationship
+**Expected Outcome**: Understanding of how CAN arbitration works based on message ID.
+
+---
+
+## ✅ **Check Yourself**
+
+### **Understanding Questions**
+1. **Message Priority**: How does CAN determine message priority and why is this important?
+2. **Error Detection**: What types of errors can CAN detect and how does it handle them?
+3. **Arbitration**: How does CAN handle multiple nodes trying to transmit simultaneously?
+4. **Bit Stuffing**: Why is bit stuffing necessary in CAN and how does it work?
+
+### **Application Questions**
+1. **Network Design**: How do you design a CAN network for an automotive or industrial system?
+2. **Message Scheduling**: How do you ensure critical messages get through in a busy CAN network?
+3. **Error Handling**: What should your system do when it detects CAN communication errors?
+4. **Performance**: How do you calculate the maximum message rate for a given CAN bus speed?
+
+### **Troubleshooting Questions**
+1. **No Communication**: What are the most common causes of CAN communication failure?
+2. **Error Frames**: What do different types of error frames indicate about your CAN system?
+3. **Bus Loading**: How can you identify and resolve CAN bus overload issues?
+4. **Timing Issues**: What causes CAN timing problems and how do you fix them?
+
+---
+
+## 🔗 **Cross-links**
+
+### **Related Topics**
+- [**UART Protocol**](./UART_Protocol.md) - Asynchronous serial communication
+- [**SPI Protocol**](./SPI_Protocol.md) - Four-wire serial communication
+- [**I2C Protocol**](./I2C_Protocol.md) - Two-wire serial communication
+- [**Digital I/O Programming**](../Hardware_Fundamentals/Digital_IO_Programming.md) - GPIO configuration for CAN
+
+### **Advanced Concepts**
+- [**Interrupts and Exceptions**](../Hardware_Fundamentals/Interrupts_Exceptions.md) - CAN interrupt handling
+- [**Memory-Mapped I/O**](../Embedded_C/Memory_Mapped_IO.md) - CAN register access
+- [**Real-Time Systems**](../Real_Time_Systems/FreeRTOS_Basics.md) - CAN in real-time contexts
+- [**Error Detection and Handling**](./Error_Detection.md) - CAN error handling strategies
+
+### **Practical Applications**
+- [**Automotive Systems**](./Automotive_Systems.md) - CAN in vehicle networks
+- [**Industrial Control**](./Industrial_Control.md) - CAN in industrial automation
+- [**Sensor Networks**](./Sensor_Networks.md) - CAN-based sensor systems
+- [**Network Protocols**](./Network_Protocols.md) - Higher-layer protocols over CAN

@@ -4,6 +4,24 @@ Real-time communication requires bounded latency and controlled jitter from sens
 
 ---
 
+## 🧠 **Concept First**
+
+### **Real-Time vs Fast**
+**Concept**: Real-time systems prioritize predictability over speed.
+**Why it matters**: A system that's sometimes very fast but sometimes slow is not real-time, even if it's faster on average.
+**Minimal example**: Compare a system with 1ms average latency but 100ms worst-case vs. a system with 5ms consistent latency.
+**Try it**: Measure both average and worst-case latency of your communication system.
+**Takeaways**: Real-time systems must guarantee worst-case performance, not just good average performance.
+
+### **Latency Budgeting**
+**Concept**: You must allocate time to each component in your system to meet overall timing requirements.
+**Why it matters**: Without proper budgeting, you can't guarantee that your system will meet real-time constraints.
+**Minimal example**: Design a 10ms control loop with sensor read, processing, communication, and actuation.
+**Try it**: Measure the latency of each component in your system and create a budget.
+**Takeaways**: Every component must fit within its allocated time budget.
+
+---
+
 ## Core Concepts and Theory
 
 ### Real-Time Communication Fundamentals
@@ -530,6 +548,85 @@ for (;;) {
 - **Performance monitoring**: Monitor loop performance
 
 ---
+
+## 🧪 **Guided Labs**
+
+### **Lab 1: Latency Measurement and Budgeting**
+**Objective**: Measure and budget latency for a real-time communication system.
+**Setup**: Simple embedded system with sensor, processor, and actuator.
+**Steps**:
+1. Measure sensor read latency
+2. Measure processing latency
+3. Measure communication latency
+4. Measure actuation latency
+5. Create and validate latency budget
+**Expected Outcome**: Complete understanding of system timing and budget compliance.
+
+### **Lab 2: Jitter Analysis and Reduction**
+**Objective**: Analyze and reduce jitter in real-time communication.
+**Setup**: System with variable load conditions.
+**Steps**:
+1. Measure baseline jitter under no load
+2. Add background tasks and measure jitter
+3. Implement priority management
+4. Optimize critical paths
+5. Measure jitter improvement
+**Expected Outcome**: Reduced jitter and improved predictability.
+
+### **Lab 3: Real-Time Protocol Implementation**
+**Objective**: Implement a simple real-time communication protocol.
+**Setup**: Two embedded devices or simulation environment.
+**Steps**:
+1. Design protocol with timing guarantees
+2. Implement with priority management
+3. Add error handling and recovery
+4. Test under various load conditions
+5. Measure and validate timing compliance
+**Expected Outcome**: Working real-time protocol with measured performance.
+
+---
+
+## ✅ **Check Yourself**
+
+### **Understanding Questions**
+1. **Real-Time Definition**: What makes a communication system "real-time"?
+2. **Latency vs Jitter**: How do latency and jitter differ, and why does each matter?
+3. **Priority Management**: Why is priority management crucial in real-time systems?
+4. **Budget Allocation**: How do you allocate time budgets across system components?
+
+### **Application Questions**
+1. **System Design**: How do you design a system to meet real-time requirements?
+2. **Performance Optimization**: What strategies can you use to reduce latency and jitter?
+3. **Error Handling**: How do you handle errors without violating timing constraints?
+4. **Resource Management**: How do you manage resources to maintain real-time performance?
+
+### **Troubleshooting Questions**
+1. **Timing Violations**: What causes real-time systems to miss deadlines?
+2. **Jitter Problems**: What are the most common sources of jitter in embedded systems?
+3. **Priority Issues**: What problems arise from improper priority management?
+4. **Resource Conflicts**: How do you resolve resource conflicts in real-time systems?
+
+---
+
+## 🔗 **Cross-links**
+
+### **Related Topics**
+- [**UART Protocol**](./UART_Protocol.md) - Real-time UART considerations
+- [**SPI Protocol**](./UART_Protocol.md) - Real-time SPI considerations
+- [**Error Detection and Handling**](./Error_Detection.md) - Error handling in real-time systems
+- [**Protocol Implementation**](./Protocol_Implementation.md) - Real-time protocol design
+
+### **Advanced Concepts**
+- [**Real-Time Systems**](../Real_Time_Systems/FreeRTOS_Basics.md) - RTOS fundamentals
+- [**Interrupts and Exceptions**](../Hardware_Fundamentals/Interrupts_Exceptions.md) - Interrupt handling for real-time
+- [**Timer/Counter Programming**](../Hardware_Fundamentals/Timer_Counter_Programming.md) - Precise timing
+- [**Performance Optimization**](./Performance_Optimization.md) - Real-time performance techniques
+
+### **Practical Applications**
+- [**Industrial Control**](./Industrial_Control.md) - Real-time industrial systems
+- [**Automotive Systems**](./Automotive_Systems.md) - Real-time automotive communication
+- [**Sensor Networks**](./Sensor_Networks.md) - Real-time sensor systems
+- [**Control Systems**](./Control_Systems.md) - Real-time control applications
 
 ## Real-Time Communication Checklist
 

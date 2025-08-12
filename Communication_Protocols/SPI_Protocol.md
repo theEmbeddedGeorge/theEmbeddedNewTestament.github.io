@@ -257,3 +257,83 @@ Master Device                    Slave Device
 - **Conflict Resolution**: Resolution of bus access conflicts
 - **Priority Management**: Priority management for multiple slaves
 - **Resource Allocation**: Resource allocation for multiple slaves
+
+---
+
+## 🧪 **Guided Labs**
+
+### **Lab 1: SPI Mode Configuration**
+**Objective**: Understand how SPI mode affects data transmission.
+**Setup**: Configure an SPI peripheral with different mode settings.
+**Steps**:
+1. Set up SPI in Mode 0 (CPOL=0, CPHA=0)
+2. Send a known data pattern
+3. Switch to Mode 3 (CPOL=1, CPHA=1)
+4. Send the same pattern
+5. Observe the difference in timing
+**Expected Outcome**: Different modes will show different clock polarity and phase relationships.
+
+### **Lab 2: Multi-Slave Daisy Chain**
+**Objective**: Implement a daisy-chain configuration with multiple SPI slaves.
+**Setup**: Connect 2-3 SPI slaves in daisy-chain configuration.
+**Steps**:
+1. Configure SPI for daisy-chain mode
+2. Send data to the first slave
+3. Send data to the second slave
+4. Send data to the third slave
+5. Read back all data
+**Expected Outcome**: Data propagates through the chain, with each slave receiving its portion.
+
+### **Lab 3: SPI Performance Measurement**
+**Objective**: Measure SPI performance under different configurations.
+**Setup**: Use logic analyzer or oscilloscope to measure timing.
+**Steps**:
+1. Measure clock frequency vs. data rate
+2. Test different clock prescalers
+3. Measure setup and hold times
+4. Test maximum reliable frequency
+**Expected Outcome**: Understanding of timing constraints and performance limits.
+
+---
+
+## ✅ **Check Yourself**
+
+### **Understanding Questions**
+1. **Mode Selection**: Why might you choose Mode 1 over Mode 0 for a particular sensor?
+2. **Clock Polarity**: How does CPOL affect the idle state of the clock line?
+3. **Data Order**: When would you use MSB-first vs. LSB-first transmission?
+4. **Slave Selection**: What happens if you don't properly manage chip select signals?
+
+### **Application Questions**
+1. **Sensor Integration**: How would you integrate an SPI temperature sensor with your current system?
+2. **Multi-Device**: What considerations are important when designing a system with multiple SPI devices?
+3. **Timing**: How do you ensure reliable communication at high SPI frequencies?
+4. **Error Handling**: What error conditions should you check for in SPI communication?
+
+### **Troubleshooting Questions**
+1. **No Communication**: What are the most common causes of SPI communication failure?
+2. **Data Corruption**: How can you identify and fix timing-related data corruption?
+3. **Slave Selection**: What happens if multiple slaves are selected simultaneously?
+4. **Clock Issues**: How can you debug clock-related SPI problems?
+
+---
+
+## 🔗 **Cross-links**
+
+### **Related Topics**
+- [**UART Protocol**](./UART_Protocol.md) - Asynchronous serial communication
+- [**I2C Protocol**](./I2C_Protocol.md) - Two-wire serial communication
+- [**Digital I/O Programming**](../Hardware_Fundamentals/Digital_IO_Programming.md) - GPIO configuration for SPI
+- [**Timer/Counter Programming**](../Hardware_Fundamentals/Timer_Counter_Programming.md) - Timing for SPI operations
+
+### **Advanced Concepts**
+- [**DMA Buffer Management**](../Embedded_C/DMA_Buffer_Management.md) - Efficient SPI data transfer
+- [**Interrupts and Exceptions**](../Hardware_Fundamentals/Interrupts_Exceptions.md) - SPI interrupt handling
+- [**Memory-Mapped I/O**](../Embedded_C/Memory_Mapped_IO.md) - SPI register access
+- [**Real-Time Systems**](../Real_Time_Systems/FreeRTOS_Basics.md) - SPI in real-time contexts
+
+### **Practical Applications**
+- [**Sensor Integration**](./Sensor_Integration.md) - Using SPI with sensors
+- [**Display Drivers**](./Display_Drivers.md) - SPI displays and graphics
+- [**Storage Devices**](./Storage_Devices.md) - SPI flash memory and SD cards
+- [**Communication Modules**](./Communication_Modules.md) - SPI-based communication chips

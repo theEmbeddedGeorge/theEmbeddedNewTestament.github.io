@@ -759,3 +759,84 @@ HAL_StatusTypeDef i2c_receive(I2C_HandleTypeDef* hi2c, uint16_t device_address, 
 - "The Art of Programming Embedded Systems" by Jack Ganssle
 - "Making Embedded Systems" by Elecia White
 
+---
+
+## 🧪 **Guided Labs**
+
+### **Lab 1: I2C Address Scanning**
+**Objective**: Discover all I2C devices on a bus.
+**Setup**: Connect multiple I2C devices to a single bus.
+**Steps**:
+1. Initialize I2C master
+2. Scan all possible addresses (0x08 to 0x77)
+3. Send START + address + R/W bit
+4. Check for ACK response
+5. Log all responding addresses
+**Expected Outcome**: A list of all active I2C devices on the bus.
+
+### **Lab 2: Clock Stretching Demonstration**
+**Objective**: Observe and handle clock stretching behavior.
+**Setup**: Use an I2C device that supports clock stretching (e.g., EEPROM).
+**Steps**:
+1. Configure I2C with slow clock (100 kHz)
+2. Send a write command
+3. Monitor SCL line during ACK
+4. Measure stretch duration
+5. Implement timeout handling
+**Expected Outcome**: Understanding of when and why devices stretch the clock.
+
+### **Lab 3: Multi-Master Arbitration**
+**Objective**: Demonstrate I2C arbitration and collision detection.
+**Setup**: Two I2C masters on the same bus.
+**Steps**:
+1. Configure both masters with different addresses
+2. Start simultaneous transmissions
+3. Monitor SDA line for arbitration
+4. Observe which master wins
+5. Handle collision detection
+**Expected Outcome**: Understanding of how I2C handles multiple masters.
+
+---
+
+## ✅ **Check Yourself**
+
+### **Understanding Questions**
+1. **Addressing**: Why are some I2C addresses reserved and what are they used for?
+2. **Clock Stretching**: When might a slave device need to stretch the clock?
+3. **Arbitration**: How does I2C determine which master wins during arbitration?
+4. **Pull-up Resistors**: Why are external pull-up resistors necessary for I2C?
+
+### **Application Questions**
+1. **Device Selection**: How do you choose between I2C and SPI for a particular application?
+2. **Bus Speed**: What factors determine the maximum reliable I2C bus speed?
+3. **Error Recovery**: How should your system respond to I2C communication errors?
+4. **Multi-Device**: What considerations are important when designing an I2C system with many devices?
+
+### **Troubleshooting Questions**
+1. **No Communication**: What are the most common causes of I2C communication failure?
+2. **Data Corruption**: How can you identify and fix I2C timing issues?
+3. **Bus Lock**: What causes an I2C bus to lock up and how do you recover?
+4. **Address Conflicts**: How do you resolve I2C address conflicts in a system?
+
+---
+
+## 🔗 **Cross-links**
+
+### **Related Topics**
+- [**UART Protocol**](./UART_Protocol.md) - Asynchronous serial communication
+- [**SPI Protocol**](./SPI_Protocol.md) - Four-wire serial communication
+- [**Digital I/O Programming**](../Hardware_Fundamentals/Digital_IO_Programming.md) - GPIO configuration for I2C
+- [**Timer/Counter Programming**](../Hardware_Fundamentals/Timer_Counter_Programming.md) - I2C timing requirements
+
+### **Advanced Concepts**
+- [**Interrupts and Exceptions**](../Hardware_Fundamentals/Interrupts_Exceptions.md) - I2C interrupt handling
+- [**Memory-Mapped I/O**](../Embedded_C/Memory_Mapped_IO.md) - I2C register access
+- [**Real-Time Systems**](../Real_Time_Systems/FreeRTOS_Basics.md) - I2C in real-time contexts
+- [**Error Detection and Handling**](./Error_Detection.md) - I2C error handling strategies
+
+### **Practical Applications**
+- [**Sensor Integration**](./Sensor_Integration.md) - Using I2C with sensors
+- [**Display Drivers**](./Display_Drivers.md) - I2C displays and graphics
+- [**Real-Time Clock**](./Real_Time_Clock.md) - I2C RTC modules
+- [**EEPROM Programming**](./EEPROM_Programming.md) - I2C memory devices
+

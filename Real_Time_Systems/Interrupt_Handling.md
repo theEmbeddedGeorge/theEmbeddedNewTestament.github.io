@@ -2,6 +2,36 @@
 
 > **Understanding interrupt handling, interrupt service routines, and interrupt management in real-time operating systems with focus on FreeRTOS implementation and real-time interrupt principles**
 
+## 🎯 **Concept → Why it matters → Minimal example → Try it → Takeaways**
+
+### **Concept**
+Interrupts are like emergency phone calls that can interrupt whatever the CPU is doing to handle urgent events immediately. Instead of constantly checking if something needs attention (polling), the system waits for important events to "call" it.
+
+### **Why it matters**
+In embedded systems, timing is everything. A sensor reading that arrives 1ms late could mean the difference between a safe landing and a crash. Interrupts ensure critical events get immediate attention, making systems both responsive and efficient.
+
+### **Minimal example**
+```c
+// Simple interrupt handler
+void UART_IRQHandler(void) {
+    if (UART->SR & UART_SR_RXNE) {  // Data received
+        uint8_t data = UART->DR;     // Read data
+        // Signal task to process data
+        xSemaphoreGiveFromISR(uart_semaphore, NULL);
+    }
+}
+```
+
+### **Try it**
+- **Experiment**: Add GPIO toggles in your ISR to measure timing
+- **Challenge**: Design an interrupt system for a temperature sensor that must respond within 100μs
+- **Debug**: Use an oscilloscope to measure interrupt latency
+
+### **Takeaways**
+Interrupts transform reactive systems into proactive ones, ensuring critical events get immediate attention while maintaining system efficiency.
+
+---
+
 ## 📋 **Table of Contents**
 - [Overview](#overview)
 - [What are Interrupts?](#what-are-interrupts)
@@ -95,6 +125,33 @@ Interrupts are signals that temporarily halt normal program execution to handle 
 │  4. Interrupt service routine executes                    │
 │  5. CPU restores context                                  │
 │  6. Normal execution resumes                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Real-time vs Non-real-time Interrupt Handling:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                Non-Real-Time System                       │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │   Task A    │  │   Task B    │  │   Task C    │        │
+│  │  (10ms)     │  │  (20ms)     │  │  (15ms)     │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+│                              │                            │
+│                              ▼                            │
+│                    Interrupt waits in queue               │
+│                    (Response: 45ms later)                 │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                  Real-Time System                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │   Task A    │  │   Task B    │  │   Task C    │        │
+│  │  (10ms)     │  │  (20ms)     │  │  (15ms)     │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+│                              │                            │
+│                              ▼                            │
+│                    Interrupt preempts immediately         │
+│                    (Response: <1ms)                       │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -903,6 +960,110 @@ int main(void) {
 - **Resource Sharing**: Use appropriate synchronization mechanisms
 - **Cleanup**: Properly clean up resources after interrupt handling
 - **Monitoring**: Monitor resource usage and availability
+
+---
+
+## 🔬 **Guided Labs**
+
+### **Lab 1: Basic Interrupt Setup**
+**Objective**: Set up a simple GPIO interrupt system
+**Steps**:
+1. Configure a GPIO pin as input with pull-up
+2. Enable external interrupt on falling edge
+3. Write a minimal ISR that toggles an LED
+4. Measure interrupt latency with oscilloscope
+
+**Expected Outcome**: LED toggles within microseconds of button press
+
+### **Lab 2: Interrupt Priority Experiment**
+**Objective**: Understand interrupt priority and nesting
+**Steps**:
+1. Set up two timer interrupts with different priorities
+2. Configure high-priority timer to interrupt low-priority one
+3. Use GPIO to visualize interrupt nesting
+4. Measure worst-case interrupt latency
+
+**Expected Outcome**: High-priority interrupt can preempt low-priority one
+
+### **Lab 3: ISR-to-Task Communication**
+**Objective**: Learn proper communication between ISRs and tasks
+**Steps**:
+1. Create a task that waits for semaphore
+2. Configure UART interrupt to give semaphore
+3. Task processes received data
+4. Measure end-to-end latency
+
+**Expected Outcome**: Data processed within predictable time bounds
+
+---
+
+## ✅ **Check Yourself**
+
+### **Understanding Check**
+- [ ] Can you explain why interrupts are better than polling for sporadic events?
+- [ ] Do you understand the difference between interrupt priority and task priority?
+- [ ] Can you identify what operations are safe in an ISR?
+- [ ] Do you know how to measure interrupt latency?
+
+### **Practical Skills Check**
+- [ ] Can you set up a basic interrupt system on your microcontroller?
+- [ ] Do you know how to debug interrupt timing issues?
+- [ ] Can you implement proper ISR-to-task communication?
+- [ ] Do you understand interrupt priority management?
+
+### **Advanced Concepts Check**
+- [ ] Can you explain interrupt coalescing and when to use it?
+- [ ] Do you understand interrupt priority inversion?
+- [ ] Can you optimize interrupt performance?
+- [ ] Do you know how to handle nested interrupts?
+
+---
+
+## 🔗 **Cross-links**
+
+### **Related Topics**
+- **[FreeRTOS Basics](./FreeRTOS_Basics.md)** - Understanding the RTOS context
+- **[Task Creation and Management](./Task_Creation_Management.md)** - How tasks interact with interrupts
+- **[Scheduling Algorithms](./Scheduling_Algorithms.md)** - How interrupts affect scheduling
+- **[Real-Time Debugging](./Real_Time_Debugging.md)** - Debugging interrupt issues
+
+### **Prerequisites**
+- **[GPIO Configuration](../Hardware_Fundamentals/GPIO_Configuration.md)** - Basic I/O setup
+- **[Timer/Counter Programming](../Hardware_Fundamentals/Timer_Counter_Programming.md)** - Timer interrupts
+- **[External Interrupts](../Hardware_Fundamentals/External_Interrupts.md)** - Hardware interrupt setup
+
+### **Next Steps**
+- **[Kernel Services](./Kernel_Services.md)** - Using RTOS services in ISRs
+- **[Performance Monitoring](./Performance_Monitoring.md)** - Measuring interrupt performance
+- **[Memory Protection](./Memory_Protection.md)** - Protecting memory in ISRs
+
+---
+
+## 📋 **Quick Reference: Key Facts**
+
+### **Interrupt Fundamentals**
+- **Definition**: Signals that temporarily halt normal execution to handle urgent events
+- **Types**: Hardware (external), software (system calls), internal (exceptions)
+- **Characteristics**: Asynchronous, priority-based, can nest, preserve context
+- **Advantage**: More efficient than polling for sporadic events
+
+### **Interrupt Service Routines (ISRs)**
+- **Purpose**: Handle interrupt events quickly and efficiently
+- **Constraints**: Must be fast, non-blocking, minimal operations
+- **Communication**: Use FromISR APIs to communicate with tasks
+- **Return**: Must return quickly to minimize latency
+
+### **Priority Management**
+- **Hierarchy**: Higher priority interrupts can preempt lower ones
+- **Assignment**: Based on system criticality and timing requirements
+- **Nesting**: Consider interrupt nesting depth and stack usage
+- **Inversion**: Use priority inheritance or ceiling protocols
+
+### **Performance Considerations**
+- **Latency**: Time from interrupt to ISR execution start
+- **Jitter**: Variation in interrupt response time
+- **Optimization**: Minimize context save/restore, use efficient ISRs
+- **Measurement**: Use GPIO, oscilloscopes, or performance counters
 
 ---
 

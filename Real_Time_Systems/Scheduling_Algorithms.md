@@ -2,6 +2,54 @@
 
 > **Understanding real-time scheduling algorithms, priority-based scheduling, and timing analysis in embedded systems with focus on FreeRTOS implementation and real-time scheduling principles**
 
+## 🎯 **Concept → Why it matters → Minimal example → Try it → Takeaways**
+
+### **Concept**
+Scheduling algorithms are like traffic controllers for your CPU. Instead of letting tasks fight over who gets to run, the scheduler makes intelligent decisions about which task should execute when, ensuring everyone gets their turn and critical tasks don't get stuck in traffic.
+
+### **Why it matters**
+In real-time systems, missing a deadline can mean the difference between a safe landing and a crash. Good scheduling ensures that critical tasks (like reading sensors or controlling actuators) always get CPU time when they need it, while less critical tasks (like status updates) wait their turn.
+
+### **Minimal example**
+```c
+// Task priorities determine execution order
+void highPriorityTask(void *pvParameters) {
+    while (1) {
+        readCriticalSensor();  // Must happen every 10ms
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+}
+
+void mediumPriorityTask(void *pvParameters) {
+    while (1) {
+        processData();         // Can wait a bit
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+}
+
+void lowPriorityTask(void *pvParameters) {
+    while (1) {
+        updateStatusLED();     // Not time-critical
+        vTaskDelay(pdMS_TO_TICKS(100));
+    }
+}
+
+// Create tasks with different priorities
+xTaskCreate(highPriorityTask, "High", 128, NULL, 3, NULL);
+xTaskCreate(mediumPriorityTask, "Medium", 128, NULL, 2, NULL);
+xTaskCreate(lowPriorityTask, "Low", 128, NULL, 1, NULL);
+```
+
+### **Try it**
+- **Experiment**: Create tasks with different priorities and observe execution order
+- **Challenge**: Design a system where three tasks must meet different deadlines
+- **Debug**: Use FreeRTOS hooks to monitor task switching and timing
+
+### **Takeaways**
+Good scheduling is about making intelligent trade-offs between urgency, importance, and resource efficiency, ensuring your system meets all its timing requirements.
+
+---
+
 ## 📋 **Table of Contents**
 - [Overview](#overview)
 - [What are Scheduling Algorithms?](#what-are-scheduling-algorithms)
@@ -928,6 +976,110 @@ int main(void) {
 - **Resource Sharing**: Use appropriate synchronization mechanisms
 - **Cleanup**: Properly clean up resources when tasks terminate
 - **Monitoring**: Monitor resource usage and availability
+
+---
+
+## 🔬 **Guided Labs**
+
+### **Lab 1: Priority-Based Scheduling**
+**Objective**: Understand how task priorities affect execution order
+**Steps**:
+1. Create three tasks with different priorities (1, 2, 3)
+2. Each task toggles a different GPIO pin
+3. Use oscilloscope to observe execution patterns
+4. Change priorities and observe the difference
+
+**Expected Outcome**: Higher priority tasks get more CPU time and execute more frequently
+
+### **Lab 2: Rate Monotonic Scheduling**
+**Objective**: Implement and observe RMS behavior
+**Steps**:
+1. Create tasks with different periods (10ms, 20ms, 50ms)
+2. Assign priorities based on frequency (higher frequency = higher priority)
+3. Monitor task execution and timing
+4. Verify that all deadlines are met
+
+**Expected Outcome**: All tasks meet their deadlines with proper priority assignment
+
+### **Lab 3: Scheduling Performance Measurement**
+**Objective**: Measure scheduling overhead and performance
+**Steps**:
+1. Use GPIO to measure context switch time
+2. Monitor CPU utilization under different loads
+3. Measure worst-case response time
+4. Profile scheduling algorithm performance
+
+**Expected Outcome**: Understanding of scheduling overhead and optimization opportunities
+
+---
+
+## ✅ **Check Yourself**
+
+### **Understanding Check**
+- [ ] Can you explain why preemptive scheduling is better for real-time systems?
+- [ ] Do you understand the difference between RMS and EDF scheduling?
+- [ ] Can you identify when priority inversion occurs?
+- [ ] Do you know how to determine if a system is schedulable?
+
+### **Practical Skills Check**
+- [ ] Can you set up tasks with different priorities in FreeRTOS?
+- [ ] Do you know how to debug scheduling issues?
+- [ ] Can you implement proper priority management?
+- [ ] Do you understand how to measure scheduling performance?
+
+### **Advanced Concepts Check**
+- [ ] Can you explain response time analysis?
+- [ ] Do you understand how to optimize scheduling algorithms?
+- [ ] Can you implement custom scheduling policies?
+- [ ] Do you know how to handle resource contention in scheduling?
+
+---
+
+## 🔗 **Cross-links**
+
+### **Related Topics**
+- **[FreeRTOS Basics](./FreeRTOS_Basics.md)** - Understanding the RTOS context
+- **[Task Creation and Management](./Task_Creation_Management.md)** - How tasks are created and managed
+- **[Kernel Services](./Kernel_Services.md)** - Services that support scheduling
+- **[Performance Monitoring](./Performance_Monitoring.md)** - Measuring scheduling performance
+
+### **Prerequisites**
+- **[C Language Fundamentals](../Embedded_C/C_Language_Fundamentals.md)** - Basic programming concepts
+- **[Task Creation and Management](./Task_Creation_Management.md)** - Understanding tasks
+- **[GPIO Configuration](../Hardware_Fundamentals/GPIO_Configuration.md)** - Basic I/O setup
+
+### **Next Steps**
+- **[Interrupt Handling](./Interrupt_Handling.md)** - How interrupts affect scheduling
+- **[Real-Time Debugging](./Real_Time_Debugging.md)** - Debugging scheduling issues
+- **[Response Time Analysis](./Response_Time_Analysis.md)** - Analyzing task timing
+
+---
+
+## 📋 **Quick Reference: Key Facts**
+
+### **Scheduling Fundamentals**
+- **Purpose**: Determine which task runs when and for how long
+- **Types**: Preemptive, non-preemptive, static, dynamic
+- **Characteristics**: Priority-based, deadline-aware, resource-efficient
+- **Benefits**: Predictable timing, efficient resource usage, real-time guarantees
+
+### **Priority-Based Scheduling**
+- **High Priority**: Critical tasks that must meet strict deadlines
+- **Medium Priority**: Normal system operations and data processing
+- **Low Priority**: Background tasks and status updates
+- **Priority Assignment**: Based on criticality, frequency, and deadline requirements
+
+### **Common Scheduling Algorithms**
+- **Rate Monotonic (RMS)**: Fixed priorities based on task frequency
+- **Earliest Deadline First (EDF)**: Dynamic priorities based on current deadlines
+- **Round Robin**: Equal priority tasks share CPU time equally
+- **Priority Preemptive**: Higher priority tasks can interrupt lower ones
+
+### **Scheduling Analysis**
+- **Utilization Bound**: Maximum CPU utilization for schedulability
+- **Response Time Analysis**: Calculate worst-case response times
+- **Deadline Miss**: When tasks cannot meet their timing requirements
+- **Schedulability Test**: Determine if system can meet all deadlines
 
 ---
 

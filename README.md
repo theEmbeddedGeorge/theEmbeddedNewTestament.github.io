@@ -183,20 +183,19 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
   - [Multi-Core Programming](./Advanced_Hardware/Multi_Core_Programming.md)
   - [Vector Processing and FPUs](./Advanced_Hardware/Vector_Processing_FPUs.md)
 - **Advanced Development Tools**
-  - Advanced profiling tools (gprof, perf, flame graphs)
-  - Advanced analysis tools (Valgrind, AddressSanitizer)
+  - [Advanced Profiling Tools](./Advanced_Hardware/Advanced_Profiling_Tools.md)
+  - [Advanced Analysis Tools](./Advanced_Hardware/Advanced_Analysis_Tools.md)
 
 #### **Phase 2: Embedded Security (6 weeks)**
 **Progression (concept clusters)**
 - **Boot and Trust**
-  - Secure boot and chain of trust
-  - TPM 2.0 basics
+  - [Secure Boot and Chain of Trust](./Embedded_Security/Secure_Boot_Chain_Trust.md)
+  - [TPM 2.0 Basics](./Embedded_Security/TPM2_Basics.md)
 - **Crypto Foundations**
-  - Symmetric/asymmetric crypto and hashes
+  - [Cryptographic Foundations](./Embedded_Security/Cryptographic_Foundations.md)
   - Side-channel attack prevention
 - **Platform Security**
-  - ARM TrustZone (or equivalent isolation)
-  - Secure communication protocols (TLS/DTLS, provisioning)
+  - [Platform Security](./Embedded_Security/Platform_Security.md)
 
 #### **Phase 3: Performance Optimization (6 weeks)**
 **Progression (concept clusters)**

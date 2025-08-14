@@ -172,16 +172,16 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
   - [Clock Distribution](./Advanced_Hardware/Clock_Distribution.md)
   - [Thermal Management](./Advanced_Hardware/Thermal_Management.md)
 - **Signal Integrity and EMC**
-  - PCB design considerations
-  - Signal integrity basics (TX lines, impedance, termination)
-  - EMI/EMC considerations
+  - [PCB Design Considerations](./Advanced_Hardware/PCB_Design_Considerations.md)
+  - [Signal Integrity Basics](./Advanced_Hardware/Signal_Integrity_Basics.md)
+  - [EMI/EMC Considerations](./Advanced_Hardware/EMI_EMC_Considerations.md)
 - **Advanced SoC Features**
-  - DMA programming
-  - Cache management and coherency
-  - Memory Protection Units (MPU)
-  - Hardware accelerators (crypto/DSP/GPU)
-  - Multi-core programming
-  - Vector processing and FPUs
+  - [DMA Programming](./Advanced_Hardware/DMA_Programming.md)
+  - [Cache Management and Coherency](./Advanced_Hardware/Cache_Management_Coherency.md)
+  - [Memory Protection Units](./Advanced_Hardware/Memory_Protection_Units.md)
+  - [Hardware Accelerators](./Advanced_Hardware/Hardware_Accelerators.md)
+  - [Multi-Core Programming](./Advanced_Hardware/Multi_Core_Programming.md)
+  - [Vector Processing and FPUs](./Advanced_Hardware/Vector_Processing_FPUs.md)
 - **Advanced Development Tools**
   - Advanced profiling tools (gprof, perf, flame graphs)
   - Advanced analysis tools (Valgrind, AddressSanitizer)

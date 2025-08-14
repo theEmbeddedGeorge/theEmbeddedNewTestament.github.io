@@ -1,883 +1,511 @@
 # FreeRTOS Basics
 
-> **Understanding FreeRTOS fundamentals, architecture, and basic concepts in real-time operating systems with focus on practical implementation and real-time principles**
+> **Understanding FreeRTOS fundamentals through concepts, not just code. Learn why RTOS matters and how to think about real-time systems.**
 
 ## 📋 **Table of Contents**
-- [Overview](#overview)
-- [What is FreeRTOS?](#what-is-freertos)
-- [Why is FreeRTOS Important?](#why-is-freertos-important)
-- [FreeRTOS Architecture](#freertos-architecture)
+- [Concept → Why it matters → Minimal example → Try it → Takeaways](#concept--why-it-matters--minimal-example--try-it--takeaways)
 - [Core Concepts](#core-concepts)
-- [Configuration and Setup](#configuration-and-setup)
-- [Basic Implementation](#basic-implementation)
+- [FreeRTOS Architecture](#freertos-architecture)
 - [Task Management](#task-management)
 - [Synchronization](#synchronization)
-- [Memory Management](#memory-management)
-- [Common Pitfalls](#common-pitfalls)
-- [Best Practices](#best-practices)
-- [Interview Questions](#interview-questions)
+- [Configuration](#configuration)
+- [Guided Labs](#guided-labs)
+- [Check Yourself](#check-yourself)
+- [Cross-links](#cross-links)
 
 ---
 
-## 🎯 **Overview**
+## **Concept → Why it matters → Minimal example → Try it → Takeaways**
 
-FreeRTOS is a popular, open-source real-time operating system designed specifically for embedded systems. It provides a robust foundation for building real-time applications with features like task management, inter-task communication, memory management, and timing services. Understanding FreeRTOS basics is essential for embedded developers working with real-time systems.
+**Concept**: FreeRTOS is a real-time operating system that manages multiple tasks by giving each one a slice of CPU time, ensuring critical operations happen when they need to happen.
 
-### **Key Concepts**
-- **FreeRTOS architecture** - Understanding the system structure and components
-- **Real-time principles** - Meeting timing requirements and deadlines
-- **Task management** - Creating, managing, and coordinating tasks
-- **Resource management** - Efficient use of limited system resources
-- **Configuration** - Tailoring FreeRTOS for specific applications
+**Why it matters**: Without an RTOS, you'd have to manually manage timing, priorities, and resource sharing between different parts of your program. This becomes impossible to maintain as complexity grows, and critical operations might miss their deadlines.
 
----
+**Minimal example**: A simple system with two tasks - one blinking an LED every 100ms, another reading a sensor every 500ms. FreeRTOS ensures both happen reliably without interfering with each other.
 
-## 🤔 **What is FreeRTOS?**
+**Try it**: Start with a single task that blinks an LED, then add a second task that reads a sensor. Observe how FreeRTOS manages both automatically.
 
-FreeRTOS is a market-leading real-time operating system kernel for embedded devices and microcontrollers. It provides a small, scalable, and portable real-time kernel that can be easily integrated into various embedded projects.
-
-### **Core Characteristics**
-
-**FreeRTOS Definition:**
-- **Real-Time Kernel**: Designed for real-time applications with strict timing requirements
-- **Open Source**: Available under MIT license with no royalties or licensing fees
-- **Portable**: Works across multiple microcontroller architectures and platforms
-- **Scalable**: Can be configured for systems with minimal resources or complex requirements
-
-**Key Features:**
-- **Preemptive Scheduling**: Higher priority tasks can interrupt lower priority ones
-- **Task Management**: Create, delete, and manage multiple concurrent tasks
-- **Inter-Task Communication**: Queues, semaphores, and mutexes for task coordination
-- **Memory Management**: Flexible memory allocation and management
-- **Timing Services**: Delays, timeouts, and periodic execution
-
-**Target Applications:**
-- **Embedded Systems**: Microcontrollers and single-board computers
-- **Real-Time Control**: Industrial control and automation systems
-- **IoT Devices**: Connected devices with real-time requirements
-- **Consumer Electronics**: Smart devices and appliances
-- **Automotive**: Vehicle control and infotainment systems
-
-### **FreeRTOS vs Other RTOS**
-
-**Comparison with Other Systems:**
-- **vs Bare Metal**: Provides task management and scheduling vs manual implementation
-- **vs Linux**: Lighter weight and more predictable for embedded applications
-- **vs Proprietary RTOS**: Open source with no licensing costs
-- **vs Other Open RTOS**: Mature, well-supported, and widely adopted
-
-**Advantages:**
-- **Mature and Stable**: Well-tested in production environments
-- **Active Community**: Large developer community and support
-- **Extensive Documentation**: Comprehensive documentation and examples
-- **Commercial Support**: Available from multiple vendors
-
-**Limitations:**
-- **Resource Requirements**: Requires more memory than bare metal programming
-- **Complexity**: Adds complexity to simple applications
-- **Learning Curve**: Requires understanding of RTOS concepts
-- **Debugging**: More complex debugging than single-threaded applications
+**Takeaways**: FreeRTOS provides predictable timing and resource management, allowing you to focus on what your system should do rather than how to coordinate multiple operations.
 
 ---
 
-## 🎯 **Why is FreeRTOS Important?**
+## 📋 **Quick Reference: Key Facts**
 
-FreeRTOS is important because it provides a standardized, reliable foundation for building real-time embedded systems. It enables developers to focus on application logic rather than low-level system management, while ensuring predictable, real-time performance.
+### **FreeRTOS Fundamentals**
+- **Real-time**: Guarantees predictable timing, not necessarily fast execution
+- **Preemptive**: Higher priority tasks can interrupt lower priority ones
+- **Portable**: Works across multiple microcontroller architectures
+- **Open source**: MIT license with no royalties or licensing fees
+- **Scalable**: Configurable for systems with minimal or complex requirements
 
-### **Real-Time System Requirements**
+### **Core Components**
+- **Scheduler**: Manages which task runs when based on priorities
+- **Task Manager**: Handles task creation, deletion, and state transitions
+- **Memory Manager**: Manages stack allocation and memory pools
+- **Timing Services**: Provides delays, timeouts, and periodic execution
+- **Communication**: Queues, semaphores, and mutexes for task coordination
 
-**Timing Constraints:**
-- **Deadline Compliance**: Tasks must complete within specified time limits
-- **Response Time**: System must respond to events within required timeframes
-- **Jitter Control**: Minimize variation in task execution timing
-- **Predictability**: System behavior must be predictable under all conditions
+### **Task States**
+- **Created**: Task exists but not yet scheduled
+- **Ready**: Task is ready to run, waiting for CPU time
+- **Running**: Task is currently executing on the CPU
+- **Blocked**: Task is waiting for something (delay, data, resource)
+- **Deleted**: Task has been removed from system
 
-**Resource Management:**
-- **CPU Utilization**: Efficient use of available processing resources
-- **Memory Management**: Optimize memory usage across multiple tasks
-- **I/O Coordination**: Coordinate access to shared I/O resources
-- **Power Management**: Manage power consumption during task execution
+### **Key Configuration Options**
+- **configUSE_PREEMPTION**: Enable/disable preemptive scheduling
+- **configTICK_RATE_HZ**: System tick frequency (typically 1000Hz)
+- **configMAX_PRIORITIES**: Maximum number of task priorities
+- **configMINIMAL_STACK_SIZE**: Minimum stack size for tasks
+- **configUSE_MUTEXES**: Enable mutex support for resource protection
 
-**System Reliability:**
-- **Fault Isolation**: Prevent failures in one task from affecting others
-- **Error Recovery**: Implement recovery mechanisms for system failures
-- **System Stability**: Maintain stability under varying loads
-- **Performance Guarantees**: Provide guaranteed performance levels
+---
 
-### **Development Benefits**
+## 🧠 **Core Concepts**
 
-**Productivity Improvements:**
-- **Rapid Development**: Faster development of complex applications
-- **Code Reusability**: Reusable components across different projects
-- **Standardization**: Standard interfaces and programming patterns
-- **Team Development**: Easier collaboration on complex projects
+### **What is Real-Time?**
 
-**Quality Assurance:**
-- **Reliability**: Proven, tested real-time kernel
-- **Maintainability**: Well-structured, documented code
-- **Debugging**: Built-in debugging and monitoring capabilities
-- **Testing**: Comprehensive testing and validation tools
+Real-time doesn't mean "fast" - it means **predictable**. A real-time system guarantees that operations complete within their specified time limits.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Real-Time vs Non-Real-Time              │
+├─────────────────────────────────────────────────────────────┤
+│                Real-Time System                            │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐      │
+│  │ Task A  │  │ Task B  │  │ Task A  │  │ Task B  │      │
+│  │ 100ms   │  │ 500ms   │  │ 100ms   │  │ 500ms   │      │
+│  └─────────┘  └─────────┘  └─────────┘  └─────────┘      │
+│  ↑           ↑           ↑           ↑                    │
+│  0ms        100ms       200ms       300ms                 │
+│                                                           │
+│                Non-Real-Time System                       │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐      │
+│  │ Task A  │  │ Task B  │  │ Task A  │  │ Task B  │      │
+│  │ 100ms   │  │ 500ms   │  │ 150ms   │  │ 600ms   │      │
+│  └─────────┘  └─────────┘  └─────────┘  └─────────┘      │
+│  ↑           ↑           ↑           ↑                    │
+│  0ms        100ms       250ms       350ms                 │
+│                                                           │
+│  ❌ Timing varies - unpredictable!                        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### **Why Use an RTOS Instead of Bare Metal?**
+
+**Bare Metal Approach:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Bare Metal Programming                  │
+├─────────────────────────────────────────────────────────────┤
+│  while(1) {                                               │
+│    // Check if it's time to blink LED                     │
+│    if (timer_elapsed(100ms)) {                            │
+│      toggle_led();                                         │
+│      reset_timer();                                        │
+│    }                                                       │
+│                                                            │
+│    // Check if it's time to read sensor                   │
+│    if (timer_elapsed(500ms)) {                            │
+│      sensor_value = read_sensor();                         │
+│      reset_timer();                                        │
+│    }                                                       │
+│                                                            │
+│    // What if we need to add more tasks?                  │
+│    // What if priorities change?                          │
+│    // What if timing requirements change?                  │
+│  }                                                         │
+│                                                            │
+│  ❌ Becomes unmanageable quickly!                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**FreeRTOS Approach:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    FreeRTOS Approach                       │
+├─────────────────────────────────────────────────────────────┤
+│  // Task 1: Blink LED every 100ms                         │
+│  void vBlinkTask(void *pvParameters) {                    │
+│    while(1) {                                             │
+│      toggle_led();                                         │
+│      vTaskDelay(pdMS_TO_TICKS(100));                      │
+│    }                                                       │
+│  }                                                         │
+│                                                            │
+│  // Task 2: Read sensor every 500ms                       │
+│  void vSensorTask(void *pvParameters) {                    │
+│    while(1) {                                             │
+│      sensor_value = read_sensor();                         │
+│      vTaskDelay(pdMS_TO_TICKS(500));                      │
+│    }                                                       │
+│  }                                                         │
+│                                                            │
+│  // FreeRTOS handles the rest automatically!               │
+│  ✅ Clean, maintainable, scalable                          │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 🏗️ **FreeRTOS Architecture**
 
-### **System Architecture Overview**
+### **System Overview**
 
-**Layered Architecture:**
+FreeRTOS sits between your application and the hardware, managing resources and timing:
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Application Layer                        │
+│                    FreeRTOS Architecture                    │
+├─────────────────────────────────────────────────────────────┤
+│                Application Layer                            │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
 │  │   Task 1    │  │   Task 2    │  │   Task 3    │        │
-│  │ (Priority 3)│  │ (Priority 2)│  │ (Priority 1)│        │
+│  │ (Blink LED) │  │ (Read Sens) │  │ (Send Data) │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+├─────────────────────────────────────────────────────────────┤
+│                FreeRTOS Kernel                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │  Scheduler  │  │  Memory     │  │  Timing     │        │
+│  │             │  │  Manager    │  │  Services   │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │   Queues    │  │ Semaphores  │  │   Mutexes   │        │
+│  │             │  │             │  │             │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+├─────────────────────────────────────────────────────────────┤
+│                Hardware Abstraction Layer                  │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │   Port      │  │   Memory    │  │  Interrupt  │        │
+│  │  Layer      │  │   Model     │  │   Handler   │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+├─────────────────────────────────────────────────────────────┤
+│                Hardware (MCU)                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │     CPU     │  │    RAM      │  │  Peripherals│        │
+│  │             │  │             │  │             │        │
 │  └─────────────┘  └─────────────┘  └─────────────┘        │
 └─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
+```
+
+### **Key Components**
+
+**Scheduler**: The brain that decides which task runs when
+**Memory Manager**: Handles stack allocation and memory pools
+**Timing Services**: Provides delays, timeouts, and periodic execution
+**Communication**: Queues, semaphores, and mutexes for task coordination
+
+---
+
+## 📋 **Task Management**
+
+### **What is a Task?**
+
+A task is like a separate program that runs independently. Think of it as a worker with a specific job to do.
+
+```
 ┌─────────────────────────────────────────────────────────────┐
-│                    FreeRTOS Kernel                         │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │   Scheduler │  │ Task Mgmt   │  │ Memory Mgmt │        │
-│  └─────────────┘  └─────────────┘  └─────────────┘        │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │   Queues    │  │ Semaphores  │  │   Timers    │        │
-│  └─────────────┘  └─────────────┘  └─────────────┘        │
+│                    Task Lifecycle                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                           │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐                │
+│  │ Created │───▶│  Ready  │───▶│ Running │                │
+│  └─────────┘    └─────────┘    └────┬────┘                │
+│                                      │                     │
+│                                      ▼                     │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐                │
+│  │Deleted  │◄───│ Blocked │◄───│         │                │
+│  └─────────┘    └─────────┘    └─────────┘                │
+│                                                           │
+│  • Created: Task exists but not yet scheduled             │
+│  • Ready: Task is ready to run, waiting for CPU           │
+│  • Running: Task is currently executing                   │
+│  • Blocked: Task is waiting for something (delay, data)   │
+│  • Deleted: Task has been removed from system             │
 └─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
+```
+
+### **Task Priorities**
+
+Tasks have priorities - higher priority tasks get CPU time first:
+
+```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Hardware Abstraction Layer               │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │   Port      │  │   CPU       │  │   Memory    │        │
-│  │  Layer      │  │  Control    │  │  Control    │        │
-│  └─────────────┘  └─────────────┘  └─────────────┘        │
+│                    Task Priority System                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                           │
+│  Priority 5: Emergency Stop (highest)                    │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ ██████████████████████████████████████████████████ │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                           │
+│  Priority 4: Safety Monitoring                           │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ ██████████████████████████████████████████████████ │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                           │
+│  Priority 3: Control Loop                                 │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ ██████████████████████████████████████████████████ │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                           │
+│  Priority 2: Data Logging                                 │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ ██████████████████████████████████████████████████ │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                           │
+│  Priority 1: Status Updates (lowest)                     │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ ██████████████████████████████████████████████████ │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                           │
+│  ⚠️  Higher priority tasks can interrupt lower ones!      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Component Relationships:**
-- **Scheduler**: Core component that manages task execution
-- **Task Manager**: Handles task creation, deletion, and state management
-- **Memory Manager**: Manages dynamic memory allocation and deallocation
-- **Communication**: Provides queues, semaphores, and mutexes
-- **Timing**: Manages delays, timeouts, and periodic execution
+### **Creating Your First Task**
 
-### **Kernel Components**
+Here's the minimal code to create a simple task:
 
-**Core Scheduler:**
-- **Priority-based**: Tasks scheduled based on assigned priorities
-- **Preemptive**: Higher priority tasks can interrupt lower priority ones
-- **Time-slicing**: Equal priority tasks share CPU time
-- **Idle task**: Runs when no other tasks are ready
-
-**Task Management:**
-- **Task States**: Ready, Running, Blocked, Suspended, Deleted
-- **Context Switching**: Save and restore task execution context
-- **Stack Management**: Manage task stack allocation and usage
-- **Priority Management**: Handle task priority assignment and changes
-
-**Memory Management:**
-- **Heap Management**: Dynamic memory allocation and deallocation
-- **Stack Management**: Task stack allocation and overflow detection
-- **Memory Protection**: Optional memory protection features
-- **Fragmentation**: Handle memory fragmentation and optimization
-
----
-
-## 🔧 **Core Concepts**
-
-### **Task Concept**
-
-**What is a Task?**
-- **Independent Execution Unit**: Each task runs independently with its own context
-- **Concurrent Operation**: Multiple tasks can be ready to run simultaneously
-- **Scheduled Execution**: Scheduler determines which task runs when
-- **Resource Sharing**: Tasks can share system resources and communicate
-
-**Task Characteristics:**
-- **Priority**: Numerical value that determines execution order
-- **Stack**: Memory space for local variables and function calls
-- **Entry Point**: Function that contains the task's main logic
-- **Parameters**: Data that can be passed to tasks during creation
-
-**Task Lifecycle:**
-```
-    ┌─────────┐
-    │ Created │
-    └────┬────┘
-         │
-         ▼
-    ┌─────────┐
-    │  Ready  │◄─────┐
-    └────┬────┘      │
-         │           │
-         ▼           │
-    ┌─────────┐      │
-    │ Running │      │
-    └────┬────┘      │
-         │           │
-         ▼           │
-    ┌─────────┐      │
-    │ Blocked │──────┘
-    └────┬────┘
-         │
-         ▼
-    ┌─────────┐
-    │Deleted  │
-    └─────────┘
-```
-
-### **Scheduling Concepts**
-
-**Priority-Based Scheduling:**
-- **Priority Assignment**: Each task has a numerical priority
-- **Preemptive Execution**: Higher priority tasks interrupt lower priority ones
-- **Priority Inversion**: Low-priority tasks can block high-priority ones
-- **Priority Inheritance**: Tasks inherit priority of resources they access
-
-**Scheduling Policies:**
-- **Round Robin**: Equal priority tasks share CPU time
-- **Time Slicing**: Tasks run for fixed time periods
-- **Cooperative**: Tasks voluntarily yield CPU control
-- **Preemptive**: Scheduler can interrupt running tasks
-
-**Scheduling Decisions:**
-- **Task Selection**: Choose highest priority ready task
-- **Context Switch**: Save current task context, restore new task context
-- **Preemption**: Interrupt lower priority task for higher priority one
-- **Idle Handling**: Run idle task when no other tasks ready
-
-### **Communication and Synchronization**
-
-**Inter-Task Communication:**
-- **Queues**: FIFO data structures for message passing
-- **Semaphores**: Counting mechanisms for resource management
-- **Mutexes**: Exclusive access control for shared resources
-- **Event Flags**: Bit-based synchronization mechanisms
-
-**Synchronization Mechanisms:**
-- **Critical Sections**: Code sections that must execute atomically
-- **Resource Locks**: Prevent multiple tasks from accessing shared resources
-- **Barriers**: Synchronize multiple tasks at specific points
-- **Signals**: Notify tasks of specific events or conditions
-
----
-
-## ⚙️ **Configuration and Setup**
-
-### **FreeRTOS Configuration**
-
-**Configuration Header:**
 ```c
-// FreeRTOSConfig.h - Main configuration file
-#define configUSE_PREEMPTION                    1
-#define configUSE_TIME_SLICING                  1
-#define configUSE_TICKLESS_IDLE                 0
-#define configUSE_IDLE_HOOK                     0
-#define configUSE_TICK_HOOK                     0
-#define configCPU_CLOCK_HZ                      16000000
-#define configTICK_RATE_HZ                      1000
-#define configMAX_PRIORITIES                    32
-#define configMINIMAL_STACK_SIZE                128
-#define configMAX_TASK_NAME_LEN                 16
-#define configUSE_16_BIT_TICKS                  0
-#define configIDLE_SHOULD_YIELD                 1
-#define configUSE_MUTEXES                       1
-#define configUSE_RECURSIVE_MUTEXES             0
-#define configUSE_COUNTING_SEMAPHORES           1
-#define configUSE_ALTERNATIVE_API               0
-#define configCHECK_FOR_STACK_OVERFLOW          2
-#define configUSE_MALLOC_FAILED_HOOK            1
-#define configUSE_APPLICATION_TASK_TAG          0
-#define configUSE_QUEUE_SETS                    1
-#define configUSE_TASK_NOTIFICATIONS            1
-#define configSUPPORT_STATIC_ALLOCATION         1
-#define configSUPPORT_DYNAMIC_ALLOCATION        1
-#define configUSE_MUTEXES                       1
-#define configUSE_RECURSIVE_MUTEXES             0
-#define configUSE_COUNTING_SEMAPHORES           1
-#define configUSE_ALTERNATIVE_API               0
-#define configCHECK_FOR_STACK_OVERFLOW          2
-#define configUSE_MALLOC_FAILED_HOOK            1
-#define configUSE_APPLICATION_TASK_TAG          0
-#define configUSE_QUEUE_SETS                    1
-#define configUSE_TASK_NOTIFICATIONS            1
-#define configSUPPORT_STATIC_ALLOCATION         1
-#define configSUPPORT_DYNAMIC_ALLOCATION        1
-```
+#include "FreeRTOS.h"
+#include "task.h"
 
-**Configuration Options Explained:**
-- **configUSE_PREEMPTION**: Enable preemptive scheduling
-- **configUSE_TIME_SLICING**: Enable time slicing for equal priority tasks
-- **configCPU_CLOCK_HZ**: CPU clock frequency for timing calculations
-- **configTICK_RATE_HZ**: System tick frequency (typically 1000 Hz)
-- **configMAX_PRIORITIES**: Maximum number of task priority levels
-- **configMINIMAL_STACK_SIZE**: Minimum stack size for tasks
-
-### **Port Configuration**
-
-**Port Layer Setup:**
-```c
-// Port-specific configuration
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY    191
-#define configKERNEL_INTERRUPT_PRIORITY         255
-#define configMAX_API_CALL_INTERRUPT_PRIORITY   191
-
-// ARM Cortex-M specific configuration
-#define configPRIO_BITS                         4
-#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY 15
-#define configKERNEL_INTERRUPT_PRIORITY         (configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS))
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY    (configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS))
-```
-
-**Port Layer Functions:**
-- **Context Switch**: Save and restore CPU registers
-- **Interrupt Management**: Handle interrupt enable/disable
-- **Stack Management**: Initialize and manage task stacks
-- **Timer Configuration**: Configure system tick timer
-
----
-
-## 🚀 **Basic Implementation**
-
-### **System Initialization**
-
-**Basic FreeRTOS Setup:**
-```c
-// Basic FreeRTOS system initialization
-void vInitializeFreeRTOS(void) {
-    // Create system tasks
-    xTaskCreate(vSystemMonitorTask, "SysMon", 256, NULL, 5, NULL);
-    xTaskCreate(vCommunicationTask, "Comm", 512, NULL, 4, NULL);
-    xTaskCreate(vDataProcessingTask, "DataProc", 1024, NULL, 3, NULL);
-    xTaskCreate(vBackgroundTask, "Background", 128, NULL, 2, NULL);
-    
-    // Start scheduler
-    vTaskStartScheduler();
-}
-
-// Main function
-int main(void) {
-    // Hardware initialization
-    SystemInit();
-    HAL_Init();
-    
-    // Initialize peripherals
-    MX_GPIO_Init();
-    MX_USART1_UART_Init();
-    
-    // Initialize FreeRTOS
-    vInitializeFreeRTOS();
-    
-    // Should never reach here
+// Task function - this is what the task will do
+void vBlinkTask(void *pvParameters) {
     while (1) {
-        // Error handling
-    }
-}
-```
-
-**Task Creation Example:**
-```c
-// Simple task function
-void vSimpleTask(void *pvParameters) {
-    uint32_t task_number = (uint32_t)pvParameters;
-    
-    while (1) {
-        printf("Task %lu executing\n", task_number);
+        // Toggle LED (your hardware-specific code here)
+        toggle_led();
         
-        // Toggle LED or perform other work
-        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-        
-        // Delay for 500ms
+        // Wait for 500ms - FreeRTOS handles the timing
         vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
 
-// Create multiple tasks
-void vCreateMultipleTasks(void) {
-    TaskHandle_t xTaskHandle;
-    
-    // Create task 1
+// In your main function
+int main(void) {
+    // Create the task
     xTaskCreate(
-        vSimpleTask,            // Task function
-        "Task1",                // Task name
-        128,                    // Stack size
-        (void*)1,               // Parameters
-        2,                      // Priority
-        &xTaskHandle            // Task handle
+        vBlinkTask,        // Function to run
+        "BlinkTask",       // Task name (for debugging)
+        128,               // Stack size in words
+        NULL,              // Parameters (none in this case)
+        1,                 // Priority (1 = lowest)
+        NULL               // Task handle (not needed here)
     );
     
-    // Create task 2
-    xTaskCreate(
-        vSimpleTask,            // Task function
-        "Task2",                // Task name
-        128,                    // Stack size
-        (void*)2,               // Parameters
-        2,                      // Priority
-        NULL                    // Task handle (not needed)
-    );
+    // Start the FreeRTOS scheduler
+    vTaskStartScheduler();
+    
+    // Should never reach here
+    while (1);
 }
 ```
 
-### **Basic Task Communication**
+**Key Points:**
+- `vTaskDelay()` doesn't block the CPU - it lets other tasks run
+- Stack size (128) should be enough for simple tasks
+- Priority 1 is the lowest priority
+- The task runs forever in the `while(1)` loop
 
-**Queue Communication:**
+---
+
+## 🔗 **Synchronization**
+
+### **Why Do Tasks Need to Synchronize?**
+
+When multiple tasks share resources (like a sensor or communication bus), they need to coordinate:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                Problem: Resource Conflict                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                           │
+│  Task A: "I want to read the temperature sensor"          │
+│  Task B: "I want to read the temperature sensor"          │
+│                                                           │
+│  ❌ Both try to read at the same time → corrupted data!   │
+│                                                           │
+│  Solution: Use a mutex (mutual exclusion)                 │
+│                                                           │
+│  Task A: "I'll take the mutex first"                      │
+│  Task B: "I'll wait for the mutex"                        │
+│                                                           │
+│  ✅ Only one task can access the sensor at a time         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### **Basic Synchronization with Mutex**
+
 ```c
-// Queue for inter-task communication
-QueueHandle_t xMessageQueue;
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
 
-// Producer task
-void vProducerTask(void *pvParameters) {
-    uint32_t message = 0;
-    
+// Mutex to protect the sensor
+SemaphoreHandle_t xSensorMutex;
+
+// Task that reads sensor
+void vSensorTask(void *pvParameters) {
     while (1) {
-        // Create message
-        message++;
-        
-        // Send message to queue
-        if (xQueueSend(xMessageQueue, &message, pdMS_TO_TICKS(1000)) == pdPASS) {
-            printf("Sent message: %lu\n", message);
-        } else {
-            printf("Failed to send message\n");
+        // Wait for mutex (wait forever if needed)
+        if (xSemaphoreTake(xSensorMutex, portMAX_DELAY) == pdTRUE) {
+            // We have the mutex - safe to read sensor
+            float temperature = read_temperature_sensor();
+            
+            // Process temperature data
+            process_temperature(temperature);
+            
+            // Give back the mutex so other tasks can use it
+            xSemaphoreGive(xSensorMutex);
         }
         
-        // Delay for 1 second
+        // Wait before next reading
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
 
-// Consumer task
-void vConsumerTask(void *pvParameters) {
-    uint32_t received_message;
+// Initialize mutex
+void vInitializeSystem(void) {
+    // Create the mutex
+    xSensorMutex = xSemaphoreCreateMutex();
     
-    while (1) {
-        // Receive message from queue
-        if (xQueueReceive(xMessageQueue, &received_message, portMAX_DELAY) == pdPASS) {
-            printf("Received message: %lu\n", received_message);
-            
-            // Process message
-            process_message(received_message);
-        }
-    }
-}
-
-// Initialize communication
-void vInitializeCommunication(void) {
-    // Create message queue
-    xMessageQueue = xQueueCreate(10, sizeof(uint32_t));
-    
-    if (xMessageQueue != NULL) {
-        printf("Message queue created successfully\n");
-        
-        // Create producer and consumer tasks
-        xTaskCreate(vProducerTask, "Producer", 128, NULL, 2, NULL);
-        xTaskCreate(vConsumerTask, "Consumer", 128, NULL, 1, NULL);
-    } else {
-        printf("Failed to create message queue\n");
-    }
+    // Create the task
+    xTaskCreate(vSensorTask, "Sensor", 128, NULL, 2, NULL);
 }
 ```
 
 ---
 
-## 🔧 **Task Management**
+## ⚙️ **Configuration**
 
-### **Task States and Control**
+### **Essential Configuration Options**
 
-**Task State Management:**
+FreeRTOS is highly configurable. Here are the key settings you need to understand:
+
 ```c
-// Task state monitoring
-void vTaskStateMonitor(void *pvParameters) {
-    TaskHandle_t xMonitoredTask = (TaskHandle_t)pvParameters;
-    
-    while (1) {
-        // Get task state
-        eTaskState eState = eTaskGetState(xMonitoredTask);
-        
-        // Print task state
-        switch (eState) {
-            case eRunning:
-                printf("Monitored task is running\n");
-                break;
-            case eReady:
-                printf("Monitored task is ready\n");
-                break;
-            case eBlocked:
-                printf("Monitored task is blocked\n");
-                break;
-            case eSuspended:
-                printf("Monitored task is suspended\n");
-                break;
-            case eDeleted:
-                printf("Monitored task has been deleted\n");
-                break;
-            default:
-                printf("Unknown task state\n");
-                break;
-        }
-        
-        // Delay for 1 second
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
+// FreeRTOSConfig.h - Key configuration options
 
-// Task control functions
-void vTaskControlExample(TaskHandle_t xTaskHandle) {
-    // Suspend task
-    vTaskSuspend(xTaskHandle);
-    printf("Task suspended\n");
-    
-    // Wait for 2 seconds
-    vTaskDelay(pdMS_TO_TICKS(2000));
-    
-    // Resume task
-    vTaskResume(xTaskHandle);
-    printf("Task resumed\n");
-    
-    // Change task priority
-    vTaskPrioritySet(xTaskHandle, 3);
-    printf("Task priority changed to 3\n");
-    
-    // Get current priority
-    UBaseType_t uxPriority = uxTaskPriorityGet(xTaskHandle);
-    printf("Current task priority: %lu\n", uxPriority);
-}
+// Enable preemptive scheduling (tasks can interrupt each other)
+#define configUSE_PREEMPTION                    1
+
+// System tick frequency (how often FreeRTOS checks for task switches)
+#define configTICK_RATE_HZ                      1000
+
+// Maximum number of task priorities
+#define configMAX_PRIORITIES                    32
+
+// Minimum stack size for tasks
+#define configMINIMAL_STACK_SIZE                128
+
+// Enable mutex support
+#define configUSE_MUTEXES                       1
+
+// Enable queue support
+#define configUSE_QUEUES                        1
+
+// Enable semaphore support
+#define configUSE_COUNTING_SEMAPHORES           1
+
+// Check for stack overflow (important for debugging)
+#define configCHECK_FOR_STACK_OVERFLOW          2
 ```
 
-### **Task Information and Monitoring**
-
-**Task Information Retrieval:**
-```c
-// Get comprehensive task information
-void vPrintTaskInfo(void) {
-    // Get current task handle
-    TaskHandle_t xCurrentTask = xTaskGetCurrentTaskHandle();
-    
-    // Get current task name
-    char *pcTaskName = pcTaskGetName(xCurrentTask);
-    printf("Current task: %s\n", pcTaskName);
-    
-    // Get number of tasks
-    UBaseType_t uxNumberOfTasks = uxTaskGetNumberOfTasks();
-    printf("Total number of tasks: %lu\n", uxNumberOfTasks);
-    
-    // Get system state
-    UBaseType_t uxSchedulerState = xTaskGetSchedulerState();
-    if (uxSchedulerState == taskSCHEDULER_RUNNING) {
-        printf("Scheduler is running\n");
-    } else if (uxSchedulerState == taskSCHEDULER_NOT_STARTED) {
-        printf("Scheduler not started\n");
-    } else if (uxSchedulerState == taskSCHEDULER_SUSPENDED) {
-        printf("Scheduler is suspended\n");
-    }
-    
-    // Get tick count
-    TickType_t xTickCount = xTaskGetTickCount();
-    printf("Current tick count: %lu\n", xTickCount);
-}
-```
+**What These Mean:**
+- **Preemption**: Higher priority tasks can interrupt lower ones
+- **Tick Rate**: How often FreeRTOS makes scheduling decisions
+- **Priorities**: How many different priority levels you can use
+- **Stack Size**: Minimum memory each task gets
+- **Features**: Which FreeRTOS features are enabled
 
 ---
 
-## 🔒 **Synchronization**
+## 🧪 **Guided Labs**
 
-### **Semaphore Usage**
+### **Lab 1: Single Task System**
+**Objective**: Understand basic task creation and timing.
 
-**Binary Semaphore Example:**
-```c
-// Binary semaphore for synchronization
-SemaphoreHandle_t xBinarySemaphore;
+**Setup**: Create a single task that blinks an LED at a specific frequency.
 
-// Task that gives semaphore
-void vSemaphoreGiverTask(void *pvParameters) {
-    while (1) {
-        // Wait for 2 seconds
-        vTaskDelay(pdMS_TO_TICKS(2000));
-        
-        // Give semaphore
-        xSemaphoreGive(xBinarySemaphore);
-        printf("Semaphore given\n");
-    }
-}
+**Steps**:
+1. Create a task function that toggles an LED
+2. Use `vTaskDelay()` to control timing
+3. Observe consistent timing behavior
+4. Measure actual timing with an oscilloscope (if available)
 
-// Task that takes semaphore
-void vSemaphoreTakerTask(void *pvParameters) {
-    while (1) {
-        // Wait for semaphore
-        if (xSemaphoreTake(xBinarySemaphore, portMAX_DELAY) == pdTRUE) {
-            printf("Semaphore taken\n");
-            
-            // Perform work
-            printf("Performing synchronized work...\n");
-            vTaskDelay(pdMS_TO_TICKS(500));
-        }
-    }
-}
+**Expected Outcome**: Understanding that FreeRTOS provides predictable timing.
 
-// Initialize semaphore synchronization
-void vInitializeSemaphoreSync(void) {
-    // Create binary semaphore
-    xBinarySemaphore = xSemaphoreCreateBinary();
-    
-    if (xBinarySemaphore != NULL) {
-        printf("Binary semaphore created successfully\n");
-        
-        // Create synchronization tasks
-        xTaskCreate(vSemaphoreGiverTask, "Giver", 128, NULL, 2, NULL);
-        xTaskCreate(vSemaphoreTakerTask, "Taker", 128, NULL, 1, NULL);
-    }
-}
-```
+### **Lab 2: Multi-Task Coordination**
+**Objective**: Learn how tasks can work together.
 
-**Mutex for Resource Protection:**
-```c
-// Mutex for resource protection
-SemaphoreHandle_t xResourceMutex;
+**Setup**: Create two tasks - one blinks LED A every 200ms, another blinks LED B every 300ms.
 
-// Task that uses shared resource
-void vResourceUserTask(void *pvParameters) {
-    uint32_t task_id = (uint32_t)pvParameters;
-    
-    while (1) {
-        // Take mutex to access shared resource
-        if (xSemaphoreTake(xResourceMutex, pdMS_TO_TICKS(1000)) == pdTRUE) {
-            printf("Task %lu: Resource acquired\n", task_id);
-            
-            // Use shared resource
-            printf("Task %lu: Using shared resource...\n", task_id);
-            vTaskDelay(pdMS_TO_TICKS(200));
-            
-            // Release mutex
-            xSemaphoreGive(xResourceMutex);
-            printf("Task %lu: Resource released\n", task_id);
-        } else {
-            printf("Task %lu: Failed to acquire resource\n", task_id);
-        }
-        
-        // Delay before next access
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
+**Steps**:
+1. Create two separate task functions
+2. Give them different priorities
+3. Observe how both run independently
+4. Notice that timing remains consistent for both
 
-// Initialize resource protection
-void vInitializeResourceProtection(void) {
-    // Create mutex
-    xResourceMutex = xSemaphoreCreateMutex();
-    
-    if (xResourceMutex != NULL) {
-        printf("Resource mutex created successfully\n");
-        
-        // Create multiple resource user tasks
-        xTaskCreate(vResourceUserTask, "User1", 128, (void*)1, 2, NULL);
-        xTaskCreate(vResourceUserTask, "User2", 128, (void*)2, 2, NULL);
-        xTaskCreate(vResourceUserTask, "User3", 128, (void*)3, 2, NULL);
-    }
-}
-```
+**Expected Outcome**: Understanding that multiple tasks can run concurrently without interference.
+
+### **Lab 3: Resource Sharing**
+**Objective**: Learn about synchronization and resource protection.
+
+**Setup**: Create two tasks that need to share a resource (like a UART or sensor).
+
+**Steps**:
+1. Create a mutex to protect the shared resource
+2. Have both tasks try to use the resource
+3. Observe how the mutex prevents conflicts
+4. Measure the impact on timing
+
+**Expected Outcome**: Understanding why synchronization is necessary and how to implement it.
 
 ---
 
-## 💾 **Memory Management**
+## ✅ **Check Yourself**
 
-### **Dynamic Memory Allocation**
+### **Understanding Check**
+- [ ] Can you explain why real-time doesn't mean "fast"?
+- [ ] Do you understand the difference between bare metal and RTOS approaches?
+- [ ] Can you explain what a task is and how it differs from a function?
+- [ ] Do you understand why tasks need priorities?
+- [ ] Can you explain what a mutex is and when to use it?
 
-**Memory Allocation Example:**
-```c
-// Task that demonstrates memory allocation
-void vMemoryManagementTask(void *pvParameters) {
-    while (1) {
-        // Allocate memory
-        void *ptr = pvPortMalloc(1024);
-        
-        if (ptr != NULL) {
-            printf("Allocated 1KB at %p\n", ptr);
-            
-            // Use allocated memory
-            memset(ptr, 0xAA, 1024);
-            printf("Memory initialized\n");
-            
-            // Free memory
-            vPortFree(ptr);
-            printf("Memory freed\n");
-        } else {
-            printf("Failed to allocate memory\n");
-        }
-        
-        // Delay before next allocation
-        vTaskDelay(pdMS_TO_TICKS(2000));
-    }
-}
+### **Application Check**
+- [ ] Can you create a simple task that runs periodically?
+- [ ] Do you know how to set task priorities appropriately?
+- [ ] Can you implement basic synchronization between tasks?
+- [ ] Do you understand how to configure FreeRTOS for your needs?
+- [ ] Can you debug basic task scheduling issues?
 
-// Memory allocation with error handling
-void *vSafeMemoryAllocation(size_t size) {
-    void *ptr = pvPortMalloc(size);
-    
-    if (ptr == NULL) {
-        printf("Memory allocation failed for size %zu\n", size);
-        
-        // Try to free some memory or handle failure
-        // Could trigger garbage collection or system recovery
-    }
-    
-    return ptr;
-}
-```
-
-**Static Memory Allocation:**
-```c
-// Static memory allocation example
-void vStaticMemoryExample(void) {
-    // Static task stack and control block
-    static StackType_t xTaskStack[256];
-    static StaticTask_t xTaskTCB;
-    
-    // Create task with static allocation
-    TaskHandle_t xTaskHandle = xTaskCreateStatic(
-        vExampleTask,           // Task function
-        "Static_Task",          // Task name
-        256,                    // Stack size
-        NULL,                   // Parameters
-        2,                      // Priority
-        xTaskStack,             // Stack buffer
-        &xTaskTCB               // Task control block
-    );
-    
-    if (xTaskHandle != NULL) {
-        printf("Static task created successfully\n");
-    } else {
-        printf("Failed to create static task\n");
-    }
-}
-```
+### **Analysis Check**
+- [ ] Can you analyze when to use FreeRTOS vs bare metal?
+- [ ] Do you understand the trade-offs of different configuration options?
+- [ ] Can you identify potential priority inversion issues?
+- [ ] Do you know how to measure and optimize task performance?
+- [ ] Can you design a multi-task system architecture?
 
 ---
 
-## ⚠️ **Common Pitfalls**
+## 🔗 **Cross-links**
 
-### **Task Design Issues**
+### **Related Topics**
+- **[Task Creation and Management](./Task_Creation_Management.md)**: Deep dive into task management
+- **[Scheduling Algorithms](./Scheduling_Algorithms.md)**: Understanding how FreeRTOS decides what runs when
+- **[Interrupt Handling](./Interrupt_Handling.md)**: How FreeRTOS works with hardware interrupts
+- **[Memory Management](./../Embedded_C/Memory_Management.md)**: Understanding memory allocation in RTOS
 
-**Common Problems:**
-- **Infinite Loops**: Tasks that never yield CPU control
-- **Stack Overflow**: Insufficient stack space for tasks
-- **Priority Inversion**: Low-priority tasks blocking high-priority ones
-- **Resource Deadlocks**: Circular resource dependencies
+### **Further Reading**
+- **FreeRTOS User Manual**: Official documentation and API reference
+- **Real-Time Systems Design**: Understanding real-time principles
+- **Embedded Systems Programming**: Practical embedded development
+- **RTOS Performance Analysis**: Measuring and optimizing RTOS performance
 
-**Solutions:**
-- **Use vTaskDelay**: Always include delays in task loops
-- **Adequate Stack Sizing**: Allocate sufficient stack space
-- **Priority Management**: Use appropriate priority assignment strategies
-- **Resource Ordering**: Always acquire resources in consistent order
-
-### **Memory Management Issues**
-
-**Memory Problems:**
-- **Memory Leaks**: Not freeing allocated memory
-- **Fragmentation**: Memory fragmentation from frequent allocations
-- **Stack Overflow**: Insufficient stack space for tasks
-- **Heap Exhaustion**: Running out of available memory
-
-**Solutions:**
-- **Proper Cleanup**: Always free allocated memory
-- **Memory Pools**: Use memory pools for frequent allocations
-- **Stack Monitoring**: Monitor task stack usage
-- **Memory Analysis**: Analyze memory usage patterns
-
----
-
-## ✅ **Best Practices**
-
-### **Task Design Principles**
-
-**Task Structure:**
-- **Single Responsibility**: Each task should have one primary function
-- **Clear Interface**: Well-defined input/output interfaces
-- **Minimal Dependencies**: Reduce coupling between tasks
-- **Error Handling**: Robust error handling within tasks
-
-**Resource Management:**
-- **Efficient Allocation**: Minimize dynamic memory allocation
-- **Resource Sharing**: Use appropriate synchronization mechanisms
-- **Cleanup**: Properly clean up resources when tasks terminate
-- **Monitoring**: Monitor resource usage and availability
-
-### **Performance Optimization**
-
-**Execution Efficiency:**
-- **Minimize Context Switches**: Reduce unnecessary task switching
-- **Optimize Critical Paths**: Focus optimization on time-critical sections
-- **Use Hardware Features**: Leverage hardware acceleration when available
-- **Profile and Measure**: Use profiling tools to identify bottlenecks
-
-**Memory Optimization:**
-- **Stack Sizing**: Right-size task stacks
-- **Memory Pools**: Use memory pools for frequently allocated objects
-- **Cache Optimization**: Optimize cache usage for performance
-- **Memory Alignment**: Ensure proper memory alignment
-
----
-
-## ❓ **Interview Questions**
-
-### **Basic Concepts**
-
-1. **What is FreeRTOS and what are its main features?**
-   - Open-source real-time operating system
-   - Task management, scheduling, communication
-   - Memory management, timing services
-   - Designed for embedded systems
-
-2. **How does FreeRTOS handle task scheduling?**
-   - Priority-based preemptive scheduling
-   - Higher priority tasks interrupt lower priority ones
-   - Round-robin scheduling for equal priority tasks
-   - Idle task runs when no other tasks ready
-
-3. **What are the different task states in FreeRTOS?**
-   - Ready, Running, Blocked, Suspended, Deleted
-   - Each state represents different execution conditions
-   - Tasks transition between states based on events
-   - Scheduler manages state transitions
-
-### **Advanced Topics**
-
-1. **How do you handle priority inversion in FreeRTOS?**
-   - Use priority inheritance mutexes
-   - Implement priority ceiling protocols
-   - Order resource acquisition consistently
-   - Use timeout mechanisms
-
-2. **What strategies do you use for memory management in FreeRTOS?**
-   - Use static allocation when possible
-   - Implement memory pools for frequent allocations
-   - Monitor stack usage and memory fragmentation
-   - Handle allocation failures gracefully
-
-3. **How do you optimize FreeRTOS performance for embedded systems?**
-   - Minimize context switch overhead
-   - Optimize critical execution paths
-   - Use appropriate memory management
-   - Leverage hardware features
-
-### **Practical Scenarios**
-
-1. **Design a FreeRTOS system with three tasks: sensor reading, data processing, and communication.**
-   - Define task priorities and responsibilities
-   - Design communication mechanisms
-   - Handle timing requirements
-   - Implement error handling
-
-2. **How would you debug a FreeRTOS application?**
-   - Use FreeRTOS hooks and monitoring
-   - Analyze task states and priorities
-   - Check for stack overflow and memory issues
-   - Use debugging tools and oscilloscopes
-
-3. **Explain how to implement a watchdog mechanism in FreeRTOS.**
-   - Use task monitoring and heartbeat
-   - Implement system recovery procedures
-   - Handle task failures gracefully
-   - Monitor system health
-
-This enhanced FreeRTOS Basics document now provides a comprehensive balance of conceptual explanations, practical insights, and technical implementation details that embedded engineers can use to understand and implement robust FreeRTOS-based real-time systems.
+### **Industry Standards**
+- **POSIX Real-Time Extensions**: Standard real-time programming interfaces
+- **OSEK/VDX**: Automotive real-time operating system standard
+- **ARINC 653**: Avionics real-time operating system standard
+- **IEC 61508**: Functional safety of electrical/electronic systems
 
 

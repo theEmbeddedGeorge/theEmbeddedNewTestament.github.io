@@ -166,11 +166,11 @@ Explore → [Advanced Hardware](#advanced-hardware) → [Embedded Security](#emb
 #### **Phase 1: Advanced Hardware (6 weeks)**
 **Progression (concept clusters)**
 - **Board and System Design**
-  - Reading schematics and datasheets
-  - Component selection
-  - Power supply design
-  - Clock distribution
-  - Thermal management
+  - [Reading Schematics and Datasheets](./Advanced_Hardware/Reading_Schematics_Datasheets.md)
+  - [Component Selection](./Advanced_Hardware/Component_Selection.md)
+  - [Power Supply Design](./Advanced_Hardware/Power_Supply_Design.md)
+  - [Clock Distribution](./Advanced_Hardware/Clock_Distribution.md)
+  - [Thermal Management](./Advanced_Hardware/Thermal_Management.md)
 - **Signal Integrity and EMC**
   - PCB design considerations
   - Signal integrity basics (TX lines, impedance, termination)

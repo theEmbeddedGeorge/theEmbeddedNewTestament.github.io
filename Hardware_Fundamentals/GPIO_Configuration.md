@@ -2,7 +2,7 @@
 >
 > Get these hardware concepts as ranked interview questions with model answers, plus interactive deep-dive guides.
 >
-> 👉 **[Browse peripheral & hardware questions →](https://embeddedinterviewlab.com/questions/domain/peripherals?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=hardware_fundamentals)** &nbsp;·&nbsp; **[Read the topic guides →](https://embeddedinterviewlab.com/topics?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=hardware_fundamentals)**
+> 👉 **[Browse peripheral & hardware questions →](https://embeddedinterviewlab.com/questions/domain/peripherals?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=hardware_fundamentals)** &nbsp;·&nbsp; **[Read the in-depth guide →](https://embeddedinterviewlab.com/topics/gpio?utm_source=github&utm_medium=referral&utm_campaign=kb_topic&utm_content=hardware_fundamentals)**
 
 ---
 

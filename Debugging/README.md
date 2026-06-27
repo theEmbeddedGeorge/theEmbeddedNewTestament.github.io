@@ -2,7 +2,7 @@
 >
 > Get these debugging / testing concepts as ranked interview questions with model answers, plus interactive deep-dive guides.
 >
-> 👉 **[Browse debugging & testing questions →](https://embeddedinterviewlab.com/questions/domain/debugging-testing-tools?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=debugging)** &nbsp;·&nbsp; **[Read the topic guides →](https://embeddedinterviewlab.com/topics?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=debugging)**
+> 👉 **[Browse debugging & testing questions →](https://embeddedinterviewlab.com/questions/domain/debugging-testing-tools?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=debugging)** &nbsp;·&nbsp; **[Browse the Debugging & Testing guides →](https://embeddedinterviewlab.com/categories/debugging-testing-tools?utm_source=github&utm_medium=referral&utm_campaign=kb_domain&utm_content=debugging)**
 
 ---
 

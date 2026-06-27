@@ -2,7 +2,7 @@
 >
 > Get these RTOS concepts as community-ranked interview questions with model answers, plus interactive deep-dive guides.
 >
-> 👉 **[Browse RTOS interview questions →](https://embeddedinterviewlab.com/questions/domain/rtos?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=real_time_systems)** &nbsp;·&nbsp; **[Read the topic guides →](https://embeddedinterviewlab.com/topics?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=real_time_systems)**
+> 👉 **[Browse RTOS interview questions →](https://embeddedinterviewlab.com/questions/domain/rtos?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=real_time_systems)** &nbsp;·&nbsp; **[Read the in-depth guide →](https://embeddedinterviewlab.com/topics/rtos-scheduling-and-timing?utm_source=github&utm_medium=referral&utm_campaign=kb_topic&utm_content=real_time_systems)**
 
 ---
 

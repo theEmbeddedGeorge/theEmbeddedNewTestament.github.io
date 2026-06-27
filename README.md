@@ -19,6 +19,8 @@
 |:---:|:---:|:---:|
 | C, MCU, peripherals, RTOS, networking, wireless | 275+ ranked questions with model answers | C/C++ problems with AI feedback |
 
+🔥 **Featured:** [**The 82 Most Common Embedded Interview Questions (r/embedded)**](https://embeddedinterviewlab.com/questions/reddit?utm_source=github&utm_medium=referral&utm_campaign=readme_reddit) — the classic r/embedded list, every question answered with a detailed model answer.
+
 **[👉 Start learning at embeddedinterviewlab.com](https://embeddedinterviewlab.com/)**
 
 </div>

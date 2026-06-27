@@ -2,7 +2,7 @@
 >
 > Get these protocol concepts as ranked interview questions with model answers, plus interactive deep-dive guides.
 >
-> 👉 **[Browse peripheral & protocol questions →](https://embeddedinterviewlab.com/questions/domain/peripherals?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=communication_protocols)** &nbsp;·&nbsp; **[Read the topic guides →](https://embeddedinterviewlab.com/topics?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=communication_protocols)**
+> 👉 **[Browse peripheral & protocol questions →](https://embeddedinterviewlab.com/questions/domain/peripherals?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=communication_protocols)** &nbsp;·&nbsp; **[Browse the Peripherals guides →](https://embeddedinterviewlab.com/categories/peripherals?utm_source=github&utm_medium=referral&utm_campaign=kb_domain&utm_content=communication_protocols)**
 
 ---
 

@@ -2,7 +2,7 @@
 >
 > Get these security concepts as ranked interview questions with model answers, plus interactive deep-dive guides.
 >
-> 👉 **[Browse safety & security questions →](https://embeddedinterviewlab.com/questions/domain/safety-security-reliability?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=security)** &nbsp;·&nbsp; **[Read the topic guides →](https://embeddedinterviewlab.com/topics?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=security)**
+> 👉 **[Browse safety & security questions →](https://embeddedinterviewlab.com/questions/domain/safety-security-reliability?utm_source=github&utm_medium=referral&utm_campaign=kb_cta&utm_content=security)** &nbsp;·&nbsp; **[Read the in-depth guide →](https://embeddedinterviewlab.com/topics/secure-boot-and-crypto?utm_source=github&utm_medium=referral&utm_campaign=kb_topic&utm_content=security)**
 
 ---
 
